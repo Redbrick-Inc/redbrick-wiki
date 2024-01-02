@@ -3,15 +3,11 @@ import { DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
   logo: <span>Redbrick Engine</span>,
-  project: {
-    link: "https://github.com/shuding/nextra-docs-template",
-  },
   chat: {
-    link: "https://discord.com",
+    link: "https://discord.com/invite/redbrick-create",
   },
-  docsRepositoryBase: "https://github.com/shuding/nextra-docs-template",
   footer: {
-    text: "Nextra Docs Template",
+    text: "Copyright © 2024 Redbrick Inc. All rights reserved",
   },
 };
 
