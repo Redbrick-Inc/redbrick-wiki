@@ -6,8 +6,15 @@ const config: DocsThemeConfig = {
   chat: {
     link: "https://discord.com/invite/redbrick-create",
   },
+  feedback: {
+    content: "",
+    // useLink: () => "https://discord.com/invite/redbrick-create",
+  },
   footer: {
     text: "Copyright © 2024 Redbrick Inc. All rights reserved",
+  },
+  editLink: {
+    text: "",
   },
 };
 
