@@ -1,0 +1,15 @@
+# Sprite
+
+> A class that defines the plane that always faces the camera.
+
+These are the elements used inside the Studio for GUI, Particles, etc. Sprites also inherit from Object3d, so they can use the properties and functions that exist in Object3d in addition to those described below.
+
+Properties
+
+`.material` : SpriteMaterial
+
+An instance of SpriteMaterial, defining the object's appearance. Default is a white SpriteMaterial.
+
+`.center` : Vector2
+
+The sprite's anchor point, and the point around which the sprite rotates. A value of (0.5, 0.5) corresponds to the midpoint of the sprite. A value of (0, 0) corresponds to the lower left corner of the sprite. The default is (0.5, 0.5).

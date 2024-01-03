@@ -1,0 +1,24 @@
+# Perspective cameras
+
+> This is a commonly used camera class.
+
+Since Perspective Camera also inherits from Object3d, it can use properties and functions that exist in Object3d in addition to those described below.
+
+## Properties
+
+`.fov` : Float
+
+Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is 50.
+
+`.far` : Float
+Camera frustum far plane. Default is 2000.
+
+`.near` : Float
+
+Camera frustum near plane. Default is 0.1.
+
+## Methods
+
+`.updateProjectionMatrix ()` : undefined
+
+Updates the camera projection matrix. Must be called after any change of parameters.

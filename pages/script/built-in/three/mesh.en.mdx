@@ -1,0 +1,15 @@
+# Mesh
+
+> A class that defines a polygonal object made up of triangles.
+
+Most objects inside the Studio are made up of Meshes. Because Meshes inherit from Object3d, they can use the properties and functions that exist in Object3d in addition to those described below.
+
+Properties
+
+`.geometry` : BufferGeometry
+
+An instance of BufferGeometry (or derived classes), defining the object's structure.
+
+`.material` : Material
+
+An instance of material derived from the Material base class or an array of materials, defining the object's appearance. Default is a MeshBasicMaterial.

@@ -1,0 +1,25 @@
+# Light
+
+> This is the base class that all lights inherit from, including directional lights, point lights, etc.
+
+## Properties
+
+`.color` : Color
+
+Color of the light. Defaults to a new Color set to white, if not passed in the constructor.
+
+`.intensity `: Float
+
+The light's intensity, or strength.
+
+In physically correct mode, the units of intensity depend on the type of light.
+
+Default - 1.0.
+
+---
+
+Lights that inherit from Light Class include the following
+
+- [AmbientLight](https://threejs.org/docs/?q=light#api/en/lights/AmbientLight)
+- [DirectionalLight](https://threejs.org/docs/?q=light#api/en/lights/DirectionalLight)
+- [PointLight](https://threejs.org/docs/?q=light#api/en/lights/PointLight)

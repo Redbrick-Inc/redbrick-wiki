@@ -1,0 +1,49 @@
+# Vector3
+
+> A three-dimensional vector class. It provides various vector operations and more.
+
+## Properties
+
+x - the x value of this vector. Default is 0.
+
+y - the y value of this vector. Default is 0.
+
+z - the z value of this vector. Default is 0.
+
+## Methods
+
+`.add ( v : Vector3 ) `: this
+
+Adds v to this vector.
+
+`.angleTo ( v : Vector3 )` : Float
+
+Returns the angle between this vector and vector v in radians.
+
+`.distanceTo ( v : Vector3 )` : Float
+
+Computes the distance from this vector to v.
+
+`.clone ()` : Vector3
+
+Returns a new vector3 with the same x, y and z values as this one.
+
+`.copy ( v : Vector3 )` : this
+
+Copies the values of the passed vector3's x, y and z properties to this vector3.
+
+`.length ()` : Float
+
+Computes the Euclidean length (straight-line length) from (0, 0, 0) to (x, y, z).
+
+`.multiplyScalar ( s : Float )` : this
+
+Multiplies this vector by scalar s.
+
+`.normalize ()` : this
+
+Convert this vector to a unit vector - that is, sets it equal to a vector with the same direction as this one, but length 1.
+
+`.set ( x : Float, y : Float, z : Float )` : this
+
+Sets the x, y and z components of this vector.
