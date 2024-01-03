@@ -1,0 +1,175 @@
+# Event Functions
+
+> Provides guidance on event functions.
+
+Event Function is a predefined function to run in a particular event situation. A means to allow a user to execute a script that is defined when a new user comes in, or when a keyboard or mouse input is executed.
+
+## Start()
+
+```js showLineNumbers copy
+const box = WORLD.getObject("BOX");
+
+function Start() {
+  PLAYER.onCollide(box, () => {
+    box.kill();
+  });
+}
+```
+
+## Update(dt)
+
+It runs repeatedly every frame.
+
+- `dt` : deltaTime. time interval between frames, in seconds.
+
+```js showLineNumbers copy
+function Update(dt) {
+  this.position.y += dt * 2;
+  if (this.position.y >= 10) {
+    this.position.y = 0;
+  }
+}
+```
+
+## OnKeyDown(event)
+
+Runs when the keyboard key is pressed.
+
+- event : Keyboard event. You can tell which key it is by event.code or event.key.
+
+**reference**
+
+- [Code values for keyboard events](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_code_values)
+- [JavaScript Key Code Event Tool & List](https://www.toptal.com/developers/keycode)
+
+```js showLineNumbers copy
+function OnKeyDown(event) {
+    switch (event.code) {
+        case "KeyQ":
+            changeWeapon();
+            break;
+        case "KeyR":
+            reload();
+            break;
+        default:
+            break;
+    }
+}
+
+const changeWeapon = () => {...}
+
+const reload = () => {...}
+```
+
+## OnKeyUp(event)
+
+Runs when the keyboard key is (pressed and then) released.
+
+- event : Keyboard event. You can tell which key it is by event.code or event.key.
+
+```js showLineNumbers copy
+function OnKeyUp(event) {
+    switch (event.code) {
+        case "KeyQ":
+            doSomething();
+            break;
+        default:
+            break;
+    }
+}
+
+const doSomething = () = {...}
+```
+
+## OnPointerDown(event)
+
+Runs when the pointer is pressed.
+
+- event : Pointer event. Left-click/right-click via event.buton, and the coordinates via event.clientX and event.clientY.
+
+[MouseEvent: button property](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
+
+> 💡 Pointers include mouse, touch, touch pen, etc. The event.pointerType tells you the type of pointer.
+
+[PonterEvent: pointerType property](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
+
+```js showLineNumbers
+function OnPointerDown(event) {
+    if (event.button === 0) {
+        fire(event.clientX, event.clientY);
+    }
+}
+
+const fire = (x, y) => {...};
+```
+
+## OnPointerMove(event)
+
+Runs when the pointer is moved.
+
+- event : Pointer event. The coordinates via event.clientX and event.clientY.
+
+```js showLineNumbers
+function OnPointerMove(event) {
+  // Similar to OnPointerDown
+}
+```
+
+## OnPointerUp(event)
+
+Runs when the pointer is (pressed and then) released.
+
+- event : Pointer event. `Left-click/right-click` via event.buton, and the coordinates via `event.clientX` and `event.clientY`.
+
+```js showLineNumbers
+function OnPointerUp(event) {
+  // Similar to OnPointerDown
+}
+```
+
+## OnJoin(clientId, avatar)
+
+Runs when a new player joins. When used in Client Script, existing players run the OnJoin function on new players when new players join, and new players run the OnJoin function on all existing players, including themselves.
+
+- clientId : the clientId of the newly joined player.
+- avatar : Avatar of a newly joined player.
+
+> clientId: a unique id used to identify the client (player).
+
+```js showLineNumbers
+const playerAvatars = {};
+
+function OnJoin(clientId, avatar) {
+  playerAvatars[clientId] = avatar;
+}
+```
+
+## OnLeave(clientId)
+
+Runs when the player has left.
+
+- clientId : The clientId of the player who left.
+
+```js showLineNumbers
+const playerAvatars = {};
+
+function OnLeave(clientId) {
+  delete playerAvatars[clientId];
+}
+```
+
+---
+
+> ✅ The following Event Functions are available in Server Script and Client Script.
+
+|     Text      | Server Script | Client Script |
+| :-----------: | :-----------: | :-----------: |
+|     Start     |      ✅       |      ✅       |
+|    Update     |      ✅       |      ✅       |
+|    OnJoin     |      ✅       |      ✅       |
+|    OnLeave    |      ✅       |      ✅       |
+|   OnKeyDown   |      ❌       |      ✅       |
+|    OnKeyUp    |      ❌       |      ✅       |
+| OnPointerDown |      ❌       |      ✅       |
+| OnPointerMove |      ❌       |      ✅       |
+|  OnPointerUp  |      ❌       |      ✅       |

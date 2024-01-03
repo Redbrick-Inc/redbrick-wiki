@@ -1,0 +1,32 @@
+# Global Objects
+
+> Provides guidance on global objects.
+
+Global Object is a predefined object that is easily accessible from anywhere within the script.
+
+## WORLD
+
+Indicates the 3D Scene containing all 3D objects.
+
+```js showLineNumbers
+const box = WORLD.getObject("BOX");
+const sphere = WORLD.getObject("SPHERE");
+```
+
+## GUI
+
+Indicates the GUI Scene that contains all the GUI.
+
+```js showLineNumbers
+const scoreBoard = GUI.getObject("SCORE_BOARD");
+const timerUI = GUI.getObject("TIMER_UI");
+```
+
+---
+
+> The following Global Objects are available in Server Script and Client Script.
+
+| Text  | Server Script | Client Script |
+| :---: | :-----------: | :-----------: |
+| WORLD |      ✅       |      ✅       |
+|  GUI  |      ❌       |      ✅       |

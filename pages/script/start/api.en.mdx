@@ -1,0 +1,42 @@
+# API
+
+> Provides information on the types of APIs in Redbrick Studios.
+
+## THREE Default API
+
+Redbrick Studio is built on three.js, a 3D graphics library. All objects within the project consist of various objects in three.js, such as Mesh, Audio, and Light.
+
+This allows you to use the API of three.js within the script.
+
+The three.js object classes all extend from the underlying Object3D class. Some three.js objects are further subdivided and extended. For example, for a Light class, it extends to AmbientLight, PointLight, and so on. Expanding a class means that the nature of the class becomes more specific, and the APIs available accordingly also expand in a more specific direction.
+
+It is recommended that you become familiar with theObject3D class first because the most basic Object3D class alone can handle the basics of any object.
+
+## API Extensions
+
+By default, all objects can use the API of three.js for each class, but for some objects, API Extension has been added for the object's special purpose or for ease of use. Details can be found on the [API Extensions page](/script/api).
+
+> ℹ️ There are several categories in the Object Library in Redbrick Studio. Objects in each category consist of the following three.js objects, so please refer to them for use.
+
+| Redbrick Object |      three.js Object      |
+| :-------------: | :-----------------------: |
+|      Asset      | Group \| Mesh \| Object3D |
+|     Camera      |          Camera           |
+|      Mesh       |           Mesh            |
+|       GUI       |   Sprite \| CSS2DObject   |
+|      Video      |           Mesh            |
+|      Sound      |     Object3D \| Audio     |
+|      Light      |           Light           |
+|     Effect      |    Object3D \| Sprite     |
+|      Spawn      |       Group \| Mesh       |
+|    Ad Asset     | Group \| Mesh \| Object3D |
+
+> ℹ️ Additionally, Scene, which contains all objects, and Camera, which acts as an eye for viewing them, also consists of the following three.js objects.
+
+| Redbrick Object | three.js Object |
+| :-------------: | :-------------: |
+|      Scene      |      Scene      |
+
+# Built-in Module
+
+The three.js-based API introduced above allows you to handle objects, but when you create a world, you need to combine them to create game elements, design flows, and implement multi-play. We collect the necessary APIs and provide them as a Built-in Module. More information can be found on the [Built-in Modules page](/script/built-in).
