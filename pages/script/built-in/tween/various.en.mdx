@@ -1,0 +1,192 @@
+## Introducing various Tween functions
+
+> Provides guidance on the various functions that you can manipulate the twin.
+
+The tween modules have functions that allow you to perform operations other than just creating and starting the tween.
+
+## startFromCurrentValues()
+
+One of the other ways to start a tween. Unlike start, the target object of the tween sets the current value as the starting point.
+
+```js copy
+// startFromCurrentValues Example
+
+let upTween;
+
+function Start() {
+  const startPosition = { x: 0, y: 0, z: 0 };
+
+  upTween = new TWEEN.Tween(startPosition);
+
+  upTween
+    .to({ y: "+1" }, 1000)
+
+    .onUpdate(() => {
+      this.position.y = startPosition.y;
+    });
+}
+
+// compare this two function in your project
+
+function OnKeyDown(event) {
+  if (event.code === "KeyM") {
+    upTween.start();
+  }
+}
+
+function OnKeyDown(event) {
+  if (event.code === "KeyM") {
+    upTween.startFromCurrentValues();
+  }
+}
+```
+
+## stop()
+
+You can use it if you want to stop the tween that you started.
+
+```js copy
+// stop Example
+
+let upTween;
+
+function Start() {
+  const startPosition = { x: 0, y: 0, z: 0 };
+
+  upTween = new TWEEN.Tween(startPosition);
+
+  upTween
+    .to({ y: "+5" }, 1000)
+
+    .onUpdate(() => {
+      this.position.y = startPosition.y;
+    });
+}
+
+function OnKeyDown(event) {
+  if (event.code === "KeyM") {
+    upTween.start();
+  }
+
+  // if you press KeyN then this object`s tween stops.
+
+  if (event.code === "KeyN") {
+    upTween.stop();
+  }
+}
+```
+
+## repeat()
+
+You can use it if you want to repeat the tween as many times as you want.
+
+```js copy
+// repeat Example
+
+let upTween;
+
+function Start() {
+  const startPosition = { x: 0, y: 0, z: 0 };
+
+  upTween = new TWEEN.Tween(startPosition);
+
+  upTween
+    .to({ y: startPosition.y + 1 }, 1000)
+
+    .onUpdate(() => {
+      this.position.y = startPosition.y;
+    });
+}
+
+function OnKeyDown(event) {
+  // The tween definded in Start function repeats 3 times and stops.
+
+  if (event.code === "KeyM") {
+    upTween.repeat(3).start();
+  }
+}
+```
+
+## chain()
+
+Available if you want to run multiple tween in a row.
+
+```js copy
+// chain Example
+
+let upTween;
+
+let downTween;
+
+function Start() {
+  const startPosition = { x: 0, y: 0, z: 0 };
+
+  upTween = new TWEEN.Tween(startPosition);
+
+  upTween
+    .to({ y: "+3" }, 1000)
+
+    .onUpdate(() => {
+      this.position.y = startPosition.y;
+    });
+
+  downTween = new TWEEN.Tween(startPosition);
+
+  downTween
+    .to({ y: "-3" }, 1000)
+
+    .onUpdate(() => {
+      this.position.y = startPosition.y;
+    });
+}
+
+function OnKeyDown(event) {
+  // The downTween runs immediately after the upTween ends.
+
+  if (event.code === "KeyM") {
+    upTween.chain(downTween).start();
+  }
+}
+```
+
+## delay()
+
+You can use it if you want to defer the execution of the tween for a certain amount of time.
+
+```js copy
+// delay Example
+
+let upTween;
+
+let downTween;
+
+function Start() {
+  const startPosition = { x: 0, y: 0, z: 0 };
+
+  upTween = new TWEEN.Tween(startPosition);
+
+  upTween
+    .to({ y: "+3" }, 1000)
+
+    .onUpdate(() => {
+      this.position.y = startPosition.y;
+    });
+
+  downTween = new TWEEN.Tween(startPosition);
+
+  downTween
+    .to({ y: "-3" }, 1000)
+
+    .onUpdate(() => {
+      this.position.y = startPosition.y;
+    });
+}
+
+function OnKeyDown(event) {
+  // The tween runs 1000 milliseconds after start is executed.
+
+  if (event.code === "KeyM") {
+    upTween.delay(1000).start();
+  }
+}
+```

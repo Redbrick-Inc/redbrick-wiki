@@ -1,0 +1,25 @@
+## Creation and Execution of Tween
+
+> Provides basic instructions on how to use it.
+
+The most fundamental aspect of creating twin is to convey the starting and ending values, and the time when twin progresses. The start point and end point values must be created in the form of objects.
+
+```js copy
+const startPosition = { x: 0, y: 0, z: 0 }; // JS Object
+const endPosition = { x: 1, y: 2, z: 3 };
+```
+
+You can create the most basic form of twin by passing the starting point defined earlier as a factor of twin and passing the endpoint and the time value as a factor of the to function. The code below is a code that generates twin that changes the position value from the start point to the end point for 1 second.
+
+```js copy
+const tween = new TWEEN.Tween(startPosition);
+tween.to(endPosition, 1000);
+```
+
+In order for the value defined using the created tween to change, the start function must be executed to start tween.
+
+```js copy
+tween.start();
+```
+
+In addition to the basic usage, the tween module provides various functions such as stopping the twin from running status or making certain functions run during execution. Relevant information will be introduced on the next page.

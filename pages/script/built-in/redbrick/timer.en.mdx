@@ -1,0 +1,39 @@
+# Timer
+
+> Module that provides a timer function. It can be used to measure time.
+
+## Methods
+
+### start()
+
+Function that starts the timer.
+
+### pause()
+
+Function that stops the timer.
+
+### resume()
+
+Function that restarts the timer in the pause state at that point.
+
+### reset()
+
+Function that initializes the timer.
+
+### getTime()
+
+Returns the timer time value at the time of call. The unit of value is seconds.
+
+> Example
+
+```js copy
+const timer = new REDBRICK.Timer();
+
+timer.start();
+timer.pause();
+timer.resume();
+timer.reset();
+
+const currentTime = timer.getTime();
+console.log(currentTime);
+```

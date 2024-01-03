@@ -1,0 +1,87 @@
+## Tween Lifecycle
+
+> Hooks that allow you to use functions that you define directly in the middle of the tween execution cycle.
+
+## onStart(callback)
+
+You can have the callback function executes when the tween starts.
+
+```js copy
+// onStart Example - GUI
+let opacityTween;
+
+function Start() {
+  this.hide();
+
+  const initialProperty = { opacity: 1 };
+  opacityTween = new TWEEN.Tween(initialProperty);
+  opacityTween.to({ opacity: 0 });
+  // GUI shows when tween starts
+  opacityTween.onStart(() => {
+    this.show();
+  });
+}
+
+function OnKeyDown(event) {
+  if (event.code === "KeyM") {
+    opacityTween.start();
+  }
+}
+```
+
+## onUpdate(callback)
+
+You can have the callback function executes whenever the value of the target object in the tween is updated.
+
+```js copy
+// onUpdate Example - GUI
+let opacityTween;
+
+function Start() {
+  this.hide();
+
+  const initialProperty = { opacity: 1 };
+  opacityTween = new TWEEN.Tween(initialProperty);
+  opacityTween.to({ opacity: 0 });
+  opacityTween.onStart(() => {
+    this.show();
+  });
+  // opacity changes when the tween value is updated.
+  opacityTween.onUpdate(() => {
+    this.material.opacity = initialProperty.opacity;
+  });
+}
+
+function OnKeyDown(event) {
+  if (event.code === "KeyM") {
+    opacityTween.start();
+  }
+}
+```
+
+## onComplete(callback)
+
+You can have the callback function executes at the end of the tween.
+
+```js copy
+// onComplete Example - GUI
+let opacityTween;
+
+function Start() {
+	this.hide();
+
+	const initialProperty = {opacity: 1}
+	opacityTween = new TWEEN.Tween(initialProperty);
+	opacityTween.to({opacity: 0})
+	opacityTween.onStart(() => {this.show()});
+	opacityTween.onUpdate(() => {this.material.opacity = initialProperty.opacity});
+	// GUI hides when tween ends
+	opacityTween.onComplete(() => {this.hide()});
+}
+​
+function OnKeyDown(event) {
+    if (event.code === "KeyM") {
+        opacityTween.start();
+    }
+}
+```
