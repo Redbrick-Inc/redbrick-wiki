@@ -16,6 +16,9 @@ const config: DocsThemeConfig = {
   editLink: {
     text: "",
   },
+  search: {
+    placeholder: () => "Search here ...", // need  to fix search issue
+  },
 };
 
 export default config;
