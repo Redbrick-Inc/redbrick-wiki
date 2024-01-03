@@ -10,7 +10,7 @@ This preset script creates an avatar, a camera, and attaches the camera to the a
 
 > NOTE: You don't have to code this. If you selected `metaverse`, this code will be there by default.
 
-```js showLineNumbers copy filename="PresetScript"
+```js showLineNumbers copy filename="PresetScript" {2-7}
 function Start() {
   (async () => {
     const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
@@ -25,9 +25,9 @@ function Start() {
 
 In the `game` template, there is no code that creates an avatar.
 
-```js showLineNumbers copy filename="PresetScript"
+```js showLineNumbers copy filename="PresetScript" {2}
 function Start() {
-  //
+  //nothing
 }
 ```
 
