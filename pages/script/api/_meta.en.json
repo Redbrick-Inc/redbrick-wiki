@@ -3,5 +3,6 @@
   "scene": "Scene",
   "sprite": "Sprite",
   "video": "Video",
-  "particle-system": "ParticleSystem"
+  "particle-system": "ParticleSystem",
+  "avatar": "Avatar"
 }
