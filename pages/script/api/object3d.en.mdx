@@ -1,0 +1,107 @@
+# Object3D
+
+> This API is added to all objects except Scene and Sprite.
+
+## Methods
+
+### go(dx, dy, dz)
+
+The object moves immediately.
+
+- dx : Distance in x direction.
+
+- dy : Distance in y direction.
+
+- dz : Distance in z direction.
+
+### move(dx, dy, dz, duration)
+
+The object moves over the specified time. Internally uses TWEEN.
+
+- dx : Distance in x direction.
+
+- dy : Distance in y direction.
+
+- dz : Distance in z direction.
+
+duration : The time takes to move. Unit is seconds (sec). Default is 1.
+
+### rotate(dx, dy, dz)
+
+The object rotates immediately.
+
+- dx : The angle of rotation around the x-axis. Unit is degrees.
+
+- dy :The angle of rotation around the y-axis. Unit is degrees.
+
+- dz : The angle of rotation around the z-axis. Unit is degrees.
+
+### turn(dx, dy, dz, duration)
+
+The object rotates over the specified time. Internally uses TWEEN.
+
+- dx : The angle of rotation around the x-axis. Unit is degrees.
+
+- dy : The angle of rotation around the y-axis. Unit is degrees.
+
+- dz : The angle of rotation around the z-axis. Unit is degrees.
+
+duration : The time takes to rotate. Unit is seconds (sec). Default is 1.
+
+### onCollide(target, callback, trigger)
+
+Sets the specified function to run when the object collides with the target object. Both this object and the target object must have a body.
+
+- target : The object being collided with or its title.
+
+- callback :The callback function to execute when the target object collides. We recommend using the arrow function to maintain this context.
+
+- trigger : The condition under which a collide event occurs. Default is "start".
+
+  - “start” : Occurs once at the start of a collision.
+
+  - “collision” : Repeatedly occurring during a collision.
+
+  - “end” : Occurs once at the end of a collision.
+
+### setDynamic(boolean)
+
+Changes how the object's movement is controlled. If an object is dynamic, its motion is affected by forces, including gravity, and is determined by a physics engine. If an object is kinematic, it can only move by manually changing its position and rotation through scripting. The object must have body.
+
+- boolean :Change to dynamic if true, kinematic if false.
+
+### applyForce(x, y, z)
+
+Apply a force to an object. The object must have a body and be dynamic.
+
+- x : The amount of force in the x-axis direction.
+
+- y : The amount of force in the y-axis direction.
+
+- z : The amount of force in the z-axis direction.
+
+### kill()
+
+Temporarily removes an object.
+
+### revive()
+
+Recovers an object (that was removed by the kill() method).
+
+### onClick(callback)
+
+Sets the specified callback function to run when the object is clicked.
+
+callback : The callback function to execute when clicked. We recommend using the arrow function to maintain this context.
+
+### getAudio()
+
+Returns the first audio object among the object's children. After adding a sound asset, you can play/stop the audio in the following ways.
+
+```js copy
+// Sound Asset​
+this.getAudio().stop(); // stop audio
+this.getAudio().play(); // play audio
+```
+
+For more detailed methods, see THREE-Audio part
