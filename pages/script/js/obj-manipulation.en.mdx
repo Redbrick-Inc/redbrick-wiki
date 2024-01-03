@@ -1,0 +1,64 @@
+# Manipulate Object
+
+> Briefly describe how to handle objects (Array Objects).
+
+Values with object data types have different data access methods than raw values, and JavaScript basically provides a variety of built-in functions that handle values.
+
+## Object
+
+Object can declare zero or more key value pairs enclosed by `{}`. The key value pair is defined in the form of `[Key]:[Value]`, and the key becomes the property of the Object. `[Object Name]` if you are accessing the value.You can access it in the form of `[key]`. Returns the undefined value if accessed with a key that does not exist.
+
+```js showLineNumbers copy
+const emptyObject = {}; // Object with no data
+const cube = { title: "cube(123)", color: "red" };
+
+console.log(emptyObject.title); // undefined
+console.log(cube.title); // cube(123)
+```
+
+You can also change the value of an already created object or add/remove new properties.
+
+```js showLineNumbers copy
+const emptyObject = {};
+const cube = { title: "cube(123)", color: "red" };
+
+cube.color = "blue";
+emptyObject.color = "yellow";
+
+delete cube.title;
+
+console.log(cube.color); // blue
+console.log(emptyObject.color); // yellow
+console.log(cube.title); // undefined
+```
+
+## Array Object
+
+Array Object can declare zero or more values enclosed by `[]`. To access the value, you must access it through index. index refers to the location in the Array Object where a specific value exists. index is an integer that starts with zero. You can access the values in the same way as `[ArrayObject][index]`.
+
+```js showLineNumbers copy
+const emptyArray = []; // Array with no data
+const cubes = ["cube0", "cube1", "cube2"];
+
+console.log(emptyArray[0]); // undefined
+console.log(cubes[0]); // cube0
+console.log(cubes[2]); // cube2
+```
+
+You can change the value of an array object that has already been created, add/remove new values, and access the included length property by default to know the number of values in the array object.
+
+```js showLineNumbers copy
+const emptyArray = [];
+const cubes = ["cube0", "cube1", "cube2"];
+
+emptyArray[0] = "value0";
+cubes[0] = "cube3";
+
+console.log(emptyArray[0]); // value0
+console.log(cubes[0]); // cube3
+console.log(cubes.length); // 3
+```
+
+The various functions that manipulate the data in Array Object can be found in the following documents.
+
+[JavaScript Array Methods](https://www.w3schools.com/js/js_array_methods.asp)

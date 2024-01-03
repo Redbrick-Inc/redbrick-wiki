@@ -1,0 +1,54 @@
+# Data Type
+
+> Describes the data types used in JavaScript.
+
+It is important to know the content of the data type to ensure that the code works correctly and efficiently. In most cases, JavaScript is handled arbitrarily without worrying about the data type, but if you write more complex content, you may need it.
+
+This page provides a brief description of the data types and their respective forms. Data types are largely divided into two categories: raw values and objects.
+
+## Raw value
+
+These values are non-changeable, and there are types that are often used in Redbrick studios.
+
+- **Boolean**
+  - `true`, `false`; only two values exist.
+- **Number**
+  - type used to express numbers.
+- **String**
+  - type used to represent a string.
+- **Null**
+  - only one value, `null`, exists. Use to intentionally express that the value is empty.
+- **Undefined**
+  - for variables that do not have a value assigned, it automatically has a value called undefined.
+
+```js showLineNumbers copy {1,5, 8,12,15}
+//Number
+let length = 16;
+let weight = 7.5;
+
+// Strings:
+let color = "Yellow";
+
+// Booleans
+let x = true;
+let y = false;
+
+// Null
+let empty = null;
+
+// Undefined
+let onlyDeclare;
+console.log(onlyDeclare); // undefined
+```
+
+## Object
+
+A data type consisting of a specific key-value pair. Typically used in the form of an Object represented by {} and Array Object represented by []. An object can contain multiple values consisting of raw values, or it can also contain the object again as a value for the object's key.
+
+```js showLineNumbers copy {1,4}
+// Object:
+const object = { title: "cube", color: "red" };
+
+// Array object:
+const objects = ["cube", "cylinder", "sphere"];
+```

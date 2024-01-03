@@ -1,0 +1,54 @@
+# Declare & Assign variables
+
+> Describes how to declare variables in JavaScript.
+
+In order to save the desired object or value, access and utilize the stored value while coding text, you must declare a variable and assign a value.
+
+There are many ways to declare variables in JavaScript, but we recommend using the let, const keywords in Redbrick Studios.
+
+By default, it is declared in the form Keyword `[Variable Name]` and you can assign a value to a variable through the = operator. Assigned values can be accessed by variable names.
+
+```js showLineNumbers /let/ /const/ copy
+// variable declaration and assignment
+let firstVariable = 1;
+const secondVarible = 2;
+
+console.log(firstVariable); // 1
+console.log(secondVariable); // 2
+```
+
+## let & const
+
+let & const play the same role in that they are keywords that declare variables, but they have the following differences.
+
+- `let`
+  - Allows you to assign a new value to variables declared with the keyword let.
+  ```js showLineNumbers /let/ copy
+  let variable = 1;
+  // reassign
+  varible = 2;
+  console.log(variable); // 2
+  ```
+- `const`
+
+  - Variables declared as const cannot be reassigned.
+
+  ```js showLineNumbers /const/ copy
+  const variable = 1;
+  // reassign
+  varible = 2; // Error!
+  ```
+
+  - If the assigned value is an array or object, you can change the internal elements of the array/object.
+
+  ```js showLineNumbers /const/ copy
+  const object = { title: "red" };
+  const array = ["red", "brick"];
+
+  object.title = "brick";
+  array[0] = "brick";
+  array[1] = "red";
+
+  console.log(object); // {title: "brick"}
+  console.log(array); // ["brick", "red"]
+  ```

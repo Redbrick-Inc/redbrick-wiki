@@ -1,0 +1,67 @@
+# How to use Operator
+
+> Describes the operators in JavaScript.
+
+There are various operators in JavaScript. Each operator has several roles, including value assignment, operation, and comparison. This document describes several frequently used operators.
+
+## Operator Allocation
+
+`"="{:jsx}` represented by and is used to assign values to .
+`const variable = "redbrick"{:jsx}`
+
+## Arithmetic Operator
+
+Operators used in arithmetic operations such as addition, subtraction, and multiplication.
+
+```js showLineNumbers copy
+const num1 = 1;
+const num2 = 2;
+
+console.log(num1 + num2); // 3
+console.log(num1 - num2); // -1
+console.log(num1 / num2); // 0.5
+console.log(num1 \* num2); // 2
+```
+
+## Comparison Operator
+
+Use to compare values. It is evaluated as true or false.
+
+```js showLineNumbers copy
+const num1 = 1;
+const num2 = 2;
+const num3 = 2;
+
+// Equal
+console.log(num1 === num2); // false​
+
+// Not Equal
+console.log(num1 !== num2); // true
+
+// Greater and Less
+console.log(num1 > num2); // false
+console.log(num1 < num2); // true
+
+// Greater and Less and Equal
+console.log(num1 >= num2); // false
+console.log(num2 <= num3); // true
+```
+
+## Logical Operator
+
+The operator used to determine AND, OR, and NOT logic intervals. Evaluate the Boolean value and return the Boolean value.
+
+```js showLineNumbers copy
+const x = true;
+const y = false;
+
+// AND
+console.log(x && y); // false
+
+// OR
+console.log(x || y); // true
+
+// NOT
+console.log(!x); // false
+console.log(!y); // true
+```

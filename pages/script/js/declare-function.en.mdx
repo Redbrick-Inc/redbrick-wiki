@@ -1,0 +1,49 @@
+# Declare a function
+
+> Describes how to declare and use a function.
+
+A function is a collection of codes that perform specific tasks. If repeated tasks exist, you can create and reuse functions to create more efficient and manageable code.
+
+There are many ways to declare a function in JavaScript, but we recommend using an arrow function in Redbrick Studios.
+
+The arrow function can be declared in the form
+`const foo = (a) => {console.log(a)}{:jsx}`
+and executed in the form variable name.
+
+```js showLineNumbers copy
+// arrow function declaration
+const add = (num1, num2) => {
+  const sum = num1 + num2;
+  console.log(sum);
+};
+
+add(1, 2); // 3
+```
+
+The return keyword can be used internally to stop the function from running and return the value declared after it.
+
+```js showLineNumbers copy
+const add = (num1, num2) => {
+  const sum = num1 + num2;
+  console.log(sum);
+};
+
+const sum = add(1, 2);
+
+console.log(sum); // 3
+```
+
+Variables declared as let and const within a function cannot be accessed outside the function, but variables declared outside the function can be accessed inside the function.
+
+```js showLineNumbers copy
+const outerValue = 1;
+
+const someFunction = () => {
+  const innerValue = 2;
+
+  console.log(outerValue);
+};
+
+console.log(innerValue); // Error!
+console.log(someFunction()); // 1
+```
