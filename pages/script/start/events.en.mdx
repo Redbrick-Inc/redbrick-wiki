@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # Event Functions
 
 > Provides guidance on event functions.
@@ -89,8 +91,10 @@ Runs when the pointer is pressed.
 
 [MouseEvent: button property](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
 
-> 💡 Pointers include mouse, touch, touch pen, etc. The event.pointerType tells you the type of pointer.
-
+<Callout>
+  Pointers include mouse, touch, touch pen, etc. The event.pointerType tells you
+  the type of pointer.
+</Callout>
 [PonterEvent: pointerType property](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
 
 ```js showLineNumbers
@@ -134,15 +138,18 @@ Runs when a new player joins. When used in Client Script, existing players run t
 - clientId : the clientId of the newly joined player.
 - avatar : Avatar of a newly joined player.
 
-> clientId: a unique id used to identify the client (player).
+<Callout type="info" emoji="ℹ️">
 
-```js showLineNumbers
-const playerAvatars = {};
+clientId: a unique id used to identify the client (player).
+
+</Callout>
+```js showLineNumbers const playerAvatars = {};
 
 function OnJoin(clientId, avatar) {
-  playerAvatars[clientId] = avatar;
+playerAvatars[clientId] = avatar;
 }
-```
+
+````
 
 ## OnLeave(clientId)
 
@@ -156,11 +163,14 @@ const playerAvatars = {};
 function OnLeave(clientId) {
   delete playerAvatars[clientId];
 }
-```
+````
 
 ---
 
-> ✅ The following Event Functions are available in Server Script and Client Script.
+<Callout type="info" emoji="✅">
+  The following Event Functions are available in Server Script and Client
+  Script.
+</Callout>
 
 |     Text      | Server Script | Client Script |
 | :-----------: | :-----------: | :-----------: |

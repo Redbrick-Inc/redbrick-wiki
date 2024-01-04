@@ -19,6 +19,11 @@ const config: DocsThemeConfig = {
   search: {
     placeholder: () => "Search here ...", // need  to fix search issue
   },
+  i18n: [
+    { locale: "en", text: "English" },
+    { locale: "kr", text: "한국어" },
+    { locale: "my", text: "Malay" },
+  ],
 };
 
 export default config;

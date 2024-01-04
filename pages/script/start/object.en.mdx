@@ -8,7 +8,7 @@ You can **add/edit/delete** scripts from the Properties panel of the object. You
 
 Inside the script, you can use `this{:jsx}` keyword to access the object on which the script was written.
 
-```js showLineNumbers copy
+```js showLineNumbers copy {2}
 function Start() {
   this.move(1, 1, 1); // this === WORLD.getObject("Cube");
 }
