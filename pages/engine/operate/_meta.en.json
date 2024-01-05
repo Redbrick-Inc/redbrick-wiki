@@ -1,5 +1,5 @@
 {
   "top": "Top Panel",
-  "left": "Asset Library Panel (left)",
-  "right": "Right Panel (properties)"
+  "left": "Asset Library Panel",
+  "right": "Property Panel"
 }

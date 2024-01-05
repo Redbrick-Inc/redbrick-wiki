@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # Content type
 
 > Provides information about content types.
@@ -8,7 +10,10 @@ In order to get started with the `metaverse`, please select the `metaverse` opti
 
 This preset script creates an avatar, a camera, and attaches the camera to the avatar to enable a following effect.
 
-> NOTE: You don't have to code this. If you selected `metaverse`, this code will be there by default.
+<Callout type="warning" emoji="⚠️">
+  You don't have to code this. If you selected `metaverse`, this code will be
+  there by default.
+</Callout>
 
 ```js showLineNumbers copy filename="PresetScript" {2-7}
 function Start() {
@@ -31,18 +36,10 @@ function Start() {
 }
 ```
 
-<aside
-  style={{
-    padding: "1em",
-    margin: "1em 0",
-    border: "1px solid #ffc107",
-    borderColor: "#8E8C8C",
-    borderRadius: "10px",
-  }}
->
-  💡 **However:** If you want to create an avatar, you can add avatar creation
-  code as seen in the `metaverse` template.
-</aside>
+<Callout type="info" emoji="ℹ️">
+  **However:** If you want to create an avatar, you can add avatar creation code
+  as seen in the `metaverse` template.
+</Callout>
 
 ## VR Option
 
@@ -61,18 +58,10 @@ function Start() {
 }
 ```
 
-<aside
-  style={{
-    padding: "1em",
-    margin: "1em 0",
-    border: "1px solid #ffc107",
-    borderColor: "#FF2020",
-    borderRadius: "10px",
-  }}
->
-  ⚠️ **NOTE**: VR functionality is compatible exclusively with `perspective`
+<Callout type="warning" emoji="⚠️">
+  **NOTE**: VR functionality is compatible exclusively with `perspective`
   cameras.
-</aside>
+</Callout>
 
 Additionally, VR can be used with other VRObjects too.
 
@@ -82,14 +71,6 @@ const camera = WORLD.getObject("cameraTitle");
 camera.useVR({ VRObject: headOfSomething }); // now you can use VR without an avatar
 ```
 
-<aside
-  style={{
-    padding: "1em",
-    margin: "1em 0",
-    border: "1px solid #ffc107",
-    borderColor: "#FF2020",
-    borderRadius: "10px",
-  }}
->
-  ⚠️ **NOTE**: Currently, VR does not render GUIs, so please keep this in mind.
-</aside>
+<Callout type="warning" emoji="⚠️">
+  **NOTE**: Currently, VR does not render GUIs, so please keep this in mind.
+</Callout>

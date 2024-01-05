@@ -1,11 +1,15 @@
+import { Callout } from "nextra/components";
+
 # Signal
 
 > Module for inter-script communication.
 
 Class used for communication between client scripts or server scripts. Signals can be used to run functions that exist in different scripts, and so on.
 
-> ⚠️ You must use the Event Manager module for signaling between client and server scripts.
-
+<Callout type="info" emoji="ℹ️">
+  You must use the Event Manager module for signaling between client and server
+  scripts.
+</Callout>
 ## Methods
 
 ### send(name, params)
