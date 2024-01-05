@@ -1,33 +1,14 @@
-# Redbrick Engine
+import { Cards, Card } from "nextra/components";
 
-```js filename="demo.js" {3} copy
-let a = 1;
+# Text Coding
 
-console.log(a);
-```
+> Guides for text coding
 
-## Component
+---
 
-import { useState } from "react";
+You can implement the behavior of objects by writing scripts in the selected language.
 
-{/* Import CSS modules */}
-import styles from '../components/counters.module.css'
+Text coding is written using the `JavaScript`-based Redbrick Text Code API.
 
-export const Counter = () => {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <button onClick={() => setCount(count + 1)} className={styles.counter}>
-        Clicked {count} times
-      </button>
-    </div>
-  );
-};
-
-<Counter />
-
-## External Component
-
-import Counters from "../components/counters";
-
-<Counters />
+<br />
+<center>![Text coding](../images/text-coding-view.png) Text Coding</center>
