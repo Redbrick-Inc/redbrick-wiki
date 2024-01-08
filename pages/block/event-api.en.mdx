@@ -1,0 +1,70 @@
+# Event API
+
+| API Format  | Linked Block |                                         Function                                          |
+| :---------: | :----------: | :---------------------------------------------------------------------------------------: |
+|   Collide   |    Object    |          Run a callback function when a specific target collides with an object           |
+| CollideOnce |    Object    |  Executes a callback function when a specific target collides with an object, only once   |
+| CollideEnd  |    Object    |            Callback function runs when target on object leaves after collision            |
+|   Contact   |    Object    | If the object is in contact after a target crashes, the callback function runs repeatedly |
+
+## Collide
+
+Executes indented code when a specific target collides with an object.
+
+- `object` : Select the object to determine if it crashed.
+
+<br />
+<center>
+  ![OOBC-collide](../../images/oobc-collide.png) OOBC Collide sample code
+</center>
+
+<br />
+<center>
+  ![OOBC-collide](../../images/oobc-collide-example.gif) OOBC Collide
+</center>
+
+## CollideOnce
+
+Executes indented code only once when a specific target collides with an object.
+
+`object` : Select the object to determine if it crashed.
+
+<br />
+<center>
+  ![OOBC-collideonce](../../images/oobc-collideonce.png) OOBC CollideOnce sample
+  code
+</center>
+
+<br />
+<center>
+  ![OOBC-collideonce](../../images/oobc-collideonce-example.gif) OOBC
+  CollideOnce
+</center>
+
+## CollideEnd
+
+Executes indented code only once when an object leaves a specific target after a collision.
+
+`object` : Select the object to determine if it crashed.
+
+<br />
+<center>
+  ![OOBC-collideend](../../images/oobc-collideend.png) OOBC CollideEnd sample
+  code
+</center>
+
+<br />
+<center>
+  ![OOBC-collideend](../../images/oobc-collideend-example.gif) OOBC CollideEnd
+</center>
+
+## Contact
+
+Executes indented code repeatedly if the object is in contact after a specific target crashes.
+
+`object` : Select the object to determine if it crashed.
+
+<br />
+<center>
+  ![OOBC-contact](../../images/oobc-contact.png) OOBC Contact sample code
+</center>
