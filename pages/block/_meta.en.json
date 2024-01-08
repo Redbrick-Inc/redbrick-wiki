@@ -1,8 +1,8 @@
 {
   "general-api": "General API",
-  "translation-api": "Redbrick Engine",
-  "rotation-api": "Text coding",
-  "event-api": "Block coding",
-  "control-api": "FAQ",
-  "avatar-api": "Advanced Scripting"
+  "translation-api": "Translation API",
+  "rotation-api": "Rotation API",
+  "event-api": "Event API",
+  "control-api": "Control API",
+  "avatar-api": "Avatar API"
 }
