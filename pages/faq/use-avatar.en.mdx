@@ -175,4 +175,77 @@ import { Tabs } from "nextra/components";
         </Tabs.Tab>
     </Tabs>
 
+
+    ### Change avatar speed
+
+    <Callout type="info">
+    - To change movement speed of an avatar, you can use
+    `avatar.changePlayerSpeed(1)`, by default speed is 1. More information about
+    avatar api can be found [here](/script/api/avatar)
+    </Callout>
+
+    <Tabs items={["example 1", "example 2"]} defaultIndex="0">
+        <Tabs.Tab>
+
+            In this example, you can learn how to utilize the avatar within the async function.
+
+            ```js showLineNumbers copy filename ="PresetScript" {13}
+                const boost = WORLD.getObject("boostTitle");
+
+                function Start() {
+                    (async () => {
+                        const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+                        const camera = WORLD.getObject("MainCamera");
+                        const followingCamera = avatar.setFollowingCamera(camera);
+                        avatar.setDefaultController();
+
+                        // use here avatar related logic
+                        boost.onCollide(avatar, () => {
+                            boost.kill();
+                            //change avatar speed
+                            avatar.changePlayerSpeed(2);
+                        });
+                    })();
+                }
+            ```
+
+        </Tabs.Tab>
+
+        <Tabs.Tab>
+
+            If you wan to use outside of `PresetScript`,  you can use `REDBRICK.Signal` to export avatar after initialization
+
+            ```js showLineNumbers copy filename="PresetScript" {8}
+            function Start() {
+                (async () => {
+                    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+                    const camera = WORLD.getObject("MainCamera");
+                    const followingCamera = avatar.setFollowingCamera(camera);
+                    avatar.setDefaultController();
+
+                    //send `avatarIsReady` signal
+                    REDBRICK.Signal.send("avatarIsReady", avatar);
+                })();
+            }
+            ```
+
+            ```js showLineNumbers copy filename="otherScript" {8}
+            const boost = WORLD.getObject("boostTitle");
+
+            function Start() {
+
+                REDBRICK.Signal.addListener("avatarIsReady", (avatar)=>{
+                    boost.onCollide(avatar, ()=>{
+                        boost.kill();
+                        //change avatar speed
+                        avatar.changePlayerSpeed(2);
+                    });
+                });
+            }
+            ```
+
+        </Tabs.Tab>
+
+    </Tabs>
+
 </Steps>
