@@ -11,18 +11,18 @@ const config: DocsThemeConfig = {
     // useLink: () => "https://discord.com/invite/redbrick-create",
   },
   footer: {
-    text: "Copyright © 2024 Redbrick Inc. All rights reserved",
+    content: "Copyright © 2024 Redbrick Inc. All rights reserved",
   },
   editLink: {
-    text: "",
+    content: "",
   },
   search: {
     placeholder: () => "Search here ...", // need  to fix search issue
   },
   i18n: [
-    { locale: "en", text: "English" },
-    { locale: "kr", text: "한국어" },
-    { locale: "my", text: "Malay" },
+    { locale: "en", name: "English" },
+    { locale: "kr", name: "한국어" },
+    { locale: "my", name: "Malay" , direction: 'rtl' },
   ],
 };
 
