@@ -9,10 +9,6 @@
   },
   "author": "Master Tim <tim@redbrick.space>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/shuding/nextra-docs-template/issues"
-  },
-  "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
     "next": "^14.0.4",
     "nextra": "^3.0.0-alpha.11",
