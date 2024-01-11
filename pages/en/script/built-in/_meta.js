@@ -1,0 +1,7 @@
+export default {
+  "three": "THREE",
+  "tween": "TWEEN",
+  "redbrick": "REDBRICK",
+  "mathutils": "Math Utils",
+  "dateutils": "DateUtils"
+}

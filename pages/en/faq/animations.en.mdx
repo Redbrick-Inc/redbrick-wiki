@@ -1,0 +1,44 @@
+import { Callout } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# Animations
+
+## Creating an object that moves repeatedly
+
+<Steps>
+### Place the object 
+  
+  Place the objects where the stepping stone should
+  disappear and change the title. 
+  
+### Code
+
+```js showLineNumbers
+const movebox = WORLD.getObject("BOX(f7b)");
+const patrol = new TWEEN.Tween(movebox.position)
+  .to({ x: "-10" }, 2000)
+  .repeat(Infinity)
+  .yoyo(true)
+  .start();
+```
+
+<Callout type="error">
+  If you turned on the `Body` in `Physics` and it appears stationary, don't
+  worry. Simply add a few lines (`onUpdate`) to the tween, as demonstrated below.
+
+    ```js showLineNumbers {5}
+    const movebox = WORLD.getObject("BOX(f7b)");
+    const patrol = new TWEEN.Tween(movebox.position)
+        .to({ x: "-10" }, 2000)
+        .repeat(Infinity)
+        .onUpdate(()=>{movebox.body.needUpdate = true;})
+        .yoyo(true)
+        .start();
+    ```
+
+</Callout>
+<br />
+<center>![](../../../images/example-animation1.gif) Result </center>
+
+</Steps>

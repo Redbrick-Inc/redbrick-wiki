@@ -1,0 +1,49 @@
+import { Callout } from "nextra/components";
+
+# Physics
+
+> Lets you specify the physical properties of an object.
+
+<br />
+
+<center>![Physics](../../../../../../images/physics.png)Physics</center>
+
+## Body
+
+Determines whether the object contains a physical body. If not checked, the object is not physically affected. The properties below are displayed only when Body is present.
+
+<Callout type="error" emoji="️‼️">
+  When moving an object with a "Body" through the code, you should be aware of
+  the following.
+</Callout>
+
+The position/rotation value of the object depends on the body of the object. If the position, rotation value is set or changed using TWEEN, but the body is not changed, the position of the object will not move. Therefore, you need to update the body after moving/rotating the object through a property needUpdate like below.
+
+```js showLineNumbers
+const obj = WORLD.getObject("MyObject");
+
+obj.position.set(0, 0, 0);
+obj.body.needUpdate = true;
+```
+
+### Anchored
+
+The state of the object changes to Kinetic. The position does not change due to collisions, etc., and if you change the position directly through scripting, etc., the position may change. If you want to use object collisions but want to place them in a fixed place, you can.
+
+### BodyType
+
+You can specify the physical shape (Body) to be formed in the 3D Model. There are five options, each created in the following way.
+
+- Box : Creates the smallest rectangular parallelepiped body that can contain the entire 3D Model.
+- Sphere : Creates a spherical body with the average length, width, and height of the 3D Model as the diameter.
+- Hull: Creates a body based on the outermost vertices of the 3D Model.
+- Convex : Creates a body in which all parts of the 3D model protrude or do not protrude outward.
+- Concave : Creates a body in which part of the 3D model goes inside or has a concave shape.
+
+### Mass
+
+Specifies the mass of the object.
+
+### Friction
+
+Specifies the frictional force of the object. It has a value between 0 and 1.
