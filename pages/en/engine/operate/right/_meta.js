@@ -1,4 +1,3 @@
 export default {
-  "object": "Object",
-  "scene": "Scene"
+  "object": "Object"
 }
