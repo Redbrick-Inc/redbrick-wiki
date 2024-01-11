@@ -1,4 +1,5 @@
 import nextra from 'nextra'
+// import { useRouter } from 'next/hooks';
 
 const withNextra = nextra({
     theme: 'nextra-theme-docs',

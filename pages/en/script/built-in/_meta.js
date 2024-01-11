@@ -1,4 +1,4 @@
-{
+export default {
   "three": "THREE",
   "tween": "TWEEN",
   "redbrick": "REDBRICK",

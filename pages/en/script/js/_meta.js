@@ -1,4 +1,4 @@
-{
+export default {
   "variables": "Declare & Assign variables",
   "data": "Data Type",
   "obj-manipulation": "Manipulate Object",

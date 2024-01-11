@@ -1,4 +1,4 @@
-{
+export default {
   "content-type": "Content Type",
   "object": "Object Script",
   "client-server": "Client & Server Scripting",

@@ -1,4 +1,4 @@
-{
+export default {
   "object3d": "Object3D",
   "scene": "Scene",
   "perspective": "Perspective Camera",
