@@ -1,4 +1,4 @@
-{
+export default {
   "index": "Introduction",
   "engine": "Redbrick Engine",
   "script": "Text coding",
