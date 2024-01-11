@@ -19,5 +19,4 @@ export default {
     title: "Snippet",
     type: "page",
   },
-  bugs: "Current Bugs and Issues",
 };

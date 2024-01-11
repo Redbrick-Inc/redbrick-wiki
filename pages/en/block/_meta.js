@@ -1,5 +1,5 @@
 export default {
-  index: "Intoduction",
+  "index": "Intoduction",
   "general-api": "General API",
   "translation-api": "Translation API",
   "rotation-api": "Rotation API",
