@@ -1,9 +1,23 @@
 export default {
-  index: "Introduction",
-  engine: "Redbrick Engine",
-  script: "Text coding",
-  block: "Block coding",
-  snippet: "Snippet",
-  advanced: "Advanced Scripting",
+  index: {
+    title: "About",
+    type: "page",
+  },
+  engine: {
+    title: "Studio",
+    type: "page",
+  },
+  script: {
+    title: "Text coding",
+    type: "page",
+  },
+  block: {
+    title: "Block coding",
+    type: "page",
+  },
+  snippet: {
+    title: "Snippet",
+    type: "page",
+  },
   bugs: "Current Bugs and Issues",
 };

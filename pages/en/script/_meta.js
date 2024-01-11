@@ -1,6 +1,7 @@
 export default {
-  "js": "Basics of Javascript",
-  "start": "Get Started",
+  intro: "Introduction",
+  js: "Basics of Javascript",
+  start: "Get Started",
   "built-in": "Built-in Modules",
-  "api": "API Extensions"
-}
+  api: "API Extensions",
+};
