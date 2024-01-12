@@ -1,0 +1,54 @@
+# 데이터 타입
+
+> 자바스크립트에서 사용되는 데이터 타입에 대해 설명합니다.
+
+코드가 올바르고 효율적으로 작동하기 위해서는 데이터 타입의 내용을 아는 것이 중요합니다. 대부분의 경우 자바스크립트는 데이터 타입에 대해 걱정하지 않고 임의로 처리되지만, 더 복잡한 내용을 작성할 경우 필요할 수 있습니다.
+
+이 페이지에서는 데이터 타입과 각각의 형태에 대한 간략한 설명을 제공합니다. 데이터 타입은 크게 원시 값과 객체로 나뉩니다.
+
+## 원시 값
+
+이 값들은 변경 불가능하며, 레드브릭 스튜디오에서 자주 사용되는 타입들입니다.
+
+- **불리언(Boolean)**
+  - `true`, `false`; 두 가지 값만 존재합니다.
+- **숫자(Number)**
+  - 숫자를 표현하는 데 사용되는 타입입니다.
+- **문자열(String)**
+  - 문자열을 나타내는 데 사용되는 타입입니다.
+- **널(Null)**
+  - `null`이라는 하나의 값만 존재합니다. 값이 비어 있음을 의도적으로 표현하는 데 사용합니다.
+- **정의되지 않음(Undefined)**
+  - 값이 할당되지 않은 변수에는 자동으로 undefined라는 값이 있습니다.
+
+```js showLineNumbers copy {1,5, 8,12,15}
+// 숫자(Number)
+let length = 16;
+let weight = 7.5;
+
+// 문자열(String):
+let color = "Yellow";
+
+// 불리언(Boolean)
+let x = true;
+let y = false;
+
+// 널(Null)
+let empty = null;
+
+// 정의되지 않음(Undefined)
+let onlyDeclare;
+console.log(onlyDeclare); // undefined
+```
+
+## 객체(Object)
+
+특정 키-값 쌍으로 구성된 데이터 타입입니다. 일반적으로 {}로 표현되는 객체와 []로 표현되는 배열 객체 형태로 사용됩니다. 객체는 원시 값으로 구성된 여러 값을 포함할 수 있으며, 객체의 키에 대한 값으로 다시 객체를 포함할 수도 있습니다.
+
+```js showLineNumbers copy {1,4}
+// 객체(Object):
+const object = { title: "cube", color: "red" };
+
+// 배열 객체(Array object):
+const objects = ["cube", "cylinder", "sphere"];
+```

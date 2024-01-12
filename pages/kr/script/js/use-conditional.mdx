@@ -1,0 +1,69 @@
+# 조건문 사용 방법
+
+> 자바스크립트에서 조건문을 사용하는 방법을 설명합니다.
+
+자바스크립트는 여러 방법으로 조건 분기를 사용할 수 있습니다. 이 글에서는 일반적으로 사용되는 if와 switch 문에 대해 설명합니다.
+
+## if / else / else if
+
+```js showLineNumbers copy {4,8,13,15,20,22,24}
+const point = 9;
+
+// if statement
+if (point < 10) {
+  console.log("Point is smaller than 10"); // execute
+}
+
+if (point > 10) {
+  console.log("Point is bigger than 10"); // not execute
+}
+
+// else statement
+if (point > 10) {
+  console.log("Point is bigger than 10"); // not execute
+} else {
+  console.log("Point is same of smaller than 10"); // execute
+}
+
+// else if statement
+if (point > 10) {
+  console.log("Point is bigger than 10"); // not execute
+} else if (point > 5) {
+  console.log("Point is bigger than 5"); // execute
+} else {
+  console.log("Point is same of smaller than 10"); // execute
+}
+```
+
+else if의 경우, 하나 이상을 추가할 수도 있습니다.
+
+```js showLineNumbers {7} copy
+if (point > 10) {
+  console.log("Point is bigger than 10");
+} else if (point > 7) {
+  console.log("Point is bigger than 7");
+} else if (point > 3) {
+  console.log("Point is bigger than 3");
+} else {
+  console.log("Point is same of smaller than 10");
+}
+```
+
+## switch - case
+
+여러 조건을 평가해야 하는 경우, 반복적으로 elseif 문을 사용하는 것보다 switch 문을 사용하는 것이 더 효과적일 수 있습니다. switch 문은 switch 키워드로 시작하며 case 키워드로 조건을 평가합니다. 각 case 키워드에는 switch 문의 실행을 중단하는 break 키워드가 포함되어야 합니다.
+
+```js showLineNumbers {3} copy
+const color = "red";
+
+switch (color) {
+  case "blue":
+    console.log("Color is blue!");
+    break;
+  case "red":
+    console.log("Color is red!");
+    break;
+  default:
+    console.log("Color is not blue or red!");
+}
+```

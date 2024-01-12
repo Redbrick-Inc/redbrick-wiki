@@ -1,0 +1,67 @@
+# 연산자 사용 방법
+
+> 자바스크립트의 연산자에 대해 설명합니다.
+
+자바스크립트에는 다양한 연산자들이 있습니다. 각 연산자는 값 할당, 연산, 비교 등 여러 역할을 가지고 있습니다. 이 문서에서는 자주 사용되는 몇 가지 연산자를 설명합니다.
+
+## 할당 연산자
+
+`"="{:jsx}`로 표현되며 값을 할당하는 데 사용됩니다.
+`const variable = "redbrick"{:jsx}`
+
+## 산술 연산자
+
+덧셈, 뺄셈, 곱셈 등의 산술 연산에 사용되는 연산자입니다.
+
+```js showLineNumbers copy
+const num1 = 1;
+const num2 = 2;
+
+console.log(num1 + num2); // 3
+console.log(num1 - num2); // -1
+console.log(num1 / num2); // 0.5
+console.log(num1 \* num2); // 2
+```
+
+## 비교 연산자
+
+값을 비교하는 데 사용됩니다. 참 또는 거짓으로 평가됩니다.
+
+```js showLineNumbers copy
+const num1 = 1;
+const num2 = 2;
+const num3 = 2;
+
+// Equal
+console.log(num1 === num2); // false​
+
+// Not Equal
+console.log(num1 !== num2); // true
+
+// Greater and Less
+console.log(num1 > num2); // false
+console.log(num1 < num2); // true
+
+// Greater and Less and Equal
+console.log(num1 >= num2); // false
+console.log(num2 <= num3); // true
+```
+
+## 논리 연산자
+
+AND, OR, NOT 논리 간격을 결정하는 데 사용되는 연산자입니다. 불리언 값을 평가하고 불리언 값을 반환합니다.
+
+```js showLineNumbers copy
+const x = true;
+const y = false;
+
+// AND
+console.log(x && y); // false
+
+// OR
+console.log(x || y); // true
+
+// NOT
+console.log(!x); // false
+console.log(!y); // true
+```

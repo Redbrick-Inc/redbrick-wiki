@@ -1,0 +1,37 @@
+import { Callout } from "nextra/components";
+
+# Global Objects
+
+> 글로벌 객체들에 대해 안내합니다.
+
+Global Object는 스크립트 내부 어디에서나 쉽게 접근 가능하도록 미리 정의된 오브젝트입니다.
+
+## WORLD
+
+모든 3D 오브젝트를 담고 있는 3D Scene을 나타냅니다.
+
+```js showLineNumbers
+const box = WORLD.getObject("BOX");
+const sphere = WORLD.getObject("SPHERE");
+```
+
+## GUI
+
+모든 GUI를 담고 있는 GUI Scene을 나타냅니다.
+
+```js showLineNumbers
+const scoreBoard = GUI.getObject("SCORE_BOARD");
+const timerUI = GUI.getObject("TIMER_UI");
+```
+
+---
+
+<Callout>
+  Server Script와 Client Script에서 사용 가능한 Global Objects는 다음과
+  같습니다.
+</Callout>
+
+| Text  | Server Script | Client Script |
+| :---: | :-----------: | :-----------: |
+| WORLD |      ✅       |      ✅       |
+|  GUI  |      ❌       |      ✅       |

@@ -1,0 +1,187 @@
+import { Callout } from "nextra/components";
+
+# Event Functions
+
+> 이벤트 함수에 대해 안내합니다.
+
+Event Function은 특정 event 상황에서 실행되도록 미리 정의된 함수입니다. 새로운 유저가 들어오는 경우, 혹은 키보드나 마우스 입력을 실행하는 경우 등에 사용자가 정의한 스크립트를 실행할 수 있도록 하는 수단입니다.
+
+## Start()
+
+플레이 시작할 때 최초 한번 실행됩니다.
+
+```js showLineNumbers copy
+const box = WORLD.getObject("BOX");
+
+function Start() {
+  PLAYER.onCollide(box, () => {
+    box.kill();
+  });
+}
+```
+
+## Update(dt)
+
+매 프레임 반복하여 실행됩니다.
+
+- `dt` : deltaTime. time interval between frames, in seconds.
+
+```js showLineNumbers copy
+function Update(dt) {
+  this.position.y += dt * 2;
+  if (this.position.y >= 10) {
+    this.position.y = 0;
+  }
+}
+```
+
+## OnKeyDown(event)
+
+키보드 키를 눌렀을 때 실행됩니다.
+
+- event : 키보드 이벤트. event.code 또는 event.key를 통해 어떤 key인지 알 수 있습니다.
+
+**reference**
+
+- [Code values for keyboard events](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_code_values)
+- [JavaScript Key Code Event Tool & List](https://www.toptal.com/developers/keycode)
+
+```js showLineNumbers copy
+function OnKeyDown(event) {
+    switch (event.code) {
+        case "KeyQ":
+            changeWeapon();
+            break;
+        case "KeyR":
+            reload();
+            break;
+        default:
+            break;
+    }
+}
+
+const changeWeapon = () => {...}
+
+const reload = () => {...}
+```
+
+## OnKeyUp(event)
+
+키보드 키를 (눌렀다가) 뗐을 때 실행됩니다.
+
+- event : 키보드 이벤트. event.code 또는 event.key를 통해 어떤 key인지 알 수 있습니다.
+
+```js showLineNumbers copy
+function OnKeyUp(event) {
+    switch (event.code) {
+        case "KeyQ":
+            doSomething();
+            break;
+        default:
+            break;
+    }
+}
+
+const doSomething = () = {...}
+```
+
+## OnPointerDown(event)
+
+포인터를 눌렀을 때 실행됩니다.
+
+- event : 포인터 이벤트. event.button을 통해 좌클릭/우클릭을, event.clientX와 event.clientY를 통해 좌표를 알 수 있습니다.
+
+[MouseEvent: button property](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
+
+<Callout>
+  포인터는 마우스, 터치, 터치펜 등을 모두 포함합니다. 필요한 경우
+  event.pointerType을 통해 포인터의 타입을 알 수 있습니다.
+</Callout>
+[PonterEvent: pointerType property](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
+
+```js showLineNumbers
+function OnPointerDown(event) {
+    if (event.button === 0) {
+        fire(event.clientX, event.clientY);
+    }
+}
+
+const fire = (x, y) => {...};
+```
+
+## OnPointerMove(event)
+
+포인터를 움직였을 때 실행됩니다.
+
+- event : 포인터 이벤트. event.clientX와 event.clientY를 통해 좌표를 알 수 있습니다.
+
+```js showLineNumbers
+function OnPointerMove(event) {
+  // Similar to OnPointerDown
+}
+```
+
+## OnPointerUp(event)
+
+포인터를 (눌렀다가) 뗐을 때 실행됩니다.
+
+- event : 포인터 이벤트. event.button을 통해 좌클릭/우클릭을, event.clientX와 event.clientY를 통해 좌표를 알 수 있습니다.
+
+```js showLineNumbers
+function OnPointerUp(event) {
+  // Similar to OnPointerDown
+}
+```
+
+## OnJoin(clientId, avatar)
+
+새로운 플레이어가 참가했을 때 실행됩니다. Client Script에서 사용될 경우 새로운 플레이어가 참가했을 때 기존에 있던 플레이어들은 새로운 플레이어에 대해 OnJoin 함수가 실행되고, 새로운 플레이어는 자기자신을 포함하여 기존에 있던 모든 플레이어들에 대해 OnJoin 함수가 실행됩니다.
+
+- clientId : 새롭게 참가한 플레이어의 clientId.
+- avatar : 새롭게 참가한 플레이어의 avatar.
+
+<Callout type="info" emoji="ℹ️">
+
+clientId : 멀티플레이에서 client(플레이어)를 식별하기 위해 사용하는 고유한 id.
+
+</Callout>
+```js showLineNumbers const playerAvatars = {};
+
+function OnJoin(clientId, avatar) {
+playerAvatars[clientId] = avatar;
+}
+
+````
+
+## OnLeave(clientId)
+
+플레이어가 떠났을 때 실행됩니다.
+
+- clientId : 떠난 플레이어의 clientId.
+
+```js showLineNumbers
+const playerAvatars = {};
+
+function OnLeave(clientId) {
+  delete playerAvatars[clientId];
+}
+````
+
+---
+
+<Callout type="info" emoji="✅">
+  Server Script와 Client Script에서 사용 가능한 Event Function은 다음과
+  같습니다.
+</Callout>
+
+|     Text      | Server Script | Client Script |
+| :-----------: | :-----------: | :-----------: |
+|     Start     |      ✅       |      ✅       |
+|    Update     |      ✅       |      ✅       |
+|    OnJoin     |      ✅       |      ✅       |
+|    OnLeave    |      ✅       |      ✅       |
+|   OnKeyDown   |      ❌       |      ✅       |
+|    OnKeyUp    |      ❌       |      ✅       |
+| OnPointerDown |      ❌       |      ✅       |
+| OnPointerMove |      ❌       |      ✅       |
+|  OnPointerUp  |      ❌       |      ✅       |

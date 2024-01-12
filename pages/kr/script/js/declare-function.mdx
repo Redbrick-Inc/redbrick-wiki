@@ -1,0 +1,47 @@
+# 함수 선언
+
+> 함수를 선언하고 사용하는 방법에 대해 설명합니다.
+
+함수는 특정 작업을 수행하는 코드들의 모음입니다. 반복적인 작업이 존재한다면, 함수를 생성하고 재사용하여 보다 효율적이고 관리하기 쉬운 코드를 작성할 수 있습니다.
+
+자바스크립트에서 함수를 선언하는 방법은 여러 가지가 있지만, 레드브릭 스튜디오에서는 화살표 함수 사용을 권장합니다.
+
+화살표 함수는 `const foo = (a) => {console.log(a)}`{:jsx} 형태로 선언하고, 변수 이름 형태로 실행할 수 있습니다.
+
+```js showLineNumbers copy
+// arrow function declaration
+const add = (num1, num2) => {
+  const sum = num1 + num2;
+  console.log(sum);
+};
+
+add(1, 2); // 3
+```
+
+함수 내부에서는 return 키워드를 사용하여 함수의 실행을 중단하고 그 뒤에 선언된 값을 반환할 수 있습니다.
+
+```js showLineNumbers copy
+const add = (num1, num2) => {
+  const sum = num1 + num2;
+  console.log(sum);
+};
+
+const sum = add(1, 2);
+
+console.log(sum); // 3
+```
+
+함수 내부에서 let과 const로 선언된 변수는 함수 외부에서 접근할 수 없지만, 함수 외부에서 선언된 변수는 함수 내부에서 접근할 수 있습니다.
+
+```js showLineNumbers copy
+const outerValue = 1;
+
+const someFunction = () => {
+  const innerValue = 2;
+
+  console.log(outerValue);
+};
+
+console.log(innerValue); // Error!
+console.log(someFunction()); // 1
+```

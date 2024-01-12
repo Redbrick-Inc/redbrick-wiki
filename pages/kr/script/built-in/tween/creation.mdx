@@ -1,0 +1,25 @@
+## 트윈 생성하고 실행하기
+
+> 기본적인 사용방법에 대해 안내합니다.
+
+tween을 생성함에 있어 가장 기본이 되는 내용은 시작하는 값과 끝나는 값, 그리고 tween이 진행되는 시간을 전달하는 일입니다. 시작점과 끝점의 값은 객체의 형태로 만들어져야 합니다.
+
+```js copy
+const startPosition = { x: 0, y: 0, z: 0 }; // JS Object
+const endPosition = { x: 1, y: 2, z: 3 };
+```
+
+앞에서 정의한 시작점을 tween의 인자로 전달하고 끝점과 시간값을 to 함수의 인자로 전달하는 것을 통해 가장 기본적인 형태의 tween을 생성할 수 있습니다. 아래의 코드는 시작점에서부터 끝점까지 1초에 걸쳐 위치값을 변경하는 tween을 생성하는 코드입니다.
+
+```js copy
+const tween = new TWEEN.Tween(startPosition);
+tween.to(endPosition, 1000);
+```
+
+만들어진 tween을 사용하여 정의한 값이 변하도록 하기 위해서는 start함수를 실행시켜 tween을 실행시켜 주어야 합니다.
+
+```js copy
+tween.start();
+```
+
+tween모듈은 기본적인 사용방법 이외에도 tween의 실행을 멈추거나 실행 중에 특정한 함수를 실행하도록 하는 등의 다양한 함수들을 제공하고 있습니다. 관련된 내용은 다음 페이지에서 소개합니다.
