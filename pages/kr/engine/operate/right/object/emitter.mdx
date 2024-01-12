@@ -1,0 +1,60 @@
+# Emitter & Particle Property
+
+> 이펙트의 방출 유형(프리셋), 속도(방사형 속도), 각도(방사형 각도)를 설정할 수 있습니다.
+
+## Properties
+
+<br />
+<center>
+  ![발생기 속성](../../../../../../images/emitter-property.png) 발생기 & 입자
+  속성
+</center>
+
+### Emitter Property
+
+- **Preset**: 입자 발생기에 대해 사전 설정된 설정을 선택합니다.
+- **EmitAmount**: 방출되는 입자 수의 범위를 정의합니다. `최소` 및 `최대` 숫자와 함께.
+- **EmitRate**: 입자가 방출되는 속도를 설정합니다.
+
+### Particle Property
+
+- **Texture**: '+' 버튼을 클릭하여 입자에 텍스처를 추가할 수 있습니다.
+- **ParticleLife**: 입자의 수명을 지정합니다.
+- **ParticleMass**: 입자의 질량을 결정합니다.
+- **RadialSpeed**: 입자가 중심에서 멀어지는 속도를 조절합니다.
+- **RadialDirection**: X, Y, Z 좌표를 사용하여 방사형 운동의 방향을 지정합니다.
+- **RadialDegree**: 입자가 퍼지는 각도를 도로 정의합니다.
+
+## Particle Behavior
+
+<br />
+<center>
+  ![입자 행동](../../../../../../images/partice-behavior.png) 입자 행동
+</center>
+
+- **AlphaStart**: 입자의 초기 투명도.
+- **AlphaEnd**: 입자의 마지막 투명도.
+
+- **ScaleStart**: 입자의 초기 크기.
+- **ScaleEnd**: 입자의 수명이 끝날 때 입자의 최종 크기.
+
+- **ColorStart**: 입자의 초기 색상. 색상 상자는 일반적으로 색상을 표시합니다.
+- **ColorEnd**: 입자의 최종 색상. 입자는 시간이 지남에 따라 점차 이 색상으로 변합니다.
+
+- **AttractionActive**: 입자에 대한 인력 힘을 활성화 또는 비활성화하는 토글.
+
+  - **Attraction**: 인력 방향, X, Y, Z 구성 요소로 지정됩니다.
+  - **Attraction Force**: 인력 힘의 강도.
+
+- **ForceActive**: 입자에 추가 힘을 적용하는 토글.
+
+  - **Force**: 힘의 방향 및 강도, X, Y, Z 구성 요소로 지정됩니다.
+
+- **RandomDriftActive**: 입자에 임의의 움직임을 적용하는 토글.
+
+  - **RandomDrift**: X, Y, Z 방향 각각의 드리프트 변동성.
+
+- **SpringActive**: 입자에 스프링 같은 행동을 적용하는 토글.
+  - **SpringDirection**: 스프링 힘의 방향, X, Y, Z 구성 요소로 지정됩니다.
+  - **Spring Factor**: 스프링 힘의 강도.
+  - **Spring Friction**: 시간이 지남에 따라 진동을 줄이기 위해 스프링 효과에 감쇠를 적용합니다.

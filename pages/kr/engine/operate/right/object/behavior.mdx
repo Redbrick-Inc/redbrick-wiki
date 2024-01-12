@@ -1,0 +1,32 @@
+import { Callout } from "nextra/components";
+
+# Behavior
+
+> 객체의 행동 옵션, 사운드 등을 설정합니다.
+
+<br />
+<center>![GUI Transform](../../../../../../images/behavior.png) 행동</center>
+
+객체 클래스의 종류에 따라 다른 옵션이 표시될 수 있습니다. 존재하는 속성은 다음과 같습니다.
+
+## CanCollide
+
+객체와 아바타 사이의 충돌 가능성을 설정합니다. 충돌을 끄면 아바타는 객체를 통과합니다.
+
+#### Static
+
+<Callout type="info" emoji="ℹ️">
+  CanCollide가 체크되어 있을 때만 활성화됩니다.
+
+<br />
+
+<center>
+  ![Static](../../../../../../images/cancollide-static.png) Static
+</center>
+
+</Callout>
+대부분의 객체에 static 속성을 체크하는 것이 좋습니다. 체크하면 정적 충돌체가 생성되어 플레이성이 향상됩니다. 그러나 동적인 객체에는 체크를 해제해야 합니다. 왜냐하면 객체가 움직이거나 사라져도 충돌체가 그대로 유지되기 때문입니다.
+
+## Shadow
+
+객체가 그림자를 생성할 수 있도록 합니다.
