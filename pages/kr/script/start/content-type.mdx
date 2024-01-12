@@ -3,21 +3,21 @@ import { Callout } from "nextra/components";
 # Content type
 
 <Callout type="error" emoji="️‼️">
-  This update has a few important changes related to the avatar. To understand
-  how to use it, please follow this [guideline](../../snippet/use-avatar).
+  이번 업데이트에는 아바타와 관련된 몇 가지 중요한 변경 사항이 있습니다.
+  이해하다 사용 방법은 이 [가이드라인](../../snippet/use-avatar)을 따르세요.
 </Callout>
 
-> Provides information about content types.
+> 콘텐츠 유형에 대한 정보를 제공합니다.
 
 ## Metaverse
 
-In order to get started with the `metaverse`, please select the `metaverse` option before creating a template.
+'메타버스'를 시작하려면 템플릿을 생성하기 전에 '메타버스' 옵션을 선택하세요.
 
-This preset script creates an avatar, a camera, and attaches the camera to the avatar to enable a following effect.
+이 사전 설정 스크립트는 아바타와 카메라를 생성하고 카메라를 아바타에 연결하여 다음과 같은 효과를 활성화합니다.
 
 <Callout type="warning" emoji="⚠️">
-  You don't have to code this. If you selected `metaverse`, this code will be
-  there by default.
+  이것을 코딩할 필요는 없습니다. `metaverse`를 선택한 경우 이 코드는 다음과
+  같습니다. 기본적으로 거기에 있습니다.
 </Callout>
 
 ```js showLineNumbers copy filename="PresetScript" {2-7}
@@ -33,7 +33,7 @@ function Start() {
 
 ## Game
 
-In the `game` template, there is no code that creates an avatar.
+`game` 템플릿에는 아바타를 생성하는 코드가 없습니다.
 
 ```js showLineNumbers copy filename="PresetScript" {2}
 function Start() {
@@ -42,13 +42,13 @@ function Start() {
 ```
 
 <Callout type="info" emoji="ℹ️">
-  **However:** If you want to create an avatar, you can add avatar creation code
-  as seen in the `metaverse` template.
+  **단:** 아바타를 생성하려면 `metaverse` 템플릿에 표시된 대로 아바타 생성
+  코드를 추가하면 됩니다.
 </Callout>
 
 ## VR Option
 
-You can toggle the "VR option" while creating a template in order to use it. This will automatically add additional code to `PresetScript`, so you don't have to manually do so.
+템플릿을 생성하는 동안 'VR 옵션'을 전환하여 사용할 수 있습니다. 이렇게 하면 `PresetScript`에 추가 코드가 자동으로 추가되므로 수동으로 추가할 필요가 없습니다.
 
 ```js showLineNumbers copy filename="PresetScript" {8}
 function Start() {
@@ -64,11 +64,10 @@ function Start() {
 ```
 
 <Callout type="warning" emoji="⚠️">
-  **NOTE**: VR functionality is compatible exclusively with `perspective`
-  cameras.
+  **참고**: VR 기능은 `perspective`와만 호환됩니다. 카메라.
 </Callout>
 
-Additionally, VR can be used with other VRObjects too.
+또한 VR은 다른 VRObject와도 사용할 수 있습니다.
 
 ```js showLineNumbers copy filename="VRObject" {3}
 const headOfSomething = WORLD.getObject("headOfSomething");
