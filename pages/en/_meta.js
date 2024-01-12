@@ -19,4 +19,8 @@ export default {
     title: "Snippet",
     type: "page",
   },
+  faq: {
+    title: "FAQ",
+    type: "page",
+  },
 };
