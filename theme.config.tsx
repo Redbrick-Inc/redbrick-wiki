@@ -3,6 +3,7 @@ import { DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
   logo: <span>Redbrick Engine</span>,
+  logoLink: false,
   chat: {
     link: "https://discord.com/invite/redbrick-create",
   },

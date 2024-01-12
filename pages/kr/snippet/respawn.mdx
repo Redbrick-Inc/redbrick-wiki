@@ -1,0 +1,98 @@
+import { Callout } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# 떨어졌을 때 원래 위치로 돌아가기
+
+<Callout type="info">
+  `아바타 사용 방법`에 대한 더 많은 정보는 [여기](./use-avatar)에서 확인할 수
+  있습니다.
+</Callout>
+
+<Tabs items={["example 1", "example 2"]} defaultIndex="0" >
+    
+    <Tabs.Tab>
+
+        이 예제에서는 `아바타`의 `Y` 위치를 확인하여 간단하게 만들 수 있습니다.
+
+        ```js showLineNumbers copy filename="PresetScript" {1, 6, 15, 17}
+        //intialize avater here
+        let avatar;
+
+        function Start() {
+            (async () => {
+                //store avatar into the `avatar`
+                avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+                const camera = WORLD.getObject("MainCamera");
+                const followingCamera = avatar.setFollowingCamera(camera);
+                avatar.setDefaultController();
+            })();
+        }
+
+        function Update(dt) {
+            //check if avatar exists
+            if (avatar) {
+                //respawn when avatar y position is less than -5
+                if (avatar.position.y < -5){
+                    avatar.spawn();
+                }
+            }
+        }
+        ```
+
+    </Tabs.Tab>
+
+    <Tabs.Tab>
+
+        이 예제에서는 월드 아래의 메쉬와 충돌하여 만들 수 있습니다.
+        <Steps>
+
+            ### 월드 아래에 객체를 배치하세요.
+
+            메쉬를 원하는 위치에 놓고 크기를 조정하세요. Body를 확인하고, Anchored가 선택되었는지 확인하세요.
+
+            <br/>
+            <center>![](../../../images/example-spawn1.png) Place mesh, and check body & anchored </center>
+
+            ### 메쉬를 투명하게 만드세요.
+
+
+            메쉬를 투명하게 만들려면 투명도(Opacity)를 조절하세요.
+
+            <br/>
+            <center>![](../../../images/example-spawn2.png) Change Opacity </center>
+
+            ### 원래 위치로 돌아갈 수 있는 장소를 만드세요.
+
+            원하는 스폰을 클릭하고 시작 위치(Start Location)를 배치하세요.
+
+            <br/>
+            <center>![](../../../images/example-spawn3.png) Create and place spawn location </center>
+
+            ### Insert Code
+
+            ```js showLineNumbers copy filename="PresetScript" {10}
+            const spawnbox = WORLD.getObject("BOX(b5d)");
+
+            function Start() {
+                (async () => {
+                    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+                    const camera = WORLD.getObject("MainCamera");
+                    const followingCamera = avatar.setFollowingCamera(camera);
+                    avatar.setDefaultController();
+
+                    // use here spawn related logic
+                    spawnbox.onCollide(avatar, () => {
+                        avatar.spawn();
+                    });
+                })();
+            }
+            ```
+
+        </Steps>
+    </Tabs.Tab>
+
+    <br/>
+    <center>![](../../../images/example-spawn4.gif) Respawn </center>
+
+</Tabs>

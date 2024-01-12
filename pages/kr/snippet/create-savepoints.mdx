@@ -1,0 +1,56 @@
+import { Callout, Code } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# 세이브 포인트 생성하기
+
+<br />
+<center>![](../../../images/example-savepoints.gif) Example</center>
+
+## Code
+
+<Callout type="error" icon="‼️">
+  `onCollide` 같은 메소드를 사용하려면 객체의 속성 패널에서 Body를 체크하는 것을
+  잊지 마세요!
+  <center>![](../../../images/example-collect-body.png) 물리학 -> 몸체</center>
+</Callout>
+
+```js showLineNumbers copy filename="PresetScript"
+//intialize avatar here
+let avatar;
+let startLocation = WORLD.getObject("StartLocation(aa3)");
+
+function Start() {
+  (async () => {
+    //store avatar into the `avatar`
+    avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+
+    setSavePoints(avatar);
+  })();
+}
+
+function setSavePoints(avatar) {
+  // 4 save points form spawn1 ~ spawn4
+  for (let i = 1; i < 5; i++) {
+    const point = WORLD.getObject("spawn" + i);
+
+    point.onCollide(avatar, () => {
+      startLocation = point;
+      console.log(startLocation, point);
+    });
+  }
+}
+
+function Update(dt) {
+  //check if avatar exists
+  if (avatar) {
+    //respawn when avatar y position is less than -5
+    if (avatar.position.y < -5) {
+      avatar.spawn(startLocation);
+    }
+  }
+}
+```

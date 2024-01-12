@@ -1,0 +1,178 @@
+import { Callout } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# 아바타`를 올바르게 사용하는 방법
+
+<Callout type="warning">
+  아바타는 PresetScript에서 초기화됩니다. 사용하고 싶다면 아래의 예제들을
+  참조하세요.
+</Callout>
+
+<Callout type="info">
+  이를 달성하는 방법은 여러 가지가 있으며, 우리는 기본적인 방법들만
+  제공했습니다. 다른 접근 방식을 사용하고 싶다면 자유롭게 하십시오.
+</Callout>
+
+<Steps>
+
+### Avatar Initialization
+
+    <Tabs items={["example 1", "example 2", "example 3"]} defaultIndex="0">
+        <Tabs.Tab>
+
+            이 예제에서는 async 함수 내에서 아바타를 활용하는 방법을 배울 수 있습니다.
+
+            ```js showLineNumbers copy filename="PresetScript" {10}
+                const coin = WORLD.getObject("coinTitle");
+
+                function Start() {
+                    (async () => {
+                        const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+                        const camera = WORLD.getObject("MainCamera");
+                        const followingCamera = avatar.setFollowingCamera(camera);
+                        avatar.setDefaultController();
+
+                        // use here avatar related logic
+                        coin.onCollide(avatar, () => {
+                            coin.kill();
+                        });
+                    })();
+                }
+            ```
+
+        </Tabs.Tab>
+        <Tabs.Tab>
+
+            이 예제에서는 단순한 `function`을 사용하여 코드를 관리할 수 있습니다.
+
+            ```js showLineNumbers copy filename="PresetScript" {9}
+            const coin = WORLD.getObject("coinTitle");
+            function Start() {
+                (async () => {
+                    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+                    const camera = WORLD.getObject("MainCamera");
+                    const followingCamera = avatar.setFollowingCamera(camera);
+                    avatar.setDefaultController();
+
+                    //call avatar related functions
+                    coinCollect(avatar);
+                })();
+            }
+
+            function coinCollect(avatar){
+                //use your avatar here
+                coin.onCollide(avatar, ()=>{
+                    coin.kill();
+                });
+            }
+            ```
+
+        </Tabs.Tab>
+
+        <Tabs.Tab>
+
+            `PresetScript` 밖에서 사용하고 싶다면, 초기화 후에 아바타를 내보내기 위해 `REDBRICK.Signal`을 사용할 수 있습니다.
+
+            ```js showLineNumbers copy filename="PresetScript" {8}
+            function Start() {
+                (async () => {
+                    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+                    const camera = WORLD.getObject("MainCamera");
+                    const followingCamera = avatar.setFollowingCamera(camera);
+                    avatar.setDefaultController();
+
+                    //send `avatarIsReady` signal
+                    REDBRICK.Signal.send("avatarIsReady", avatar);
+                })();
+            }
+            ```
+
+            ```js showLineNumbers copy filename="otherScript" {5}
+            const coin = WORLD.getObject("coinTitle");
+
+            function Start() {
+
+                REDBRICK.Signal.addListener("avatarIsReady", (avatar)=>{
+                    coin.onCollide(avatar, ()=>{
+                        coin.kill();
+                    });
+                });
+            }
+            ```
+
+        </Tabs.Tab>
+    </Tabs>
+
+### `Update(dt)`에서 아바타 사용하기
+
+    `Update(dt)` 함수에서 `아바타`를 사용하고 싶다면 아래 이미지와 같이 사용할 수 있습니다.
+    <Tabs items={["예제 1", "예제 2"]} defaultIndex="0">
+
+        <Tabs.Tab>
+            ```js showLineNumbers copy filename="PresetScript" {1, 6, 15, 17}
+            //intialize avater here
+            let avatar;
+
+            function Start() {
+                (async () => {
+                    //store avatar into the `avatar`
+                    avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+                    const camera = WORLD.getObject("MainCamera");
+                    const followingCamera = avatar.setFollowingCamera(camera);
+                    avatar.setDefaultController();
+                })();
+            }
+
+            function Update(dt) {
+                //check if avatar exists
+                if (avatar) {
+                    //respawn when avatar y position is less than -5
+                    if (avatar.position.y < -5){
+                        avatar.spawn();
+                    }
+                }
+            }
+            ```
+        </Tabs.Tab>
+        <Tabs.Tab>
+            `PresetScript` 밖에서 사용하고 싶다면, 초기화 후에 아바타를 내보내기 위해 `REDBRICK.Signal`을 사용할 수 있습니다.
+
+            ```js showLineNumbers copy filename="PresetScript" {8}
+            function Start() {
+                (async () => {
+                    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+                    const camera = WORLD.getObject("MainCamera");
+                    const followingCamera = avatar.setFollowingCamera(camera);
+                    avatar.setDefaultController();
+
+                    //send `avatarIsReady` signal
+                    REDBRICK.Signal.send("avatarIsReady", avatar);
+                })();
+            }
+            ```
+
+            ```js showLineNumbers copy filename="otherScript" {1, 11, 13}
+            //intialize avater here
+            let avatar;
+
+            function Start() {
+                REDBRICK.Signal.addListener("avatarIsReady", (player)=>{
+                    avatar = player;
+                });
+            }
+
+            function Update(dt) {
+                //check if avatar exists
+                if (avatar) {
+                    //respawn when avatar y position is less than -5
+                    if (avatar.position.y < -5){
+                        avatar.spawn();
+                    }
+                }
+            }
+            ```
+        </Tabs.Tab>
+    </Tabs>
+
+</Steps>

@@ -1,0 +1,14 @@
+export default {
+  "use-avatar": "`아바타`를 올바르게 사용하는 방법",
+  "collect-items": "아이템 수집하기",
+  "change-avatar-speed": "아바타 속도 변경하기",
+  spawn: "시작점 설정하기",
+  respawn: "떨어졌을 때 원래 위치로 돌아가기",
+  "create-savepoints": "세이브 포인트 생성하기",
+  "squid-game": "밟으면 사라지는 디딤돌 만들기",
+  animations: "반복적으로 움직이는 객체 만들기",
+  "create-timer": "타이머, 카운트다운 만들기",
+  "create-game-button": "게임 시작 버튼 만들기",
+  "victory-gui": "게임 종료 후 첫 화면으로 돌아가기",
+  debug: "디버깅 및 오류 해결 방법은?",
+};
