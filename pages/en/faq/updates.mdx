@@ -1,26 +1,45 @@
-import { Callout } from "nextra/components";
+import { Steps } from "nextra/components";
 
-# Content type
+## Version 1.1.1 `RECENT`
 
-<Callout type="error" emoji="️‼️">
-  This update has a few important changes related to the avatar. To understand
-  how to use it, please follow this [guideline](../../snippet/use-avatar).
-</Callout>
+- Released on `2024/01/25`
 
-> Provides information about content types.
+<Steps>
+### Additions
 
-## Metaverse
+#### Global objects
 
-In order to get started with the `metaverse`, please select the `metaverse` option before creating a template.
+- Added documentation for the [`PLAYER` global object](../script/start/global-objects#player)
+- Added documentation for the [`GLOBAL` global object](../script/start/global-objects#global)
 
-This preset script creates an avatar, a camera, and attaches the camera to the avatar to enable a following effect.
+### Changes
 
-<Callout type="warning" emoji="⚠️">
-  You don't have to code this. If you selected `metaverse`, this code will be
-  there by default.
-</Callout>
+#### Removal of `async` function in the Preset Script.
 
-```js showLineNumbers copy filename="PresetScript" {2-7}
+```jsx copy filename="new Preset Script"
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+```
+
+</Steps>
+
+## Version 1.1.0
+
+<Steps>
+
+### Removed
+
+#### Global objects
+
+Removed the `PLAYER` global object
+
+### Changes
+
+Updated the Preset Script to remove async function.
+
+```jsx copy filename="version1.1.0 Preset Script"
 function Start() {
   (async () => {
     const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
@@ -31,51 +50,4 @@ function Start() {
 }
 ```
 
-## Game
-
-In the `game` template, there is no code that creates an avatar.
-
-```js showLineNumbers copy filename="PresetScript" {2}
-function Start() {
-  //nothing
-}
-```
-
-<Callout type="info" emoji="ℹ️">
-  **However:** If you want to create an avatar, you can add avatar creation code
-  as seen in the `metaverse` template.
-</Callout>
-
-## VR Option
-
-You can toggle the "VR option" while creating a template in order to use it. This will automatically add additional code to `PresetScript`, so you don't have to manually do so.
-
-```js showLineNumbers copy filename="PresetScript" {8}
-function Start() {
-  (async () => {
-    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-    const camera = WORLD.getObject("MainCamera");
-    const followingCamera = avatar.setFollowingCamera(camera);
-    avatar.setDefaultController();
-
-    followingCamera.useVR({ VRObject: avatar }); //VR needs to have VRObject
-  })();
-}
-```
-
-<Callout type="warning" emoji="⚠️">
-  **NOTE**: VR functionality is compatible exclusively with `perspective`
-  cameras.
-</Callout>
-
-Additionally, VR can be used with other VRObjects too.
-
-```js showLineNumbers copy filename="VRObject" {3}
-const headOfSomething = WORLD.getObject("headOfSomething");
-const camera = WORLD.getObject("cameraTitle");
-camera.useVR({ VRObject: headOfSomething }); // now you can use VR without an avatar
-```
-
-<Callout type="warning" emoji="⚠️">
-  **NOTE**: Currently, VR does not render GUIs, so please keep this in mind.
-</Callout>
+</Steps>
