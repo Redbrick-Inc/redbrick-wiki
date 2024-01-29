@@ -25,17 +25,12 @@ import { Tabs } from "nextra/components";
 
 ### Code
 
-<Callout type="info">
-  For more information about `how to use avatar` can be found
-  [here](./use-avatar)
-</Callout>
-
 <Tabs items={["example 1", "example 2"]} defaultIndex="0">
     <Tabs.Tab>
         <Callout type="info">
             Here's a basic example of how to do it. For an enhanced solution, refer to Example 2 👉🏼.
         </Callout>
-        ```js showLineNumbers filename="PresetScript" {1-5, 14-28}
+        ```js showLineNumbers copy  
         const diamond0 = WORLD.getObject("diamond0");
         const diamond1 = WORLD.getObject("diamond1");
         const diamond2 = WORLD.getObject("diamond2");
@@ -43,29 +38,22 @@ import { Tabs } from "nextra/components";
         const diamond4 = WORLD.getObject("diamond4");
 
         function Start() {
-            (async () => {
-                const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-                const camera = WORLD.getObject("MainCamera");
-                const followingCamera = avatar.setFollowingCamera(camera);
-                avatar.setDefaultController();
 
-                diamond0.onCollide(avatar, () => {
+                diamond0.onCollide(PLAYER, () => {
                     diamond0.kill();
                 });
-                diamond1.onCollide(avatar, () => {
+                diamond1.onCollide(PLAYER, () => {
                     diamond1.kill();
                 });
-                diamond2.onCollide(avatar, () => {
+                diamond2.onCollide(PLAYER, () => {
                     diamond2.kill();
                 });
-                diamond3.onCollide(avatar, () => {
+                diamond3.onCollide(PLAYER, () => {
                     diamond3.kill();
                 });
-                diamond4.onCollide(avatar, () => {
+                diamond4.onCollide(PLAYER, () => {
                     diamond4.kill();
                 });
-
-            })();
         }
         ```
     </Tabs.Tab>
@@ -73,26 +61,14 @@ import { Tabs } from "nextra/components";
 
         Here's a slightly improved example of usage, minimizing redundant lines.
 
-        ```js showLineNumbers filename="PresetScript" {9, 17, 19-21}
+        ```js showLineNumbers copy
+
         function Start() {
-            (async () => {
-                const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-                const camera = WORLD.getObject("MainCamera");
-                const followingCamera = avatar.setFollowingCamera(camera);
-                avatar.setDefaultController();
-
-                //call function
-                collisionSetUp(avatar);
-
-            })();
-        }
-
-        function collisionSetUp(avatar) {
             // 5 diamonds
             for (let i = 0; i < 5; i++) {
                 const diamond = WORLD.getObject("diamond" + i);
 
-                diamond.onCollide(avatar, () => {
+                diamond.onCollide(PLAYER, () => {
                     diamond.kill();
                 });
             }

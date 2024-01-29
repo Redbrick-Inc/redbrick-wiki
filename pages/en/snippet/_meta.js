@@ -1,5 +1,5 @@
 export default {
-  "use-avatar": "How to use avatar properly",
+  "use-avatar": "How to use PLAYER properly",
   "collect-items": "Collect items",
   "change-avatar-speed": "Avatar speed change ",
   spawn: "Set the Starting Point",

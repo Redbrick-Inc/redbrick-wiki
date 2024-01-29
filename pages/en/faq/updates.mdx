@@ -2,6 +2,11 @@ import { Callout } from "nextra/components";
 
 # Content type
 
+<Callout type="error" emoji="️‼️">
+  This update has a few important changes related to the avatar. To understand
+  how to use it, please follow this [guideline](../../snippet/use-avatar).
+</Callout>
+
 > Provides information about content types.
 
 ## Metaverse
@@ -16,10 +21,14 @@ This preset script creates an avatar, a camera, and attaches the camera to the a
 </Callout>
 
 ```js showLineNumbers copy filename="PresetScript" {2-7}
-const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
-const camera = WORLD.getObject("MainCamera");
-const followingCamera = avatar.setFollowingCamera(camera);
-avatar.setDefaultController();
+function Start() {
+  (async () => {
+    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+  })();
+}
 ```
 
 ## Game
@@ -42,11 +51,16 @@ function Start() {
 You can toggle the "VR option" while creating a template in order to use it. This will automatically add additional code to `PresetScript`, so you don't have to manually do so.
 
 ```js showLineNumbers copy filename="PresetScript" {8}
-const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
-const camera = WORLD.getObject("MainCamera");
-const followingCamera = avatar.setFollowingCamera(camera);
-avatar.setDefaultController();
-followingCamera.useVR({ VRObject: avatar }); //VR needs to have VRObject
+function Start() {
+  (async () => {
+    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+
+    followingCamera.useVR({ VRObject: avatar }); //VR needs to have VRObject
+  })();
+}
 ```
 
 <Callout type="warning" emoji="⚠️">
@@ -65,14 +79,3 @@ camera.useVR({ VRObject: headOfSomething }); // now you can use VR without an av
 <Callout type="warning" emoji="⚠️">
   **NOTE**: Currently, VR does not render GUIs, so please keep this in mind.
 </Callout>
-
-If you choose a game mode and VR settings, the PresetScript might look like this. However, you can customize it as in the previous example (headOfSomething).
-
-```js showLineNumbers copy filename="VR GAME PresetScript"
-const camera = WORLD.getObject("MainCamera");
-if (!camera) return;
-const obj = new THREE.Object3D();
-WORLD.add(obj);
-obj.position.copy(camera.position);
-camera.useVR({ VRObject: obj });
-```

@@ -22,11 +22,40 @@ const scoreBoard = GUI.getObject("SCORE_BOARD");
 const timerUI = GUI.getObject("TIMER_UI");
 ```
 
+## PLAYER
+
+Represents the player's avatar.
+
+```js showLineNumbers
+const speedUpItem = WORLD.getObject("SPEED_UP_ITEM");
+
+PLAYER.onCollide(speedUpItem, () => {
+  speedUpItem.kill();
+  PLAYER.changePlayerSpeed(1.5);
+});
+```
+
+## GLOBAL
+
+Used for linking other properties or methods to a global object.
+
+```js showLineNumbers filename="Script 1"
+WORLD.time = 10;
+```
+
+```js showLineNumbers filename="Script 2"
+if (WORLD.time > 10) {
+  //do something
+}
+```
+
 ---
 
 > The following Global Objects are available in Server Script and Client Script.
 
-| Text  | Server Script | Client Script |
-| :---: | :-----------: | :-----------: |
-| WORLD |      ✅       |      ✅       |
-|  GUI  |      ❌       |      ✅       |
+|  Text  | Server Script | Client Script |
+| :----: | :-----------: | :-----------: |
+| WORLD  |      ✅       |      ✅       |
+|  GUI   |      ❌       |      ✅       |
+| PLAYER |      ❌       |      ✅       |
+| GLOBAL |      ❌       |      ✅       |
