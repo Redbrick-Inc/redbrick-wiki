@@ -30,7 +30,7 @@ import { Tabs } from "nextra/components";
         <Callout type="info">
             Here's a basic example of how to do it. For an enhanced solution, refer to Example 2 👉🏼.
         </Callout>
-        ```js showLineNumbers copy  
+        ```js showLineNumbers copy
         const diamond0 = WORLD.getObject("diamond0");
         const diamond1 = WORLD.getObject("diamond1");
         const diamond2 = WORLD.getObject("diamond2");
@@ -38,7 +38,6 @@ import { Tabs } from "nextra/components";
         const diamond4 = WORLD.getObject("diamond4");
 
         function Start() {
-
                 diamond0.onCollide(PLAYER, () => {
                     diamond0.kill();
                 });
@@ -62,7 +61,6 @@ import { Tabs } from "nextra/components";
         Here's a slightly improved example of usage, minimizing redundant lines.
 
         ```js showLineNumbers copy
-
         function Start() {
             // 5 diamonds
             for (let i = 0; i < 5; i++) {

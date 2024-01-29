@@ -15,7 +15,7 @@ This preset script creates an avatar, a camera, and attaches the camera to the a
   there by default.
 </Callout>
 
-```js showLineNumbers copy filename="PresetScript" {2-7}
+```js showLineNumbers copy filename="PresetScript"
 const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
 const camera = WORLD.getObject("MainCamera");
 const followingCamera = avatar.setFollowingCamera(camera);
@@ -41,7 +41,7 @@ function Start() {
 
 You can toggle the "VR option" while creating a template in order to use it. This will automatically add additional code to `PresetScript`, so you don't have to manually do so.
 
-```js showLineNumbers copy filename="PresetScript" {8}
+```js showLineNumbers copy filename="PresetScript"
 const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
 const camera = WORLD.getObject("MainCamera");
 const followingCamera = avatar.setFollowingCamera(camera);

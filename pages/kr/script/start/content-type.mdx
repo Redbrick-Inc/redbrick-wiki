@@ -2,11 +2,6 @@ import { Callout } from "nextra/components";
 
 # Content type
 
-<Callout type="error" emoji="️‼️">
-  이번 업데이트에는 아바타와 관련된 몇 가지 중요한 변경 사항이 있습니다.
-  이해하다 사용 방법은 이 [가이드라인](../../snippet/use-avatar)을 따르세요.
-</Callout>
-
 > 콘텐츠 유형에 대한 정보를 제공합니다.
 
 ## Metaverse
@@ -20,15 +15,11 @@ import { Callout } from "nextra/components";
   같습니다. 기본적으로 거기에 있습니다.
 </Callout>
 
-```js showLineNumbers copy filename="PresetScript" {2-7}
-function Start() {
-  (async () => {
-    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-    const camera = WORLD.getObject("MainCamera");
-    const followingCamera = avatar.setFollowingCamera(camera);
-    avatar.setDefaultController();
-  })();
-}
+```js showLineNumbers copy filename="PresetScript"
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
 ```
 
 ## Game
@@ -50,17 +41,12 @@ function Start() {
 
 템플릿을 생성하는 동안 'VR 옵션'을 전환하여 사용할 수 있습니다. 이렇게 하면 `PresetScript`에 추가 코드가 자동으로 추가되므로 수동으로 추가할 필요가 없습니다.
 
-```js showLineNumbers copy filename="PresetScript" {8}
-function Start() {
-  (async () => {
-    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-    const camera = WORLD.getObject("MainCamera");
-    const followingCamera = avatar.setFollowingCamera(camera);
-    avatar.setDefaultController();
-
-    followingCamera.useVR({ VRObject: avatar }); //VR needs to have VRObject
-  })();
-}
+```js showLineNumbers copy filename="PresetScript"
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+followingCamera.useVR({ VRObject: avatar }); //VR needs to have VRObject
 ```
 
 <Callout type="warning" emoji="⚠️">
@@ -78,3 +64,14 @@ camera.useVR({ VRObject: headOfSomething }); // now you can use VR without an av
 <Callout type="warning" emoji="⚠️">
   **NOTE**: Currently, VR does not render GUIs, so please keep this in mind.
 </Callout>
+
+게임 모드와 VR 설정을 선택하면 PresetScript는 이렇게 보일 수 있습니다. 그러나 이전 예제(headOfSomething)에서처럼 이를 사용자 정의할 수 있습니다.
+
+```js showLineNumbers copy filename="VR GAME PresetScript"
+const camera = WORLD.getObject("MainCamera");
+if (!camera) return;
+const obj = new THREE.Object3D();
+WORLD.add(obj);
+obj.position.copy(camera.position);
+camera.useVR({ VRObject: obj });
+```

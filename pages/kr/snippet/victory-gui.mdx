@@ -9,106 +9,34 @@ import { Tabs } from "nextra/components";
 
 ## Code
 
-<Tabs items={["example 1", "example 2"]} defaultIndex="0" >
-    
-    <Tabs.Tab>
+```js showLineNumbers copy
+const item = WORLD.getObject("item");
+const startbtn = GUI.getObject("ballstopcle_button_play_on(e77)");
+const success = GUI.getObject("good_d(b37)");
+const retrybtn = GUI.getObject("button_text_large_yellow_retry(8c4)");
 
-    이 예제에서는, PresetScript를 이용해서 구현할 수 있습니다.
+success.hide();
+retrybtn.hide();
+startbtn.onClick(() => {
+  startbtn.hide();
+});
 
-        ```js showLineNumbers copy filename="PresetScript"
-        const item = WORLD.getObject("item");
-        const startbtn = GUI.getObject("ballstopcle_button_play_on(e77)");
-        const success = GUI.getObject("good_d(b37)");
-        const retrybtn = GUI.getObject("button_text_large_yellow_retry(8c4)");
+function Start() {
+  item.onCollide(PLAYER, () => {
+    item.kill();
+    success.show();
+    setTimeout(() => {
+      retrybtn.show();
+    }, 2000);
+  });
 
-        success.hide();
-        retrybtn.hide();
-        startbtn.onClick(() => {
-            startbtn.hide();
-        });
+  retrybtn.onClick(() => {
+    success.hide();
+    PLAYER.spawn();
+    item.revive();
 
-        function Start() {
-        (async () => {
-            const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-            const camera = WORLD.getObject("MainCamera");
-            const followingCamera = avatar.setFollowingCamera(camera);
-            avatar.setDefaultController();
-
-            // use here avatar related logic
-            item.onCollide(avatar, () => {
-            item.kill();
-            success.show();
-            setTimeout(() => {
-                retrybtn.show();
-            }, 2000);
-            });
-
-            retrybtn.onClick(() => {
-            success.hide();
-            avatar.spawn();
-            item.revive();
-
-            retrybtn.hide();
-            startbtn.show();
-            });
-        })();
-        }
-        ```
-
-    </Tabs.Tab>
-
-    <Tabs.Tab>
-
-그러나, Signal 기능을 활용해서 다른 곳에서도 사용할 수 있습니다.
-
-    ```js showLineNumbers copy filename="PresetScript"
-    function Start() {
-        (async () => {
-            const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-            const camera = WORLD.getObject("MainCamera");
-            const followingCamera = avatar.setFollowingCamera(camera);
-            avatar.setDefaultController();
-
-            // use here avatar related logic
-            REDBRICK.Signal.send("avatarIsReady", avatar);
-
-        })();
-    }
-    ```
-
-    ```js showLineNumbers copy filename="other script"
-    const item = WORLD.getObject("item");
-    const startbtn = GUI.getObject("ballstopcle_button_play_on(e77)");
-    const success = GUI.getObject("good_d(b37)");
-    const retrybtn = GUI.getObject("button_text_large_yellow_retry(8c4)");
-
-    function Start(){
-        success.hide();
-        retrybtn.hide();
-
-        startbtn.onClick(() => {
-            startbtn.hide();
-        });
-
-        REDBRICK.Signal.addListener("avatarIsReady", (avatar)=>{
-            item.onCollide(avatar, () => {
-                item.kill();
-                success.show();
-                setTimeout(()=>{ retrybtn.show() }, 2000)
-            });
-
-            retrybtn.onClick(()=>{
-                success.hide();
-                avatar.spawn();
-                item.revive();
-
-                retrybtn.hide();
-                startbtn.show();
-            });
-        });
-    }
-    ```
-
-    </Tabs.Tab>
-
-</Tabs>
+    retrybtn.hide();
+    startbtn.show();
+  });
+}
+```

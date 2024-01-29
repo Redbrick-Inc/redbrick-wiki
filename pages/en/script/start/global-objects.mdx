@@ -40,11 +40,11 @@ PLAYER.onCollide(speedUpItem, () => {
 Used for linking other properties or methods to a global object.
 
 ```js showLineNumbers filename="Script 1"
-WORLD.time = 10;
+GLOBAL.time = 10;
 ```
 
 ```js showLineNumbers filename="Script 2"
-if (WORLD.time > 10) {
+if (GLOBAL.time > 10) {
   //do something
 }
 ```

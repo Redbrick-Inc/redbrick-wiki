@@ -12,9 +12,9 @@ import { Tabs } from "nextra/components";
 
         ```js showLineNumbers copy
         function Update(dt) {
-            //respawn when avatar y position is less than -5
-            if (avatar.position.y < -5){
-                avatar.spawn();
+            //respawn when PLAYER y position is less than -5
+            if (PLAYER.position.y < -5){
+                PLAYER.spawn();
             }
         }
         ```
