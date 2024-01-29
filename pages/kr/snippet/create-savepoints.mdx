@@ -15,42 +15,24 @@ import { Tabs } from "nextra/components";
   <center>![](../../../images/example-collect-body.png) 물리학 -> 몸체</center>
 </Callout>
 
-```js showLineNumbers copy filename="PresetScript"
-//intialize avatar here
-let avatar;
+```js showLineNumbers copy
 let startLocation = WORLD.getObject("StartLocation(aa3)");
 
 function Start() {
-  (async () => {
-    //store avatar into the `avatar`
-    avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-    const camera = WORLD.getObject("MainCamera");
-    const followingCamera = avatar.setFollowingCamera(camera);
-    avatar.setDefaultController();
-
-    setSavePoints(avatar);
-  })();
-}
-
-function setSavePoints(avatar) {
   // 4 save points form spawn1 ~ spawn4
   for (let i = 1; i < 5; i++) {
     const point = WORLD.getObject("spawn" + i);
 
-    point.onCollide(avatar, () => {
+    point.onCollide(PLAYER, () => {
       startLocation = point;
-      console.log(startLocation, point);
     });
   }
 }
 
 function Update(dt) {
-  //check if avatar exists
-  if (avatar) {
-    //respawn when avatar y position is less than -5
-    if (avatar.position.y < -5) {
-      avatar.spawn(startLocation);
-    }
+  //respawn when avatar y position is less than -5
+  if (PLAYER.position.y < -5) {
+    PLAYER.spawn(startLocation);
   }
 }
 ```

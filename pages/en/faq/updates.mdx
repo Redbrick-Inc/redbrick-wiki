@@ -1,0 +1,53 @@
+import { Steps } from "nextra/components";
+
+## Version 1.1.1 `RECENT`
+
+- Released on `2024/01/25`
+
+<Steps>
+### Additions
+
+#### Global objects
+
+- Added documentation for the [`PLAYER` global object](../script/start/global-objects#player)
+- Added documentation for the [`GLOBAL` global object](../script/start/global-objects#global)
+
+### Changes
+
+#### Removal of `async` function in the Preset Script.
+
+```jsx copy filename="new Preset Script"
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+```
+
+</Steps>
+
+## Version 1.1.0
+
+<Steps>
+
+### Removed
+
+#### Global objects
+
+Removed the `PLAYER` global object
+
+### Changes
+
+Updated the Preset Script to remove async function.
+
+```jsx copy filename="version1.1.0 Preset Script"
+function Start() {
+  (async () => {
+    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+  })();
+}
+```
+
+</Steps>

@@ -24,6 +24,33 @@ const scoreBoard = GUI.getObject("SCORE_BOARD");
 const timerUI = GUI.getObject("TIMER_UI");
 ```
 
+## PLAYER
+
+플레이어의 아바타를 나타냅니다.
+
+```js showLineNumbers
+const speedUpItem = WORLD.getObject("SPEED_UP_ITEM");
+
+PLAYER.onCollide(speedUpItem, () => {
+  speedUpItem.kill();
+  PLAYER.changePlayerSpeed(1.5);
+});
+```
+
+## GLOBAL
+
+전역 객체에 다른 속성이나 메소드를 연결하는 데 사용됩니다.
+
+```js showLineNumbers filename="Script 1"
+GLOBAL.time = 10;
+```
+
+```js showLineNumbers filename="Script 2"
+if (GLOBAL.time > 10) {
+  //do something
+}
+```
+
 ---
 
 <Callout>
@@ -31,7 +58,9 @@ const timerUI = GUI.getObject("TIMER_UI");
   같습니다.
 </Callout>
 
-| Text  | Server Script | Client Script |
-| :---: | :-----------: | :-----------: |
-| WORLD |      ✅       |      ✅       |
-|  GUI  |      ❌       |      ✅       |
+|  Text  | Server Script | Client Script |
+| :----: | :-----------: | :-----------: |
+| WORLD  |      ✅       |      ✅       |
+|  GUI   |      ❌       |      ✅       |
+| PLAYER |      ❌       |      ✅       |
+| GLOBAL |      ❌       |      ✅       |

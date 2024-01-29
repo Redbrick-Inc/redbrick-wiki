@@ -16,36 +16,26 @@ Create a stepping stones and rename the title of the stones that should disappea
 <Callout type="error" icon="‼️">
   Don't forget to check Body in the object's properties panel to use methods
   like `onCollide`!
-  <center>
-  ![](../../../images/example-collect-body.png) 
-  Physics -> Body
-  </center>
+  <center>![](../../../images/example-collect-body.png) Physics -> Body</center>
 </Callout>
 
 ### Code
 
-```js showLineNumbers filename="PresetScript" {1-4, 13-19}
+```js showLineNumbers copy
 const falseboxes = [];
 for (let i = 0; i < 5; i++) {
   falseboxes[i] = WORLD.getObject("falsebox_" + i);
 }
 
 function Start() {
-  (async () => {
-    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-    const camera = WORLD.getObject("MainCamera");
-    const followingCamera = avatar.setFollowingCamera(camera);
-    avatar.setDefaultController();
-
-    falseboxes.forEach((box) => {
-      box.onCollide(avatar, () => {
-        box.kill();
-        setTimeout(() => {
-          box.revive();
-        }, 1000);
-      });
+  falseboxes.forEach((box) => {
+    box.onCollide(PLAYER, () => {
+      box.kill();
+      setTimeout(() => {
+        box.revive();
+      }, 1000);
     });
-  })();
+  });
 }
 ```
 

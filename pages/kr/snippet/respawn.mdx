@@ -4,38 +4,17 @@ import { Tabs } from "nextra/components";
 
 # 떨어졌을 때 원래 위치로 돌아가기
 
-<Callout type="info">
-  `아바타 사용 방법`에 대한 더 많은 정보는 [여기](./use-avatar)에서 확인할 수
-  있습니다.
-</Callout>
-
 <Tabs items={["example 1", "example 2"]} defaultIndex="0" >
     
     <Tabs.Tab>
 
         이 예제에서는 `아바타`의 `Y` 위치를 확인하여 간단하게 만들 수 있습니다.
 
-        ```js showLineNumbers copy filename="PresetScript" {1, 6, 15, 17}
-        //intialize avater here
-        let avatar;
-
-        function Start() {
-            (async () => {
-                //store avatar into the `avatar`
-                avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-                const camera = WORLD.getObject("MainCamera");
-                const followingCamera = avatar.setFollowingCamera(camera);
-                avatar.setDefaultController();
-            })();
-        }
-
+        ```js showLineNumbers copy
         function Update(dt) {
-            //check if avatar exists
-            if (avatar) {
-                //respawn when avatar y position is less than -5
-                if (avatar.position.y < -5){
-                    avatar.spawn();
-                }
+            //respawn when PLAYER y position is less than -5
+            if (PLAYER.position.y < -5){
+                PLAYER.spawn();
             }
         }
         ```
@@ -71,21 +50,14 @@ import { Tabs } from "nextra/components";
 
             ### Insert Code
 
-            ```js showLineNumbers copy filename="PresetScript" {10}
+            ```js showLineNumbers copy
             const spawnbox = WORLD.getObject("BOX(b5d)");
 
             function Start() {
-                (async () => {
-                    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-                    const camera = WORLD.getObject("MainCamera");
-                    const followingCamera = avatar.setFollowingCamera(camera);
-                    avatar.setDefaultController();
-
-                    // use here spawn related logic
-                    spawnbox.onCollide(avatar, () => {
-                        avatar.spawn();
-                    });
-                })();
+                // use here spawn related logic
+                spawnbox.onCollide(PLAYER, () => {
+                    PLAYER.spawn();
+                });
             }
             ```
 

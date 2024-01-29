@@ -1,0 +1,53 @@
+import { Steps } from "nextra/components";
+
+## 버전 1.1.1 `최근`
+
+- `2024/01/25`에 출시됨
+
+<Steps>
+### Additions
+
+#### 전역 객체
+
+- [`PLAYER` 전역 객체](../script/start/global-objects#player)에 대한 문서 추가
+- [`GLOBAL` 전역 객체](../script/start/global-objects#global)에 대한 문서 추가
+
+### Changes
+
+#### 프리셋 스크립트에서 `async` 함수 제거.
+
+```jsx copy filename="new Preset Script"
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+```
+
+</Steps>
+
+## 버전 1.1.0
+
+<Steps>
+
+### 제거됨
+
+#### 전역 객체
+
+`PLAYER` 전역 객체 제거
+
+### Changes
+
+프리셋 스크립트를 업데이트하여 async 함수 제거.
+
+```jsx copy filename="version1.1.0 Preset Script"
+function Start() {
+  (async () => {
+    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+  })();
+}
+```
+
+</Steps>

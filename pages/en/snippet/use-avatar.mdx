@@ -2,177 +2,29 @@ import { Callout } from "nextra/components";
 import { Steps } from "nextra/components";
 import { Tabs } from "nextra/components";
 
-# How to use `avatar` properly
-
-<Callout type="warning">
-  The avatar is initialized in the PresetScript. If you wish to use it, please
-  refer to the examples provided below.
-</Callout>
-
-<Callout type="info">
-  There are multiple ways to accomplish this; we have only provided some basic
-  methods. If you wish to use a different approach, you are more than welcome to
-  do so.
-</Callout>
+# How to use `PLAYER` properly
 
 <Steps>
 
-### Avatar Initialization
+### use PLAYER
 
-    <Tabs items={["example 1", "example 2", "example 3"]} defaultIndex="0">
-        <Tabs.Tab>
+```js showLineNumbers copy filename="Collect coin"
+const coin = WORLD.getObject("coinTitle");
 
-            In this example, you can learn how to utilize the avatar within the async function.
+coin.onCollide(PLAYER, () => {
+  coin.kill();
+});
+```
 
-            ```js showLineNumbers copy filename="PresetScript" {10}
-                const coin = WORLD.getObject("coinTitle");
+### PLAYER in `Update(dt)`
 
-                function Start() {
-                    (async () => {
-                        const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-                        const camera = WORLD.getObject("MainCamera");
-                        const followingCamera = avatar.setFollowingCamera(camera);
-                        avatar.setDefaultController();
-
-                        // use here avatar related logic
-                        coin.onCollide(avatar, () => {
-                            coin.kill();
-                        });
-                    })();
-                }
-            ```
-
-        </Tabs.Tab>
-        <Tabs.Tab>
-
-            In this example you can use simple `function` to manage your code.
-
-            ```js showLineNumbers copy filename="PresetScript" {9}
-            const coin = WORLD.getObject("coinTitle");
-            function Start() {
-                (async () => {
-                    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-                    const camera = WORLD.getObject("MainCamera");
-                    const followingCamera = avatar.setFollowingCamera(camera);
-                    avatar.setDefaultController();
-
-                    //call avatar related functions
-                    coinCollect(avatar);
-                })();
-            }
-
-            function coinCollect(avatar){
-                //use your avatar here
-                coin.onCollide(avatar, ()=>{
-                    coin.kill();
-                });
-            }
-            ```
-
-        </Tabs.Tab>
-
-        <Tabs.Tab>
-
-            If you wan to use outside of `PresetScript`,  you can use `REDBRICK.Signal` to export avatar after initialization
-
-            ```js showLineNumbers copy filename="PresetScript" {8}
-            function Start() {
-                (async () => {
-                    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-                    const camera = WORLD.getObject("MainCamera");
-                    const followingCamera = avatar.setFollowingCamera(camera);
-                    avatar.setDefaultController();
-
-                    //send `avatarIsReady` signal
-                    REDBRICK.Signal.send("avatarIsReady", avatar);
-                })();
-            }
-            ```
-
-            ```js showLineNumbers copy filename="otherScript" {5}
-            const coin = WORLD.getObject("coinTitle");
-
-            function Start() {
-
-                REDBRICK.Signal.addListener("avatarIsReady", (avatar)=>{
-                    coin.onCollide(avatar, ()=>{
-                        coin.kill();
-                    });
-                });
-            }
-            ```
-
-        </Tabs.Tab>
-    </Tabs>
-
-### Avatar in `Update(dt)`
-
-    If you wish to use `avatar` in `Update(dt)` function you can use like image down below.
-    <Tabs items={["example 1", "example 2"]} defaultIndex="0">
-        <Tabs.Tab>
-            ```js showLineNumbers copy filename="PresetScript" {1, 6, 15, 17}
-            //intialize avater here
-            let avatar;
-
-            function Start() {
-                (async () => {
-                    //store avatar into the `avatar`
-                    avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-                    const camera = WORLD.getObject("MainCamera");
-                    const followingCamera = avatar.setFollowingCamera(camera);
-                    avatar.setDefaultController();
-                })();
-            }
-
-            function Update(dt) {
-                //check if avatar exists
-                if (avatar) {
-                    //respawn when avatar y position is less than -5
-                    if (avatar.position.y < -5){
-                        avatar.spawn();
-                    }
-                }
-            }
-            ```
-        </Tabs.Tab>
-        <Tabs.Tab>
-            If you wan to use outside of `PresetScript`,  you can use `REDBRICK.Signal` to export avatar after initialization
-
-            ```js showLineNumbers copy filename="PresetScript" {8}
-            function Start() {
-                (async () => {
-                    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
-                    const camera = WORLD.getObject("MainCamera");
-                    const followingCamera = avatar.setFollowingCamera(camera);
-                    avatar.setDefaultController();
-
-                    //send `avatarIsReady` signal
-                    REDBRICK.Signal.send("avatarIsReady", avatar);
-                })();
-            }
-            ```
-
-            ```js showLineNumbers copy filename="otherScript" {1, 11, 13}
-            //intialize avater here
-            let avatar;
-
-            function Start() {
-                REDBRICK.Signal.addListener("avatarIsReady", (player)=>{
-                    avatar = player;
-                });
-            }
-
-            function Update(dt) {
-                //check if avatar exists
-                if (avatar) {
-                    //respawn when avatar y position is less than -5
-                    if (avatar.position.y < -5){
-                        avatar.spawn();
-                    }
-                }
-            }
-            ```
-        </Tabs.Tab>
-    </Tabs>
+```js showLineNumbers copy filename="PresetScript" {1, 6, 15, 17}
+function Update(dt) {
+  //respawn when avatar y position is less than -5
+  if (PLAYER.position.y < -5) {
+    PLAYER.spawn();
+  }
+}
+```
 
 </Steps>
