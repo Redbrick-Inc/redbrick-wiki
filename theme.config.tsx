@@ -1,8 +1,13 @@
 import React from "react";
+import Logo from "./images/logo.svg";
 import { DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
-  logo: <span>Redbrick Engine</span>,
+  logo: (
+    <>
+      <Logo />
+    </>
+  ),
   logoLink: false,
   chat: {
     link: "https://discord.com/invite/redbrick-create",
@@ -18,12 +23,18 @@ const config: DocsThemeConfig = {
     content: "",
   },
   search: {
-    placeholder: () => "Search here ...", // need  to fix search issue
+    placeholder: () => "Search here ...",
   },
   i18n: [
     { locale: "en", name: "English" },
     { locale: "kr", name: "한국어" },
   ],
+  head: (
+    <>
+      <title>Redbrick Wiki</title>
+      <link rel="icon" href="/favicon.ico" />
+    </>
+  ),
 };
 
 export default config;
