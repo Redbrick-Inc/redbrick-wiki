@@ -8,7 +8,7 @@ const config: DocsThemeConfig = {
       <Logo />
     </>
   ),
-  logoLink: false,
+  logoLink: true,
   chat: {
     link: "https://discord.com/invite/redbrick-create",
   },
