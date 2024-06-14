@@ -8,6 +8,18 @@ const config: DocsThemeConfig = {
       <Logo />
     </>
   ),
+  head: (
+    <>
+      <title>Redbrick Wiki</title>
+      <link rel="icon" href="/favicon.ico" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta property="og:title" content="Redbrick Wiki" />
+      <meta
+        property="og:description"
+        content="Create your own game and metaverse"
+      />
+    </>
+  ),
   logoLink: true,
   chat: {
     link: "https://discord.com/invite/redbrick-create",
@@ -29,12 +41,6 @@ const config: DocsThemeConfig = {
     { locale: "en", name: "English" },
     { locale: "kr", name: "한국어" },
   ],
-  head: (
-    <>
-      <title>Redbrick Wiki</title>
-      <link rel="icon" href="/favicon.ico" />
-    </>
-  ),
 };
 
 export default config;

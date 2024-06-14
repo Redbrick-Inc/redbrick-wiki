@@ -9,7 +9,65 @@ import { Tabs } from "nextra/components";
 </Callout>
 
 <Steps>
+### `.onCollide()` doesn't work
 
-###
+##### Make sure you turned on onCollide
+
+<Callout type="error" icon="‼️">
+  Don't forget to check Body in the object's properties panel to use methods
+  like `onCollide`!
+  <div style={{ textAlign: "center" }}>
+    <center>
+      ![](../../../images/example-collect-body.png) Physics -> Body
+    </center>
+  </div>
+</Callout>
+
+### I can't change name of the Script
+
+#### Edit from property panel
+
+You can **add/edit/delete** scripts from the Properties panel of the object. You can also rename the script.
+
+<Callout type="info">
+  For more information please check the [Object script
+  page](../script/start/object.mdx).
+</Callout>
+
+### How can I make retry button?
+
+### Object doesn't move
+
+```js
+const trash = WORLD.getObject("trash");
+
+function Start() {
+  trash.onCollide(avatar, handleTrashCollision);
+}
+
+function Update(dt) {
+  if (trash.body) {
+    trash.body.needUpdate = true;
+  }
+}
+```
+
+### How to change background color?
+
+### Can I change avatar jump height?
+
+### 캐릭터 사이즈를 줄일 수 있을까요 ?
+
+### How to change game view to first-person view.
+
+### What does this Error mean?
+
+### How to move avatar?
+
+### I changed camera position, but it doesn't work
+
+### How to show only text
+
+You can create an invisble GUI then setText.
 
 </Steps>
