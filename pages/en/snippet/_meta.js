@@ -1,5 +1,4 @@
 export default {
-  "use-avatar": "How to use PLAYER properly",
   "collect-items": "Collect items",
   "change-avatar-speed": "Avatar speed change ",
   spawn: "Set the Starting Point",
@@ -10,5 +9,6 @@ export default {
   "create-timer": "Create Timer, Countdown",
   "create-game-button": "Create a Game Start button",
   "victory-gui": "Return to first screen at the end of the game",
+  "create-shooting": "How to create shooting game",
   debug: "How to debug and error?",
 };

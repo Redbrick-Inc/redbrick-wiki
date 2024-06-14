@@ -1,0 +1,162 @@
+import { Callout } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# How to create shooting game
+
+<Steps>
+
+### code shooting logic first
+
+```js showLineNumbers copy filename="Shooting logic"
+const camera = WORLD.getObject("MainCamera"); // camera
+
+let balls = []; // Array to keep track of energy balls
+const BALL_SPEED = 1.5; // Speed of the energy ball
+
+function OnPointerDown() {
+  fireEnergyBall(); // Function called when pointer is pressed
+}
+
+function fireEnergyBall() {
+  createEnergyBall(); // Function to create and fire an energy ball
+}
+
+function createEnergyBall() {
+  let cameraDirection = new THREE.Vector3();
+  camera.getWorldDirection(cameraDirection); // Get camera direction
+  cameraDirection.setLength(BALL_SPEED); // Set the length of the direction vector to ball speed
+
+  const cameraPosition = camera.position;
+  const ball = WORLD.getObject("ball").clone(); // Clone a ball object
+
+  // Set the ball position in front of the camera
+  ball.position.set(
+    cameraPosition.x + cameraDirection.x,
+    cameraPosition.y + cameraDirection.y,
+    cameraPosition.z + cameraDirection.z
+  );
+  ball.rotation.copy(camera.rotation); // Copy the camera rotation to the ball
+
+  balls.push({ object: ball, direction: cameraDirection.clone() }); // Add the ball to the array with its direction
+
+  WORLD.add(ball); // Add the ball to the world
+}
+
+function Update(dt) {
+  moveEnergyBalls(); // Update function called to move energy balls
+}
+
+// Function to move energy balls
+function moveEnergyBalls() {
+  for (let i = balls.length - 1; i >= 0; i--) {
+    const ball = balls[i];
+    const ballPosition = ball.object.position;
+    const movementVector = ball.direction;
+
+    // Update ball position
+    ball.object.position.set(
+      ballPosition.x + movementVector.x,
+      ballPosition.y + movementVector.y,
+      ballPosition.z + movementVector.z
+    );
+
+    // Check if the ball is out of range
+    if (
+      ball.object.position.distanceToSquared(PLAYER.position) >
+      BALL_RANGE_SQUARED
+    ) {
+      console.log("Ball out of range:", ball);
+      WORLD.remove(ball.object); // Remove the ball from the world
+      balls.splice(i, 1); // Remove the ball from the array
+    }
+  }
+}
+```
+
+### add Target Objects
+
+```js showLineNumbers copy filename="Shooting logic"
+const camera = WORLD.getObject("MainCamera");
+let balls = []; // Array to keep track of energy balls
+const BALL_SPEED = 1.5; // Speed of the energy ball
+const BALL_RANGE_SQUARED = 20000; // Maximum range squared for the ball
+const TARGET_HIT_RANGE = 32; // Range to detect hit on target
+
+const targetObjects = []; // Array to keep track of target objects
+targetObjects.push(WORLD.getObject("vehicle_chariot_002(dff)")); // Adding a target object
+
+function OnPointerDown() {
+  fireEnergyBall(); // Function called when pointer is pressed
+}
+
+function fireEnergyBall() {
+  createEnergyBall(); // Function to create and fire an energy ball
+}
+
+function createEnergyBall() {
+  let cameraDirection = new THREE.Vector3();
+  camera.getWorldDirection(cameraDirection); // Get camera direction
+  cameraDirection.setLength(BALL_SPEED); // Set the length of the direction vector to ball speed
+
+  const cameraPosition = camera.position;
+  const ball = WORLD.getObject("ball").clone(); // Clone a ball object
+
+  // Set the ball position in front of the camera
+  ball.position.set(
+    cameraPosition.x + cameraDirection.x,
+    cameraPosition.y + cameraDirection.y,
+    cameraPosition.z + cameraDirection.z
+  );
+  ball.rotation.copy(camera.rotation); // Copy the camera rotation to the ball
+
+  balls.push({ object: ball, direction: cameraDirection.clone() }); // Add the ball to the array with its direction
+
+  WORLD.add(ball); // Add the ball to the world
+}
+
+function Update(dt) {
+  moveEnergyBalls(); // Update function called to move energy balls
+}
+
+// Function to move energy balls
+function moveEnergyBalls() {
+  for (let i = balls.length - 1; i >= 0; i--) {
+    const ball = balls[i];
+    const ballPosition = ball.object.position;
+    const movementVector = ball.direction;
+
+    // Update ball position
+    ball.object.position.set(
+      ballPosition.x + movementVector.x,
+      ballPosition.y + movementVector.y,
+      ballPosition.z + movementVector.z
+    );
+
+    // Check if the ball is out of range
+    if (
+      ball.object.position.distanceToSquared(PLAYER.position) >
+      BALL_RANGE_SQUARED
+    ) {
+      console.log("Ball out of range:", ball);
+      WORLD.remove(ball.object); // Remove the ball from the world
+      balls.splice(i, 1); // Remove the ball from the array
+    }
+
+    // Check if the ball hits any target
+    for (let j = 0; j < targetObjects.length; j++) {
+      const target = targetObjects[j];
+      if (
+        ball.object.position.distanceToSquared(target.position) <
+        TARGET_HIT_RANGE
+      ) {
+        target.kill(); // Kill the target if hit
+        WORLD.remove(ball.object); // Remove the ball from the world
+        balls.splice(i, 1); // Remove the ball from the array
+      }
+    }
+  }
+}
+```
+
+</Steps>
