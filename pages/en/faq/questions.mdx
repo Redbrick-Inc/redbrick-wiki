@@ -9,9 +9,9 @@ import { Tabs } from "nextra/components";
 </Callout>
 
 <Steps>
-### `.onCollide()` doesn't work
+### Why doesn't `.onCollide()` work?
 
-##### Make sure you turned on onCollide
+**Make sure you turned on onCollide**
 
 <Callout type="error" icon="‼️">
   Don't forget to check Body in the object's properties panel to use methods
@@ -23,22 +23,55 @@ import { Tabs } from "nextra/components";
   </div>
 </Callout>
 
-### I can't change name of the Script
+### How can I rename a Script?
 
-#### Edit from property panel
-
-You can **add/edit/delete** scripts from the Properties panel of the object. You can also rename the script.
+**Edit from property panel**
 
 <Callout type="info">
-  For more information please check the [Object script
-  page](../script/start/object.mdx).
+  You can **add/edit/delete** scripts from the Properties panel of the object.
+  You can also rename the script.
+  <br />
+  <center>![image](../../../images/rename.png) Rename </center>
 </Callout>
 
-### How can I make retry button?
+### HHow do I create a retry button?
 
-### Object doesn't move
+Create initialization function, where you put all of your intializion code whenever game starts. And use it whenever you want to restart the game.
 
-```js
+```js showLineNumbers filename="example restart" {5, 7-12, 18-20}
+let score = 0;
+const scoreGUI = GUI.getObject("score_gui");
+
+const startButton = GUI.getObject("start_button");
+const restartButton = GUI.getObject("restart_button");
+
+function gameStart() {
+  PLAYER.spawn();
+  score = 0;
+  scoreGUI.setText = score;
+  // other parts that needs to be initialized/set
+}
+
+startButton.onClick(() => {
+  gameStart(); //start
+});
+
+restartButton.onClick(() => {
+  gameStart(); //restart all values
+});
+```
+
+### Why isn't my object moving?
+
+<Callout type="info">
+  Use `body.needUpdate` to update the Physics body when it's **turned on**.
+  Update it everytime whenever object body position is changed.
+</Callout>
+<Callout type="warning">
+  You don't need to do this if the Physics body is **turned off**.
+</Callout>
+
+```js showLineNumbers {9}
 const trash = WORLD.getObject("trash");
 
 function Start() {
@@ -52,21 +85,64 @@ function Update(dt) {
 }
 ```
 
-### How to change background color?
+### How do I change the background color?
 
-### Can I change avatar jump height?
+Changing the background color in your project can be easily accomplished using the `WORLD.background` property and the `THREE.Color()` function from [Three.js](https://threejs.org/docs/index.html?q=color#api/en/math/Color). Below are various methods you can use to specify colors.
 
-### 캐릭터 사이즈를 줄일 수 있을까요 ?
+<Callout type="info">
+  Choose one of the methods listed below to set your background color.
+</Callout>
 
-### How to change game view to first-person view.
+```js showLineNumbers filename="Background change"
+//Hexadecimal color (recommended)
+WORLD.background = new THREE.Color(0xff0000);
 
-### What does this Error mean?
+//RGB string
+WORLD.background = new THREE.Color("rgb(255, 0, 0)");
+WORLD.background = new THREE.Color("rgb(100%, 0%, 0%)");
 
-### How to move avatar?
+//X11 color name - all 140 color names are supported.
+//Note the lack of CamelCase in the name
+WORLD.background = new THREE.Color("skyblue");
 
-### I changed camera position, but it doesn't work
+//HSL string
+WORLD.background = new THREE.Color("hsl(0, 100%, 50%)");
 
-### How to show only text
+//Separate RGB values between 0 and 1
+WORLD.background = new THREE.Color(1, 0, 0);
+```
+
+### How do I change the avatar's jump height?
+
+To change the jump height of the avatar or player, use `PLAYER.changePlayerJumpHeight(3)`. The default jump height is set to 3.
+
+### How can I reduce the character size?
+
+Currently, this feature is not supported. Stay tuned, as we may add it in the near future. 😀
+
+### How do I switch to first-person view?
+
+To switch to first-person view, `use camera.useFPS()`. To switch back to third-person view, use `camera.useTPV()`.
+
+### What does this error mean?
+
+- **TypeError**: This error occurs when an operation is performed on a value of an inappropriate type. For example, if you try to perform a mathematical operation on a string instead of a number, you'll get a `TypeError`.
+
+- **SyntaxError**: This error occurs when the code contains invalid syntax. It means there is a mistake in the code structure, such as missing parentheses, unmatched braces, or incorrect indentation, preventing the code from being parsed correctly.
+
+### How do I move the avatar?
+
+If you want the avatar to move along with moving objects it steps on, you can use the function `.changeAxisSpeed(x, y, z)`. This function allows you to set the movement speed for the avatar along the x, y, and z axes.
+
+### Why isn't my camera properties change working?
+
+Updates the camera projection matrix. Must be called after any change of parameters (`.fov`, `.far`, `.near`).
+
+### How Do I Change the Camera?
+
+To switch from Camera 1 to Camera 2, simply use the command `camera2.activate()`. If you want to switch to a different camera, use `otherCamera.activate()`.
+
+### How can I display only text?
 
 You can create an invisble GUI then setText.
 
