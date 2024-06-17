@@ -12,4 +12,21 @@ import { Tabs } from "nextra/components";
 
 ### Animation Tricks
 
+To achieve high-quality results, it is better to use Tween for smooth animations.
+
+```js showLineNumbers filename="Animation"
+const start = { y: 0 }; // Initial Y position
+const end = { y: 2 }; // Final Y position
+
+const tween = new TWEEN.Tween(start)
+    .to(end, 100) // Set duration
+    .onUpdate(() => {
+        object.position.y = start.y; // Update object's Y position
+    })
+    .easing(TWEEN.Easing.Quadratic.InOut) // Apply easing for smooth transitions
+    .repeat(Infinity) // Repeat indefinitely
+    .yoyo(true); // Reverse animation on each cycle
+    .start(); // Initiate the animation
+```
+
 </Steps>
