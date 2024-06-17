@@ -20,7 +20,7 @@ export default {
     type: "page",
   },
   faq: {
-    title: "FAQ",
+    title: "Appendix",
     type: "page",
   },
 };
