@@ -12,4 +12,21 @@ import { Tabs } from "nextra/components";
 
 ### 애니메이션 요령
 
+높은 품질의 결과를 얻으려면 부드러운 애니메이션을 위해 Tween을 사용하는 것이 좋습니다.
+
+```js showLineNumbers filename="Animation"
+const start = { y: 0 }; // 초기 Y 위치
+const end = { y: 2 }; // 최종 Y 위치
+
+const tween = new TWEEN.Tween(start)
+    .to(end, 100) // 지속 시간 설정
+    .onUpdate(() => {
+        object.position.y = start.y; // 객체의 Y 위치 업데이트
+    })
+    .easing(TWEEN.Easing.Quadratic.InOut) // 부드러운 전환을 위한 easing 적용
+    .repeat(Infinity) // 무한 반복
+    .yoyo(true); // 각 사이클에서 애니메이션 반전
+    .start(); // 애니메이션 시작
+```
+
 </Steps>
