@@ -15,7 +15,7 @@ const config: DocsThemeConfig = {
     const title = config.title + (route === "/" ? "" : " - Redbrick");
     const description =
       config.frontMatter.description ||
-      "Create your favourite games by using Redbrick Engine";
+      "Create your favorite games by using Redbrick Engine";
 
     return (
       <>
