@@ -77,10 +77,6 @@ function Update(dt) {
 <Callout> 
 **예시:** "Redbrick의 `WORLD.getObject` 메서드를 사용하여 제목으로 객체를 검색하는 데 도움이 필요합니다. 어떻게 해야 하나요?"
 
-```js
-const cube = WORLD.getObject("Cube");
-```
-
 </Callout>
 
 ### 경험 수준을 알려주세요
@@ -95,12 +91,11 @@ const obj = WORLD.getObject("Box");
 let direction = 1;
 
 function Update(dt) {
-obj.position.y += direction _ dt;
-if (obj.position.y > 5 || obj.position.y < 0) {
-direction _= -1;
+  obj.position.y += direction * dt;
+  if (obj.position.y > 5 || obj.position.y < 0) {
+    direction *= -1;
+  }
 }
-}
-
 ```
 
 </Callout>
