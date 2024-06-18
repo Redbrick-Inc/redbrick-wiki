@@ -1,5 +1,33 @@
 import { Steps } from "nextra/components";
 
+## Update
+
+<Steps>
+
+### Additions
+
+- Added control for player jump height using `.changePlayerJumpHeight`.
+- Camera
+  - Introduced a camera switch API with `.activate()`, which automatically enables the corresponding camera and disables all other cameras.
+  - Added camera api to switch to first-person view `.useFPS()`.
+  - Added camera api to switch to third-person view, `.useTPV()`.
+  - Added camera api to switch to VR, `.useVR({ VRObject: PLAYER });`.
+- OOBC
+  - Added OOBC revive functionality.
+  - Added GUI control for OOBC, including options for kill, revive, and move.
+  - Added `setText` method to GUI for OOBC.
+  - Added sprite thumbnail support for OOBC.
+
+### Improvements
+
+- Adjusted the avatar's nickname sprite to track the currently enabled camera correctly.
+- Corrected the avatar's WASD movement to follow the currently enabled camera accurately.
+- Limited the maximum and minimum range for orbit control to prevent mouse issues.
+- Fixed code editor autocomplete functionality.
+- Updated the AI Assistant (GPT) UI.
+
+</Steps>
+
 ## Version 1.1.1 `RECENT`
 
 - Released on `2024/01/25`
