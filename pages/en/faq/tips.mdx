@@ -6,13 +6,30 @@ import { Tabs } from "nextra/components";
 
 <Steps>
 
-### Save as file every 3 minutes
+### Save Your Work as a File Whenever You Make Important Changes
 
-### Try to use assets from studio asset library
+_To avoid losing your project and to keep track of your progress, it is recommended to save as a file every time you make significant changes. Keep these files locally on your computer._
 
+<Callout>
+
+- This way, you can easily access previous versions and recover old code if needed.
+
+- This is especially important if your internet connection is unstable.
+
+</Callout>
+
+### Please Use Assets from the Studio Asset Library
+
+_To prevent lag and potential issues, it is recommended to use assets from the studio asset library. Using damaged or corrupted 3D assets can cause problems and may break your project._
+
+<Callout>
+
+Therefore, please use assets from the studio asset library or opt for lightweight and simple 3D assets whenever possible.
+
+</Callout>
 ### Animation Tricks
 
-To achieve high-quality results, it is better to use Tween for smooth animations.
+_To achieve high-quality results, it is better to use Tween for smooth animations._
 
 ```js showLineNumbers filename="Animation"
 const start = { y: 0 }; // Initial Y position
@@ -28,5 +45,13 @@ const tween = new TWEEN.Tween(start)
     .yoyo(true); // Reverse animation on each cycle
     .start(); // Initiate the animation
 ```
+
+<Callout type="info">
+  Tween Easing Visualized Graph
+  <br />
+  <div style={{ textAlign: "center" }}>
+    <center>![](../../../images/tween.png) Tween easing graph</center>
+  </div>
+</Callout>
 
 </Steps>
