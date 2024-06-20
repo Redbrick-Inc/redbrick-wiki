@@ -23,4 +23,8 @@ export default {
     title: "Appendix",
     type: "page",
   },
+  ssafy12: {
+    title: "ssafy12",
+    type: "page",
+  },
 };
