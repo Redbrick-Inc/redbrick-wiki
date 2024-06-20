@@ -10,7 +10,10 @@
   "author": "Master Tim <tim@redbrick.space>",
   "license": "MIT",
   "dependencies": {
+    "@mdx-js/mdx": "^1.6.16",
+    "@mdx-js/react": "^1.6.16",
     "@svgr/webpack": "^8.1.0",
+    "mdx-embed": "^1.1.2",
     "next": "^14.0.4",
     "nextra": "^3.0.0-alpha.11",
     "nextra-theme-docs": "^3.0.0-alpha.11",

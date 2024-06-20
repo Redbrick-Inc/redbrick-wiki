@@ -9,6 +9,12 @@ const config: DocsThemeConfig = {
       <Logo />
     </>
   ),
+  banner: {
+    key: "Welcome message",
+    content: (
+      <a>🎉 Welcome to Our Freshly Updated Wiki! Explore and Enjoy! 🌟</a>
+    ),
+  },
   head: function useHead() {
     const config = useConfig();
     const { route } = useRouter();
@@ -43,6 +49,10 @@ const config: DocsThemeConfig = {
   },
   search: {
     placeholder: () => "Search here ...",
+  },
+  color: {
+    hue: 360,
+    saturation: 60,
   },
   i18n: [
     { locale: "en", name: "English" },
