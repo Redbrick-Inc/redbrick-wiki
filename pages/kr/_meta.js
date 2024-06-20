@@ -16,7 +16,7 @@ export default {
     type: "page",
   },
   snippet: {
-    title: "Snippet",
+    title: "스니펫",
     type: "page",
   },
   faq: {
