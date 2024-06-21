@@ -1,4 +1,5 @@
 export default {
-  "create": "Create World",
-  "operate": "Panels & Toolbars"
-}
+  "content-type": "Content Type",
+  create: "Create World",
+  operate: "Panels & Toolbars",
+};
