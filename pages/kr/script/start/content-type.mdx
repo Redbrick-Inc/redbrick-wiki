@@ -1,8 +1,30 @@
-import { Callout } from "nextra/components";
+import { Callout, Cards } from "nextra/components";
 
 # Content type
 
 > 콘텐츠 유형에 대한 정보를 제공합니다.
+
+프로젝트를 시작하기 전에 만들고자 하는 콘텐츠 유형을 선택할 수 있습니다. 선택할 수 있는 콘텐츠 유형은 세 가지가 있습니다:
+
+1. **메타버스**: 이 모드에서는 카메라가 항상 아바타를 따라갑니다.
+
+2. **게임**: 이 모드에서는 아바타가 선택 사항입니다. 사용자가 아바타를 사용할지, 그리고 카메라가 아바타를 따라갈지를 결정할 수 있습니다. 이 옵션은 높은 유연성을 제공합니다.
+
+3. **VR**: 이 모드는 가상 현실을 지원합니다. 메타버스를 선택하고 VR을 활성화하면 VR 경험이 자동으로 아바타와 연결됩니다. 게임 모드에서는 VR의 위치를 사용자가 원하는 대로 설정할 수 있습니다
+
+<Callout type="warning">
+  콘텐츠 유형을 선택한 후 개발 중에 이를 변경하고 싶다면 걱정하지 마세요.
+  언제든지 선호에 따라 사전 설정된 스크립트를 쉽게 변경할 수 있습니다.
+</Callout>
+
+<Cards>
+  <Cards.Card title="Metaverse" href="./content-type#metaverse" />
+  <Cards.Card title="Game" href="./content-type#game" />
+  <Cards.Card title="VR" href="./content-type#vr-option" />
+</Cards>
+
+<br />
+<center>![options-image](/images/options.png) Options Images</center>
 
 ## Metaverse
 

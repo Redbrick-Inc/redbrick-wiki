@@ -1,8 +1,32 @@
-import { Callout } from "nextra/components";
+import { Callout, Cards } from "nextra/components";
 
 # Content type
 
 > Provides information about content types.
+
+Before starting a project, you can choose the type of content you want to create. There are three different content types available:
+
+1. **Metaverse**: In this mode, the camera always follows the avatar.
+
+2. **Game**: In this mode, an avatar is optional. It is up to the user to decide if they want an avatar and whether the camera should follow it. This option provides high flexibility.
+
+3. **VR**: This mode supports virtual reality. If you choose the Metaverse and enable VR, the VR experience will automatically be linked to the avatar. In the Game mode, the placement of VR depends on the user's preference.
+
+<Callout type="warning">
+  If you choose a content type and later decide to change it during development,
+  there is no need to worry. You can easily change the preset script at any time
+  based on your preference.
+</Callout>
+
+<Cards>
+  <Cards.Card title="Metaverse" href="./content-type#metaverse" />
+  <Cards.Card title="Game" href="./content-type#game" />
+  <Cards.Card title="VR" href="./content-type#vr-option" />
+</Cards>
+
+<br />
+
+<center>![options-image](/images/options.png) Options Images</center>
 
 ## Metaverse
 
