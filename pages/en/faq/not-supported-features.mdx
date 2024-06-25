@@ -17,11 +17,23 @@ You cannot add a GIF and use it as a GUI. However, you can use `tween` or `move`
 
 ### Control Key Customization
 
-Changing the control key for the avatar from 'WASD' is not supported.
+Changing the control key for the avatar from 'W, A, S, D, Space Bar' is not supported.
 
 ### Access to Old Code
 
-There is no built-in feature to track old code similar to Git.
+There is no version control system like Git to record changes in code.
+If you want to preserve the existing code before making changes, comment out the existing code or save the project as a file.
+
+```js showLineNumbers filename="You can comment out the existing code and add new code."
+// comment out the existing code
+// const score_board = GUI.getObject("score_board1");
+// score_board.setText("100");
+
+
+// new code
+const score_board = GUI.getObject("score_board2");
+score_board.setText("200");
+```
 
 <Callout type="info">
   To keep track of your old code, you can save your work as a file and store it
@@ -36,6 +48,10 @@ There is no built-in feature to track old code similar to Git.
 
 Moving the location of the script is currently not supported.
 
+<Callout type="info">
+  <center>![options-image](/images/script-window.png) script window</center>
+</Callout>
+
 ### Custom Text Fonts
 
 Adding your own text fonts is not supported at the moment.
@@ -43,5 +59,13 @@ Adding your own text fonts is not supported at the moment.
 ### GUI Hover Feature
 
 There is no GUI hover feature available.
+
+### After closing the script window, Control + Z
+
+You can use Control + Z within the script window, but once you close the script window, the recorded code changes up to that point will be reset.  
+
+<Callout type="info">
+  <center>![options-image](/images/close-script-window.png) The close button of the script window</center>
+</Callout>
 
 </Steps>

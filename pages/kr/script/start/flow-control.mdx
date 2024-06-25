@@ -1,0 +1,145 @@
+import { Callout } from "nextra/components";
+
+# 코드 실행 흐름 제어
+
+> 레드브릭 스튜디오의 코드 실행 흐름에 대해 안내합니다.
+
+## 코드 실행 흐름이란?
+
+다음과 같은 코드가 있습니다.
+
+```js showLineNumbers filename="script"
+function func1 () {
+    console.log("첫번째 함수 실행");
+};
+
+function func2 () {
+    console.log("두번째 함수 실행");
+};
+
+console.log("Hi Redbrick!");
+func1();
+func2();
+```
+
+위의 코드를 실행하면 결과는 다음과 같이 나타납니다.
+
+```showLineNumbers filename="콘솔 화면"
+> Hi Redbrick!
+> 첫번째 함수 실행
+> 두번째 함수 실행
+```
+
+코드가 위에서 아래로 내려가는 순서로 실행되는 것을 알 수 있습니다.  
+이처럼 코드 실행의 흐름이란 **프로그램이 명령어를 실행하는 순서**를 말합니다.  
+코드 실행 흐름 제어는 이러한 실행 순서를 제어하는 방법입니다.  
+
+## 코드 실행 흐름의 종류
+
+레드브릭 스튜디오에서 코드 실행의 흐름은 크게 두가지로 나뉩니다.  
+바로 스크립트 외부에서의 흐름과 스크립트 내부에서의 흐름입니다.  
+
+### 스크립트 내부에서의 흐름
+
+```js showLineNumbers filename="script"
+console.log("Hi Redbrick!);
+
+function Start() {
+  console.log("I like Redbrick);
+}
+
+function Update() {
+  console.log("I like coding);
+}
+
+console.log("welcome to Redbrick land!);
+```
+
+
+위 코드를 실행하면 결과는 다음과 같이 나타납니다.  
+
+```showLineNumbers filename="콘솔 화면"
+> Hi Redbrick!
+> welcome to Redbrick land!
+> I like Redbrick
+> I like coding
+> I like coding
+> I like coding
+> I like coding
+> I like coding
+...
+```
+
+스크립트 내부의 코드를 실행할 때, **Start와 Update 함수를 제외한 나머지 코드들이 가장 먼저 실행**됩니다.  
+**이후 Start 함수가 실행 된 후에, 마지막으로 Update 함수가 실행**됩니다.  
+
+또한, 다른 코드들은 스크립트가 실행 될 때 처음 한번만 실행되지만, **Update 함수는 매 프레임 마다 실행**됩니다.  
+따라서 따로 종료 조건을 걸어주지 않는 한, "I like coding" 문구는 게임이 끝날 때까지 지속적으로 출력됩니다.  
+
+### 스크립트 외부에서의 흐름
+
+<Callout type="info">
+  <center>![options-image](/images/script-window.png) 그림1 - 스크립트 창</center>
+</Callout>
+
+위의 코드에서 보셨듯이, 레드브릭 엔진에서는 **위에서 아래로 내려가는 순서로 코드가 실행**됩니다.  
+스크립트 또한 마찬가지 입니다.  
+
+위 사진에 보이는 스크립트들이 실행되는 순서는 다음과 같습니다.  
+<Callout type="info">
+  <center>![options-image](/images/script-order.png) 그림2 - 스크립트의 실행 순서</center>
+</Callout>
+
+가장 위에 있는 스크립트 "PresetScript"가 먼저 실행되고, 이후 아래로 내려가며 차례로 실행되어 "Timer"가 마지막으로 실행됩니다.  
+
+"PresetScript"와 "MainScript"의 내부 코드는 다음과 같습니다.  
+```js showLineNumbers filename="PresetScript"
+console.log(GLOBAL.variable);
+```
+
+```js showLineNumbers filename="MainScript"
+GLOBAL.variable = "Hello World!";
+```
+
+"PresetScript" 에서는 "MainScript"에서 선언한 변수를 호출합니다.  
+그런데 "MainScript"는 "PresetScript"보다 아래에 있으므로, `console.log(GLOBAL.variable)` 코드가 실행될 때는 아직 선언되지 않은 `GLOBAL.variable` 변수를 호출하게 됩니다.  
+따라서 결과는 다음과 같습니다.  
+
+```showLineNumbers filename="콘솔 화면"
+> undefined
+```
+
+아직 선언되지도 않은 변수를 호출하려고 하니 `GLOBAL.variable` 변수는 아직 값을 할당받지 않은 상태라는 결과가 나옵니다.  
+  
+## 스크립트 내부와 외부의 흐름을 합쳤을 때
+
+위의 그림2에서, 외부와 내부를 통틀어 코드의 흐름은 다음과 같습니다.  
+
+```showLineNumbers filename="코드의 실행 흐름"
+> PresetScript의 일반 코드 실행
+> MainScript의 일반 코드 실행
+> Enemy의 일반 코드 실행
+> GUI_Manager의 일반 코드 실행
+> Score_Board의 일반 코드 실행
+> Timer의 일반 코드 실행
+  
+> PresetScript의 Start 함수 실행
+> MainScript의 Start 함수 실행
+> Enemy의 Start 함수 실행
+> GUI_Manager의 Start 함수 실행
+> Score_Board의 Start 함수 실행
+> Timer의 Start 함수 실행
+  
+> PresetScript의 Update 함수 실행
+> MainScript의 Update 함수 실행
+> Enemy의 Update 함수 실행
+> GUI_Manager의 Update 함수 실행
+> Score_Board의 Update 함수 실행
+> Timer의 Update 함수 실행
+```
+
+위와 같이, **스크립트의 위에서 아래로 순회하며 각 스크립트의 일반 코드(Start와 Update 함수를 제외한 나머지 코드)들을 먼저 실행**한 후,  
+다시 처음 스크립트로 올라가서 또다시 **위에서 아래로 순회하며 Start 함수를 실행**합니다.  
+그리고 마찬가지로 다시 위로 올라가서 **Update 함수를 차례로 실행**합니다.  
+
+

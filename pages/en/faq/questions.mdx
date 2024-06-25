@@ -59,7 +59,14 @@ restartButton.onClick(() => {
 
 ### Why isn't my object moving?
 
+Check if the physics body is enabled.
+
 <Callout type="info">
+  <div style={{ textAlign: "center" }}>
+    <center>
+      ![](../../../images/example-collect-body.png) Physics -> Body
+    </center>
+  </div>
   Use `body.needUpdate` to update the Physics body when it's **turned on**.
   Update it everytime whenever object body position is changed.
 </Callout>
@@ -76,7 +83,7 @@ function Start() {
 
 function Update(dt) {
   if (trash.body) {
-    trash.body.needUpdate = true;
+    trash.body.needUpdate = true; //Use body.needUpdate to update
   }
 }
 ```
@@ -136,6 +143,35 @@ To switch from Camera 1 to Camera 2, simply use the command `camera2.activate()`
 
 ### How can I display only text?
 
-You can create an invisble GUI then setText.
+Here are two ways.
+
+<Callout type="info">
+  first way  
+  <div style={{ textAlign: "center" }}>
+    <center>
+      ![](../../../images/set-transparency-0.png) Properties panel for GUI objects -> Appearance -> Transparency  
+      Properties panel for GUI objects -> Text -> TextInput
+    </center>
+  </div>
+  Create any GUI element, then adjust the Transparency value to 0 to make it transparent.  
+  After that, when you enter text, only the text will be visible, not the GUI's image.
+</Callout>
+
+<Callout type="info">
+  second way  
+  <div style={{ textAlign: "center" }}>
+    <center>
+      ![](../../../images/empty_gui.png) left panel -> My -> Upload transparent PNG file -> Add to GUI
+    </center>
+  </div>
+  Upload a transparent PNG file, then enter text to use it.
+</Callout>
+
+### I want to bring and use variables and functions declared in another script
+
+Use [GLOBAL](https://wiki.redbrick.land/en/script/start/global-objects#global).
+
+Even though I used GLOBAL, I can't import variables and functions from other scripts?   
+Check if you've coded with attention to [flow control](https://wiki.redbrick.land/en/script/start/flow-control).
 
 </Steps>
