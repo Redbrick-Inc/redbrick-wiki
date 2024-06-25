@@ -7,7 +7,7 @@ import { Tabs } from "nextra/components";
 <Steps>
 ### `.onCollide()`가 작동하지 않는 이유는 무엇인가요?
 
-**onCollide를 켰는지 확인하세요**
+**Physics Body를 켰는지 확인하세요**
 
 <Callout type="error" icon="‼️">
   `onCollide`와 같은 메서드를 사용하려면 객체의 속성 패널에서 Body를 체크하는
@@ -41,19 +41,52 @@ const scoreGUI = GUI.getObject("score_gui");
 const startButton = GUI.getObject("start_button");
 const restartButton = GUI.getObject("restart_button");
 
-function gameStart() {
+function gameStart() { //게임을 초기화 해주는 함수
   PLAYER.spawn();
   score = 0;
   scoreGUI.setText = score;
-  // 초기화/설정이 필요한 다른 부분들
+  // 기타 초기화, 설정이 필요한 다른 부분들을 추가하세요
 }
 
 startButton.onClick(() => {
-  gameStart(); // 시작
+  gameStart(); // 시작할 때 게임 초기화
 });
 
 restartButton.onClick(() => {
-  gameStart(); // 모든 값을 재설정
+  gameStart(); // 재시작 버튼 누를 때 게임 초기화
+});
+```
+
+### 게임을 일시정지하는 기능을 어떻게 만드나요?
+
+사용자 정의 함수로 게임을 정지시키는 함수를 생성하세요.  
+그리고 게임을 멈출떄마다 그 함수를 사용하세요.  
+
+```js showLineNumbers filename="example game pause" {8-12, 14-17}
+const timer = new REDBRICK.Timer();
+
+timer.start();
+
+const pauseButton = GUI.getObject("pause_button");
+const playButton = GUI.getObject("play_button");
+
+function gamePause() { //게임을 일시정지 해주는 함수
+  PLAYER.changePlayerSpeed(0);
+  timer.pause();
+  // 기타 정지가 필요한 다른 부분들을 추가하세요
+};
+
+function gamePlay() { //정지된 게임을 다시 플레이하게 하는 함수
+  PLAYER.changePlayerSpeed(1);
+  timer.resume();
+};
+
+pauseButton.onClick(() => {
+  gamePause(); //게임 정지
+});
+
+playButton.onClick(() => {
+  gamePlay(); // 게임 플레이
 });
 ```
 

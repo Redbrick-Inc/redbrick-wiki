@@ -7,7 +7,7 @@ import { Tabs } from "nextra/components";
 <Steps>
 ### Why doesn't `.onCollide()` work?
 
-**Make sure you turned on onCollide**
+**Make sure you turned on Physics Body**
 
 <Callout type="error" icon="‼️">
   Don't forget to check Body in the object's properties panel to use methods
@@ -41,11 +41,11 @@ const scoreGUI = GUI.getObject("score_gui");
 const startButton = GUI.getObject("start_button");
 const restartButton = GUI.getObject("restart_button");
 
-function gameStart() {
+function gameStart() {// Function to restart the game
   PLAYER.spawn();
   score = 0;
   scoreGUI.setText = score;
-  // other parts that needs to be initialized/set
+  // Add other parts that need initialization or setup
 }
 
 startButton.onClick(() => {
@@ -57,7 +57,39 @@ restartButton.onClick(() => {
 });
 ```
 
-### Why isn't my object moving?
+### How do I create a function to pause the game?
+
+Create a custom function to pause the game, and use that function whenever you need to pause the game.
+
+```js showLineNumbers filename="example game pause" {8-12, 14-17}
+const timer = new REDBRICK.Timer();
+
+timer.start();
+
+const pauseButton = GUI.getObject("pause_button");
+const playButton = GUI.getObject("play_button");
+
+function gamePause() { // Function to pause the game
+  PLAYER.changePlayerSpeed(0);
+  timer.pause();
+  // Add any other necessary pause operations
+};
+
+function gamePlay() { // Function to resume the paused game
+  PLAYER.changePlayerSpeed(1);
+  timer.resume();
+};
+
+pauseButton.onClick(() => {
+  gamePause(); // Pause the game
+});
+
+playButton.onClick(() => {
+  gamePlay(); // Resume the game
+});
+```
+
+### The changes to the object's position and rotation are not being applied.
 
 Check if the physics body is enabled.
 
