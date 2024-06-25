@@ -25,11 +25,16 @@ GUI의 형태를 변경할 수는 없지만 `tween` 또는 `move` 기능을 사�
 Git과 같은 형상관리, 또는 코드의 변경사항을 기록하는 기능은 없습니다.  
 코드를 변경하기 전에 기존 코드를 보관하고 싶다면 기존 코드를 주석처리 하거나, 프로젝트를 파일로 저장하여 보관하세요.
 
-<Callout type="info">
-  기존 코드를 주석처리 하고 새로운 코드를 추가할 수 있습니다.
-  <br/>
-  <center>![options-image](/images/annotation.png) 코드 주석 처리</center>
-</Callout>
+```js showLineNumbers filename="기존 코드를 주석처리 하고 새로운 코드를 추가할 수 있습니다."
+// 기존 코드 주석처리
+// const score_board = GUI.getObject("score_board1");
+// score_board.setText("100");
+
+
+//새로운 코드
+const score_board = GUI.getObject("score_board2");
+score_board.setText("200");
+```
 
 <Callout type="info">
   현재 코드를 보관하고 싶다면 파일로 저장하여 컴퓨터에 보관할 수 있습니다.
@@ -52,5 +57,13 @@ Git과 같은 형상관리, 또는 코드의 변경사항을 기록하는 기능
 ### GUI 호버(hover) 기능
 
 GUI 위에 마우스가 올라가고 내려가는 것을 감지하는 호버(hover) 기능은 지원되지 않습니다.
+
+### 스크립트 창을 닫은 후 Control + Z
+
+스크립트 창 내부에서 Control + Z 사용이 가능하지만, 스크립트 창을 닫으면 그때까지의 코드 변경 기록은 초기화 됩니다.  
+
+<Callout type="info">
+  <center>![options-image](/images/close-script-window.png) 스크립트 창의 닫기 버튼</center>
+</Callout>
 
 </Steps>

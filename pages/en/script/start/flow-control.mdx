@@ -1,0 +1,142 @@
+import { Callout } from "nextra/components";
+
+# flow control
+
+> Here's a guide on the code execution flow in Redbrick Studio.
+
+## What is Code Flow Control?
+
+Consider the following code:
+
+```js showLineNumbers filename="script"
+function func1 () {
+    console.log("Execute the first function.");
+};
+
+function func2 () {
+    console.log("Execute the second function.");
+};
+
+console.log("Hi Redbrick!");
+func1();
+func2();
+```
+
+When you run the above code, the result appears as follows.
+
+```showLineNumbers filename="console window"
+> Hi Redbrick!
+> Execute the first function.
+> Execute the second function.
+```
+
+You can observe that the code runs in the order from top to bottom.  
+**This sequence of executing commands in a program** is what we refer to as the code execution flow.  
+Flow control involves managing this sequence of execution.  
+
+## Types of Flow control
+
+In Redbrick Studio, the code execution flow can be broadly divided into two categories: external flow from scripts and internal flow within scripts.
+
+### internal flow within scripts
+
+```js showLineNumbers filename="script"
+console.log("Hi Redbrick!);
+
+function Start() {
+  console.log("I like Redbrick);
+}
+
+function Update() {
+  console.log("I like coding);
+}
+
+console.log("welcome to Redbrick land!);
+```
+
+
+When you run the above code, the result appears as follows.  
+
+```showLineNumbers filename="console window"
+> Hi Redbrick!
+> welcome to Redbrick land!
+> I like Redbrick
+> I like coding
+> I like coding
+> I like coding
+> I like coding
+> I like coding
+...
+```
+
+When executing code within the script, **all code except for Start and Update functions** runs first.  
+**After the Start function executes**, the Update function runs last.  
+
+Furthermore, other codes execute only once when the script runs, but the **Update function runs every frame**.  
+Therefore, unless a specific termination condition is set, the phrase "I like coding" will continue to be output continuously until the end of the game.  
+
+### external flow from scripts
+
+<Callout type="info">
+  <center>![options-image](/images/script-window.png) Figure 1 - script window</center>
+</Callout>
+
+As you saw in the above code, in the Redbrick Engine, code is executed **in the order from top to bottom**.  
+This applies to scripts as well.  
+
+The scripts visible in the above picture are executed in the following order:  
+<Callout type="info">
+  <center>![options-image](/images/script-order.png) Figure 2 - Execution order of the script</center>
+</Callout>
+
+The script "PresetScript" at the top is executed first, followed by the scripts below in sequence, ending with "Timer" being executed last.  
+
+The internal code of 'PresetScript' and 'MainScript' is as follows:
+```js showLineNumbers filename="PresetScript"
+console.log(GLOBAL.variable);
+```
+
+```js showLineNumbers filename="MainScript"
+GLOBAL.variable = "Hello World!";
+```
+
+In 'PresetScript', variables declared in 'MainScript' are referenced.  
+However, since 'MainScript' is positioned below 'PresetScript', when the `console.log(GLOBAL.variable)` code is executed, it attempts to reference `GLOBAL.variable` which has not yet been declared.  
+Therefore, the result is as follows:  
+
+```showLineNumbers filename="console window"
+> undefined
+```
+
+When attempting to reference a variable `GLOBAL.variable` that has not yet been declared, the result indicates that `GLOBAL.variable` remains uninitialized.  
+
+## Combining Internal and External Script Flows  
+
+In Figure 2 above, when combining the flow of code both internally and externally, it unfolds as follows:  
+
+```showLineNumbers filename="code execute flow"
+> Execution of general code in PresetScript  
+> Execution of general code in MainScript  
+> Execution of general code in Enemy  
+> Execution of general code in GUI_Manager  
+> Execution of general code in Score_Board  
+> Execution of general code in Timer  
+
+> Execution of Start function in PresetScript  
+> Execution of Start function in MainScript  
+> Execution of Start function in Enemy  
+> Execution of Start function in GUI_Manager  
+> Execution of Start function in Score_Board  
+> Execution of Start function in Timer  
+
+> Execution of Update function in PresetScript  
+> Execution of Update function in MainScript  
+> Execution of Update function in Enemy  
+> Execution of Update function in GUI_Manager  
+> Execution of Update function in Score_Board  
+> Execution of Update function in Timer
+```
+
+Similarly, the scripts iterate from top to bottom, executing each script's general code (excluding Start and Update functions) first.  
+Afterward, it goes back to the top and executes the Start functions of each script in sequence.  
+Then, it iterates upwards again to execute the Update functions in order.  

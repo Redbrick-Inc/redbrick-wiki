@@ -30,7 +30,7 @@ import { Tabs } from "nextra/components";
   <center>![image](../../../images/rename.png) 이름 변경 </center>
 </Callout>
 
-### 재시도 버튼을 어떻게 만드나요?
+### 재시작 기능을 어떻게 만드나요?
 
 게임이 시작될 때 모든 초기화 코드를 넣는 초기화 함수를 생성하세요. 그리고 게임을 재시작할 때마다 이 함수를 사용하세요.
 
@@ -57,10 +57,17 @@ restartButton.onClick(() => {
 });
 ```
 
-### Why isn't my object moving?
+### 오브젝트의 위치, 회전 값을 변경했는데 적용되지 않아요
+
+Physics body가 켜져있는지 확인하세요.
 
 <Callout type="info">
-  **켜진 상태**에서 객체의 위치가 변경될 때마다 Physics body를 업데이트하려면
+  <div style={{ textAlign: "center" }}>
+    <center>
+      ![](../../../images/example-collect-body.png) Physics -> Body
+    </center>
+  </div>
+  **Physics body가 켜진 상태**에서 객체의 위치나 회전 값이 변경될 때, 변경 값을 즉시 적용하고 싶다면 
   `body.needUpdate`를 사용하세요.
 </Callout>
 <Callout type="warning">
@@ -76,7 +83,7 @@ function Start() {
 
 function Update(dt) {
   if (trash.body) {
-    trash.body.needUpdate = true;
+    trash.body.needUpdate = true; //needUpdate를 사용해 위치나 회전 값의 변경을 즉시 적용
   }
 }
 ```
@@ -110,7 +117,7 @@ WORLD.background = new THREE.Color(1, 0, 0);
 
 ### 아바타의 점프 높이를 어떻게 변경하나요?
 
-아바타 또는 플레이어의 점프 높이를 변경하려면 PLAYER.changePlayerJumpHeight(3)를 사용하세요. 기본 점프 높이는 3으로 설정되어 있습니다.
+아바타 또는 플레이어의 점프 높이를 변경하려면 `PLAYER.changePlayerJumpHeight(3)` 를 사용하세요. 기본 점프 높이는 3으로 설정되어 있습니다.
 
 ### 1인칭 시점으로 어떻게 전환하나요?
 
@@ -122,9 +129,10 @@ WORLD.background = new THREE.Color(1, 0, 0);
 
 - **SyntaxError**: 이 오류는 코드에 잘못된 구문이 포함되어 있을 때 발생합니다. 괄호가 없거나, 중괄호가 맞지 않거나, 잘못된 들여쓰기 등의 코드 구조에 오류가 있어 코드가 올바르게 파싱되지 않음을 의미합니다.
 
-### 아바타를 어떻게 움직이나요?
+### 움직이는 오브젝트위에 있는 아바타가 오브젝트와 같이 이동하지 않아요
 
-아바타가 밟고 있는 이동하는 객체와 함께 움직이게 하려면 `.changeAxisSpeed(x, y, z)` 함수를 사용하세요. 이 함수는 아바타의 x, y, z 축 방향으로의 이동 속도를 설정할 수 있습니다.
+움직이고 있는 오브젝트가 있고 아바타가 그 오브젝트를 밟고 있을 때, 아바타도 같이 움직이게 하려면 `.changeAxisSpeed(x, y, z)` 함수를 사용하세요.  
+이 함수는 아바타의 x, y, z 축 방향으로의 이동 속도를 설정할 수 있습니다.
 
 ### 카메라 속성 변경이 작동하지 않는 이유는 무엇인가요?
 
@@ -134,9 +142,31 @@ WORLD.background = new THREE.Color(1, 0, 0);
 
 카메라 1에서 카메라 2로 전환하려면 간단히 `camera2.activate()` 명령을 사용하세요. 다른 카메라로 전환하려면 `otherCamera.activate()`를 사용하세요.
 
-### 텍스트만 표시하려면 어떻게 하나요?
+### GUI 이미지 없이 텍스트만 나오게 하고 싶어요
 
-보이지 않는 GUI를 생성한 다음 setText를 설정할 수 있습니다
+두가지 방법이 있습니다.  
+
+<Callout type="info">
+  방법1  
+  <div style={{ textAlign: "center" }}>
+    <center>
+      ![](../../../images/set-transparency-0.png) GUI 객체의 속성 패널 -> Appearance -> Transparency  
+      GUI 객체의 속성 패널 -> Text -> TextInput
+    </center>
+  </div>
+  아무런 GUI나 생성한 뒤, Transparency 값을 0으로 조절해 투명하게 만듭니다.  
+  이후 텍스트를 입력하면 GUI의 이미지는 보이지 않고 텍스트만 보이게 됩니다.  
+</Callout>
+
+<Callout type="info">
+  방법2  
+  <div style={{ textAlign: "center" }}>
+    <center>
+      ![](../../../images/empty_gui.png) 좌측 패널 -> My -> 투명한 PNG파일 업로드 -> Add to GUI
+    </center>
+  </div>
+  투명한 PNG 파일을 업로드 한 후, 텍스트를 입력하여 사용합니다.  
+</Callout>
 
 ### 다른 스크립트에서 선언한 변수, 함수를 가져와 사용하고 싶어요
 
