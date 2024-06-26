@@ -42,7 +42,13 @@ score_board.setText("200");
   <center>![파일로 저장](../../../images/save_to_file1.png) 상단 탭에서 File -> Save to File 클릭</center>
 </Callout>
 
-### 스크립트 위치 이동
+스크립트 창 내부에서 `Control + Z` 사용이 가능하지만, 스크립트 코드창을 닫으면 그때까지의 코드 변경 기록은 초기화 되어 `Control + Z`를 사용하여 이전 코드로 되돌릴 수 없습니다.  
+
+<Callout type="info">
+  <center>![options-image](/images/close-script-window.png) 스크립트 코드창의 닫기 버튼</center>
+</Callout>
+
+### 스크립트 순서 변경
 
 스크립트창에 있는 스크립트의 순서를 바꾸는 기능은 현재 지원되지 않습니다. 
 
@@ -58,12 +64,13 @@ score_board.setText("200");
 
 GUI 위에 마우스가 올라가고 내려가는 것을 감지하는 호버(hover) 기능은 지원되지 않습니다.
 
-### 스크립트 창을 닫은 후 Control + Z
+### 씬 또는 게임 재시작
 
-스크립트 창 내부에서 Control + Z 사용이 가능하지만, 스크립트 창을 닫으면 그때까지의 코드 변경 기록은 초기화 됩니다.  
+현재 레드브릭 엔진에서 게임을 재시작하거나 초기화 해주는 기능은 존재하지 않습니다.  
+따라서 해당 기능을 사용하려면 [사용자 정의 함수로 게임을 초기화하는 기능](./questions#%EC%9E%AC%EC%8B%9C%EC%9E%91-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%A7%8C%EB%93%9C%EB%82%98%EC%9A%94)을 생성하여 사용하세요.
 
-<Callout type="info">
-  <center>![options-image](/images/close-script-window.png) 스크립트 창의 닫기 버튼</center>
-</Callout>
+### 게임 일시정지
 
+현재 레드브릭 엔진에서 게임을 일시정지 해주는 기능은 존재하지 않습니다.  
+따라서 해당 기능을 사용하려면 [사용자 정의 함수로 게임을 일시정지하는 기능](./questions#%EA%B2%8C%EC%9E%84%EC%9D%84-%EC%9D%BC%EC%8B%9C%EC%A0%95%EC%A7%80%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%A7%8C%EB%93%9C%EB%82%98%EC%9A%94)을 생성하여 사용하세요.
 </Steps>

@@ -72,8 +72,9 @@ When you run the above code, the result appears as follows.
 When executing code within the script, **all code except for Start and Update functions** runs first.  
 **After the Start function executes**, the Update function runs last.  
 
-Furthermore, other codes execute only once when the script runs, but the **Update function runs every frame**.  
-Therefore, unless a specific termination condition is set, the phrase "I like coding" will continue to be output continuously until the end of the game.  
+In addition, excluding event functions like `onClick()`, the code executes only once when the script runs initially.  
+However, the **Update function runs every frame**.  
+Therefore, unless a separate termination condition is provided, the message "I like coding" will continue to be output continuously until the game ends.  
 
 ### external flow from scripts
 

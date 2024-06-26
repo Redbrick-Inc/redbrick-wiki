@@ -73,13 +73,16 @@ console.log("welcome to Redbrick land!);
 스크립트 내부의 코드를 실행할 때, **Start와 Update 함수를 제외한 나머지 코드들이 가장 먼저 실행**됩니다.  
 **이후 Start 함수가 실행 된 후에, 마지막으로 Update 함수가 실행**됩니다.  
 
-또한, 다른 코드들은 스크립트가 실행 될 때 처음 한번만 실행되지만, **Update 함수는 매 프레임 마다 실행**됩니다.  
+또한, `Onclick()` 함수와 같은 event function 등을 제외하면 코드는 스크립트가 실행 될 때 처음 한번만 실행됩니다.  
+그러나 **Update 함수는 매 프레임 마다 실행**됩니다.  
 따라서 따로 종료 조건을 걸어주지 않는 한, "I like coding" 문구는 게임이 끝날 때까지 지속적으로 출력됩니다.  
 
 ### 스크립트 외부에서의 흐름
 
 <Callout type="info">
-  <center>![options-image](/images/script-window.png) 그림1 - 스크립트 창</center>
+  그림1 - 스크립트 창
+  <br/>
+  <center>![options-image](/images/script-window.png)</center>
 </Callout>
 
 위의 코드에서 보셨듯이, 레드브릭 엔진에서는 **위에서 아래로 내려가는 순서로 코드가 실행**됩니다.  
@@ -87,7 +90,9 @@ console.log("welcome to Redbrick land!);
 
 위 사진에 보이는 스크립트들이 실행되는 순서는 다음과 같습니다.  
 <Callout type="info">
-  <center>![options-image](/images/script-order.png) 그림2 - 스크립트의 실행 순서</center>
+  그림2 - 스크립트의 실행 순서
+  <br/>
+  <center>![options-image](/images/script-order.png)</center>
 </Callout>
 
 가장 위에 있는 스크립트 "PresetScript"가 먼저 실행되고, 이후 아래로 내려가며 차례로 실행되어 "Timer"가 마지막으로 실행됩니다.  

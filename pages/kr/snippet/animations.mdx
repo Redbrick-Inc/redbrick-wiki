@@ -7,7 +7,7 @@ import { Tabs } from "nextra/components";
 <Steps>
 ### 객체를 배치하세요.
   
-  객체를 밟아야 하는 위치에 배치하고 제목을 변경하세요. 
+  객체를 밟아야 하는 위치에 배치하고 이름을 변경하세요. 
   
 ### Code
 
@@ -21,7 +21,7 @@ const patrol = new TWEEN.Tween(movebox.position)
 ```
 
 <Callout type="error">
-  Physics에서 Body를 활성화한 후에 정지된 것처럼 보인다면 걱정하지 마세요. 아래와 같이 onUpdate를 통해 몇 줄을 추가하면 됩니다.
+  Physics에서 Body를 활성화한 후에 정지된 것처럼 보인다면 걱정하지 마세요. 아래와 같이 onUpdate를 추가하면 됩니다.
 
     ```js showLineNumbers {5}
     const movebox = WORLD.getObject("BOX(f7b)");

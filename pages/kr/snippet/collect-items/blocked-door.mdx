@@ -7,7 +7,7 @@ import { Tabs } from "nextra/components";
 <Tabs items={["example 1", "example 2"]} defaultIndex="0">
     <Tabs.Tab>
         <Callout type="info">
-            여기에는 그것을 하는 기본적인 예제가 있습니다. 개선된 해결책은 예제 2를 참조하세요 👉🏼.
+            _이것은 해당 기능 구현을 위한 기본적인 예제입니다. 개선된 해결책은 예제 2를 참조하세요 👉🏼._
         </Callout>
         ```js showLineNumbers {20, 26, 32, 38, 44, 49-51}
         const diamond0 = WORLD.getObject("diamond0");
@@ -66,7 +66,9 @@ import { Tabs } from "nextra/components";
     </Tabs.Tab>
     <Tabs.Tab>
 
-        여기에는 중복된 줄을 최소화한 사용 예제가 조금 더 개선된 버전이 있습니다.
+        <Callout type="info">
+            _이것은 중복된 줄을 최소화한 개선된 코드입니다._
+        </Callout>
 
         ```js showLineNumbers {7, 31-33}
         //intialize gui

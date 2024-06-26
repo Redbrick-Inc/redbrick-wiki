@@ -2,18 +2,26 @@
 
 > Provides basic instructions for adding and using object scripts.
 
-You can **add/edit/delete** scripts from the Properties panel of the object. You can also rename the script.
+In creating a single-player game, the scripts you will use can be categorized into two types: object scripts and scene scripts.  
+An object script refers to a script that is attached directly to an object itself.  
+
+You can **add/edit/delete** object scripts from the Properties panel of the object. You can also rename the script.
 
 ![object-script](../../../../images/scriptadd.png)
 
-Inside the script, you can use `this{:jsx}` keyword to access the object on which the script was written.
+If you use scene scripts instead of object scripts, you need to explicitly specify which object to reference using methods like `getObject()`. 
 
-```js showLineNumbers copy {2} filename="TORUSKNOT(4a6)/ScriptTitle"
-function Start() {
-  this.move(1, 1, 1); // this === WORLD.getObject("Cube");
-}
+```js showLineNumbers filename="Scene Script"
+const score_board = GUI.getObject("score_board"); // You need to explicitly specify which object to reference
+score_board.setText("100");
 ```
 
-Click the Script button in the upper-right menu to view a list of all scripts.
+However, if you use object scripts, you can directly access the object to which the script is attached using the `this` keyword within the script.
 
-![scriptlist](../../../../images/scriptlist.png)
+```js showLineNumbers copy {2} filename="Object Script for GUI Object score_board"
+this.setText("100"); // You can directly access the object using 'this'
+```
+
+You can view the list of all scripts by clicking the button in the top left menu, as shown in the image below.
+
+![scriptlist](../../../../images/object&client-script-list.png)

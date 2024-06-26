@@ -44,6 +44,12 @@ score_board.setText("200");
   </center>
 </Callout>
 
+You can use `Control + Z` inside the script window, but once you close the script window, the record of code changes up to that point is reset, so you cannot use `Control + Z` to revert to previous code.  
+
+<Callout type="info">
+  <center>![options-image](/images/close-script-window.png) The close button of the script window</center>
+</Callout>
+
 ### Script Location Movement
 
 Moving the location of the script is currently not supported.
@@ -60,12 +66,14 @@ Adding your own text fonts is not supported at the moment.
 
 There is no GUI hover feature available.
 
-### After closing the script window, Control + Z
+### Restart Scene or Game
 
-You can use Control + Z within the script window, but once you close the script window, the recorded code changes up to that point will be reset.  
+Currently, the Redbrick engine does not have a built-in function to restart or reset the game.  
+Therefore, to use this functionality, you need to [create a custom function to reset the game](./questions#how-do-i-create-a-retry-button).
 
-<Callout type="info">
-  <center>![options-image](/images/close-script-window.png) The close button of the script window</center>
-</Callout>
+### Pause Game
+
+There is currently no built-in functionality in the Redbrick engine to pause the game.  
+To use this feature, create a [custom function to pause the game](./questions#how-do-i-create-a-function-to-pause-the-game).  
 
 </Steps>
