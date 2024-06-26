@@ -17,12 +17,12 @@ const retrybtn = GUI.getObject("button_text_large_yellow_retry(8c4)");
 
 success.hide();
 retrybtn.hide();
-startbtn.onClick(() => {
+startbtn.onClick(() => { //시작 버튼을 눌렀을 때 실행할 동작
   startbtn.hide();
 });
 
 function Start() {
-  item.onCollide(PLAYER, () => {
+  item.onCollide(PLAYER, () => { //아이템에 플레이어가 닿으면 게임 종료
     item.kill();
     success.show();
     setTimeout(() => {
@@ -30,7 +30,7 @@ function Start() {
     }, 2000);
   });
 
-  retrybtn.onClick(() => {
+  retrybtn.onClick(() => { //재시작 버튼을 눌렀을 때 실행할 동작
     success.hide();
     PLAYER.spawn();
     item.revive();

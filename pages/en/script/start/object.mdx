@@ -2,16 +2,16 @@
 
 > Provides basic instructions for adding and using object scripts.
 
-In creating a single-player game, the scripts you will use can be categorized into two types: object scripts and client scripts.  
+In creating a single-player game, the scripts you will use can be categorized into two types: object scripts and scene scripts.  
 An object script refers to a script that is attached directly to an object itself.  
 
 You can **add/edit/delete** object scripts from the Properties panel of the object. You can also rename the script.
 
 ![object-script](../../../../images/scriptadd.png)
 
-If you use client scripts instead of object scripts, you need to explicitly specify which object to reference using methods like `getObject()`. 
+If you use scene scripts instead of object scripts, you need to explicitly specify which object to reference using methods like `getObject()`. 
 
-```js showLineNumbers filename="Client Script"
+```js showLineNumbers filename="Scene Script"
 const score_board = GUI.getObject("score_board"); // You need to explicitly specify which object to reference
 score_board.setText("100");
 ```

@@ -8,7 +8,9 @@ import { Tabs } from "nextra/components";
 
 ### 먼저 슈팅 로직 코드를 작성하세요
 
-`camera.useFPS()`로 FPS 모드를 설정하고, `OnPointerDown()`을 사용하여 마우스 클릭을 감지해 `createBullet()`을 트리거합니다. 이 함수는 총알을 초기화하고 배치하며, `BULLET_SPEED`와 `BULLET_RANGE_SQUARED`를 사용하여 총알의 속도와 범위를 정의합니다. 그런 다음, 총알을 세계에 추가하고 `Update()`를 통해 `moveBullets()`를 호출하여 총알의 이동과 범위를 벗어난 총알의 제거를 처리합니다.
+`camera.useFPS()`로 FPS 모드를 설정하고, `OnPointerDown()`을 사용하여 마우스 클릭을 감지해 `createBullet()`을 트리거합니다.  
+이 함수는 총알을 초기화하고 배치하며, `BULLET_SPEED`와 `BULLET_RANGE_SQUARED`를 사용하여 총알의 속도와 범위를 정의합니다.  
+그런 다음, 총알을 씬에 추가하고 `Update()`를 통해 `moveBullets()`를 호출하여 총알의 이동과 범위를 벗어난 총알의 제거를 처리합니다.
 
 <br />
 <center>![](../../../images/shooting1.gif) 슈팅</center>
@@ -85,7 +87,10 @@ function moveBullets() {
 
 ### 타겟 객체 추가하기
 
-`TARGET_HIT_RANGE`로 히트 감지 범위를 정의하고 타겟을 저장할 배열 `targetObjects`를 초기화합니다. `"car"`와 같은 객체를 `WORLD.getObject()`를 사용하여 `targetObjects에` 추가합니다. `moveBullets()`를 수정하여 targetObjects와의 충돌 감지를 추가하고, 각 총알과 타겟 사이의 거리를 확인합니다. 총알이 `TARGET_HIT_RANGE` 내에 있는 경우, `target.kill()`을 호출하여 히트를 처리하고 총알을 세계에서 제거한 후 자원을 정리합니다.
+`TARGET_HIT_RANGE`로 피격 감지 범위를 정의하고 타겟을 저장할 배열 `targetObjects`를 초기화합니다.  
+`"car"`와 같은 객체를 `WORLD.getObject()`를 사용하여 `targetObjects에` 추가합니다.  
+`moveBullets()`를 수정하여 targetObjects와의 충돌 감지를 추가하고, 각 총알과 타겟 사이의 거리를 확인합니다.  
+총알이 `TARGET_HIT_RANGE` 내에 있는 경우, `target.kill()`을 호출하여 히트를 처리하고 총알을 씬에서 제거하고, 관련 리소스를 정리합니다.
 
 <br />
 <center>![image](../../../images/shooting2.gif) 슈팅 타겟</center>
@@ -103,14 +108,14 @@ targetObjects.push(WORLD.getObject("car"));
 function moveEnergyBall() {
   // 다른 코드
 
-  // 볼이 타겟을 맞추는지 확인
+  // 총알이 타겟을 맞추는지 확인
   for (let j = 0; j < targetObjects.length; j++) {
     const target = targetObjects[j];
     if (
       bullet.object.position.distanceToSquared(target.position) <
       TARGET_HIT_RANGE
     ) {
-      target.kill(); // 타겟 히트 처리
+      target.kill(); // 타겟 피격 처리
       WORLD.remove(bullet.object);
       bullet.object.geometry.dispose();
       bullet.object.material.dispose();
@@ -202,7 +207,7 @@ function moveBullets() {
         bullet.object.position.distanceToSquared(target.position) <
         TARGET_HIT_RANGE
       ) {
-        target.kill(); // 타겟 히트 처리
+        target.kill(); // 타겟 피격 처리
         WORLD.remove(bullet.object);
         bullet.object.geometry.dispose();
         bullet.object.material.dispose();
