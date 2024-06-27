@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # Object3D
 
 > 3D 공간의 대부분의 객체가 상속받는 클래스입니다.
@@ -125,3 +127,7 @@ target - 결과가 이 Vector3에 복사됩니다.
 `.raycast( raycaster : Raycaster, intersects : Array )` : 정의되지 않음
 
 투사된 광선과 이 객체 사이의 교차점을 얻는 추상(빈) 메서드입니다. Mesh, Line 및 Points와 같은 하위 클래스는 레이캐스팅을 사용하기 위해 이 메서드를 구현합니다.
+
+<Callout type="info">
+    추가로 [THREE.Object3D](https://threejs.org/docs/?q=object#api/en/core/Object3D)의 다양한 속성과 메소드를 사용할 수 있습니다.
+</Callout>

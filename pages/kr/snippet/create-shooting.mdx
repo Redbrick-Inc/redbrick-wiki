@@ -90,7 +90,7 @@ function moveBullets() {
 `TARGET_HIT_RANGE`로 피격 감지 범위를 정의하고 타겟을 저장할 배열 `targetObjects`를 초기화합니다.  
 `"car"`와 같은 객체를 `WORLD.getObject()`를 사용하여 `targetObjects에` 추가합니다.  
 `moveBullets()`를 수정하여 targetObjects와의 충돌 감지를 추가하고, 각 총알과 타겟 사이의 거리를 확인합니다.  
-총알이 `TARGET_HIT_RANGE` 내에 있는 경우, `target.kill()`을 호출하여 히트를 처리하고 총알을 씬에서 제거하고, 관련 리소스를 정리합니다.
+총알이 `TARGET_HIT_RANGE` 내에 있는 경우, `target.kill()`을 호출하여 피격을 처리하고 총알을 씬에서 제거하고, 관련 리소스를 정리합니다.
 
 <br />
 <center>![image](../../../images/shooting2.gif) 슈팅 타겟</center>

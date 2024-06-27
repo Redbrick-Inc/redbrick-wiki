@@ -100,7 +100,7 @@ Check if the physics body is enabled.
     </center>
   </div>
   Use `body.needUpdate` to update the Physics body when it's **turned on**.
-  Update it everytime whenever object body position is changed.
+  You should Update it everytime whenever object body position is changed.
 </Callout>
 <Callout type="warning">
   You don't need to do this if the Physics body is **turned off**.
@@ -167,7 +167,7 @@ If you want the avatar to move along with moving objects it steps on, you can us
 
 ### Why isn't my camera properties change working?
 
-Updates the camera projection matrix. Must be called after any change of parameters (`.fov`, `.far`, `.near`).
+If you have modified the parameters of the camera (`.fov`, `.far`, `.near`) through code within the script, you must use `.updateProjectionMatrix()` to immediately apply the changed values.  
 
 ### How Do I Change the Camera?
 

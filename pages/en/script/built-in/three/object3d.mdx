@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # Object3D
 
 > This is the class that most objects in 3D space inherit from.
@@ -125,3 +127,7 @@ This method does not support objects having non-uniformly-scaled parent(s).
 `.raycast ( raycaster : Raycaster, intersects : Array )` : undefined
 
 Abstract (empty) method to get intersections between a casted ray and this object. Subclasses such as Mesh, Line, and Points implement this method in order to use raycasting.
+
+<Callout type="info">
+    In addition, you can use various properties and methods of [THREE.Object3D](https://threejs.org/docs/?q=object#api/en/core/Object3D)
+</Callout>

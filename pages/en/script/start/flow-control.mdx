@@ -1,6 +1,6 @@
 import { Callout } from "nextra/components";
 
-# flow control
+# Flow control
 
 > Here's a guide on the code execution flow in Redbrick Studio.
 
@@ -70,7 +70,7 @@ When you run the above code, the result appears as follows.
 ```
 
 When executing code within the script, **all code except for Start and Update functions** runs first.  
-**After the Start function executes**, the Update function runs last.  
+**After the Start function executes, the Update function runs last**.  
 
 In addition, excluding event functions like `onClick()`, the code executes only once when the script runs initially.  
 However, the **Update function runs every frame**.  
@@ -79,7 +79,9 @@ Therefore, unless a separate termination condition is provided, the message "I l
 ### external flow from scripts
 
 <Callout type="info">
-  <center>![options-image](/images/script-window.png) Figure 1 - script window</center>
+  Figure 1 - script window
+  <br/>
+  <center>![options-image](/images/script-window.png)</center>
 </Callout>
 
 As you saw in the above code, in the Redbrick Engine, code is executed **in the order from top to bottom**.  
@@ -87,7 +89,9 @@ This applies to scripts as well.
 
 The scripts visible in the above picture are executed in the following order:  
 <Callout type="info">
-  <center>![options-image](/images/script-order.png) Figure 2 - Execution order of the script</center>
+  Figure 2 - Execution order of the script
+  <br/>
+  <center>![options-image](/images/script-order.png)</center>
 </Callout>
 
 The script "PresetScript" at the top is executed first, followed by the scripts below in sequence, ending with "Timer" being executed last.  
@@ -109,7 +113,7 @@ Therefore, the result is as follows:
 > undefined
 ```
 
-When attempting to reference a variable `GLOBAL.variable` that has not yet been declared, the result indicates that `GLOBAL.variable` remains uninitialized.  
+When attempting to reference a variable `GLOBAL.variable` that has not yet been declared, the result indicates that `GLOBAL.variable` remains undefined.  
 
 ## Combining Internal and External Script Flows  
 
