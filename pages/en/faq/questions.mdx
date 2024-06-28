@@ -153,7 +153,9 @@ To change the jump height of the avatar or player, use `PLAYER.changePlayerJumpH
 
 ### How do I switch to first-person view?
 
-To switch to first-person view, `use camera.useFPS()`. To switch back to third-person view, use `camera.useTPV()`.
+To switch to first-person view, `use camera.useFPS()`. To switch back to third-person view, use `camera.useTPV()`.  
+however, `.useFPS()` and `useTPV()` only work if the `.setFollowingCamera()` method is applied to the avatar.  
+For more information about the camera, see [here](../script/built-in/three/perspective)
 
 ### What does this error mean?
 
