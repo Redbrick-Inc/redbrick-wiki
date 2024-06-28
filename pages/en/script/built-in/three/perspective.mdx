@@ -1,24 +1,77 @@
+import { Callout, Code } from "nextra/components";
+
 # Perspective cameras
 
-> This is a commonly used camera class.
+> This is the commonly used camera class.
 
-Since Perspective Camera also inherits from Object3d, it can use properties and functions that exist in Object3d in addition to those described below.
+The Perspective Camera also inherits from Object3d, so in addition to the properties and functions described below, you can also use the properties and functions that exist in Object3d.
+
+## Setting Camera Parameters
+
+1. Add any object to the scene.  
+2. Select the camera in the left object panel.  
+3. Adjust the detailed parameters (position, angle, distance, etc.) of the camera in the right property panel.  
+4. Check how it will appear in the actual game through the camera view.  
+
+<Callout type="info">
+    Setting detailed camera parameters    
+    <br/>
+    ![scriptlist](../../../../../images/camera-parameter-tweak.png)
+</Callout>
 
 ## Properties
 
-`.fov` : Float
+`.fov`:  
+Represents the vertical field of view of the camera, meaning the angle of view from bottom to top.  
+The default value is 50, and you can adjust this value to change the field of view width.
 
-Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is 50.
+`.far`:  
+Represents the far plane of the perspective camera.  
+Objects farther than this value will not be rendered.  
+The default value is 1000, and you can adjust this value to control the rendering distance.
 
-`.far` : Float
-Camera frustum far plane. Default is 2000.
-
-`.near` : Float
-
-Camera frustum near plane. Default is 0.1.
+`.near`:  
+Represents the near plane of the perspective camera.  
+Objects closer than this value will not be rendered.  
+The default value is 0.1, and you can adjust this value to control the rendering distance.
 
 ## Methods
 
-`.updateProjectionMatrix ()` : undefined
+`.updateProjectionMatrix()`:  
+If you change the camera parameters(.fov, .far, .near) through code within the script, you need to use this method to immediately apply the changes.
 
-Updates the camera projection matrix. Must be called after any change of parameters.
+```js copy filename="example"
+const camera = WORLD.getObject("MainCamera");
+
+camera.fov = 100;
+camera.near = 3;
+camera.far = 1500;
+
+camera.updateProjectionMatrix(); //updateProjectionMatrix()로 변경된 값을 업데이트
+```
+
+<Callout type="warning">
+    It is not necessary if you modify the values in the object property panel.  
+</Callout>
+
+`.useFPS()`:  
+Sets the camera to FPS mode (first-person view).  
+![scriptlist](../../../../../images/useFPS.gif)
+
+`.useTPV()`:  
+Sets the camera to third-person view.  
+![scriptlist](../../../../../images/useTPV.gif)
+
+<Callout type="warning">
+    `.useFPS()` and `useTPV()` only work if the `.setFollowingCamera()` method is applied to the avatar.  
+    
+    Ex) Example usage
+    ```js showLineNumbers copy filename="PresetScript"
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    avatar.setFollowingCamera(camera); // This method must be applied to the avatar.
+    avatar.setDefaultController();
+
+    camera.useFPS(); // or camera.useTPV();
+    ```
+</Callout>

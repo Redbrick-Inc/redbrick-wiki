@@ -17,12 +17,12 @@ const retrybtn = GUI.getObject("button_text_large_yellow_retry(8c4)");
 
 success.hide();
 retrybtn.hide();
-startbtn.onClick(() => {
+startbtn.onClick(() => { //Action to execute when the start button is pressed
   startbtn.hide();
 });
 
 function Start() {
-  item.onCollide(PLAYER, () => {
+  item.onCollide(PLAYER, () => { //If the player touches the item, the game ends
     item.kill();
     success.show();
     setTimeout(() => {
@@ -30,7 +30,7 @@ function Start() {
     }, 2000);
   });
 
-  retrybtn.onClick(() => {
+  retrybtn.onClick(() => { //Action to be executed when the restart button is pressed
     success.hide();
     PLAYER.spawn();
     item.revive();

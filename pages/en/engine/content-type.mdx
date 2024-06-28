@@ -6,11 +6,15 @@ import { Callout, Cards } from "nextra/components";
 
 Before starting a project, you can choose the type of content you want to create. There are three different content types available:
 
-1. **Metaverse**: In this mode, the camera always follows the avatar.
+1. **Metaverse**: In this mode, the camera and avatar are set by default. The avatar uses the one set on the Redbrick website, and the camera is configured to always follow the avatar.
 
-2. **Game**: In this mode, an avatar is optional. It is up to the user to decide if they want an avatar and whether the camera should follow it. This option provides high flexibility.
+2. **Game**: In this mode, the avatar is optional. Users can decide whether to use an avatar and whether the camera should follow the avatar. This option offers high flexibility.
 
-3. **VR**: This mode supports virtual reality. If you choose the Metaverse and enable VR, the VR experience will automatically be linked to the avatar. In the Game mode, the placement of VR depends on the user's preference.
+<Callout type="info">
+  This mode does not have predefined settings for the camera and avatar. Therefore, users must configure these settings themselves.
+</Callout>
+
+3. **VR**: This mode supports virtual reality. If you choose the Metaverse and enable VR, the VR camera will be linked to the avatar. In Game mode, the placement of the VR camera can be set according to the user's preference.
 
 <Callout type="warning">
   If you choose a content type and later decide to change it during development,

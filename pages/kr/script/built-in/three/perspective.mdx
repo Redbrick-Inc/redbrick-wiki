@@ -38,7 +38,18 @@ Perspective Camera는 Object3d에서도 상속되므로 아래 설명된 것 외
 ## 메소드
 
 `.updateProjectionMatrix ()` :  
-스크립트 내에서 코드를 통해 카메라의 파라미터 값을 변경할 경우, 이 메소드를 사용해주어야 변경사항이 즉시 적용됩니다.
+스크립트 내에서 코드를 통해 카메라의 파라미터 값(.fov, .far, .near)을 변경할 경우, 이 메소드를 사용해주어야 변경사항이 즉시 적용됩니다.
+
+```js copy filename="example"
+const camera = WORLD.getObject("MainCamera");
+
+camera.fov = 100;
+camera.near = 3;
+camera.far = 1500;
+
+camera.updateProjectionMatrix(); //updateProjectionMatrix()로 변경된 값을 업데이트
+```
+
 <Callout type="warning">
     오브젝트 속성 패널에서 값을 수정하는 경우에는 필요하지 않습니다.  
 </Callout>

@@ -2,15 +2,25 @@ import { Callout } from "nextra/components";
 import { Steps } from "nextra/components";
 import { Tabs } from "nextra/components";
 
-# Debugging
+# How to Debug and Fix Errors
 
-There are several ways to find an error.
+There are several ways to identify and resolve errors.
 
 <Steps>
 
 ### Console
 
-If something isn't working, you can start by using `console.log()` to log something in the console. To open the console, you can press `F12` to see it.
+If something is not working, you can use `console.log()` to check if the relevant part of the code is functioning correctly.
+
+<Callout type="info">
+    How to open the console
+    <br/>
+    <center>![](../../../images/how-to-open-console-window.png) Press F12 or right-click on the browser screen and select Inspect -> Select the Console tab in the top of the opened console window</center>
+</Callout>
+
+Note:
+1. Checking the console after an error occurs may not display the error's details. To see the error details in real-time, test the game with the console window open.
+2. Some errors displayed in the console may not be related to the Redbrick engine or may not affect gameplay. Not every error message in the console indicates a problem.
 
 <Tabs items={["example 1", "example 2"]} defaultIndex="0">
 
@@ -18,7 +28,7 @@ If something isn't working, you can start by using `console.log()` to log someth
         ```js showLineNumbers copy {6}
         let sum = 0;
 
-        //sum until 25
+        // Sum until 25
         for (let i = 1; i <= 25; i++) {
             sum += i;
             console.log(`sum = ${sum}, i = ${i}`);
@@ -33,10 +43,10 @@ If something isn't working, you can start by using `console.log()` to log someth
 
     <Tabs.Tab>
 
-    You can also check objects and their properties. Here is an example to illustrate this further.
+    You can also check objects and their properties. Here is an example to explain this in more detail.
 
      ```js showLineNumbers copy {6}
-        const item = WORLD.getOjbect("item");
+        const item = WORLD.getObject("item");
 
         console.log(item);
 
@@ -48,17 +58,27 @@ If something isn't working, you can start by using `console.log()` to log someth
 
 </Tabs>
 
-### Save and Reopen project
+### Error Popups
 
-If you believe everything is fine and you are unable to find any errors, please attempt to save the file by using the "save to file" option.
-
-Afterwards, create a new project and open it using the "open from file".
-
-Finally, try playing the project again to check if the issue has been resolved.
-
-<Callout type="error">
-  If it still doesn't work, please try to contact us through our [Discord
-  channel](https://discord.com/invite/redbrick-create).
+<Callout type="info">
+  Error Popup
+  <br/>
+  <center>![](../../../images/error-popup.png) Error popup displayed when an error occurs</center>  
 </Callout>
 
+Note:
+Error popups do not always appear when an error occurs.  
+If no error popup is displayed, check the console window.
+
+### Save and Reopen the Project
+
+If you believe everything is correct and cannot find the error, use the "Save as File" option to save the project as a `.json` file.
+
+Then create a new project and use "Open from File" to load the saved file.
+
+Finally, run the project again to see if the issue is resolved.
+
+<Callout type="error">
+  If it still doesn't work, reach out through the [Discord channel](https://discord.com/invite/redbrick-create).
+</Callout>
 </Steps>
