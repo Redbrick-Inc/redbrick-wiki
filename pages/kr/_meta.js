@@ -20,7 +20,7 @@ export default {
     type: "page",
   },
   faq: {
-    title: "Appendix",
+    title: "부록",
     type: "page",
   },
   ssafy12: {
