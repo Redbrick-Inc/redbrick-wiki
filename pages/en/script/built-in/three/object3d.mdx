@@ -10,20 +10,28 @@ import { Callout } from "nextra/components";
 
 ## Properties
 
+### .children
+
 `object.children` : Array
 
 Returns an array of child objects of the object.  
 Refer to Groups for detailed information on manually grouping objects.
+
+### .parent
 
 `object.parent` : Object3D
 
 Returns the parent object of the object.  
 An object can have at most one parent.
 
+### .castShadow
+
 `object.castShadow` : Boolean
 
 Specifies whether the object casts shadows.  
 Default is false.
+
+### .receiveShadow
 
 `object.receiveShadow` : Boolean
 
@@ -31,16 +39,22 @@ Specifies whether the object receives shadows.
 This property is applicable to objects like THREE.Mesh and similar.  
 Default is false.
 
+### .position
+
 `object.position` : Vector3
 
 The position of the object.  
 Use this property to set or get the position of the object.  
 Default is `(0, 0, 0)`.
 
+### .rotation
+
 `object.rotation` : Euler
 
 The rotation of the object in radians.  
 Use this property to set or get the rotation angle of the object.
+
+### .scale
 
 `object.scale` : Vector3
 
@@ -49,11 +63,15 @@ Use this property to set or get the scale of the object.
 The object's scale is relative to the scene's coordinate system, so it can be affected by its parent's scale if it is a child object.  
 Default is Vector3( 1, 1, 1 ).
 
+### .quaternion
+
 `object.quaternion` : Quaternion
 
 An alternative way to represent the rotation of the object.  
 Use this property to set or get the rotation state of the object.  
 Quaternions can represent rotations more accurately than Euler angles.
+
+### .visible
 
 `object.visible` : Boolean
 

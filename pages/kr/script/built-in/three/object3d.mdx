@@ -10,20 +10,28 @@ import { Callout } from "nextra/components";
 
 ## 속성
 
+### .children
+
 `object.children` : Array
 
 object의 자식 객체들을 배열로 반환하는 속성입니다.  
 개체를 수동으로 그룹화하는 방법에 대한 자세한 내용은 그룹을 참조하세요.
+
+### .parent
 
 `object.parent` : Object3D
 
 object의 객체의 부모 객체를 반환하는 속성입니다.  
 객체는 최대 하나의 부모만 가질 수 있습니다.  
 
+### .castShadow
+
 `object.castShadow` : Boolean
 
 object가 그림자를 생성하는지 여부를 설정하는 속성입니다.  
 기본값은 false입니다.
+
+### .receiveShadow
 
 `object.receiveShadow` : Boolean
 
@@ -31,16 +39,22 @@ object가 그림자를 생성하는지 여부를 설정하는 속성입니다.
 이 속성은 THREE.Mesh 객체나 그와 유사한 객체들에서 사용될 수 있습니다.  
 기본값은 false입니다.
 
+### .position
+
 `object.position` : Vector3
 
 객체의 위치를 나타내는 속성입니다.  
 이 속성을 통해 객체의 위치를 설정하거나 가져올 수 있습니다.  
 기본값은 '(0, 0, 0)'입니다.
 
+### .rotation
+
 `object.rotation` : Euler
 
 객체의 회전을 나타내는 속성으로, 라디안 단위입니다.  
 이 속성을 통해 객체의 회전 각도를 설정하거나 가져올 수 있습니다. 
+
+### .scale
 
 `object.scale` : Vector3
 
@@ -49,11 +63,15 @@ object가 그림자를 생성하는지 여부를 설정하는 속성입니다.
 객체의 크기는 씬의 좌표계에 따라 상대적으로 설정됩니다. 따라서 객체가 다른 객체의 자식일 경우 부모 객체의 크기에 영향을 받을 수 있습니다.  
 기본값은 Vector3( 1, 1, 1 )입니다.
 
+### .quaternion
+
 `object.quaternion` : Quaternion
 
 객체의 회전을 나타내는 또다른 방식입니다.  
 이 속성을 통해 객체의 회전 상태를 설정하거나 가져올 수 있습니다.  
 Quaternion은 Euler 각도와 달리 회전을 보다 정확하게 표현할 수 있습니다.
+
+### .visible
 
 `object.visible` : Boolean
 
