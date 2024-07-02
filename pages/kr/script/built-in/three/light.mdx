@@ -1,20 +1,28 @@
+import { Callout } from "nextra/components";
+
 # Light
 
-> 방향성 조명, 포인트 조명 등을 포함한 모든 조명이 상속받는 기본 클래스입니다.
+> 이 클래스는 모든 조명이 상속하는 기본 클래스로, 방향 조명, 점 조명 등을 포함합니다.
+
+<Callout type="info">
+    Light는 Object3D에서도 상속되므로 아래 설명된 것 외에도 [THREE.Object3D](https://threejs.org/docs/?q=object#api/en/core/Object3D) 및 [THREE.Object3D.Light](https://threejs.org/docs/?q=light#api/en/lights/Light)에 존재하는 속성과 기능을 사용할 수 있습니다.
+</Callout>
 
 ## Properties
 
-`.color` : 색상
+### .color
 
-빛의 색상. 생성자에 전달되지 않은 경우 기본값은 흰색으로 설정된 새 색상입니다.
+`.color` : Color
 
-`.intensity `: 부동
+조명의 색상입니다. 생성자에 전달되지 않으면 기본적으로 흰색으로 설정됩니다.
 
-빛의 강도 또는 강도.
+### .intensity
 
-물리적으로 올바른 모드에서는 강도 단위가 빛의 유형에 따라 달라집니다.
+`.intensity `: Float
 
-기본값 - 1.0.
+조명의 강도 또는 세기입니다.  
+물리적으로 올바른 모드에서는 강도의 단위가 조명의 유형에 따라 다릅니다.  
+기본값은 1.0입니다.
 
 ---
 
