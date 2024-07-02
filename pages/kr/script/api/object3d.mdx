@@ -4,7 +4,7 @@
 
 ## 메소드
 
-### go(dx, dy, dz)
+### .go(dx, dy, dz)
 
 객체가 즉시 이동합니다.
 
@@ -14,7 +14,7 @@
 
 - dz : z 방향으로의 거리.
 
-### move(dx, dy, dz, duration)
+### .move(dx, dy, dz, duration)
 
 객체가 지정된 시간 동안 이동합니다. 내부적으로 TWEEN을 사용합니다.
 
@@ -26,7 +26,7 @@
 
 duration : 이동하는 데 걸리는 시간. 단위는 초(sec)입니다. 기본값은 1입니다.
 
-### rotate(dx, dy, dz)
+### .rotate(dx, dy, dz)
 
 객체가 즉시 회전합니다.
 
@@ -36,7 +36,7 @@ duration : 이동하는 데 걸리는 시간. 단위는 초(sec)입니다. 기�
 
 - dz : z축 주위의 회전 각도. 단위는 도(degrees).
 
-### turn(dx, dy, dz, duration)
+### .turn(dx, dy, dz, duration)
 
 객체가 지정된 시간 동안 회전합니다. 내부적으로 TWEEN을 사용합니다.
 
@@ -48,9 +48,9 @@ duration : 이동하는 데 걸리는 시간. 단위는 초(sec)입니다. 기�
 
 duration : 회전하는 데 걸리는 시간. 단위는 초(sec)입니다. 기본값은 1입니다.
 
-### onCollide(target, callback, trigger)
+### .onCollide(target, callback, trigger)
 
-객체가 대상 객체와 충돌할 때 지정된 함수를 실행하도록 설정합니다. 이 객체와 대상 객체 모두 몸체를 가져야 합니다.
+객체가 대상 객체와 충돌할 때 지정된 함수를 실행하도록 설정합니다. 이 객체와 대상 객체 모두 Physics Body가 활성화 되어있어야 합니다.
 
 - target : 충돌하는 객체 또는 그 제목.
 
@@ -64,15 +64,15 @@ duration : 회전하는 데 걸리는 시간. 단위는 초(sec)입니다. 기�
 
   - “end” : 충돌 종료 시 한 번 발생.
 
-### setDynamic(boolean)
+### .setDynamic(boolean)
 
-객체의 움직임 제어 방식을 변경합니다. 객체가 동적이면 그 움직임은 중력을 포함한 힘에 영향을 받으며 물리 엔진에 의해 결정됩니다. 객체가 운동학적이면 스크립트를 통해 위치와 회전을 수동으로 변경하여만 이동할 수 있습니다. 객체는 몸체를 가져야 합니다.
+객체의 움직임 제어 방식을 변경합니다. 객체가 동적이면 그 움직임은 중력을 포함한 힘에 영향을 받으며 물리 엔진에 의해 결정됩니다. 객체가 운동학적이면 스크립트를 통해 위치와 회전을 수동으로 변경해야만 이동할 수 있습니다. 객체는 Physics Body가 활성화 되어있어야 합니다.
 
 - boolean : true이면 동적으로, false이면 운동학적으로 변경.
 
-### applyForce(x, y, z)
+### .applyForce(x, y, z)
 
-객체에 힘을 적용합니다. 객체는 몸체를 가지고 있어야 하며 동적이어야 합니다.
+객체에 힘을 가합니다. 이 객체는 Physics Body가 활성화되어 있고 동적이어야 합니다.  
 
 - x : x축 방향의 힘의 양.
 
@@ -80,21 +80,21 @@ duration : 회전하는 데 걸리는 시간. 단위는 초(sec)입니다. 기�
 
 - z : z축 방향의 힘의 양.
 
-### kill()
+### .kill()
 
 객체를 일시적으로 제거합니다.
 
-### revive()
+### .revive()
 
 제거된 객체를 복구합니다 (kill() 메소드에 의해 제거된).
 
-### onClick(callback)
+### .onClick(callback)
 
 객체를 클릭할 때 실행할 지정된 콜백 함수를 설정합니다.
 
 callback : 클릭할 때 실행할 콜백 함수. this 컨텍스트를 유지하기 위해 화살표 함수 사용을 권장합니다.
 
-### getAudio()
+### .getAudio()
 
 객체의 자식들 중 첫 번째 오디오 객체를 반환합니다. 사운드 에셋을 추가한 후 다음과 같은 방법으로 오디오를 재생/정지할 수 있습니다.
 
@@ -104,8 +104,9 @@ this.getAudio().stop(); // stop audio
 this.getAudio().play(); // play audio
 ```
 
-더 자세한 메소드는 THREE-Audio 부분을 참조하세요.
+더 자세한 메소드는 [THREE-Audio](../built-in/three/audio) 부분을 참조하세요.
 
-### cloneWithMethods()
+### .cloneWithMethods()
 
-이 페이지에 나열된 메서드와 함께 객체를 복제합니다.
+해당 객체의 오브젝트 스크립트와 함께 객체를 복사합니다.  
+단, [THREE.Object3D](../built-in/three/object3d)와 이 페이지에 나열된 속성 및 메소드만 복사할 수 있으며, 객체의 Behavior와 Physics 속성은 복사되지 않습니다.  

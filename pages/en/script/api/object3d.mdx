@@ -50,7 +50,7 @@ duration : The time takes to rotate. Unit is seconds (sec). Default is 1.
 
 ### onCollide(target, callback, trigger)
 
-Sets the specified function to run when the object collides with the target object. Both this object and the target object must have a body.
+Sets the specified function to run when the object collides with the target object. Both this object and the target object must have Physics Body activated.
 
 - target : The object being collided with or its title.
 
@@ -66,13 +66,13 @@ Sets the specified function to run when the object collides with the target obje
 
 ### setDynamic(boolean)
 
-Changes how the object's movement is controlled. If an object is dynamic, its motion is affected by forces, including gravity, and is determined by a physics engine. If an object is kinematic, it can only move by manually changing its position and rotation through scripting. The object must have body.
+Changes how the object's movement is controlled. If an object is dynamic, its motion is affected by forces, including gravity, and is determined by a physics engine. If an object is kinematic, it can only move by manually changing its position and rotation through scripting. The object must have Physics Body activated.
 
 - boolean :Change to dynamic if true, kinematic if false.
 
 ### applyForce(x, y, z)
 
-Apply a force to an object. The object must have a body and be dynamic.
+Apply a force to an object. The object must have Physics Body activated and be dynamic.
 
 - x : The amount of force in the x-axis direction.
 
@@ -108,4 +108,5 @@ For more detailed methods, see [THREE-Audio part](../built-in/three/audio)
 
 ### cloneWithMethods()
 
-Clones object with methods listed in this page.
+Copy the object along with its object script.  
+However, only the properties and methods listed in [THREE.Object3D](../built-in/three/object3d) and on this page can be copied. Behavior and Physics properties of the object will not be copied.
