@@ -6,78 +6,90 @@
 
 The properties of a sprite are based on the area of the sprite that is its parent, or if the parent is a GUI Scene, the entire screen area.
 
-### anchor : `Object { x, y }`
+### .anchor
+
+`.anchor` : Object `{ x, y } `
 
 The location the sprite's offset is relative to.
 
-- x : The reference position in screen horizontal orientation. Default is “Center”.
-  - “Far-Left” : Left end of parent.
-  - “Center” : Horizontal center of parent.
-  - “Far-Right” : Right end of parent.
-- y : The reference position in screen vertical orientation. Default is “Center”.
-  - “Bottom” : Bottom end of parent.
-  - “Center” : Vertical center of parent.
-  - “Top” : Top end of parent.
+- x : The reference position in screen horizontal orientation. Default is “Center”.  
+  \- “Far-Left” : Left end of parent.  
+  \- “Center” : Horizontal center of parent.  
+  \- “Far-Right” : Right end of parent.
+- y : The reference position in screen vertical orientation. Default is “Center”.  
+  \- “Bottom” : Bottom end of parent.  
+  \- “Center” : Vertical center of parent.
+  \- “Top” : Top end of parent.
 
-### offset : `Object { x : { value, unit }, y : { value, unit } }`
+### .offset
+
+`.offset` : Object `{ x : { value, unit }, y : { value, unit } } `
 
 The offset from the sprite's anchor position.
 
-- x
+- x  
+  \- value : Screen horizontal offset value. Default is 0.  
+  \- unit : Screen horizontal offset units. Default is “px”.  
+  &nbsp;&nbsp;&nbsp;&nbsp;\- “px” : Absolute pixel unit.  
+  &nbsp;&nbsp;&nbsp;&nbsp;\- “%” : A relative unit based on the width of the parent.
+- y  
+  \- value : Screen vertical offset value. Default is 0.  
+  \- unit : Screen vertical offset units. Default is “px”.  
+  &nbsp;&nbsp;&nbsp;&nbsp;\- “px” : Absolute pixel unit.  
+  &nbsp;&nbsp;&nbsp;&nbsp;\- “%” : A relative unit based on the width of the parent.
 
-  - value : Screen horizontal offset value. Default is 0.
-  - unit : Screen horizontal offset units. Default is “px”.
-    - “px” : Absolute pixel unit.
-    - “%” : A relative unit based on the width of the parent.
+### .size
 
-- y
-  - value : Screen vertical offset value. Default is 0.
-  - unit : Screen vertical offset units. Default is “px”.
-    - “px” : Absolute pixel unit.
-    - “%” : A relative unit based on the width of the parent.
-
-### size : Object `{ x : { value, unit }, y : { value, unit } }`
+`.size` : Object `{ x : { value, unit }, y : { value, unit } } `
 
 The size of the sprite.
 
-- x
-  - value : The width (length in the horizontal direction) value.
-  - unit : Width unit. Default is "px".
-    - “px” : Absolute pixel unit.
-    - “%” : A relative unit based on the width of the parent.
-- y
-  - value : The height (length in the vertical direction) value.
-  - unit : Height unit. Default is "px".
-    - “px” : Absolute pixel unit.
-    - “%” : A relative unit based on the width of the parent.
+- x  
+  \- value : The width (length in the horizontal direction) value.
+  \- unit : Width unit. Default is "px".
+    \- “px” : Absolute pixel unit.
+    \- “%” : A relative unit based on the width of the parent.
+- y  
+  \- value : The height (length in the vertical direction) value.  
+  \- unit : Height unit. Default is "px".  
+  &nbsp;&nbsp;&nbsp;&nbsp;\- “px” : Absolute pixel unit.  
+  &nbsp;&nbsp;&nbsp;&nbsp;\- “%” : A relative unit based on the width of the parent.
 
-### constantAspectRatio : Boolean
+### .constantAspectRatio
+
+`.constantAspectRatio` : Boolean
 
 If true, the sprite will maintain its original aspect ratio. The side of the width and height that exceeds the aspect ratio will be reduced.
 
 ## Methods
 
-### setText(text)
+### .setText()
+
+`.setText(text) `
 
 Sets the text that appears in the sprite.
 
 - text : Text content.
 
-### setTextSize(size)
+### .setTextSize()
+
+`.setTextSize(size) `
 
 Sets the text size that appears in the sprite.
 
 - size : The size of the text. The unit is px.
 
-### show()
+### .show()
 
 Make the sprite visible.
 
-### hide()
+### .hide()
 
 Make the sprite invisible.
 
-### onClick(callback)
+### .onClick()
+
+`.onClick(callback) `
 
 Sets the specified callback function to run when the sprite is clicked.
 

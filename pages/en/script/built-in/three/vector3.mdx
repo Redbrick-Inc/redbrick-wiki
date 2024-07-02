@@ -1,49 +1,80 @@
 # Vector3
 
-> A three-dimensional vector class. It provides various vector operations and more.
+> A 3-dimensional vector class providing various vector operations.
 
 ## Properties
 
-x - the x value of this vector. Default is 0.
+### x
 
-y - the y value of this vector. Default is 0.
+The x value of the vector. Default is 0.
 
-z - the z value of this vector. Default is 0.
+### y
+
+The y value of the vector. Default is 0.
+
+### z
+
+The z value of the vector. Default is 0.
 
 ## Methods
 
-`.add ( v : Vector3 ) `: this
+### .add()
 
-Adds v to this vector.
+`origin_vector.add(add_vector: Vector3)`: this
 
-`.angleTo ( v : Vector3 )` : Float
+Adds `add_vector` to `origin_vector` and returns the result.  
+This method does not modify the original vector itself but returns a new vector.
 
-Returns the angle between this vector and vector v in radians.
+### .angleTo()
 
-`.distanceTo ( v : Vector3 )` : Float
+`origin_vector.angleTo(target_vector: Vector3)`: Float
 
-Computes the distance from this vector to v.
+Returns the angle between `origin_vector` and `target_vector` in radians.
 
-`.clone ()` : Vector3
+### .distanceTo()
 
-Returns a new vector3 with the same x, y and z values as this one.
+`origin_vector.distanceTo(target_vector: Vector3)`: Float
 
-`.copy ( v : Vector3 )` : this
+Calculates the distance from `origin_vector` to `target_vector`.
 
-Copies the values of the passed vector3's x, y and z properties to this vector3.
+### .clone()
 
-`.length ()` : Float
+`origin_vector.clone()`: Vector3
 
-Computes the Euclidean length (straight-line length) from (0, 0, 0) to (x, y, z).
+Returns a new Vector3 with the same x, y, and z values as `origin_vector`.  
+This method does not modify the original vector but returns a cloned vector as a new object.
 
-`.multiplyScalar ( s : Float )` : this
+### .copy()
 
-Multiplies this vector by scalar s.
+`origin_vector.copy(target_vector: Vector3)`: this
 
-`.normalize ()` : this
+Copies the x, y, and z properties from `target_vector` to `origin_vector` and returns `origin_vector`.  
+The values of `origin_vector` are replaced with those of `target_vector`.
 
-Convert this vector to a unit vector - that is, sets it equal to a vector with the same direction as this one, but length 1.
+### .length()
 
-`.set ( x : Float, y : Float, z : Float )` : this
+`target_vector.length()`: Float
 
-Sets the x, y and z components of this vector.
+Calculates the Euclidean length (straight-line distance) from (0, 0, 0) to `target_vector` (x, y, z).
+
+### .multiplyScalar()
+
+`origin_vector.multiplyScalar(s: Float)`: this
+
+Multiplies `origin_vector` by a scalar `s`.  
+This method does not modify the original vector itself but returns a new vector with each component multiplied by the scalar value.
+
+### .normalize()
+
+`origin_vector.normalize()`: this
+
+Normalizes the current vector to a unit vector.  
+Normalization means setting the length of the vector to 1 while retaining its direction.  
+This method modifies `origin_vector` and returns the normalized unit vector.
+
+### .set()
+
+`origin_vector.set(x: Float, y: Float, z: Float)`: this
+
+Sets the x, y, and z components of the vector.  
+This method modifies `origin_vector` and returns the modified vector itself.

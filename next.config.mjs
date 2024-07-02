@@ -11,12 +11,12 @@ const withNextra = nextra({
 export default withNextra({
   i18n: {
     locales: ["en", "kr"],
-    defaultLocale: "en",
+    defaultLocale: "kr",
   },
   redirects: () => [
     {
       source: "/",
-      destination: "/en",
+      destination: "/kr",
       permanent: true,
     },
   ],

@@ -2,14 +2,19 @@
 
 > 삼각형으로 이루어진 다각형 객체를 정의하는 클래스입니다.
 
-Studio 내부의 대부분의 개체는 메시로 구성됩니다. 메시는 Object3d에서 상속되기 때문에 아래 설명된 것 외에도 Object3d에 존재하는 속성과 기능을 사용할 수 있습니다.
+Studio 내부의 대부분의 개체는 메시로 구성됩니다. 메시는 Object3D에서 상속되기 때문에 아래 설명된 것 외에도 Object3D에 존재하는 속성과 기능을 사용할 수 있습니다.
 
-속성
+## 속성
 
-`.geometry` : 버퍼기하학
+### .geometry
 
-객체의 구조를 정의하는 BufferGeometry(또는 파생 클래스)의 인스턴스입니다.
+`.geometry` : BufferGeometry
 
-`.material` : 재질
+BufferGeometry (또는 이를 파생 클래스로 가진 객체)의 인스턴스로, 객체의 구조를 정의합니다.
 
-Material 기본 클래스 또는 재질 배열에서 파생된 재질 인스턴스로, 객체의 모양을 정의합니다. 기본값은 MeshBasicMaterial입니다.
+### .material
+
+`.material` : Material
+
+Material 기본 클래스에서 파생된 재질(Material)의 인스턴스 또는 재질 배열로, 객체의 외관을 정의합니다.  
+기본값은 MeshBasicMaterial입니다.

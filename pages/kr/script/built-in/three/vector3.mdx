@@ -2,48 +2,79 @@
 
 > 3차원 벡터 클래스. 다양한 벡터 연산 등을 제공합니다.
 
-## Properties
+## 속성
 
-x - 이 벡터의 x 값. 기본값은 0입니다.
+### x
 
-y - 이 벡터의 y 값. 기본값은 0입니다.
+벡터의 x 값. 기본값은 0입니다.
 
-z - 이 벡터의 z 값. 기본값은 0입니다.
+### y
 
-## Methods
+벡터의 y 값. 기본값은 0입니다.
 
-`.add ( v : Vector3 ) `: 이
+### z
 
-이 벡터에 v를 추가합니다.
+벡터의 z 값. 기본값은 0입니다.
 
-`.angleTo ( v : Vector3 )` : 부동
+## 메소드
 
-이 벡터와 벡터 v 사이의 각도를 라디안 단위로 반환합니다.
+### .add()
 
-`.distanceTo ( v : Vector3 )` : 부동
+`origin_vector.add ( add_vector : Vector3 ) `: this
 
-이 벡터에서 v까지의 거리를 계산합니다.
+origin_vector에 add_vector를 더하여 반환합니다.  
+기존의 벡터 자체를 변경하지 않고 새로운 벡터를 반환합니다.  
 
-`.clone ()` : Vector3
+### .angleTo()
 
-이 값과 동일한 x, y 및 z 값을 가진 새 벡터3을 반환합니다.
+`origin_vector.angleTo ( target_vector : Vector3 )` : Float
 
-`.copy ( v : Vector3 )` : 이
+origin_vector와 target_vector 사이의 각도를 라디안 단위로 반환합니다.
 
-전달된 벡터3의 x, y 및 z 속성 값을 이 벡터3에 복사합니다.
+### .distanceTo()
 
-`.length ()` : 부동소수점
+`origin_vector.distanceTo ( target_vector : Vector3 )` : Float
 
-(0, 0, 0)부터 (x, y, z)까지 유클리드 길이(직선 길이)를 계산합니다.
+origin_vector에서 target_vector까지의 거리를 계산합니다.
 
-`.multiplyScalar ( s : Float )` : 이
+### .clone()
 
-이 벡터에 스칼라 s를 곱합니다.
+`origin_vector.clone ()` : Vector3
 
-`.normalize ()` : 이
+origin_vector 값과 동일한 x, y, z 값을 가진 새 Vector3을 반환합니다.  
+이 메소드는 기존 벡터를 변경하지 않고, 복제된 벡터를 새로운 객체로 반환합니다.
 
-이 벡터를 단위 벡터로 변환합니다. 즉, 방향은 같지만 길이가 1인 벡터와 동일하게 설정합니다.
+### .copy()
 
-`.set ( x : Float, y : Float, z : Float )` : this
+`origin_vector.copy ( target_vector : Vector3 )` : this
 
-이 벡터의 x, y 및 z 구성요소를 설정합니다.
+target_vector의 x, y, z 속성 값을 origin_vector에 복사하고 그 값을 반환합니다.  
+origin_vector의 값은 target_vector의 값으로 변환됩니다.  
+
+### .length()
+
+`target_vector.length ()` : Float
+
+(0, 0, 0)부터 target_vector(x, y, z)까지 유클리드 길이(직선 길이)를 계산합니다.
+
+### .multiplyScalar()
+
+`origin_vector.multiplyScalar ( s : Float )` : this
+
+origin_vector에 스칼라 s를 곱합니다.  
+이 메소드는 기존의 벡터를 변경하지 않고, 각 성분에 스칼라 값을 곱한 결과를 새로운 벡터로 반환합니다.
+
+### .normalize()
+
+`origin_vector.normalize ()` : this
+
+현재 벡터를 단위 벡터(unit vector)로 정규화(normalize)하는 기능을 수행합니다.  
+정규화란 벡터의 길이를 1로 만드는 것을 말하며, 방향은 원래 벡터와 동일하지만 크기만 1로 조정된 새로운 벡터를 반환합니다.  
+이 메소드는 origin_vector를 변환시키며, 정규화된(unit) 벡터를 반환합니다.
+
+### .set()
+
+`origin_vector.set ( x : Float, y : Float, z : Float )` : this
+
+벡터의 x, y, z 구성요소를 설정합니다.  
+이 메소드는 origin_vector를 변경하며, 새로운 값을 설정한 후에는 변경된 벡터 자체를 반환합니다.

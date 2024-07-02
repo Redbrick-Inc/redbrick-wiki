@@ -2,9 +2,11 @@
 
 > This class corresponds to a space where you can place 3D objects, lights, cameras, and other elements.
 
-Scenes also inherit from Object3d, so you can use the properties and functions that exist in Object3d in addition to the ones below.
+Scenes also inherit from Object3D, so you can use the properties and functions that exist in Object3D in addition to the ones below.
 
 ## Properties
+
+### .background
 
 `.background` : Object
 
@@ -15,6 +17,8 @@ Defines the background of the scene. Default is null. Valid inputs are:
 - A Texture for defining a (flat) textured background.
 
 - Texture cubes (CubeTexture) or equirectangular textures for defining a skybox.
+
+### .fog
 
 `.fog` : Fog
 

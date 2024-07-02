@@ -83,7 +83,7 @@ Quaternion은 Euler 각도와 달리 회전을 보다 정확하게 표현할 수
 
 ### .add()
 
-`parentObject.add ( childObject : Object3D, ... )` : this
+`parentObject.add ( childObject : Object3D, ... ) ` : this
 
 객체를 다른 객체의 자식으로 추가할 때 사용됩니다.  
 임의의 개수의 개체를 추가할 수 있습니다.  
@@ -92,7 +92,7 @@ Quaternion은 Euler 각도와 달리 회전을 보다 정확하게 표현할 수
 
 ### .attach()
 
-`parentObject.attach ( childObject : Object3D )` : this
+`parentObject.attach ( childObject : Object3D ) ` : this
 
 객체를 다른 객체의 자식으로 추가하면서, 부모 객체의 세계 변환(Transform)을 유지하는 데 사용됩니다.  
 따라서 부모 객체가 이동, 회전, 크기 조정 등의 변화를 하면, 자식 객체도 그 변화를 반영하여 함께 이동하거나 회전합니다.  
@@ -107,13 +107,13 @@ add()는 주로 씬에 객체를 추가할 때 사용하며, attach()는 객체 
 
 ### .removeFromParent()
 
-`childObject.removeFromParent ()` : this
+`childObject.removeFromParent () ` : this
 
 부모 개체에서 이 개체를 제거합니다.  
 
 ### .clone()
 
-`originalObject.clone(recursive: Boolean)`: Object3D
+`originalObject.clone(recursive: Boolean) `: Object3D
 
 recursive - true인 경우 이 객체의 자식 객체들도 복제됩니다. 기본값은 true입니다.
 
@@ -123,7 +123,7 @@ recursive - true인 경우 이 객체의 자식 객체들도 복제됩니다. �
 
 ### .copy()
 
-`originalObject.copy (targetObject : Object3D, recursive : Boolean )` : this
+`originalObject.copy (targetObject : Object3D, recursive : Boolean ) ` : this
 
 recursive - true인 경우 이 객체의 자식 객체들도 복사됩니다. 기본값은 true입니다.
 
@@ -132,7 +132,7 @@ recursive - true인 경우 이 객체의 자식 객체들도 복사됩니다. �
 
 ### .getObjectByProperty()
 
-`.getObjectByProperty( propertyName : String, value : Any )` : Object3D
+`.getObjectByProperty( propertyName : String, value : Any ) ` : Object3D
 
 propertyName - 검색할 속성 이름입니다.  
 value - 검색할 속성의 값입니다. 해당 속성이 지정한 값과 일치하는 객체를 검색합니다.  
@@ -142,7 +142,7 @@ value - 검색할 속성의 값입니다. 해당 속성이 지정한 값과 일�
 
 ### .getObjectById()
 
-`object.getObjectById ( id : Integer )` : Object3D
+`object.getObjectById ( id : Integer ) ` : Object3D
 
 id -- 객체 인스턴스의 고유 번호
 
@@ -153,7 +153,7 @@ id -- 객체 인스턴스의 고유 번호
 
 ### .getWorldPosition()
 
-`object.getWorldPosition( target : Vector3 )` : Vector3
+`object.getWorldPosition( target : Vector3 ) ` : Vector3
 
 target 월드 좌표를 object의 월드 좌표와 동일하게 설정하여 반환합니다.  
 이 메소드는 객체의 월드 좌표를 계산하기 위해 씬 그래프를 따라 상위 객체의 변환을 모두 고려합니다.  
@@ -162,7 +162,7 @@ target 월드 좌표를 object의 월드 좌표와 동일하게 설정하여 반
 
 ### .getWorldQuaternion()
 
-`object.getWorldQuaternion ( target : Quaternion )` : Quaternion
+`object.getWorldQuaternion ( target : Quaternion ) ` : Quaternion
 
 target 회전값을 object의 회전값과 동일하게 설정하여 반환합니다.  
 이 메소드는 객체의 월드 공간에서의 쿼터니언을 계산하기 위해 씬 그래프를 따라 상위 객체의 변환을 모두 고려합니다.  
@@ -171,7 +171,7 @@ target 회전값을 object의 회전값과 동일하게 설정하여 반환합�
 
 ### .getWorldScale()
 
-`object.getWorldScale( target : Vector3 )` : Vector3
+`object.getWorldScale( target : Vector3 ) ` : Vector3
 
 target 스케일을 이 객체의 스케일과 동일하게 설정하여 반환합니다.  
 이 메소드는 객체의 월드 공간에서의 스케일을 계산하기 위해 씬 그래프를 따라 상위 객체의 변환을 모두 고려합니다.  
@@ -180,7 +180,7 @@ target 스케일을 이 객체의 스케일과 동일하게 설정하여 반환�
 
 ### .getWorldDirection()
 
-`object.getWorldDirection( target : Vector3 )` : Vector3
+`object.getWorldDirection( target : Vector3 ) ` : Vector3
 
 target 방향을 이 객체가 바라보는 방향과 동일하게 설정하여 반환합니다.  
 이 메소드는 객체의 월드 공간에서의 방향을 계산하기 위해 씬 그래프를 따라 상위 객체의 변환을 모두 고려합니다.  
@@ -189,7 +189,7 @@ target 방향을 이 객체가 바라보는 방향과 동일하게 설정하여 
 
 ### .rotateOnAxis()
 
-`object.rotateOnAxis ( axis : Vector3, angle : Float )` : this
+`object.rotateOnAxis ( axis : Vector3, angle : Float ) ` : this
 
 axis - THREE.Vector3 타입의 벡터로, 회전의 축을 정의합니다.
 angle - 회전 각도로, 라디안 단위로 지정합니다.
@@ -199,7 +199,7 @@ angle - 회전 각도로, 라디안 단위로 지정합니다.
 
 ### .rotateOnWorldAxis()
 
-`object.rotateOnWorldAxis( axis : Vector3, angle : Float)` : this
+`object.rotateOnWorldAxis( axis : Vector3, angle : Float) ` : this
 
 axis - THREE.Vector3 타입의 벡터로, 회전의 축을 월드 좌표계에서 정의합니다.  
 angle - 회전 각도로, 라디안 단위로 지정합니다.  
@@ -210,7 +210,7 @@ angle - 회전 각도로, 라디안 단위로 지정합니다.
 
 ### .traverse()
 
-`object.traverse ( callback : Function )` : 정의되지 않음
+`object.traverse ( callback : Function ) ` : undefined
 
 callback - 각 객체에 대해 호출될 콜백 함수입니다. 이 함수는 object를 매개변수로 받습니다.
 
@@ -218,8 +218,8 @@ callback - 각 객체에 대해 호출될 콜백 함수입니다. 이 함수는 
 
 ### .lookAt()
 
-`object.lookAt ( target : Vector3 )` : undefined  
-`object.lookAt ( x : Float, y : Float, z : Float )` : undefined
+`object.lookAt ( target : Vector3 ) ` : undefined  
+`object.lookAt ( x : Float, y : Float, z : Float ) ` : undefined
 
 target - THREE.Vector3 타입의 벡터로, 객체가 바라볼 대상의 위치를 지정합니다.
 x,y,x - 벡터의 x, y, x값을 선택적으로 지정할 수 있습니다.  
@@ -229,7 +229,7 @@ object를 특정 지점(벡터)을 향하도록 회전시키는 메서드입니�
 
 ### .raycast()
 
-`.raycast( raycaster : Raycaster, intersects : Array )` : undefined
+`.raycast( raycaster : Raycaster, intersects : Array ) ` : undefined
 
 raycaster - THREE.Raycaster 객체입니다. 이 객체는 광선의 출발점(origin)과 방향(direction)을 설정하여 광선을 정의합니다.  
 intersects - 교차점(intersection) 정보를 저장할 배열입니다. 광선이 객체와 교차할 경우, 교차점에 대한 정보가 이 배열에 추가됩니다.  

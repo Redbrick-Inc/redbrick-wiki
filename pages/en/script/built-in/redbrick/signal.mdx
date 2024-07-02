@@ -12,15 +12,21 @@ Class used for communication between client scripts or server scripts. Signals c
 </Callout>
 ## Methods
 
-### send(name, params)
+### .send()
+
+`.send(name, params) `
 
 Sends a signal with the name corresponding to the name. The signal is passed throughout the client script or throughout the server script. You can pass the parameters with the params option.
 
-### addListener(name, callback)
+### .addListener()
+
+`.addListener(name, callback) `
 
 Registers the function to run when a signal corresponding to name is received. If there are any parameters sent at the time of sending, receive them and deliver them to the callback function.
 
-### removeListener(name, callback)
+### .removeListener()
+
+`.removeListener(name, callback) `
 
 If you have a specific function registered for the signal that corresponds to the name, remove it from the list of registered functions.
 

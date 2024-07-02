@@ -4,7 +4,9 @@
 
 ## Methods
 
-### go(dx, dy, dz)
+### go()
+
+`.go(dx, dy, dz) `
 
 The object moves immediately.
 
@@ -14,7 +16,9 @@ The object moves immediately.
 
 - dz : Distance in z direction.
 
-### move(dx, dy, dz, duration)
+### move()
+
+`.move(dx, dy, dz, duration) `
 
 The object moves over the specified time. Internally uses TWEEN.
 
@@ -26,7 +30,9 @@ The object moves over the specified time. Internally uses TWEEN.
 
 duration : The time takes to move. Unit is seconds (sec). Default is 1.
 
-### rotate(dx, dy, dz)
+### rotate()
+
+`.rotate(dx, dy, dz) `
 
 The object rotates immediately.
 
@@ -36,7 +42,9 @@ The object rotates immediately.
 
 - dz : The angle of rotation around the z-axis. Unit is degrees.
 
-### turn(dx, dy, dz, duration)
+### turn()
+
+`.turn(dx, dy, dz, duration) `
 
 The object rotates over the specified time. Internally uses TWEEN.
 
@@ -48,7 +56,9 @@ The object rotates over the specified time. Internally uses TWEEN.
 
 duration : The time takes to rotate. Unit is seconds (sec). Default is 1.
 
-### onCollide(target, callback, trigger)
+### onCollide()
+
+`.onCollide(target, callback, trigger) `
 
 Sets the specified function to run when the object collides with the target object. Both this object and the target object must have Physics Body activated.
 
@@ -64,13 +74,17 @@ Sets the specified function to run when the object collides with the target obje
 
   - “end” : Occurs once at the end of a collision.
 
-### setDynamic(boolean)
+### setDynamic()
+
+`.setDynamic(boolean) `
 
 Changes how the object's movement is controlled. If an object is dynamic, its motion is affected by forces, including gravity, and is determined by a physics engine. If an object is kinematic, it can only move by manually changing its position and rotation through scripting. The object must have Physics Body activated.
 
 - boolean :Change to dynamic if true, kinematic if false.
 
-### applyForce(x, y, z)
+### applyForce()
+
+`.applyForce(x, y, z) `
 
 Apply a force to an object. The object must have Physics Body activated and be dynamic.
 
@@ -88,7 +102,9 @@ Temporarily removes an object.
 
 Recovers an object (that was removed by the kill() method).
 
-### onClick(callback)
+### onClick()
+
+`.onClick(callback) `
 
 Sets the specified callback function to run when the object is clicked.
 
