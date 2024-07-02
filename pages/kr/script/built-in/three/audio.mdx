@@ -4,42 +4,64 @@ import { Callout } from "nextra/components";
 
 > 이 클래스는 오디오와 관련된 속성 및 메서드에 대한 정보를 제공합니다.
 
-## Properties
+<Callout type="info">
+    아래 내용 이외에도 [THREE.Audio](https://threejs.org/docs/?q=audio#api/en/audio/Audio)의 다양한 속성과 메소드를 사용할 수 있습니다.
+</Callout>
+
+## 속성
+
+### .isPlaying
 
 `.isPlaying` : Boolean
 
 오디오가 현재 재생 중인지 여부를 반환합니다.
 
-## Methods
+### .hasPlaybackControl
+
+`.hasPlaybackControl` : Boolean
+
+`play()`, `.pause()` 등의 메소드를 사용하여 재생을 제어할 수 있는지 여부입니다. 기본값은 true입니다.
+
+## 메소드
+
+### .getPlaybackRate()
 
 `.getPlaybackRate ()` : Float
 
-PlaybackRate의 값을 반환합니다.
+PlaybackRate(재생 속도)의 값을 반환합니다.
 
-`.getVolume(값)`: Float
+### .getVolume()
+
+`.getVolume()`: Float
 
 현재 볼륨 값을 반환합니다.
 
-`.play(지연) `: this
+### .play()
 
-hasPlaybackControl이 true이면 재생을 시작합니다.
+`.play(delay) `: this
+
+`hasPlaybackControl`이 true이면 재생을 시작합니다.
+
+### .pause()
 
 `.pause ()` : this
 
-hasPlaybackControl이 true이면 재생을 일시 중지합니다.
+`hasPlaybackControl`이 true이면 재생을 일시 중지합니다.
+
+### .setPlaybackRate()
 
 `.setPlaybackRate ( value : Float )` : this
 
-hasPlaybackControl이 활성화된 경우 재생 속도를 설정할 수 있습니다.
+`hasPlaybackControl`이 활성화된 경우 재생 속도를 설정할 수 있습니다.
+
+### .setVolume()
 
 `.setVolume ( value : Float )` : this
 
 볼륨을 설정합니다.
 
+### .stop()
+
 `.stop ()` : this
 
-hasPlaybackControl이 활성화된 경우 재생을 중지합니다.
-
-<Callout type="info">
-    이외에도, [THREE.Audio](https://threejs.org/docs/?q=audio#api/en/audio/Audio)의 다양한 속성과 메소드를 사용할 수 있습니다.
-</Callout>
+`hasPlaybackControl`이 활성화된 경우 재생을 중지합니다.

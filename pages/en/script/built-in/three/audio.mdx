@@ -2,44 +2,66 @@ import { Callout } from "nextra/components";
 
 # Audio
 
-> This class provides access to properties and methods related to audio.
+> This class provides information about properties and methods related to audio.
+
+<Callout type="info">
+    Besides the information below, you can also utilize various properties and methods of [THREE.Audio](https://threejs.org/docs/?q=audio#api/en/audio/Audio).
+</Callout>
 
 ## Properties
 
+### .isPlaying
+
 `.isPlaying` : Boolean
 
-Whether the audio is currently playing.
+Returns whether the audio is currently playing.
+
+### .hasPlaybackControl
+
+`.hasPlaybackControl` : Boolean
+
+Specifies whether playback can be controlled using methods like `.play()`, `.pause()`, etc. Default is true.
 
 ## Methods
 
-`.getPlaybackRate ()` : Float
+### .getPlaybackRate()
 
-Return the value of playbackRate.
+`.getPlaybackRate()` : Float
 
-`.getVolume ( value )` : Float
+Returns the value of the playback rate.
 
-Return the current volume.
+### .getVolume()
 
-`.play ( delay ) `: this
+`.getVolume()` : Float
 
-If hasPlaybackControl is true, starts playback.
+Returns the current volume value.
 
-`.pause ()` : this
+### .play()
 
-If hasPlaybackControl is true, pauses playback.
+`.play(delay)` : this
 
-`.setPlaybackRate ( value : Float )` : this
+Starts playback if `hasPlaybackControl` is true.
 
-If hasPlaybackControl is enabled, set the playbackRate to value.
+### .pause()
 
-`.setVolume ( value : Float )` : this
+`.pause()` : this
 
-Set the volume.
+Pauses playback if `hasPlaybackControl` is true.
 
-`.stop ()` : this
+### .setPlaybackRate()
 
-If hasPlaybackControl is enabled, stops playback.
+`.setPlaybackRate(value : Float)` : this
 
-<Callout type="info">
-    In addition, you can use various properties and methods of [THREE.Audio](https://threejs.org/docs/?q=audio#api/en/audio/Audio)
-</Callout>
+Sets the playback rate if `hasPlaybackControl` is enabled.
+
+### .setVolume()
+
+`.setVolume(value : Float)` : this
+
+Sets the volume.
+
+### .stop()
+
+`.stop()` : this
+
+Stops playback if `hasPlaybackControl` is enabled.

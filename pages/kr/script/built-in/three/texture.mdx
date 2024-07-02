@@ -1,19 +1,36 @@
+import { Callout } from "nextra/components";
+
 # Texture
 
-> 머티리얼 표면에 적용할 수 있는 이미지 텍스처를 정의하는 클래스입니다.
+> 재료의 표면에 적용할 수 있는 이미지 텍스처를 정의하는 클래스입니다.
 
-`.offset` : 벡터2
+<Callout type="info">
+    아래 내용 이외에도 [THREE.Texture](https://threejs.org/docs/?q=texture#api/en/textures/Texture)의 다양한 속성과 메소드를 사용할 수 있습니다.
+</Callout>
 
-각 방향 U 및 V에서 텍스처의 단일 반복이 처음부터 오프셋되는 정도입니다. 일반적인 범위는 0.0~1.0입니다.
+## 속성
 
-`.repeat`: 벡터2
+### .offset
 
-U와 V의 각 방향에서 표면 전체에 걸쳐 텍스처가 반복되는 횟수입니다. 어느 방향에서든 반복이 1보다 크게 설정된 경우 해당 Wrap 매개변수도 THREE.RepeatWrapping 또는 THREE.MirroredRepeatWrapping으로 설정하여 원하는 타일링을 달성해야 합니다. 효과.
+`.offset` : Vector2
 
-`.회전`: 숫자
+텍스처의 각 방향(U와 V)에서 시작점에서의 오프셋입니다. 일반적으로 범위는 0.0에서 1.0입니다.
 
-텍스처가 중심점을 중심으로 회전하는 정도(라디안)입니다. 양수 값은 시계 반대 방향입니다. 기본값은 0입니다.
+### .repeat
 
-`.center`: 벡터2
+`.repeat`: Vector2
 
-회전이 발생하는 지점입니다. (0.5, 0.5) 값은 텍스처의 중심에 해당합니다. 기본값은 (0, 0), 왼쪽 아래입니다.
+텍스처가 표면을 따라 반복되는 횟수입니다.  
+각 방향(U와 V)에서 1보다 큰 값을 설정하면, 원하는 타일링 효과를 얻기 위해 해당 방향의 Wrap 매개변수도 THREE.RepeatWrapping 또는 THREE.MirroredRepeatWrapping으로 설정해야 합니다.
+
+### .rotation
+
+`.rotation`: number
+
+텍스처가 중심점을 기준으로 회전하는 각도입니다. 라디안 단위로, 양수 값은 반시계 방향입니다. 기본값은 0입니다.
+
+### .center
+
+`.center`: Vector2
+
+회전이 발생하는 중심점입니다. (0.5, 0.5) 값은 텍스처의 중심을 의미합니다. 기본값은 (0, 0)으로, 텍스처의 좌측 하단입니다.
