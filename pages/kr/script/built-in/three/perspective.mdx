@@ -1,10 +1,10 @@
-import { Callout, Code } from "nextra/components";
+import { Callout, Code, center } from "nextra/components";
 
 # Perspective cameras
 
 > 일반적으로 사용되는 카메라 클래스입니다.
 
-Perspective Camera는 Object3d에서도 상속되므로 아래 설명된 것 외에도 Object3d에 존재하는 속성과 기능을 사용할 수 있습니다.
+Perspective Camera는 Object3D에서도 상속되므로 아래 설명된 것 외에도 Object3D에 존재하는 속성과 기능을 사용할 수 있습니다.
 
 ## 카메라 파라미터 설정하기
 
@@ -21,23 +21,35 @@ Perspective Camera는 Object3d에서도 상속되므로 아래 설명된 것 외
 
 ## 속성
 
-`.fov` :  
+### .fov
+
+`.fov` : Float
+
 카메라의 수직 시야각을 나타내며, 아래에서 위로 보이는 시야의 각도를 의미합니다.  
 기본값은 50이며, 이 값을 조정하여 시야의 넓이를 변경할 수 있습니다.
 
-`.far` :  
+### .far
+
+`.far` : Float
+
 원근 카메라의 멀리 있는 면을 나타냅니다.  
 이 값보다 멀리있는 객체는 렌더링되지 않습니다.  
 기본값은 1000이며, 이 값을 조정하여 렌더링 거리를 제어할 수 있습니다.
 
-`.near` :  
+### .near
+
+`.near` : Float
+
 원근 카메라의 가까이 있는 면을 나타냅니다.  
 이 값보다 가까이 있는 객체는 렌더링되지 않습니다.  
 기본값은 0.1이며, 이 값을 조정하여 렌더링 거리를 제어할 수 있습니다.
 
 ## 메소드
 
-`.updateProjectionMatrix ()` :  
+### .updateProjectionMatrix()
+
+`.updateProjectionMatrix ()` : undefined
+
 스크립트 내에서 코드를 통해 카메라의 파라미터 값(.fov, .far, .near)을 변경할 경우, 이 메소드를 사용해주어야 변경사항이 즉시 적용됩니다.
 
 ```js copy filename="example"
@@ -55,13 +67,27 @@ camera.updateProjectionMatrix(); //updateProjectionMatrix()로 변경된 값을 
 </Callout>
   
 
-`.useFPS ()` :  
-카메라를 FPS 모드(1인칭)로 설정합니다.  
-![scriptlist](../../../../../images/useFPS.gif)
+### .useFPS()
 
-`.useTPV ()` :  
-카메라를 3인칭 모드로 설정합니다.  
-![scriptlist](../../../../../images/useTPV.gif)
+`.useFPS ()` : undefined
+
+카메라를 FPS 모드(1인칭)로 설정합니다.
+
+<br/>
+<center>
+![scriptlist](../../../../../images/useFPS.gif) 1인칭 화면
+</center>
+
+### useTPV()
+
+`.useTPV ()` : undefined
+
+카메라를 3인칭 모드로 설정합니다.
+
+<br/>
+<center>
+![scriptlist](../../../../../images/useTPV.gif) 3인칭 화면
+</center>
 
 <Callout type="warning">
     `.useFPS()`와 `useTPV()`는  아바타에 `.setFollowingCamera()` 메소드가 적용되어 있어야 작동합니다.  

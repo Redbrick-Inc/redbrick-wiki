@@ -4,7 +4,7 @@ import { Callout, Code } from "nextra/components";
 
 > This is the commonly used camera class.
 
-The Perspective Camera also inherits from Object3d, so in addition to the properties and functions described below, you can also use the properties and functions that exist in Object3d.
+The Perspective Camera also inherits from Object3D, so in addition to the properties and functions described below, you can also use the properties and functions that exist in Object3D.
 
 ## Setting Camera Parameters
 
@@ -21,23 +21,35 @@ The Perspective Camera also inherits from Object3d, so in addition to the proper
 
 ## Properties
 
-`.fov`:  
+### .fov
+
+`.fov` : Float
+
 Represents the vertical field of view of the camera, meaning the angle of view from bottom to top.  
 The default value is 50, and you can adjust this value to change the field of view width.
 
-`.far`:  
+### .far
+
+`.far` : Float
+
 Represents the far plane of the perspective camera.  
 Objects farther than this value will not be rendered.  
 The default value is 1000, and you can adjust this value to control the rendering distance.
 
-`.near`:  
+### .near
+
+`.near` : Float
+
 Represents the near plane of the perspective camera.  
 Objects closer than this value will not be rendered.  
 The default value is 0.1, and you can adjust this value to control the rendering distance.
 
 ## Methods
 
-`.updateProjectionMatrix()`:  
+### .updateProjectionMatrix()
+
+`.updateProjectionMatrix ()` : undefined
+
 If you change the camera parameters(.fov, .far, .near) through code within the script, you need to use this method to immediately apply the changes.
 
 ```js copy filename="example"
@@ -54,13 +66,27 @@ camera.updateProjectionMatrix(); //updateProjectionMatrix()로 변경된 값을 
     It is not necessary if you modify the values in the object property panel.  
 </Callout>
 
-`.useFPS()`:  
-Sets the camera to FPS mode (first-person view).  
-![scriptlist](../../../../../images/useFPS.gif)
+### .useFPS()
 
-`.useTPV()`:  
+`.useFPS ()` : undefined
+
+Sets the camera to FPS mode (first-person view).  
+
+<br/>
+<center>
+![scriptlist](../../../../../images/useFPS.gif) first-person view
+</center>
+
+### useTPV()
+
+`.useTPV ()` : undefined
+
 Sets the camera to third-person view.  
-![scriptlist](../../../../../images/useTPV.gif)
+
+<br/>
+<center>
+![scriptlist](../../../../../images/useTPV.gif) third-person view
+</center>
 
 <Callout type="warning">
     `.useFPS()` and `useTPV()` only work if the `.setFollowingCamera()` method is applied to the avatar.  

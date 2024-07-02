@@ -4,25 +4,31 @@ import { Callout } from "nextra/components";
 
 > 스크립트 간 통신을 위한 모듈입니다.
 
-클라이언트 스크립트 또는 서버 스크립트 간의 통신에 사용되는 클래스입니다. 다른 스크립트에 존재하는 함수를 실행하는 데 신호를 사용할 수 있습니다.
+클라이언트 스크립트 또는 서버 스크립트 간의 통신에 사용되는 클래스입니다. 다른 스크립트에 존재하는 함수를 실행하는 데 Signal을 사용할 수 있습니다.
 
 <Callout type="info" emoji="ℹ️">
-  클라이언트와 서버 스크립트 간의 신호 전달에는 이벤트 매니저 모듈을 사용해야
+  클라이언트와 서버 스크립트 간의 Signal 전달에는 Event Manager 모듈을 사용해야
   합니다.
 </Callout>
 ## 메소드
 
-### send(name, params)
+### .send()
 
-name에 해당하는 신호를 보냅니다. 신호는 클라이언트 스크립트 전체 또는 서버 스크립트 전체에 전달됩니다. params 옵션을 통해 매개변수를 전달할 수 있습니다.
+`.send(name, params) `
 
-### addListener(name, callback)
+name에 해당하는 Signal를 보냅니다. Signal는 클라이언트 스크립트 전체 또는 서버 스크립트 전체에 전달됩니다. params 옵션을 통해 매개변수를 전달할 수 있습니다.
 
-name에 해당하는 신호를 받았을 때 실행할 함수를 등록합니다. 전송 시 보낸 매개변수가 있다면, 이를 받아 콜백 함수로 전달합니다.
+### .addListener()
 
-### removeListener(name, callback)
+`.addListener(name, callback) `
 
-name에 해당하는 신호에 대해 특정 함수가 등록되어 있다면, 등록된 함수 목록에서 제거합니다.
+name에 해당하는 Signal를 받았을 때 실행할 함수를 등록합니다. 전송 시 보낸 매개변수가 있다면, 이를 받아 콜백 함수로 전달합니다.
+
+### .removeListener()
+
+`.removeListener(name, callback) `
+
+name에 해당하는 Signal에 대해 특정 함수가 등록되어 있다면, 등록된 함수 목록에서 제거합니다.
 
 ### 예시
 

@@ -4,7 +4,9 @@
 
 ## 메소드
 
-### .go(dx, dy, dz)
+### .go()
+
+`.go(dx, dy, dz) `
 
 객체가 즉시 이동합니다.
 
@@ -14,7 +16,9 @@
 
 - dz : z 방향으로의 거리.
 
-### .move(dx, dy, dz, duration)
+### .move()
+
+`.move(dx, dy, dz, duration) `
 
 객체가 지정된 시간 동안 이동합니다. 내부적으로 TWEEN을 사용합니다.
 
@@ -26,7 +30,9 @@
 
 duration : 이동하는 데 걸리는 시간. 단위는 초(sec)입니다. 기본값은 1입니다.
 
-### .rotate(dx, dy, dz)
+### .rotate()
+
+`.rotate(dx, dy, dz) `
 
 객체가 즉시 회전합니다.
 
@@ -36,7 +42,9 @@ duration : 이동하는 데 걸리는 시간. 단위는 초(sec)입니다. 기�
 
 - dz : z축 주위의 회전 각도. 단위는 도(degrees).
 
-### .turn(dx, dy, dz, duration)
+### .turn()
+
+`.turn(dx, dy, dz, duration) `
 
 객체가 지정된 시간 동안 회전합니다. 내부적으로 TWEEN을 사용합니다.
 
@@ -48,7 +56,9 @@ duration : 이동하는 데 걸리는 시간. 단위는 초(sec)입니다. 기�
 
 duration : 회전하는 데 걸리는 시간. 단위는 초(sec)입니다. 기본값은 1입니다.
 
-### .onCollide(target, callback, trigger)
+### .onCollide()
+
+`.onCollide(target, callback, trigger) `
 
 객체가 대상 객체와 충돌할 때 지정된 함수를 실행하도록 설정합니다. 이 객체와 대상 객체 모두 Physics Body가 활성화 되어있어야 합니다.
 
@@ -58,19 +68,23 @@ duration : 회전하는 데 걸리는 시간. 단위는 초(sec)입니다. 기�
 
 - trigger : 충돌 이벤트가 발생하는 조건. 기본값은 "start".
 
-  - “start” : 충돌 시작 시 한 번 발생.
+  \- “start” : 충돌 시작 시 한 번 발생.
 
-  - “collision” : 충돌하는 동안 반복적으로 발생.
+  \- “collision” : 충돌하는 동안 반복적으로 발생.
 
-  - “end” : 충돌 종료 시 한 번 발생.
+  \- “end” : 충돌 종료 시 한 번 발생.
 
-### .setDynamic(boolean)
+### .setDynamic()
+
+`.setDynamic(boolean) `
 
 객체의 움직임 제어 방식을 변경합니다. 객체가 동적이면 그 움직임은 중력을 포함한 힘에 영향을 받으며 물리 엔진에 의해 결정됩니다. 객체가 운동학적이면 스크립트를 통해 위치와 회전을 수동으로 변경해야만 이동할 수 있습니다. 객체는 Physics Body가 활성화 되어있어야 합니다.
 
 - boolean : true이면 동적으로, false이면 운동학적으로 변경.
 
-### .applyForce(x, y, z)
+### .applyForce()
+
+`.applyForce(x, y, z) `
 
 객체에 힘을 가합니다. 이 객체는 Physics Body가 활성화되어 있고 동적이어야 합니다.  
 
@@ -86,9 +100,11 @@ duration : 회전하는 데 걸리는 시간. 단위는 초(sec)입니다. 기�
 
 ### .revive()
 
-제거된 객체를 복구합니다 (kill() 메소드에 의해 제거된).
+kill() 메소드에 의해 제거된 객체를 복구합니다.
 
-### .onClick(callback)
+### .onClick()
+
+`.onClick(callback) `
 
 객체를 클릭할 때 실행할 지정된 콜백 함수를 설정합니다.
 
