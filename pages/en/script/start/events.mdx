@@ -143,13 +143,13 @@ Runs when a new player joins. When used in Client Script, existing players run t
 clientId: a unique id used to identify the client (player).
 
 </Callout>
-```js showLineNumbers const playerAvatars = {};
-
+```js showLineNumbers 
+const playerAvatars = {};
 function OnJoin(clientId, avatar) {
 playerAvatars[clientId] = avatar;
 }
 
-````
+```
 
 ## OnLeave(clientId)
 
@@ -163,7 +163,7 @@ const playerAvatars = {};
 function OnLeave(clientId) {
   delete playerAvatars[clientId];
 }
-````
+```
 
 ---
 
