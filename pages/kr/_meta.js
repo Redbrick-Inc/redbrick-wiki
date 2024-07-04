@@ -27,4 +27,8 @@ export default {
     title: "ssafy12",
     type: "page",
   },
+  gpt: {
+    title: "GPT",
+    type: "page",
+  },
 };
