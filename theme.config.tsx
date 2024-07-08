@@ -10,10 +10,8 @@ const config: DocsThemeConfig = {
     </>
   ),
   banner: {
-    key: "Welcome message",
-    content: (
-      <a href="/kr/ssafy12/question-guide">👉ssafy 참여자분들 이곳을 클릭해주세요!👈</a>
-    ),
+    key: "Enjoy message",
+    content: "Enjoy building new games with the brand new WIKI 🎉",
   },
   head: function useHead() {
     const config = useConfig();
