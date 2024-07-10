@@ -5,6 +5,33 @@ import { Tabs } from "nextra/components";
 # Frequently asked question
 
 <Steps>
+
+### If the Character is Slow, Lagging, or Floating
+
+<Callout type="warning">
+Please visit this [link](https://threejs.org/examples/#webgl_animation_keyframes) to check if the animation runs smoothly.  
+If it lags, follow the steps below.
+</Callout>
+<br/>
+
+1. Chrome settings -> Search for ‘acceleration’ -> Check ‘Use hardware acceleration’ -> Restart Chrome.
+2. If it still doesn't work, clear the cache, close all windows, and reopen them.
+3. If it still doesn't work, restart your PC.
+4. If it still doesn't work, please uninstall and reinstall Chrome.
+
+<Callout type="info">
+  <br/>
+  <center>
+    ![](../../../images/chrome-acceleration-setting-en.png)Enable hardware acceleration in Chrome
+  </center>
+</Callout>
+
+<Callout type="error">
+If the problem persists,  
+it may be due to missing or outdated graphics drivers on your computer.  
+Please check if your graphics drivers are installed and, if they are, ensure they are updated.
+</Callout>
+
 ### Why doesn't `.onCollide()` work?
 
 **Make sure you turned on Physics Body**
