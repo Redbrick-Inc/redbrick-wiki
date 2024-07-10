@@ -1,0 +1,37 @@
+import { Callout, Code } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# 포탈을 사용하여 다른 게임으로 전환하기
+
+![](../../../images/transform-game-using-portal.gif)
+
+## Steps
+
+<Steps>
+
+<Callout type="warning">
+  퍼블리싱이 되어있는 게임으로만 전환 할 수 있습니다.  
+</Callout>
+
+### 전환하고 싶은 게임의 PID를 복사합니다.  
+
+1. 전환하고 싶은 퍼블리싱 된 게임의 페이지로 갑니다.  
+2. 해당 게임의 주소창에서 PID를 복사합니다.  
+<br/>
+<center>![](../../../images/pid-of-publishing-game.png)</center>
+
+### 월드에 포탈을 추가하고 속성을 설정합니다.  
+
+1. 에디터의 좌측 에셋 패널에서 포탈을 선택하고 월드에 추가합니다.  
+2. 복사했던 PID를 포탈의 pid 속성에 입력합니다.  
+3. 포탈의 Behavior의 CanCollide 속성을 켜줍니다.  
+<br/>
+<center>![](../../../images/how-to-use-portal.png)</center>
+
+### 게임 내에서 포탈과 접촉하기
+
+게임을 실행한 뒤 포탈과 접촉하면 다른 게임으로 전환됩니다.  
+
+
+</Steps>

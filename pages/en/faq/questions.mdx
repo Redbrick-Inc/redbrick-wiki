@@ -5,6 +5,33 @@ import { Tabs } from "nextra/components";
 # Frequently asked question
 
 <Steps>
+
+### If the Character is Slow, Lagging, or Floating
+
+<Callout type="warning">
+Please visit this [link](https://threejs.org/examples/#webgl_animation_keyframes) to check if the animation runs smoothly.  
+If it lags, follow the steps below.
+</Callout>
+<br/>
+
+1. Chrome settings -> Search for ‘acceleration’ -> Check ‘Use hardware acceleration’ -> Restart Chrome.
+2. If it still doesn't work, clear the cache, close all windows, and reopen them.
+3. If it still doesn't work, restart your PC.
+4. If it still doesn't work, please uninstall and reinstall Chrome.
+
+<Callout type="info">
+  <br/>
+  <center>
+    ![](../../../images/chrome-acceleration-setting-en.png)Enable hardware acceleration in Chrome
+  </center>
+</Callout>
+
+<Callout type="error">
+If the problem persists,  
+it may be due to missing or outdated graphics drivers on your computer.  
+Please check if your graphics drivers are installed and, if they are, ensure they are updated.
+</Callout>
+
 ### Why doesn't `.onCollide()` work?
 
 **Make sure you turned on Physics Body**
@@ -149,12 +176,12 @@ WORLD.background = new THREE.Color(1, 0, 0);
 
 ### How do I change the avatar's jump height?
 
-To change the jump height of the avatar or player, use `PLAYER.changePlayerJumpHeight(3)`. The default jump height is set to 3.
+To change the jump height of the avatar or player, use [`PLAYER.changePlayerJumpHeight(height)`](../script/api/avatar#changePlayerJumpHeight). The default jump height is set to 3.
 
 ### How do I switch to first-person view?
 
-To switch to first-person view, `use camera.useFPS()`. To switch back to third-person view, use `camera.useTPV()`.  
-however, `.useFPS()` and `useTPV()` only work if the `.setFollowingCamera()` method is applied to the avatar.  
+To switch to first-person view, [`camera.useFPS()`](../script/api/perspective-camera#usefps). To switch back to third-person view, use [`camera.useTPV()`](../script/api/perspective-camera#usetpv).  
+however, `.useFPS()` and `useTPV()` only work if the [`.setFollowingCamera()`](../script/api/avatar#setfollowingcamera) method is applied to the avatar.  
 For more information about the camera, see [here](../script/built-in/three/perspective)
 
 ### What does this error mean?
@@ -165,15 +192,17 @@ For more information about the camera, see [here](../script/built-in/three/persp
 
 ### How do I move the avatar?
 
-If you want the avatar to move along with moving objects it steps on, you can use the function `.changeAxisSpeed(x, y, z)`. This function allows you to set the movement speed for the avatar along the x, y, and z axes.
+If you want the avatar to move along with moving objects it steps on, you can use the function [`.changeAxisSpeed(x, y, z)`](../script/api/avatar#changeaxisspeed). This function allows you to set the movement speed for the avatar along the x, y, and z axes.
 
 ### Why isn't my camera properties change working?
 
-If you have modified the parameters of the camera (`.fov`, `.far`, `.near`) through code within the script, you must use `.updateProjectionMatrix()` to immediately apply the changed values.  
+If you have modified the parameters of the camera (`.fov`, `.far`, `.near`) through code within the script, you must use [`.updateProjectionMatrix()`](../script/built-in/three/perspective#updateprojectionmatrix) to immediately apply the changed values.  
 
 ### How Do I Change the Camera?
 
-To switch from Camera 1 to Camera 2, simply use the command `camera2.activate()`. If you want to switch to a different camera, use `otherCamera.activate()`.
+You can easily switch using [`.activate()`](../script/api/perspective-camera#activate).  
+To switch from Camera 1 to Camera 2, use the `camera2.activate()` command.  
+To switch to another camera, use `otherCamera.activate()`.
 
 ### How can I display only text?
 
@@ -198,7 +227,8 @@ Here are two ways.
       ![](../../../images/empty_gui.png) left panel -> My -> Upload transparent PNG file -> Add to GUI
     </center>
   </div>
-  Upload a transparent PNG file, then enter text to use it.
+  Upload a transparent PNG file, then enter text to use it.  
+  For instructions on how to upload user files, refer to [this guide](../engine/operate/left/my-asset.mdx).
 </Callout>
 
 ### I want to bring and use variables and functions declared in another script
@@ -207,5 +237,10 @@ Use [GLOBAL](https://wiki.redbrick.land/en/script/start/global-objects#global).
 
 Even though I used GLOBAL, I can't import variables and functions from other scripts?   
 Check if you've coded with attention to [flow control](https://wiki.redbrick.land/en/script/start/flow-control).
+
+### I want to add and use my own files in addition to the assets and images in the studio
+
+Use My Assets.  
+For instructions, refer to [this guide](../engine/operate/left/my-asset.mdx).
 
 </Steps>

@@ -5,5 +5,6 @@ export default {
   "global-objects": "Global Objects",
   api: "APIs",
   "flow-control": "Flow control",
-  "default-setting": "Avatar & camera basic settings"
+  "default-setting": "Avatar & camera basic settings",
+  "3d-and-gui-object" : "3D & GUI Object",
 };

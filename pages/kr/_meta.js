@@ -23,10 +23,6 @@ export default {
     title: "부록",
     type: "page",
   },
-  ssafy12: {
-    title: "ssafy12",
-    type: "page",
-  },
   gpt: {
     title: "GPT",
     type: "page",

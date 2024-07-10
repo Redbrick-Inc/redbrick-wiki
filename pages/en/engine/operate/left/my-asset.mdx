@@ -1,31 +1,39 @@
 import { Callout } from "nextra/components";
 
-# My Asset
+# My Assets
 
-Custom assets can be uploaded and used in Model, Image, Video, and Sound formats.
+You can upload custom assets in the form of models, images, videos, and sounds.
 
 <Callout type="warning">
-  Supports files in the following formats: `gltf, glb, png, jpg, jpeg, mov, mp4,
-  mpeg, mp3 and wav`.
+  The following file formats are supported: `gltf, glb, png, jpg, jpeg, mov, mp4, mpeg, mp3, wav`.
 </Callout>
 
-## How to use My Asset
+## How to Use My Assets
 
-Enter the `[My]` category through the left panel.
+Go to the `[My]` category through the left panel and click the upload button to upload the file you want to use.
 
 <br />
-<center>![](../../../../../images/my-asset.png) My Asset</center>
-
-Click the `[Upload]` button to add the desired file.
-
-Select and recall the uploaded object.
+<center>![](../../../../../images/add-to-my-asset.png)</center>
 
 <Callout type="info">
-  The added files are automatically classified and available on the My > Model,
-  Image, Video, and Sound tabs.
+  The uploaded files are automatically categorized and can be accessed in the My > Models, Images, Videos, and Sounds tabs.
 </Callout>
 
-<br />
+You can add the uploaded items to the scene in two ways.
+
+Left-click the item or drag and drop it into the scene to add it as a 3D object, making it a child of WORLD.
+
 <center>
-  ![](../../../../../images/my-asset-info.webp) Uploading and using files
+<br/>
+  ![](../../../../../images/add-to-world-from-my-aaset.gif)
+  ![](../../../../../images/add-to-world-from-my-aaset-dragging.gif)
 </center>
+
+Hover over the item and click the three dots that appear, then select Add to GUI to add it as a GUI object, making it a child of GUI.
+
+<center>
+<br/>
+  ![](../../../../../images/add-to-gui-from-my-asset.gif)
+</center>
+
+For the differences between 3D objects and GUI objects, refer to [this guide](../../../script/start/3d-and-gui-object#differences-between-3d-objects-and-gui-objects).

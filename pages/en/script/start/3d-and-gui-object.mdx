@@ -1,0 +1,70 @@
+import { Callout } from "nextra/components";
+
+# 3D & GUI Objects
+
+> This guide explains 3D objects and GUI objects in Redbrick Studio.
+
+In Redbrick Studio, objects are categorized into 3D objects and GUI objects.
+
+## 3D Objects
+
+3D objects exist within the 3D space of a game.  
+These objects have three-dimensional properties and can interact with each other and the environment.  
+Examples of 3D objects include:  
+- Mesh: Shapes like cubes, spheres, and custom models created in 3D modeling software.
+- Terrain: Landscapes or ground surfaces.
+- Characters: Player or NPC character models.
+- Objects: Various environmental elements like trees, buildings, and vehicles.
+
+You can clearly distinguish between 3D objects and GUI objects in the object layer panel on the left side of the studio.  
+Select the Layer tab on the left panel, then select the World tab to see a list of 3D objects in the scene.
+
+<center>
+<br/>
+![](../../../../images/3d-object-list.png)Object Layer World Tab
+</center>
+
+The object labeled as "default" with a globe icon is the WORLD object.  
+In scripts, `WORLD.getObject("object")` and `WORLD.add(object)` methods refer to this WORLD object.
+
+## GUI Objects
+
+GUI objects are elements that make up the user interface in Unity.  
+They represent graphical elements for user interaction. Examples of GUI objects include:  
+- Text: Text displayed on the screen.
+- Button: Clickable interactive elements.
+- Image: Graphics or icons displayed on the screen.
+
+Select the Layer tab on the left panel, then select the GUI tab to see a list of GUI objects in the scene.
+
+<center>
+<br/>
+![](../../../../images/gui-object-list.png)Object Layer GUI Tab
+</center>
+
+The object labeled as "GUI" with a globe icon is the GUI object.  
+In scripts, `GUI.getObject("object")` methods refer to this GUI object.
+
+## Differences Between 3D Objects and GUI Objects
+
+Let's add the image below to the scene as both a 3D object and a GUI object.
+<center>
+<br/>
+![](../../../../images/object-img.png)Example Image
+<br/>
+</center>
+
+When added to the scene as a 3D object, the object becomes a child of WORLD and is rendered in the 3D space.
+<center>
+<br/>
+![](../../../../images/3d-object.gif)
+<br/>
+</center>
+
+When added to the scene as a GUI object, the object becomes a child of GUI and is rendered in the 2D space.  
+Additionally, GUI objects remain in view even when the player changes the camera's direction.
+<center>
+<br/>
+![](../../../../images/gui-object.gif)
+<br/>
+</center>

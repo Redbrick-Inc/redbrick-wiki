@@ -121,6 +121,16 @@ recursive - true인 경우 이 객체의 자식 객체들도 복제됩니다. �
 원본 객체의 모든 속성을 복사하여 새로운 객체를 생성합니다. 이는 객체의 기하학적 모양, 재질, 위치, 회전, 크기 등을 포함합니다.  
 복제된 객체는 원본 객체와 완전히 독립적이므로, 복제 후의 객체 변화는 원본 객체에 영향을 미치지 않습니다.  
 
+<Callout type="warning">
+    복제한 오브젝트는 WORLD에 자식으로 추가해 주어야 사용이 가능합니다.  
+    ```js showLineNumbers copy filename="EX"
+    const obj = WORLD.getObject("obj");
+    const clone_obj = obj.clone();
+    WORLD.add(clone_obj);
+    clone_obj.position.set(10, 1, 10);
+    ```
+</Callout>
+
 ### .copy()
 
 `originalObject.copy (targetObject : Object3D, recursive : Boolean ) ` : this

@@ -12,4 +12,6 @@ export default {
   "create-shooting": "How to create shooting game",
   debug: "How to debug and error?",
   "create-quarter-view-camera" : "Create quarter view camera",
+  "how-to-use-portal" : "Switching to another game",
+  "change-background-during-playing" : "Changing the Background Image During playing"
 };

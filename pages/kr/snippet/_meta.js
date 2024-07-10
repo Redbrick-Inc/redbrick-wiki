@@ -12,4 +12,6 @@ export default {
   "create-shooting": "슈팅 게임 만들기",
   debug: "디버깅 및 오류 해결 방법은?",
   "create-quarter-view-camera" : "쿼터뷰 카메라 만들기",
+  "how-to-use-portal" : "다른게임으로 전환하기",
+  "change-background-during-playing" : "플레이 중 배경이미지 바꾸기",
 };

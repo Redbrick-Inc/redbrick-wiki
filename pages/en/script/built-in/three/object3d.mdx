@@ -122,6 +122,17 @@ Creates and returns a new object by cloning the original object.
 All properties of the original object, including geometric shape, material, position, rotation, and scale, are copied.  
 The cloned object is completely independent of the original object, so changes to the cloned object will not affect the original object.
 
+<Callout type="warning">
+    The cloned object must be added as a child to the WORLD in order to be used.
+    ```js showLineNumbers copy filename="EX"
+    const obj = WORLD.getObject("obj");
+    const clone_obj = obj.clone();
+    WORLD.add(clone_obj);
+    clone_obj.position.set(10, 1, 10);
+    ```
+</Callout>
+
+
 ### .copy()
 
 `originalObject.copy (targetObject : Object3D, recursive : Boolean )` : this

@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # Object3D
 
 > 이 API는 Scene과 Sprite를 제외한 모든 객체에 추가됩니다.
@@ -126,3 +128,13 @@ this.getAudio().play(); // play audio
 
 해당 객체의 오브젝트 스크립트와 함께 객체를 복사합니다.  
 단, [THREE.Object3D](../built-in/three/object3d)와 이 페이지에 나열된 속성 및 메소드만 복사할 수 있으며, 객체의 Behavior와 Physics 속성은 복사되지 않습니다.  
+
+<Callout type="warning">
+    복제한 오브젝트는 WORLD에 자식으로 추가해 주어야 사용이 가능합니다.  
+    ```js showLineNumbers copy filename="EX"
+    const obj = WORLD.getObject("obj");
+    const clone_obj = obj.clone();
+    WORLD.add(clone_obj);
+    clone_obj.position.set(10, 1, 10);
+    ```
+</Callout>

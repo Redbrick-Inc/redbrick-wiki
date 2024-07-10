@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # Object3D
 
 > This API is added to all objects except Scene and Sprite.
@@ -126,3 +128,13 @@ For more detailed methods, see [THREE-Audio part](../built-in/three/audio)
 
 Copy the object along with its object script.  
 However, only the properties and methods listed in [THREE.Object3D](../built-in/three/object3d) and on this page can be copied. Behavior and Physics properties of the object will not be copied.
+
+<Callout type="warning">
+    The cloned object must be added as a child to the WORLD in order to be used.
+    ```js showLineNumbers copy filename="EX"
+    const obj = WORLD.getObject("obj");
+    const clone_obj = obj.clone();
+    WORLD.add(clone_obj);
+    clone_obj.position.set(10, 1, 10);
+    ```
+</Callout>

@@ -8,13 +8,13 @@ import { Steps } from "nextra/components";
 
 ### 추가 사항
 
-- 플레이어 점프 높이 제어 기능 `.changePlayerJumpHeight` 추가
-- 내장 메서드 `.cloneWithMethods()`를 사용하여 객체를 쉽게 복제할 수 있는 클론 기능이 추가
+- 플레이어 점프 높이 제어 기능 [`.changePlayerJumpHeight`](../script/api/avatar#changeplayerjumpheight) 추가
+- 내장 메서드 [`.cloneWithMethods()`](../script/api/object3d#clonewithmethods)를 사용하여 객체를 쉽게 복제할 수 있는 클론 기능이 추가
 - 카메라
-  - 카메라 전환 API `.activate()` 추가, 이를 통해 해당 카메라를 자동으로 활성화하고 다른 모든 카메라를 비활성화할 수 있습니다.
-  - 1인칭 시점으로 전환하는 카메라 API `.useFPS()` 추가
-  - 3인칭 시점으로 전환하는 카메라 API `.useTPV()` 추가
-  - VR 모드로 전환하는 카메라 API `.useVR({ VRObject: PLAYER });` 추가
+  - 카메라 전환 API [`.activate()`](../script/api/perspective-camera#activate) 추가, 이를 통해 해당 카메라를 자동으로 활성화하고 다른 모든 카메라를 비활성화할 수 있습니다.
+  - 1인칭 시점으로 전환하는 카메라 API [`.useFPS()`](../script/api/perspective-camera#usefps) 추가
+  - 3인칭 시점으로 전환하는 카메라 API [`.useTPV()`](../script/api/perspective-camera#usetpv) 추가
+  - VR 모드로 전환하는 카메라 API [`.useVR({ VRObject: PLAYER })`](../script/api/perspective-camera#usevr) 추가
 - OOBC
   - OOBC 부활 기능 추가
   - OOBC GUI 제어 추가 (죽이기, 부활, 이동 등)
