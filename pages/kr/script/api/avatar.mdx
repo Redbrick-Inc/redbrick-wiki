@@ -24,7 +24,7 @@
 
 `.changeAxisSpeed(x, y, z) `
 
-플레이어 컨트롤과 독립적인 기본 속도를 아바타에 부여합니다.
+플레이어 컨트롤에 영향을 받지 않는 독립적인 기본 속도를 아바타에 부여합니다.
 
 - x : x축 방향으로의 초당(sec) 속도.
 - y : y축 방향으로의 초당(sec) 속도.
@@ -37,3 +37,18 @@
 아바타의 점프 높이를 변경합니다.
 
 - height : 아바타의 점프 높이, 기본값은 3입니다.
+
+### .setDefaultController()
+
+`.setDefaultController `  
+
+아바타에 기본 컨트롤러를 적용해 제어합니다.  
+이 메소드를 사용하면 `W, A, S, D, Space Bar`로 아바타 움직임을 제어할 수 있게됩니다.  
+
+### .setFollowingCamera()
+
+`.setFollowingCamera(camera) ` : [PerspectiveCamera](../built-in/three/perspective.mdx)  
+
+camera가 해당 아바타를 자동으로 따라다니게 합니다.  
+
+- camera : 아바타를 따라다니게 할 [Perspective Camera](../../script/built-in/three/perspective.mdx) 객체입니다.

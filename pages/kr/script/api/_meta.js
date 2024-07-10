@@ -4,5 +4,6 @@ export default {
   "sprite": "Sprite",
   "video": "Video",
   "particle-system": "ParticleSystem",
-  "avatar": "Avatar"
+  "avatar": "Avatar",
+  "perspective-camera" : "Perspective Camera",
 }

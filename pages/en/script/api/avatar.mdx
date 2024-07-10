@@ -37,3 +37,18 @@ Gives the avatar a default speed that is independent of player controls.
 Change the jump height of the avatar.
 
 - height : The avatar's jump height, defaults is 3.
+
+### .setDefaultController()
+
+`.setDefaultController`
+
+Applies the default controller to the avatar for control.  
+Using this method allows you to control the avatar's movement with `W, A, S, D, Space Bar`.
+
+### .setFollowingCamera()
+
+`.setFollowingCamera(camera)` : [PerspectiveCamera](../built-in/three/perspective.mdx)
+
+Makes the specified camera automatically follow the avatar.
+
+- camera: A [Perspective Camera](../../script/built-in/three/perspective.mdx) object that will follow the avatar.

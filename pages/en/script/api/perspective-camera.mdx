@@ -1,0 +1,56 @@
+import {Callout} from "nextra/components"
+
+# Perspective Camera
+
+> APIs added to the camera object.
+
+## Methods
+
+### .activate()
+
+Switches to the specified camera.
+
+### .useFPS()
+
+`.useFPS ()` : undefined
+
+Sets the camera to FPS mode (first-person view).  
+
+<br/>
+<center>
+![scriptlist](../../../../images/useFPS.gif) first-person view
+</center>
+
+### .useTPV()
+
+`.useTPV ()` : undefined
+
+Sets the camera to third-person view.  
+
+<br/>
+<center>
+![scriptlist](../../../../images/useTPV.gif) third-person view
+</center>
+
+<Callout type="warning">
+    `.useFPS()` and `useTPV()` only work if the `.setFollowingCamera()` method is applied to the avatar.  
+    
+    Ex) Example usage
+    ```js showLineNumbers copy filename="PresetScript"
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    avatar.setFollowingCamera(camera); // This method must be applied to the avatar.
+    avatar.setDefaultController();
+
+    camera.useFPS(); // or camera.useTPV();
+    ```
+</Callout>
+
+### .useVR()
+
+`.useVR({ VRObject: object })` : undefined
+
+Sets the camera to VR mode.  
+For more details on VR options, refer to [this section](../../engine/content-type#vr-option).
+
+- object: An [Avatar](../api/avatar.mdx) object or an [Object3D](../built-in/three/object3d.mdx) object

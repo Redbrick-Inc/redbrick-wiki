@@ -8,13 +8,13 @@ import { Steps } from "nextra/components";
 
 ### Additions
 
-- Added control for player jump height using `.changePlayerJumpHeight`.
-- Introduced a clone feature to easily duplicate objects with the built-in method `.cloneWithMethods()`.
+- Added control for player jump height using [`.changePlayerJumpHeight`](../script/api/avatar#changeplayerjumpheight).
+- Introduced a clone feature to easily duplicate objects with the built-in method [`.cloneWithMethods()`](../script/api/object3d#clonewithmethods).
 - Camera
-  - Introduced a camera switch API with `.activate()`, which automatically enables the corresponding camera and disables all other cameras.
-  - Added camera api to switch to first-person view `.useFPS()`.
-  - Added camera api to switch to third-person view, `.useTPV()`.
-  - Added camera api to switch to VR, `.useVR({ VRObject: PLAYER });`.
+  - Introduced a camera switch API with [`.activate()`](../script/api/perspective-camera#activate), which automatically enables the corresponding camera and disables all other cameras.
+  - Added camera api to switch to first-person view [`.useFPS()`](../script/api/perspective-camera#usefps).
+  - Added camera api to switch to third-person view, [`.useTPV()`](../script/api/perspective-camera#usetpv).
+  - Added camera api to switch to VR, [`.useVR({ VRObject: PLAYER })`](../script/api/perspective-camera#usevr).
 - OOBC
   - Added OOBC revive functionality.
   - Added GUI control for OOBC, including options for kill, revive, and move.
