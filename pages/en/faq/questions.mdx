@@ -57,64 +57,18 @@ Please check if your graphics drivers are installed and, if they are, ensure the
   <center>![image](../../../images/rename.png) Rename </center>
 </Callout>
 
-### How do I create a retry button?
+### How to Create a Restart Function?
 
-Create initialization function, where you put all of your intializion code whenever game starts. And use it whenever you want to restart the game.
+Currently, Redbrick Studio does not have a dedicated function to restart or reset the game.  
+However, you can achieve a similar effect with a custom function.  
+For more details, please refer to [this guide](../snippet/create-functionality-reset-game.mdx).
 
-```js showLineNumbers filename="example restart" {5, 7-12, 18-20}
-let score = 0;
-const scoreGUI = GUI.getObject("score_gui");
+### How to Create a Pause Function?
 
-const startButton = GUI.getObject("start_button");
-const restartButton = GUI.getObject("restart_button");
+Currently, Redbrick Studio does not have a dedicated function to pause the game.  
+However, you can achieve a similar effect with a custom function.  
+For more details, please refer to [this guide](../snippet/create-functionality-pause-game.mdx).
 
-function gameStart() {// Function to restart the game
-  PLAYER.spawn();
-  score = 0;
-  scoreGUI.setText = score;
-  // Add other parts that need initialization or setup
-}
-
-startButton.onClick(() => {
-  gameStart(); //start
-});
-
-restartButton.onClick(() => {
-  gameStart(); //restart all values
-});
-```
-
-### How do I create a function to pause the game?
-
-Create a custom function to pause the game, and use that function whenever you need to pause the game.
-
-```js showLineNumbers filename="example game pause" {8-12, 14-17}
-const timer = new REDBRICK.Timer();
-
-timer.start();
-
-const pauseButton = GUI.getObject("pause_button");
-const playButton = GUI.getObject("play_button");
-
-function gamePause() { // Function to pause the game
-  PLAYER.changePlayerSpeed(0);
-  timer.pause();
-  // Add any other necessary pause operations
-};
-
-function gamePlay() { // Function to resume the paused game
-  PLAYER.changePlayerSpeed(1);
-  timer.resume();
-};
-
-pauseButton.onClick(() => {
-  gamePause(); // Pause the game
-});
-
-playButton.onClick(() => {
-  gamePlay(); // Resume the game
-});
-```
 
 ### The changes to the object's position and rotation are not being applied.
 
@@ -242,5 +196,9 @@ Check if you've coded with attention to [flow control](https://wiki.redbrick.lan
 
 Use My Assets.  
 For instructions, refer to [this guide](../engine/operate/left/my-asset.mdx).
+
+### I want to move the position of the player or object
+
+Please refer to the content [here](../script/start/absolute-and-relative-coordinates.mdx).
 
 </Steps>

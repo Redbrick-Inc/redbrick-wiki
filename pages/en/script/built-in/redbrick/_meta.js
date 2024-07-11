@@ -1,5 +1,5 @@
 export default {
-  "timer": "Timer",
+  "eventmanager": "Event Manager",
   "signal": "Signal",
-  "eventmanager": "Event Manager"
+  "timer": "Timer",
 }

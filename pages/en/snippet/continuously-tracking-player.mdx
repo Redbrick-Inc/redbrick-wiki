@@ -1,0 +1,42 @@
+import { Callout, Code } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# Create an object that continuously tracks the player
+
+<br/>
+<center>
+![](../../../images/player-tracking-object.gif)
+</center>
+
+Here’s how to implement the desired functionality.  
+
+```js showLineNumbers filename="Tracking_player" copy
+const vehicle = WORLD.getObject("vehicle"); // Retrieve the object that will track the player.
+
+function Update(dt) {
+  // Get the current position of the player and the object.
+  const playerPosition = PLAYER.position;
+  const objPosition = vehicle.position;
+
+  // Calculate the direction for the object to move towards the player.
+  const direction = new THREE.Vector3(
+    playerPosition.x - objPosition.x,
+    playerPosition.y - objPosition.y,
+    playerPosition.z - objPosition.z
+  ).normalize();
+
+  // Set the speed of the object.
+  const speed = 8; // Set the desired speed.
+
+  // Update the position of the object.
+  vehicle.position.set(
+    objPosition.x + direction.x * speed * dt,
+    objPosition.y + direction.y * speed * dt,
+    objPosition.z + direction.z * speed * dt
+  );
+  
+  // Make the object look at the player.
+  vehicle.lookAt(PLAYER.position);
+}
+```

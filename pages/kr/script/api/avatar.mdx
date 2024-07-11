@@ -1,6 +1,10 @@
+import { Callout } from "nextra/components";
+
 # Avatar
 
 > 플레이어의 아바타에 추가되는 API.
+
+플레이어 (아바타) 오브젝트도 Object3D를 상속받기 때문에 [Object3D](../built-in/three/object3d.mdx)의 속성과 메소드를 사용할 수 있습니다.  
 
 ## 메소드
 
@@ -8,9 +12,18 @@
 
 `.spawn(target) `
 
-아바타를 지정한 위치로 이동시킵니다.
-
 - target : 객체 또는 객체의 이름. 해당 객체의 위치로 스폰합니다. 기본값은 `StartLocation`입니다.
+
+아바타를 지정한 위치로 이동시킵니다.  
+target을 지정하지 않으면 `starting_point`로 이동합니다.
+
+<Callout type="warning">
+`starting_point`로 이동하기 위해선 씬 내에 `starting_point` 에셋이 존재해야 합니다.  
+<br/>
+<center>
+![](../../../../images/starting-point.png)
+</center>
+</Callout>
 
 ### .changePlayerSpeed()
 

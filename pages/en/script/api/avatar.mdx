@@ -1,6 +1,10 @@
+import {Callout} from "nextra/components";
+
 # Avatar
 
 > API that is added to the player's avatar.
+
+The player (avatar) object also inherits from Object3D, so it can use the properties and methods of [Object3D](../built-in/three/object3d.mdx).
 
 ## Methods
 
@@ -8,9 +12,18 @@
 
 `.spawn(target) `
 
-The avatar moves to the location you specify.
-
 - target : object or the title of the object. Spawn to the location of that object. Defaulte is StartLocation.
+
+The avatar moves to the location you specify.  
+If no target is specified, you will move to `starting_point`.
+
+<Callout type="warning">
+To move to `starting_point`, the `starting_point` asset must exist within the scene.  
+<br/>
+<center>
+![](../../../../images/starting-point.png)
+</center>
+</Callout>
 
 ### .changePlayerSpeed()
 

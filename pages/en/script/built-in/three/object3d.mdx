@@ -118,9 +118,10 @@ Removes this object from its parent object.
 
 recursive - If true, child objects of this object will also be cloned. Default is true.
 
-Creates and returns a new object by cloning the original object.  
-All properties of the original object, including geometric shape, material, position, rotation, and scale, are copied.  
-The cloned object is completely independent of the original object, so changes to the cloned object will not affect the original object.
+It clones an object and returns a new object.  
+The new object is created by copying the properties of the original object, including its geometry, material, position, rotation, and scale.  
+However, the Physics and Behavior properties are not copied.  
+The cloned object is completely independent of the original object, so any changes to the cloned object will not affect the original object.
 
 <Callout type="warning">
     The cloned object must be added as a child to the WORLD in order to be used.
@@ -147,8 +148,9 @@ The original object (targetObject) remains unchanged.
 `.getObjectByProperty( propertyName : String, value : Any )` : Object3D
 
 propertyName - The name of the property to search for.  
-value - The value of the property to search for. The method searches the scene graph for an object that matches the specified property and value.
+value - The value of the property to search for. 
 
+The method searches the scene graph for an object that matches the specified property and value.  
 Searches the scene graph for an object based on a specific property and its value.  
 Returns the first object that matches. Returns null if no matching object is found.
 
@@ -207,7 +209,7 @@ An exception may occur if you call this method on an object that is not part of 
 
 `object.rotateOnAxis ( axis : Vector3, angle : Float )` : this
 
-axis - A Vector3 representing the axis around which to rotate.
+axis - A Vector3 representing the axis around which to rotate.  
 angle - The rotation angle in radians.
 
 Rotates the object around the specified axis in its local coordinate system.  
@@ -217,7 +219,7 @@ Since it operates in the local coordinate system of the object, it is not affect
 
 `object.rotateOnWorldAxis( axis : Vector3, angle : Float)` : this
 
-axis - A Vector3 representing the axis around which to rotate in world coordinates.
+axis - A Vector3 representing the axis around which to rotate in world coordinates.  
 angle - The rotation angle in radians.
 
 Rotates the object around the specified axis in world coordinates.  
@@ -237,7 +239,7 @@ Traverses the object hierarchy, calling the specified callback function for each
 `object.lookAt ( target : Vector3 )` : undefined  
 `object.lookAt ( x : Float, y : Float, z : Float )` : undefined
 
-target - A Vector3 representing the position that the object should look at.
+target - A Vector3 representing the position that the object should look at.  
 x, y, z - Optionally specify the x, y, z components of the vector.
 
 Rotates the object to face a specified point (vector) in its local coordinate system.  
@@ -247,7 +249,7 @@ Therefore, it is affected by transformations of its parent object.
 
 `.raycast( raycaster : Raycaster, intersects : Array )` : undefined
 
-raycaster - A THREE.Raycaster object defining the origin and direction of the ray.
+raycaster - A THREE.Raycaster object defining the origin and direction of the ray.  
 intersects - An array to store intersection information. Information about the intersection point with the object will be added to this array if the ray intersects with the object.
 
 Used to check if a ray intersects with a specific object and to identify the intersected object.  

@@ -13,5 +13,8 @@ export default {
   debug: "How to debug and error?",
   "create-quarter-view-camera" : "Create quarter view camera",
   "how-to-use-portal" : "Switching to another game",
-  "change-background-during-playing" : "Changing the Background Image During playing"
+  "change-background-during-playing" : "Changing the Background Image During playing",
+  "continuously-tracking-player" : "Create an object that continuously tracks the player",
+  "create-functionality-pause-game" : "Create function to pause the game",
+  "create-functionality-reset-game" : "Create function to reset the game",
 };
