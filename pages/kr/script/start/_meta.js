@@ -7,4 +7,5 @@ export default {
   "flow-control": "코드 실행 흐름 제어",
   "default-setting": "아바타 & 카메라 기본 세팅",
   "3d-and-gui-object" : "3D & GUI 오브젝트",
+  "absolute-and-relative-coordinates" : "절대 좌표와 상대 좌표",
 };

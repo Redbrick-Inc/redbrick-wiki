@@ -59,63 +59,15 @@ import { Tabs } from "nextra/components";
 
 ### 재시작 기능을 어떻게 만드나요?
 
-게임이 시작될 때 모든 초기화 코드를 넣는 초기화 함수를 생성하세요. 그리고 게임을 재시작할 때마다 이 함수를 사용하세요.
-
-```js showLineNumbers filename="example restart" {5, 7-12, 18-20}
-let score = 0;
-const scoreGUI = GUI.getObject("score_gui");
-
-const startButton = GUI.getObject("start_button");
-const restartButton = GUI.getObject("restart_button");
-
-function gameStart() { //게임을 초기화 해주는 함수
-  PLAYER.spawn();
-  score = 0;
-  scoreGUI.setText = score;
-  // 기타 초기화, 설정이 필요한 다른 부분들을 추가하세요
-}
-
-startButton.onClick(() => {
-  gameStart(); // 시작할 때 게임 초기화
-});
-
-restartButton.onClick(() => {
-  gameStart(); // 재시작 버튼 누를 때 게임 초기화
-});
-```
+현재 레드브릭 스튜디오에서 게임을 재시작 또는 초기화 해주는 기능은 따로 없습니다.  
+그러나 사용자 정의 함수로 비슷한 효과를 낼 수 있습니다.  
+자세한 내용은 [이곳](../snippet/create-functionality-reset-game.mdx)을 참고하세요
 
 ### 게임을 일시정지하는 기능을 어떻게 만드나요?
 
-사용자 정의 함수로 게임을 정지시키는 함수를 생성하세요.  
-그리고 게임을 멈출떄마다 그 함수를 사용하세요.  
-
-```js showLineNumbers filename="example game pause" {8-12, 14-17}
-const timer = new REDBRICK.Timer();
-
-timer.start();
-
-const pauseButton = GUI.getObject("pause_button");
-const playButton = GUI.getObject("play_button");
-
-function gamePause() { //게임을 일시정지 해주는 함수
-  PLAYER.changePlayerSpeed(0);
-  timer.pause();
-  // 기타 정지가 필요한 다른 부분들을 추가하세요
-};
-
-function gamePlay() { //정지된 게임을 다시 플레이하게 하는 함수
-  PLAYER.changePlayerSpeed(1);
-  timer.resume();
-};
-
-pauseButton.onClick(() => {
-  gamePause(); //게임 정지
-});
-
-playButton.onClick(() => {
-  gamePlay(); // 게임 플레이
-});
-```
+현재 레드브릭 스튜디오에서 게임을 일시정지해주는 기능은 따로 없습니다.  
+그러나 사용자 정의 함수로 비슷한 효과를 낼 수 있습니다.  
+자세한 내용은 [이곳](../snippet/create-functionality-pause-game.mdx)을 참고하세요
 
 ### 오브젝트의 위치, 회전 값을 변경했는데 적용되지 않아요
 
@@ -244,5 +196,9 @@ GLOBAL을 이용했는데도 다른 스크립트의 변수, 함수를 가져올 
 
 My 에셋을 활용하세요.  
 사용법은 [이곳](../engine/operate/left/my-asset.mdx)을 참고하세요.  
+
+### 플레이어, 오브젝트의 위치를 이동시키고 싶어요
+
+[이곳](../script/start/absolute-and-relative-coordinates.mdx)의 내용을 참고하세요.
 
 </Steps>

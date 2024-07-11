@@ -1,0 +1,41 @@
+import { Callout, Code } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# 게임을 초기화 시키는 기능 만들기
+
+<center>
+<br/>
+![](../../../images/game-reset.gif)
+</center>
+
+현재 레드브릭 스튜디오에서 게임을 재시작 또는 초기화 해주는 기능은 따로 없습니다.  
+그러나 사용자 정의 함수로 비슷한 효과를 낼 수 있습니다.  
+게임을 초기화하는 함수를 정의하고, 초기화 할 떄마다 그 함수를 사용하면됩니다.  
+
+```js showLineNumbers filename="example restart" {6-11, 18-20}
+const timer_board = GUI.getObject("timer_board");
+const reset_btn = GUI.getObject("reset_btn");
+const start_btn = GUI.getObject("start_btn");
+const timer = new REDBRICK.Timer();
+
+function reset() { //게임을 초기화 해주는 함수
+  PLAYER.spawn();
+  timer.reset();
+  timer.start();
+  // 기타 초기화, 설정이 필요한 다른 부분들을 추가하세요
+}
+
+start_btn.onClick(() => {
+  timer.start();
+  reset(); // 시작할 때 게임 초기화
+});
+
+reset_btn.onClick(() => {
+  reset(); // 재시작 버튼 누를 때 게임 초기화
+});
+
+function Update(dt) {
+    timer_board.setText(timer.getTime())
+}
+```

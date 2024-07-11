@@ -80,7 +80,9 @@ Sets the specified function to run when the object collides with the target obje
 
 `.setDynamic(boolean) `
 
-Changes how the object's movement is controlled. If an object is dynamic, its motion is affected by forces, including gravity, and is determined by a physics engine. If an object is kinematic, it can only move by manually changing its position and rotation through scripting. The object must have Physics Body activated.
+Changes how the object's movement is controlled. If an object is dynamic, its motion is affected by forces, including gravity, and is determined by a physics engine.  
+If an object is kinematic, it can only move by manually changing its position and rotation through scripting.  
+The object must have Physics Body activated.
 
 - boolean :Change to dynamic if true, kinematic if false.
 
@@ -133,7 +135,7 @@ However, only the properties and methods listed in [THREE.Object3D](../built-in/
     The cloned object must be added as a child to the WORLD in order to be used.
     ```js showLineNumbers copy filename="EX"
     const obj = WORLD.getObject("obj");
-    const clone_obj = obj.clone();
+    const clone_obj = obj.cloneWithMethods();
     WORLD.add(clone_obj);
     clone_obj.position.set(10, 1, 10);
     ```

@@ -14,4 +14,7 @@ export default {
   "create-quarter-view-camera" : "쿼터뷰 카메라 만들기",
   "how-to-use-portal" : "다른게임으로 전환하기",
   "change-background-during-playing" : "플레이 중 배경이미지 바꾸기",
+  "continuously-tracking-player" : "플레이어를 지속적으로 추적하는 오브젝트 만들기",
+  "create-functionality-pause-game" : "게임을 일시정지 시키는 기능 만들기",
+  "create-functionality-reset-game" : "게임을 초기화 시키는 기능 만들기",
 };

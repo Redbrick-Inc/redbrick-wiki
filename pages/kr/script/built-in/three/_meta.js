@@ -1,13 +1,13 @@
 export default {
-  "object3d": "Object3D",
-  "scene": "Scene",
-  "perspective": "Perspective Camera",
-  "mesh": "Mesh",
-  "sprite": "Sprite",
-  "material": "Material",
-  "mesh-standard-material": "MeshStandardMaterial",
-  "vector3": "Vector3",
   "audio": "Audio",
+  "light": "Light",
+  "material": "Material",
+  "mesh": "Mesh",
+  "mesh-standard-material": "MeshStandardMaterial",
+  "object3d": "Object3D",
+  "perspective": "Perspective Camera",
+  "scene": "Scene",
+  "sprite": "Sprite",
   "texture": "Texture",
-  "light": "Light"
+  "vector3": "Vector3",
 }
