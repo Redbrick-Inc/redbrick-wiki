@@ -6,7 +6,11 @@ import { Tabs } from "nextra/components";
 
 > 절대 좌표와 상대 좌표의 개념, 사용법을 안내합니다.
 
-## 절대 좌표
+<Callout type="warning">
+    PLAYER 오브젝트 또는 Physics Body 속성이 활성화 된 오브젝트의 경우, [`.position.set()`](../built-in/three/vector3#set) 또는 [`.position`](../built-in/three/object3d#position)속성 업데이트를 사용했다면 `Object.body.needUpdate = true;` 코드를 실행해주어야 위치 변경이 반영됩니다.
+</Callout>
+
+## 절대 좌표 이동
 
 절대 좌표는 특정 기준점(월드)에 대해 고정된 위치를 나타내는 좌표입니다.  
 이는 전역 좌표계에서 특정한 위치를 가리키며, 그 위치는 변하지 않고 다른 객체의 위치와 독립적입니다.  
@@ -17,7 +21,7 @@ import { Tabs } from "nextra/components";
 
 ### Object.position.set()
 
-[`Object.position.set(x, y, x)`](../built-in/three/vector3#set)을 사용하면 월드 내의 특정 좌표로 오브젝트를 즉시 이동시킬 수 있습니다.  
+[`Object.position.set(x, y, z)`](../built-in/three/vector3#set)을 사용하면 월드 내의 특정 좌표로 오브젝트를 즉시 이동시킬 수 있습니다.  
 
 ```js copy showLineNumbers filename="position.set()"
 const obj = WORLD.getObject("obj");
@@ -27,7 +31,26 @@ obj.position.set(10, 10, 10); //x=10, y=10, z=10 의 좌표로 오브젝트 이�
 obj.position.set(PLAYER.position.x, PLAYER.position.y, PLAYER.position.z); //플레이어의 위치로 오브젝트 이동시키기
 PLAYER.position.set(obj2.position.x, obj2.position.y, obj2.position.z) //플레이어를 obj2의 위치로 이동 시키기
 
-PLAYER.body.needUpdate = true; //PLAYER 또는 Physics Body 속성이 활성화 되어있는 오브젝트는 위치 변경 후 이 코드를 실행해주어야 위치 변경이 반영됩니다
+//PLAYER 오브젝트 또는 Physics Body 속성이 활성화 되어있는 오브젝트는 위치 변경 후 아래 코드를 실행해주어야 위치 변경이 반영됩니다
+PLAYER.body.needUpdate = true; 
+obj.body.needUpdate = true;
+```
+
+### Object.position.copy()
+
+`position.set()`외에도 [`Object.position.copy(vector)`](../built-in/three/vector3#copy)을 사용하면 월드 내의 특정 좌표로 오브젝트를 즉시 이동시킬 수 있습니다.  
+
+```js copy showLineNumbers filename="position.copy()"
+const obj = WORLD.getObject("obj");
+const obj2 = WORLD.getObject("obj2");
+
+obj.position.copy(obj2.position); //obj2의 좌표로 obj를 이동시킴
+obj2.position.copy(PLAYER.position); //플레이어의 위치로 obj2 이동시키기
+PLAYER.position.copy(obj.position) //플레이어를 obj의 위치로 이동 시키기
+
+//PLAYER 오브젝트 또는 Physics Body 속성이 활성화 되어있는 오브젝트는 위치 변경 후 아래 코드를 실행해주어야 위치 변경이 반영됩니다
+PLAYER.body.needUpdate = true; 
+obj.body.needUpdate = true;
 ```
 
 ### position 값 직접 업데이트
@@ -36,12 +59,15 @@ PLAYER.body.needUpdate = true; //PLAYER 또는 Physics Body 속성이 활성화 
 
 ```js copy showLineNumbers filename="position_value_update"
 const obj = WORLD.getObject("obj");
+const obj2 = WORLD.getObject("obj2");
 
 obj.position.x = 10; //오브젝트의 현재 좌표에서 x=10 좌표로 이동 (y, z 좌표는 동일)
-obj.position.z = PLAYER.position.z; //오브젝트의 z 좌표 값만 플레이어의 z 좌표와 동일하게 설정
-PLAYER.position.y = 100; //플레이어의 높이를 100으로 변경
+obj2.position.z = PLAYER.position.z; //오브젝트의 z 좌표 값만 플레이어의 z 좌표와 동일하게 설정
+PLAYER.position.y = 100; //플레이어의 높이(y)를 100으로 변경
 
-PLAYER.body.needUpdate = true; //PLAYER 또는 Physics Body 속성이 활성화 되어있는 오브젝트는 위치 변경 후 이 코드를 실행해주어야 위치 변경이 반영됩니다
+//PLAYER 오브젝트 또는 Physics Body 속성이 활성화 되어있는 오브젝트는 위치 변경 후 아래 코드를 실행해주어야 위치 변경이 반영됩니다
+PLAYER.body.needUpdate = true;
+obj.body.needUpdate = true;
 ```
 
 ### PLAYER.spawn()
@@ -70,16 +96,18 @@ PLAYER.spawn("object"); //obj의 위치로 이동 (타이틀로 오브젝트 지
 
 ### Object.position.set()
 
-[`Object.position.set(x, y, x)`](../built-in/three/vector3#set) 메소드를 다음과 같이 사용하면 상대 좌표 이동을 구현할 수 있습니다.  
+[`Object.position.set(x, y, z)`](../built-in/three/vector3#set) 메소드를 다음과 같이 사용하면 상대 좌표 이동을 구현할 수 있습니다.  
 
 ```js copy showLineNumbers filename="position.set()"
 const obj = WORLD.getObject("obj");
 const obj2 = WORLD.getObject("obj2");
 
-obj.position.set(obj2.position.x + 10, obj2.position.y, obj2.position.z); //obj를 obj2 위치 기준 x +10 만큼 이동시킵니다
-PLAYER.position.set(obj2.position.x, obj2.position.y + 10, obj2.position.z) //플레이어를 obj2의 위치 기준 y +10 만큼 이동시킵니다
+obj.position.set(obj2.position.x + 10, obj2.position.y, obj2.position.z); //obj를 obj2 위치 기준 x+10 만큼 이동시킵니다
+PLAYER.position.set(obj2.position.x, obj2.position.y + 10, obj2.position.z) //플레이어를 obj2의 위치 기준 y+10 만큼 이동시킵니다
 
-PLAYER.body.needUpdate = true; //PLAYER 또는 Physics Body 속성이 활성화 되어있는 오브젝트는 위치 변경 후 이 코드를 실행해주어야 위치 변경이 반영됩니다
+//PLAYER 오브젝트 또는 Physics Body 속성이 활성화 되어있는 오브젝트는 위치 변경 후 아래 코드를 실행해주어야 위치 변경이 반영됩니다
+PLAYER.body.needUpdate = true;
+obj.body.needUpdate = true;
 ```
 
 ### position 값 직접 업데이트
@@ -88,12 +116,15 @@ PLAYER.body.needUpdate = true; //PLAYER 또는 Physics Body 속성이 활성화 
 
 ```js copy showLineNumbers filename="position_value_update"
 const obj = WORLD.getObject("obj");
+const obj2 = WORLD.getObject("obj2");
 
-obj.position.x += 10; //오브젝트의 현재 좌표에서 +10 만큼 이동 (y, z 좌표는 동일)
-obj.position.z = PLAYER.position.z - 10; //플레이어의 좌표에서 z - 10의 위치로 이동 (x, y 좌표는 동일)
-PLAYER.position.y += 10; //플레이어의 높이를 현재 높이 기준 +10 만큼 변경
+obj.position.x += 10; //오브젝트의 현재 좌표에서 x+10 만큼 이동 (y, z 좌표는 동일)
+obj2.position.z = PLAYER.position.z - 10; //플레이어의 좌표에서 z-10의 위치로 이동 (x, y 좌표는 동일)
+PLAYER.position.y += 10; //플레이어의 높이(y)를 현재 높이 기준 +10 만큼 변경
 
-PLAYER.body.needUpdate = true; //PLAYER 또는 Physics Body 속성이 활성화 되어있는 오브젝트는 위치 변경 후 이 코드를 실행해주어야 위치 변경이 반영됩니다
+//PLAYER 오브젝트 또는 Physics Body 속성이 활성화 되어있는 오브젝트는 위치 변경 후 아래 코드를 실행해주어야 위치 변경이 반영됩니다
+PLAYER.body.needUpdate = true;
+obj.body.needUpdate = true;
 ```
 
 ### Object.go()
@@ -103,7 +134,7 @@ PLAYER.body.needUpdate = true; //PLAYER 또는 Physics Body 속성이 활성화 
 ```js copy showLineNumbers filename=".go()"
 const obj = WORLD.getObject("obj");
 
-obj.go(0, 5, 0); //obj의 높이를 현재 높이 기준 +5만큼 이동시킵니다.
+obj.go(0, 5, 0); //obj의 높이(y)를 현재 높이 기준 +5만큼 이동시킵니다.
 PLAYER.go(5, 5, 5); //플레이어를 현재 위치 기준 x, y, z 각각 +5 만큼 이동시킵니다
 ```
 
@@ -114,6 +145,6 @@ PLAYER.go(5, 5, 5); //플레이어를 현재 위치 기준 x, y, z 각각 +5 만
 ```js copy showLineNumbers filename=".go()"
 const obj = WORLD.getObject("obj");
 
-obj.move(10, 0, 10, 5); //obj가 현재 위치 기준 x +10, z +10의 위치로 5초동안 이동하게 합니다
-PLAYER.go(0, 5, 0, 10); //플레이어를 현재 위치 기준 y +5의 위치로 10초동안 이동하게 합니다
+obj.move(10, 0, 10, 5); //obj가 현재 위치 기준 x+10, z+10의 위치로 5초동안 이동하게 합니다
+PLAYER.go(0, 5, 0, 10); //플레이어를 현재 위치 기준 y+5의 위치로 10초동안 이동하게 합니다
 ```

@@ -201,4 +201,45 @@ For instructions, refer to [this guide](../engine/operate/left/my-asset.mdx).
 
 Please refer to the content [here](../script/start/absolute-and-relative-coordinates.mdx).
 
+### I Want to Modify the Fog Value in the Scene During Gameplay
+
+You can easily adjust it by modifying the `WORLD.fog.density` property.
+
+```js copy showLineNumbers filename="EX_fog_change"
+let fogDensity = 0.01; // Initial fog density
+const fogDensityIncreaseRate = 0.001; // Fog density increase rate per second
+
+function update(dt) {
+    fogDensity += fogDensityIncreaseRate * dt; // Increase fog density over time
+    WORLD.fog.density = fogDensity; // Set fog to the updated density
+}
+```
+
+### I want to change the appearance of my avatar
+
+You can change the appearance of your avatar for gameplay on the [Redbrick website](https://redbrick.land/setting-avatar).
+
+If you want to change the appearance of your avatar during gameplay, refer to this [snippet](../snippet/change-avatar-appearance.mdx).
+
+### Can I import a map?
+
+You can import assets in glb or gltf format from [My Assets](../engine/operate/left/my-asset.mdx).  
+However, if you want to import an entire map, the map itself must be in a single file.
+
+### I want to apply gravity and physics to an object
+
+<center>
+<br/>
+![](../../../images/apply-physics.gif)
+</center>
+
+In the properties window of the object, enable the Behavior -> CanCollide attribute and the Physics -> Body attribute.  
+Then, disable the Physics -> Body -> Anchored attribute.
+
+<center>
+<br/>
+![](../../../images/apply-physics-setting.png)Properties Window
+</center>
+
+
 </Steps>

@@ -9,4 +9,5 @@ export default {
   audio: "Audio",
   video: "Video",
   physics: "Physics",
+  text : "Text",
 };

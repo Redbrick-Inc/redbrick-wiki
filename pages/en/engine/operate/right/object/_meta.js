@@ -8,5 +8,6 @@ export default {
   "emitter": "Emitter & Particle Property",
   "audio": "Audio",
   "video": "Video",
-  "physics": "Physics"
+  "physics": "Physics",
+  "text" : "Text",
 }
