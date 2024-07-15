@@ -201,4 +201,44 @@ My 에셋을 활용하세요.
 
 [이곳](../script/start/absolute-and-relative-coordinates.mdx)의 내용을 참고하세요.
 
+### 게임 플레이 중 씬의 Fog 값을 수정하고 싶어요
+
+`WORLD.fog.density` 속성을 조절하여 간단하게 바꿀 수 있습니다.  
+
+```js copy showLineNumbers filename="EX_fog_change"
+let fogDensity = 0.01; // 초기 안개 밀도
+const fogDensityIncreaseRate = 0.001; // 시간당 안개 밀도 증가율
+
+function update(dt) {
+    fogDensity += fogDensityIncreaseRate * dt; // 시간에 따라 안개 밀도 증가
+    WORLD.fog.density = fogDensity; // 업데이트된 밀도로 안개 설정
+}
+```
+
+### 아바타의 모습을 변경하고 싶어요
+
+[레드브릭 홈페이지](https://redbrick.land/setting-avatar)에서 아바타의 모습을 변경하여 플레이 할 때의 모습을 바꿀 수 있습니다.  
+
+만약 게임 플레이 도중에 아바타의 모습을 바꾸고 싶다면 이 [스니펫](../snippet/change-avatar-appearance.mdx)를 참고하세요.
+
+### 맵을 import 할 수 있나요?
+
+[My에셋](../engine/operate/left/my-asset.mdx)에서 glb, gltf 형식의 에셋을 import 가능합니다.  
+그러나 맵을 통째로 import하고 싶다면 맵 자체가 하나의 파일로 이루어져 있어야 합니다.  
+
+### 오브젝트에 중력, 물리력을 적용하고 싶어요
+
+<center>
+<br/>
+![](../../../images/apply-physics.gif)
+</center>
+
+해당 오브젝트의 속성창에서 Behavior -> CanCollide 속성과 Physics -> Body 속성을 활성화 해주세요.  
+그리고 Physics -> Body -> Anchored 속성은 비활성화 해주세요.  
+
+<center>
+<br/>
+![](../../../images/apply-physics-setting.png)속성창
+</center>
+
 </Steps>

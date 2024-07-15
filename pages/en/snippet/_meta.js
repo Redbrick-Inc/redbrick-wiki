@@ -17,4 +17,7 @@ export default {
   "continuously-tracking-player" : "Create an object that continuously tracks the player",
   "create-functionality-pause-game" : "Create function to pause the game",
   "create-functionality-reset-game" : "Create function to reset the game",
+  "Making-object-face-to-another" : "Making Object Always Face Target",
+  "random-position" : "Setting a Random Position",
+  "change-avatar-appearance" : "Changing Avatar Appearance",
 };

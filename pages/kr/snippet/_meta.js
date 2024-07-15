@@ -17,4 +17,7 @@ export default {
   "continuously-tracking-player" : "플레이어를 지속적으로 추적하는 오브젝트 만들기",
   "create-functionality-pause-game" : "게임을 일시정지 시키는 기능 만들기",
   "create-functionality-reset-game" : "게임을 초기화 시키는 기능 만들기",
+  "Making-object-face-to-another" : "오브젝트가 항상 특정 객체를 바라보게 만들기",
+  "random-position" : "랜덤한 위치 설정하기",
+  "change-avatar-appearance" : "아바타 모습 바꾸기",
 };

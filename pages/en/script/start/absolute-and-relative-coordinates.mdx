@@ -6,114 +6,146 @@ import { Tabs } from "nextra/components";
 
 > This guide explains the concepts and usage of absolute and relative coordinates.
 
-## Absolute Coordinates
+<Callout type="warning">
+    For PLAYER objects or objects with the Physics Body property enabled, you need to run the code `Object.body.needUpdate = true;` after using [`.position.set()`](../built-in/three/vector3#set) or updating the [`.position`](../built-in/three/object3d#position) property to apply the position change.
+</Callout>
+
+## Moving with Absolute Coordinates
 
 Absolute coordinates represent a fixed position relative to a specific reference point (the world).  
-These coordinates indicate a specific position in the global coordinate system, and this position does not change, remaining independent of other objects' positions.  
+These coordinates point to a specific location in the global coordinate system, independent of other objects' positions.
 
 Example: Moving to the position (100, 50, 200) in the world coordinate system.
 
-Here’s how to adjust an object's position based on absolute coordinates in Redbrick Studio.  
+In Redbrick Studio, you can adjust the position of an object based on absolute coordinates as follows:
 
 ### Object.position.set()
 
-You can use [`Object.position.set(x, y, z)`](../built-in/three/vector3#set) to instantly move an object to a specific position within the world.  
+Using [`Object.position.set(x, y, z)`](../built-in/three/vector3#set), you can instantly move an object to a specific coordinate within the world.
 
 ```js copy showLineNumbers filename="position.set()"
 const obj = WORLD.getObject("obj");
 const obj2 = WORLD.getObject("obj2");
 
-obj.position.set(10, 10, 10); // Move the object to coordinates x=10, y=10, z=10
-obj.position.set(PLAYER.position.x, PLAYER.position.y, PLAYER.position.z); // Move the object to the player's position
-PLAYER.position.set(obj2.position.x, obj2.position.y, obj2.position.z); // Move the player to obj2's position
+obj.position.set(10, 10, 10); //Move object to coordinates x=10, y=10, z=10
+obj.position.set(PLAYER.position.x, PLAYER.position.y, PLAYER.position.z); //Move object to the player's position
+PLAYER.position.set(obj2.position.x, obj2.position.y, obj2.position.z) //Move player to obj2's position
 
-PLAYER.body.needUpdate = true; // This code needs to be executed after changing the position of the PLAYER or any object with an active Physics Body property to reflect the change
+//For PLAYER objects or objects with the Physics Body property enabled, run the code below after changing position to apply the change
+PLAYER.body.needUpdate = true; 
+obj.body.needUpdate = true;
 ```
 
-### Directly Updating the position Value
+### Object.position.copy()
 
-You can also access the [`.position`](../built-in/three/object3d#position) property directly to update the value without using the `.set()` method.  
+Besides using `position.set()`, you can use [`Object.position.copy(vector)`](../built-in/three/vector3#copy) to immediately move an object to a specific position in the world.
+
+```js copy showLineNumbers filename="position.copy()"
+const obj = WORLD.getObject("obj");
+const obj2 = WORLD.getObject("obj2");
+
+obj.position.copy(obj2.position); // Move obj to obj2's position
+obj2.position.copy(PLAYER.position); // Move obj2 to the player's position
+PLAYER.position.copy(obj.position); // Move the player to obj's position
+
+// For PLAYER objects or objects with the Physics Body property enabled,
+// execute the following code after changing the position to apply the update
+PLAYER.body.needUpdate = true; 
+obj.body.needUpdate = true;
+```
+
+### Directly Updating position Values
+
+Instead of using the `.set()` method, you can directly update the values of the [`.position`](../built-in/three/object3d#position) property.
 
 ```js copy showLineNumbers filename="position_value_update"
 const obj = WORLD.getObject("obj");
+const obj2 = WORLD.getObject("obj2");
 
-obj.position.x = 10; // Move the object to x=10 while keeping y and z coordinates the same
-obj.position.z = PLAYER.position.z; // Set the object's z coordinate to match the player's z coordinate
-PLAYER.position.y = 100; // Change the player's height to 100
+obj.position.x = 10; //Move the object to x=10 while keeping the current y, z coordinates
+obj2.position.z = PLAYER.position.z; //Set the object's z coordinate to the player's z coordinate
+PLAYER.position.y = 100; //Change the player's height (y) to 100
 
-PLAYER.body.needUpdate = true; // This code needs to be executed after changing the position of the PLAYER or any object with an active Physics Body property to reflect the change
+//For PLAYER objects or objects with the Physics Body property enabled, run the code below after changing position to apply the change
+PLAYER.body.needUpdate = true;
+obj.body.needUpdate = true;
 ```
 
 ### PLAYER.spawn()
 
 If the object you want to move is the player avatar, you can use the [`.spawn(target)`](../api/avatar#spawn) method.  
-If you do not provide the target parameter, the player will move to the position of the `starting_point` asset (if it exists in the scene).  
+If you do not provide a target parameter, it will move to the location of the `starting_point` asset (if it exists in the scene).
 
 ```js copy showLineNumbers filename=".spawn()"
 const obj = WORLD.getObject("object");
 
-PLAYER.spawn(); // Move to the starting_point if no parameter is provided
-PLAYER.spawn(obj); // Move to obj's position
-PLAYER.spawn("object"); // Move to obj's position (specified by its title)
+PLAYER.spawn(); //Move to starting_point if no parameter is provided
+PLAYER.spawn(obj); //Move to obj's location
+PLAYER.spawn("object"); //Move to obj's location (specified by title)
 ```
 
-## Relative Coordinates
+## Moving with Relative Coordinates
 
-Relative coordinates represent a position relative to the current position or a specific reference point.  
-These coordinates change based on the reference point's position and are expressed in terms of movement direction and distance.  
+Relative coordinates represent a position relative to the current location or a specific reference point.  
+They change based on the reference point's location and are expressed in terms of direction and distance.
 
 Example:  
 Moving 10 units along the x-axis and 5 units along the y-axis from the current position.  
-Moving a specific distance relative to a certain object.  
+Moving a specific distance relative to another object.
 
-Here’s how to adjust an object's position based on relative coordinates in Redbrick Studio.  
+In Redbrick Studio, you can adjust the position of an object based on relative coordinates as follows:
 
 ### Object.position.set()
 
-You can implement relative movement by using the [`Object.position.set(x, y, z)`](../built-in/three/vector3#set) method as follows:  
+You can implement relative movement using the [`Object.position.set(x, y, z)`](../built-in/three/vector3#set) method as follows:
 
 ```js copy showLineNumbers filename="position.set()"
 const obj = WORLD.getObject("obj");
 const obj2 = WORLD.getObject("obj2");
 
-obj.position.set(obj2.position.x + 10, obj2.position.y, obj2.position.z); // Move obj 10 units along the x-axis from obj2's position
-PLAYER.position.set(obj2.position.x, obj2.position.y + 10, obj2.position.z); // Move the player 10 units along the y-axis from obj2's position
+obj.position.set(obj2.position.x + 10, obj2.position.y, obj2.position.z); //Move obj by x+10 relative to obj2's position
+PLAYER.position.set(obj2.position.x, obj2.position.y + 10, obj2.position.z) //Move player by y+10 relative to obj2's position
 
-PLAYER.body.needUpdate = true; // This code needs to be executed after changing the position of the PLAYER or any object with an active Physics Body property to reflect the change
+//For PLAYER objects or objects with the Physics Body property enabled, run the code below after changing position to apply the change
+PLAYER.body.needUpdate = true;
+obj.body.needUpdate = true;
 ```
 
-### Directly Updating the position Value
+### Directly Updating position Values
 
-You can also access the [`.position`](../built-in/three/object3d#position) property directly to update the value for relative movement.  
+You can implement relative movement by directly updating the values of the [`.position`](../built-in/three/object3d#position) property.
 
 ```js copy showLineNumbers filename="position_value_update"
 const obj = WORLD.getObject("obj");
+const obj2 = WORLD.getObject("obj2");
 
-obj.position.x += 10; // Move the object 10 units from its current x coordinate (keeping y and z the same)
-obj.position.z = PLAYER.position.z - 10; // Move the object to the player's z coordinate minus 10 units (keeping x and y the same)
-PLAYER.position.y += 10; // Increase the player's height by 10 units from its current height
+obj.position.x += 10; //Move the object by x+10 from the current position (keeping y, z coordinates the same)
+obj2.position.z = PLAYER.position.z - 10; //Move the object to z-10 from the player's position (keeping x, y coordinates the same)
+PLAYER.position.y += 10; //Increase the player's height (y) by 10 from the current height
 
-PLAYER.body.needUpdate = true; // This code needs to be executed after changing the position of the PLAYER or any object with an active Physics Body property to reflect the change
+//For PLAYER objects or objects with the Physics Body property enabled, run the code below after changing position to apply the change
+PLAYER.body.needUpdate = true;
+obj.body.needUpdate = true;
 ```
 
 ### Object.go()
 
-You can use the [`Object.go()`](../api/object3d#go) method to move a specific distance from the current position.  
+Using the [`Object.go()`](../api/object3d#go) method, you can move an object by a certain distance from the current position.
 
 ```js copy showLineNumbers filename=".go()"
 const obj = WORLD.getObject("obj");
 
-obj.go(0, 5, 0); // Move the object 5 units up from its current height
-PLAYER.go(5, 5, 5); // Move the player 5 units along the x, y, and z axes from the current position
+obj.go(0, 5, 0); //Move the object up by 5 units from the current height (y)
+PLAYER.go(5, 5, 5); //Move the player by 5 units along x, y, z from the current position
 ```
 
 ### Object.move()
 
-You can use the [`Object.move()`](../api/object3d#move) method to move an object over a specified time duration relative to its current position.  
+Using the [`Object.move()`](../api/object3d#move) method, you can make an object move over a specified time based on the current position.
 
-```js copy showLineNumbers filename=".move()"
+```js copy showLineNumbers filename=".go()"
 const obj = WORLD.getObject("obj");
 
-obj.move(10, 0, 10, 5); // Move the object 10 units along the x and z axes over 5 seconds from its current position
-PLAYER.move(0, 5, 0, 10); // Move the player 5 units up over 10 seconds from its current height
+obj.move(10, 0, 10, 5); //Move the object by x+10, z+10 from the current position over 5 seconds
+PLAYER.go(0, 5, 0, 10); //Move the player up by 5 units (y) from the current position over 10 seconds
 ```
