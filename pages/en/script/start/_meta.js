@@ -8,4 +8,5 @@ export default {
   "default-setting": "Avatar & camera basic settings",
   "3d-and-gui-object" : "3D & GUI Object",
   "absolute-and-relative-coordinates" : "Absolute & Relative Coordinates",
+  "percent-and-px-unit" : "px & % Unit",
 };

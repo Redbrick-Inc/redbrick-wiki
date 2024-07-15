@@ -1,4 +1,5 @@
 export default {
+  "management-multiple-similar-objects" : "다수의 유사한 오브젝트 관리",
   "collect-items": "아이템 수집하기",
   "change-avatar-speed": "아바타 속도 변경하기",
   spawn: "시작점 설정하기",
@@ -20,4 +21,7 @@ export default {
   "Making-object-face-to-another" : "오브젝트가 항상 특정 객체를 바라보게 만들기",
   "random-position" : "랜덤한 위치 설정하기",
   "change-avatar-appearance" : "아바타 모습 바꾸기",
+  "create-progress-bar" : "프로그래스 바 GUI 만들기",
+  "object-rotation" : "오브젝트 지속적으로 회전시키기",
+  "save-data-to-local-storage" : "로컬 저장소에 데이터 저장하기",
 };

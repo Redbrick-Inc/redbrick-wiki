@@ -32,6 +32,11 @@ it may be due to missing or outdated graphics drivers on your computer.
 Please check if your graphics drivers are installed and, if they are, ensure they are updated.
 </Callout>
 
+### The GUI doesn't display correctly when the screen size changes
+
+Did you set the size and offset properties of the GUI object to px?  
+Learn about the px and % units [here](../script/start/percent-and-px-unit.mdx).
+
 ### Why doesn't `.onCollide()` work?
 
 **Make sure you turned on Physics Body**
@@ -44,6 +49,14 @@ Please check if your graphics drivers are installed and, if they are, ensure the
       ![](../../../images/example-collect-body.png) Physics -> Body
     </center>
   </div>
+  <br/>
+  <br/>
+  If it still doesn't work, try changing the object's Physics -> Body -> BodyType to a different option, then switch it back to the original option and test again.  
+  <br/>
+  <center>
+    ![](../../../images/change-bodyType.png)
+  </center>
+
 </Callout>
 
 ### How can I rename a Script?
@@ -241,5 +254,8 @@ Then, disable the Physics -> Body -> Anchored attribute.
 ![](../../../images/apply-physics-setting.png)Properties Window
 </center>
 
+### I want to change the color of a Mesh
+
+You can easily change it using `MeshObject.material.color.set(0xff0000)`.
 
 </Steps>

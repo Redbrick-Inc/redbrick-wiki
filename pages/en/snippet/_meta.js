@@ -1,4 +1,5 @@
 export default {
+  "management-multiple-similar-objects": "Managing Multiple Similar Objects",
   "collect-items": "Collect items",
   "change-avatar-speed": "Avatar speed change ",
   spawn: "Set the Starting Point",
@@ -20,4 +21,5 @@ export default {
   "Making-object-face-to-another" : "Making Object Always Face Target",
   "random-position" : "Setting a Random Position",
   "change-avatar-appearance" : "Changing Avatar Appearance",
+  "object-rotation" : "Continuously Rotating Object",
 };

@@ -220,4 +220,24 @@ You can add gun objects and guis to customize it.
 <br />
 <center>![image](../../../images/shooting3.gif) Custom Shooting Game</center>
 
+Check out the [My asset](../engine/operate/left/my-asset.mdx) page for instructions on how to add your assets.
+
+If you want to use an asset instead of creating bullets with Three.js, modify the following lines in the previous final code.
+
+```js
+// Delete the following 3 lines (lines 26-28 in the final code)
+// const geometry = new THREE.SphereGeometry(1, 32, 32);
+// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// const bullet = new THREE.Mesh(geometry, material);
+
+// Then add this code in their place
+const bullet = WORLD.getObject("bullet_object").clone();
+
+
+
+// Delete the following 2 lines (lines 80-81 in the final code)
+// bullet.object.geometry.dispose();
+// bullet.object.material.dispose();
+```
+
 </Steps>

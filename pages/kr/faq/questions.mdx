@@ -32,6 +32,11 @@ import { Tabs } from "nextra/components";
 그래픽 드라이버 유무를 확인해 주시고, 이미 설치되어 있다면 업데이트를 확인해 주세요.  
 </Callout>
 
+### 화면 크기가 달라지면 GUI가 제대로 나오지 않아요
+
+GUI 오브젝트의 사이즈와 오프셋 속성을 px로 설정하셨나요?  
+[이곳](../script/start/percent-and-px-unit.mdx)에서 px과 % 단위에 대해 알아보세요.  
+
 ### `.onCollide()`가 작동하지 않는 이유는 무엇인가요?
 
 **Physics Body를 켰는지 확인하세요**
@@ -44,6 +49,13 @@ import { Tabs } from "nextra/components";
       ![](../../../images/example-collect-body.png) Physics -> Body
     </center>
   </div>
+  <br/>
+  <br/>
+  그래도 작동하지 않는다면, 오브젝트의 Physics -> Body -> BodyType을 다른 옵션으로 바꾼 후, 다시 원래 옵션으로 선택한 후 테스트해주세요.  
+  <br/>
+  <center>
+    ![](../../../images/change-bodyType.png)
+  </center>
 </Callout>
 
 ### 스크립트 이름을 어떻게 변경하나요?
@@ -240,5 +252,9 @@ function update(dt) {
 <br/>
 ![](../../../images/apply-physics-setting.png)속성창
 </center>
+
+### Mesh의 색깔을 변경하고 싶어요
+
+`MeshOjbect.material.color.set(0xff0000)` 를 이용해 간단히 변경할 수 있습니다.  
 
 </Steps>

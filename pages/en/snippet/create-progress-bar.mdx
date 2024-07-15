@@ -1,0 +1,84 @@
+import { Callout, Code } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# Creating a Progress Bar GUI
+
+<center>
+<br/>
+![](../../../images/progress-bar.gif)
+</center>
+
+You can create a progress bar GUI by adjusting the size of GUI objects.
+
+## Steps
+
+<Steps>
+
+### Preparing the Progress Bar Image
+
+Prepare a bar to indicate progress and a background bar as shown below, and upload them to [My asset](../engine/operate/left/my-asset.mdx).  
+Then add them to the scene as GUI objects.
+
+![](../../../images/progress-bar-1.png)
+
+### Placing the Images
+
+Place the GUI objects added to the scene to overlap as shown below.
+
+![](../../../images/progress-bar-2.png)
+
+### Setting GUI Object Properties
+
+Set the X value of Transform -> Center in the properties of the progress bar GUI to 0.
+
+<center>
+<br/>
+![](../../../images/progress-bar-3.png)
+<br/>
+</center>
+
+This will make the center of the progress bar GUI align with the left edge.  
+So, as shown below, when the X size decreases, it starts decreasing from the right.  
+When the size increases, it extends from left to right.
+
+<center>
+<br/>
+![](../../../images/progress-bar-decrease.gif)
+<br/>
+</center>
+
+Next, adjust the scale of the progress bar to find the maximum X value when the background bar is fully filled.  
+Remember this maximum X value.
+
+<center>
+<br/>
+![](../../../images/progress-bar-4.png)
+<br/>
+</center>
+
+### Writing the Code
+
+Write the code to change the progress of the bar based on certain conditions.  
+In this snippet, we wrote the code to increase the progress when the player collides with an item.
+
+```js showLineNumbers copy filename="progress_bar"
+const MAX_LENGTH = 48; // Enter the maximum X value noted earlier here
+const ITEM_AMOUNT = 5; // Number of items
+
+const progress_bar = GUI.getObject("progress_bar");
+let score = 0;
+let items = [];
+
+for(let i=1; i<=5; i++){
+    items.push(WORLD.getObject("item" + i));
+
+    items[i-1].onCollide(PLAYER, function() {
+        items[i-1].kill();
+        score++;
+        progress_bar.size.x.value = score / ITEM_AMOUNT * MAX_LENGTH; // Increase the size of the progress bar each time the player collides with an item
+    });
+}
+```
+
+</Steps>
