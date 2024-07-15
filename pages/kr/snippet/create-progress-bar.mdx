@@ -1,0 +1,84 @@
+import { Callout, Code } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# 프로그래스 바 GUI 만들기
+
+<center>
+<br/>
+![](../../../images/progress-bar.gif)
+</center>
+
+GUI 오브젝트의 사이즈를 조절하여 프로그래스 바 GUI를 만들 수 있습니다.  
+
+## Steps
+
+<Steps>
+
+### 프로그래스 바 이미지 준비
+
+아래와 같이, 진행도를 표시할 바와 백그라운드 바를 준비해 [My asset](../engine/operate/left/my-asset.mdx)에 업로드 합니다.  
+이후 GUI 오브젝트로 씬에 추가합니다.  
+
+![](../../../images/progress-bar-1.png)
+
+### 이미지 배치
+
+씬에 추가된 GUI 오브젝트를 다음과 같이 겹치게 배치합니다.  
+
+![](../../../images/progress-bar-2.png)
+
+### GUI 오브젝트 속성 설정
+
+프로그래스 바 GUI의 속성에서 Transform -> Center 의 X 값을 0으로 설정합니다.  
+
+<center>
+<br/>
+![](../../../images/progress-bar-3.png)
+<br/>
+</center>
+
+이렇게 하면 프로그래스 바 GUI의 중심이 왼쪽 끝으로 잡히게 됩니다.  
+따라서 아래와 같이 X 사이즈가 줄어들 때 오른쪽에서부터 줄어들기 시작합니다.  
+사이즈가 늘어날 때는 왼쪽에서 오른쪽으로 길어지게 됩니다.  
+
+<center>
+<br/>
+![](../../../images/progress-bar-decrease.gif)
+<br/>
+</center>
+
+이후, 프로그래스 바의 스케일을 조절해 background 바를 최대치로 채웠을 때를 찾습니다.  
+그리고 이때의 최대 X 값을 기억해 둡니다.  
+
+<center>
+<br/>
+![](../../../images/progress-bar-4.png)
+<br/>
+</center>
+
+### 코드 작성
+
+어떤 상황에 프로그래스 바의 진행도를 변경시킬 것인지 코드를 작성합니다.  
+이 스니펫에서는 플레이어가 아이템에 접촉하면 진행도를 증가시키는 코드로 작성하였습니다.  
+
+```js showLineNumbers copy filename="progress_bar"
+const MAX_LENGTH = 48; //이곳에 이전에 기억해 두었던 프로그래스 바의 최대 X 값을 입력합니다
+const ITEM_AMOUNT = 5; //아이템의 갯수
+
+const progress_bar = GUI.getObject("progress_bar");
+let score = 0;
+let items = [];
+
+for(let i=1; i<=5; i++){
+    items.push(WORLD.getObject("item" + i));
+
+    items[i-1].onCollide(PLAYER, function() {
+        items[i-1].kill();
+        score++;
+        progress_bar.size.x.value = score / ITEM_AMOUNT * MAX_LENGTH; //플레이어가 아이템에 접촉할 때마다 프로그래스 바의 사이즈를 키워 진행도를 조절합니다
+    });
+}
+```
+
+</Steps>

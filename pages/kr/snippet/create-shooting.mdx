@@ -225,4 +225,24 @@ function moveBullets() {
 <br />
 <center>![image](../../../images/shooting3.gif) 커스텀 슈팅 게임</center>
 
+자신의 에셋을 추가하는 방법은 [My asset](../engine/operate/left/my-asset.mdx) 페이지에서 확인하세요.  
+
+만약 총알을 Three.js를 이용해 생성하지 않고 에셋을 추가해 사용하고 싶다면 이전 최종 코드에서 다음 코드들을 수정하세요.  
+
+```js
+//최종 코드의 26~28라인, 아래 3개의 코드를 삭제하세요
+// const geometry = new THREE.SphereGeometry(1, 32, 32);
+// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// const bullet = new THREE.Mesh(geometry, material);
+
+//그리고 아래 코드를 그 자리에 추가합니다
+const bullet = WORLD.getObject("bullet_object").clone();
+
+
+
+//최종 코드의 80~81 라인, 아래 2개의 코드를 삭제하세요
+// bullet.object.geometry.dispose();
+// bullet.object.material.dispose();
+```
+
 </Steps>
