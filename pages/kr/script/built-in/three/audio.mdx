@@ -46,7 +46,8 @@ PlaybackRate(재생 속도)의 값을 반환합니다.
 
 `.pause ()` : this
 
-`hasPlaybackControl`이 true이면 재생을 일시 중지합니다.
+`hasPlaybackControl`이 true이면 재생을 일시 중지합니다.  
+일시중지된 오디오는 다시 재생 시, 중지된 위치에서 이어서 재생됩니다.  
 
 ### .setPlaybackRate()
 
@@ -64,4 +65,5 @@ PlaybackRate(재생 속도)의 값을 반환합니다.
 
 `.stop ()` : this
 
-`hasPlaybackControl`이 활성화된 경우 재생을 중지합니다.
+`hasPlaybackControl`이 활성화된 경우 재생을 중지합니다.  
+중지된 오디오를 다시 재생 시, 처음부터 재생됩니다.  
