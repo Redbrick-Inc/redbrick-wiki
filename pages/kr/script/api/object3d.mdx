@@ -124,12 +124,13 @@ this.getAudio().stop(); // stop audio
 this.getAudio().play(); // play audio
 ```
 
-더 자세한 메소드는 [THREE-Audio](../built-in/three/audio) 부분을 참조하세요.
+Audio 오브젝트에 대한 더 자세한 설명은 [THREE-Audio](../built-in/three/audio) 부분을 참조하세요.
 
 ### .cloneWithMethods()
 
-해당 객체의 속성과 함께 객체를 복사합니다.  
-단, [THREE.Object3D](../built-in/three/object3d)와 이 페이지에 나열된 속성 및 메소드만 복사할 수 있으며, 객체의 Behavior와 Physics 속성은 복사되지 않습니다.  
+해당 오브젝트의 Behavior와 Physics 속성을 제외한 나머지 속성들을 복사하여 새로운 오브젝트를 생성합니다.  
+이렇게 복제된 오브젝트는 [THREE.Object3D](../built-in/three/object3d)와 [현재 페이지](#)에 나열된 속성 및 메소드를 사용할 수 있습니다.  
+(단, Physics속성은 복사되지 않으므로 [`.onCollide()`](#oncollide)는 사용할 수 없습니다.)  
 
 <Callout type="warning">
     복제한 오브젝트는 WORLD에 자식으로 추가해 주어야 사용이 가능합니다.  

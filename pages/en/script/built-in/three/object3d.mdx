@@ -10,6 +10,13 @@ import { Callout } from "nextra/components";
 
 ## Properties
 
+### .castShadow
+
+`object.castShadow` : Boolean
+
+Specifies whether the object casts shadows.  
+Default is false.
+
 ### .children
 
 `object.children` : Array
@@ -24,12 +31,21 @@ Refer to Groups for detailed information on manually grouping objects.
 Returns the parent object of the object.  
 An object can have at most one parent.
 
-### .castShadow
+### .position
 
-`object.castShadow` : Boolean
+`object.position` : Vector3
 
-Specifies whether the object casts shadows.  
-Default is false.
+The position of the object.  
+Use this property to set or get the position of the object.  
+Default is `(0, 0, 0)`.
+
+### .quaternion
+
+`object.quaternion` : Quaternion
+
+An alternative way to represent the rotation of the object.  
+Use this property to set or get the rotation state of the object.  
+Quaternions can represent rotations more accurately than Euler angles.
 
 ### .receiveShadow
 
@@ -38,14 +54,6 @@ Default is false.
 Specifies whether the object receives shadows.  
 This property is applicable to objects like THREE.Mesh and similar.  
 Default is false.
-
-### .position
-
-`object.position` : Vector3
-
-The position of the object.  
-Use this property to set or get the position of the object.  
-Default is `(0, 0, 0)`.
 
 ### .rotation
 
@@ -62,14 +70,6 @@ The scale of the object.
 Use this property to set or get the scale of the object.  
 The object's scale is relative to the scene's coordinate system, so it can be affected by its parent's scale if it is a child object.  
 Default is Vector3( 1, 1, 1 ).
-
-### .quaternion
-
-`object.quaternion` : Quaternion
-
-An alternative way to represent the rotation of the object.  
-Use this property to set or get the rotation state of the object.  
-Quaternions can represent rotations more accurately than Euler angles.
 
 ### .visible
 
@@ -98,30 +98,20 @@ Attaches an object as a child of another object while maintaining the parent obj
 Therefore, if the parent object undergoes transformations like translation, rotation, or scaling, the child object will move or rotate accordingly.  
 `add()` is typically used to add objects to the scene, whereas `attach()` is used to establish hierarchical relationships between objects.
 
-### .remove()
-
-`parentObject.remove ( childObject : Object3D, ... ) `: this
-
-Used to remove an object from its parent object.  
-Multiple objects can be removed.  
-Once removed, the object can be added to another parent or back to the scene for reuse.
-
-### .removeFromParent()
-
-`childObject.removeFromParent ()` : this
-
-Removes this object from its parent object.
-
 ### .clone()
 
 `originalObject.clone(recursive: Boolean)`: Object3D
 
 recursive - If true, child objects of this object will also be cloned. Default is true.
 
-It clones an object and returns a new object.  
-The new object is created by copying the properties of the original object, including its geometry, material, position, rotation, and scale.  
-However, the Physics and Behavior properties are not copied.  
-The cloned object is completely independent of the original object, so any changes to the cloned object will not affect the original object.
+Creates and returns a new object by cloning the original object.  
+Copies properties such as geometric shape, material, position, rotation, and scale from the original object to create the new object.  
+However, Physics and Behavior attributes are not copied.  
+Additionally, object cloned using `.clone()` cannot utilize methods belonging to the Object3D in [API Extension](../../api/object3d.mdx).  
+If you wish to use these methods, use [`.cloneWithMethods()`](../../api/object3d#clonewithmethods) instead.  
+
+The cloned object is completely independent from the original object, so changes made to the cloned object after cloning do not affect the original object.  
+
 
 <Callout type="warning">
     The cloned object must be added as a child to the WORLD in order to be used.
@@ -143,6 +133,17 @@ recursive - If true, child objects of this object will also be copied. Default i
 Copies the properties of this object to another object, creating a new object.  
 The original object (targetObject) remains unchanged.
 
+### .getObjectById()
+
+`object.getObjectById ( id : Integer )` : Object3D
+
+id - The unique identifier of the object instance.
+
+Traverses from this object itself to its children to find the first object with the matching ID.  
+Returns null if no matching object is found.
+
+> IDs are assigned sequentially as 1, 2, 3, ... and are unique without duplication, incrementing by 1 for each new object instance.
+
 ### .getObjectByProperty()
 
 `.getObjectByProperty( propertyName : String, value : Any )` : Object3D
@@ -154,16 +155,15 @@ The method searches the scene graph for an object that matches the specified pro
 Searches the scene graph for an object based on a specific property and its value.  
 Returns the first object that matches. Returns null if no matching object is found.
 
-### .getObjectById()
+### .getWorldDirection()
 
-`object.getObjectById ( id : Integer )` : Object3D
+`object.getWorldDirection( target : Vector3 )` : Vector3
 
-id - The unique identifier of the object instance.
+target - The Vector3 where the world direction will be set to match the object's world direction.
 
-Traverses from this object itself to its children to find the first object with the matching ID.  
-Returns null if no matching object is found.
-
-> IDs are assigned sequentially as 1, 2, 3, ... and are unique without duplication, incrementing by 1 for each new object instance.
+Sets the target's direction to match this object's world direction and returns it.  
+This method calculates the world direction of the object, considering transformations of parent objects in the scene graph.  
+An exception may occur if you call this method on an object that is not part of the scene.
 
 ### .getWorldPosition()
 
@@ -195,15 +195,40 @@ Sets the target's scale to match this object's world scale and returns it.
 This method calculates the world scale of the object, considering transformations of parent objects in the scene graph.  
 An exception may occur if you call this method on an object that is not part of the scene.
 
-### .getWorldDirection()
+### .lookAt()
 
-`object.getWorldDirection( target : Vector3 )` : Vector3
+`object.lookAt ( target : Vector3 )` : undefined  
+`object.lookAt ( x : Float, y : Float, z : Float )` : undefined
 
-target - The Vector3 where the world direction will be set to match the object's world direction.
+target - A Vector3 representing the position that the object should look at.  
+x, y, z - Optionally specify the x, y, z components of the vector.
 
-Sets the target's direction to match this object's world direction and returns it.  
-This method calculates the world direction of the object, considering transformations of parent objects in the scene graph.  
-An exception may occur if you call this method on an object that is not part of the scene.
+Rotates the object to face a specified point (vector) in its local coordinate system.  
+Therefore, it is affected by transformations of its parent object.
+
+### .raycast()
+
+`.raycast( raycaster : Raycaster, intersects : Array )` : undefined
+
+raycaster - A THREE.Raycaster object defining the origin and direction of the ray.  
+intersects - An array to store intersection information. Information about the intersection point with the object will be added to this array if the ray intersects with the object.
+
+Used to check if a ray intersects with a specific object and to identify the intersected object.  
+This method requires the object to have a mesh for accurate collision detection. Basic THREE.Mesh or objects inheriting from it are used for collision detection such as Mesh, Line, and Points.
+
+### .remove()
+
+`parentObject.remove ( childObject : Object3D, ... ) `: this
+
+Used to remove an object from its parent object.  
+Multiple objects can be removed.  
+Once removed, the object can be added to another parent or back to the scene for reuse.
+
+### .removeFromParent()
+
+`childObject.removeFromParent ()` : this
+
+Removes this object from its parent object.
 
 ### .rotateOnAxis()
 
@@ -233,24 +258,3 @@ Therefore, it does not affect transformations of its parent object.
 callback - A callback function that will be called for each object. The function takes the object as a parameter.
 
 Traverses the object hierarchy, calling the specified callback function for each object.
-
-### .lookAt()
-
-`object.lookAt ( target : Vector3 )` : undefined  
-`object.lookAt ( x : Float, y : Float, z : Float )` : undefined
-
-target - A Vector3 representing the position that the object should look at.  
-x, y, z - Optionally specify the x, y, z components of the vector.
-
-Rotates the object to face a specified point (vector) in its local coordinate system.  
-Therefore, it is affected by transformations of its parent object.
-
-### .raycast()
-
-`.raycast( raycaster : Raycaster, intersects : Array )` : undefined
-
-raycaster - A THREE.Raycaster object defining the origin and direction of the ray.  
-intersects - An array to store intersection information. Information about the intersection point with the object will be added to this array if the ray intersects with the object.
-
-Used to check if a ray intersects with a specific object and to identify the intersected object.  
-This method requires the object to have a mesh for accurate collision detection. Basic THREE.Mesh or objects inheriting from it are used for collision detection such as Mesh, Line, and Points.

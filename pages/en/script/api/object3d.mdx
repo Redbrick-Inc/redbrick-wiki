@@ -128,8 +128,9 @@ For more detailed methods, see [THREE-Audio part](../built-in/three/audio)
 
 ### cloneWithMethods()
 
-Copy the object along with its properties.  
-However, only the properties and methods listed in [THREE.Object3D](../built-in/three/object3d) and on this page can be copied. Behavior and Physics properties of the object will not be copied.
+Copy the remaining properties of the object excluding its Behavior and Physics attributes to create a new object.  
+The duplicated object can utilize properties and methods listed in [THREE.Object3D](../built-in/three/object3d) and on the [current page](#).  
+(However, Physics attributes are not copied, so `.onCollide()` cannot be used.)  
 
 <Callout type="warning">
     The cloned object must be added as a child to the WORLD in order to be used.

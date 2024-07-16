@@ -22,4 +22,5 @@ export default {
   "random-position" : "Setting a Random Position",
   "change-avatar-appearance" : "Changing Avatar Appearance",
   "object-rotation" : "Continuously Rotating Object",
+  "how-to-use-clone" : "Using Object Cloning",
 };

@@ -24,4 +24,5 @@ export default {
   "create-progress-bar" : "프로그래스 바 GUI 만들기",
   "object-rotation" : "오브젝트 지속적으로 회전시키기",
   "save-data-to-local-storage" : "로컬 저장소에 데이터 저장하기",
+  "how-to-use-clone" : "오브젝트를 복제하여 사용하기",
 };

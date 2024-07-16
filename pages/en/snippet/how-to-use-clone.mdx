@@ -1,0 +1,99 @@
+import { Callout, Code } from "nextra/components";
+import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
+
+# Using Object Cloning
+
+<br/>
+<center>
+![](../../../images/use-clone-1.gif)Object Cloning
+</center>
+
+Object cloning can be performed using [`.clone()`](../script/built-in/three/object3d#clone) or [`.cloneWithMethods()`](../script/api/object3d#clonewithmethods).  
+Both `.clone()` and `.cloneWithMethods()` do not copy Behavior and Physics attributes.  
+Therefore, cloned objects have Behavior and Physics attributes (such as CanCollide, Shadow, Body) disabled.  
+The difference between these two methods lies in their ability to utilize methods from the [extended Object3D API](../script/api/object3d.mdx).  
+
+`.clone()` does not allow the use of methods from the extended Object3D API.  
+`.cloneWithMethods()` allows their use, but cloned objects have the Physics Body attribute disabled, so the [`onCollide()`](../script/api/object3d#oncollide) method cannot be used.  
+
+## .clone()
+
+```js showLineNumbers filename="Tracking_player" copy
+const obj = WORLD.getObject("obj");
+const clone_btn = GUI.getObject("clone_btn");
+let clone_obj_list = []; // Array to store cloned objects
+
+// When clone button is clicked, clone 'obj' 10 times
+clone_btn.onClick(function() {
+    for(let i=0; i<10; i++)
+    {
+        clone_obj_list[i] = obj.clone();
+        WORLD.add(clone_obj_list[i]); // Cloned objects must be added as children to WORLD to be usable
+        clone_obj_list[i].position.x = i*5; // Set position for each cloned object
+    }
+
+    // Using clone() does not allow the use of methods from the extended Object3D API, 
+    // so the following code would result in an error
+    // clone_obj_list.forEach(element => {
+    //     element.move(10, 0, 0, 10);
+    // });
+});
+```
+
+## .cloneWithMethods()
+
+```js showLineNumbers filename="Tracking_player" copy
+const obj = WORLD.getObject("obj");
+const clone_btn = GUI.getObject("clone_btn");
+let clone_obj_list = []; // Array to store cloned objects
+
+// When clone button is clicked, clone 'obj' 10 times
+clone_btn.onClick(function() {
+    for(let i=0; i<10; i++)
+    {
+        clone_obj_list[i] = obj.cloneWithMethods();
+        WORLD.add(clone_obj_list[i]); // Cloned objects must be added as children to WORLD to be usable
+        clone_obj_list[i].position.x = i*5; // Set position for each cloned object
+    }
+
+    // Using cloneWithMethods() allows the use of methods from the extended Object3D API, as shown below
+    clone_obj_list.forEach(element => {
+        element.move(0, 0, 10, 10);
+    });
+})
+```
+
+## Collision Detection with Cloned Objects
+
+![](../../../images/use-clone-2.gif)
+
+Cloned objects cannot use `onCollide()` because the Physics Body attribute is disabled.
+However, a similar effect can be achieved by calculating the distance between objects.
+
+```js showLineNumbers filename="Distance_calculation" copy
+const KILL_DISTANCE = 3; // If the distance is less than or equal to this value, kill() is called
+
+const obj = WORLD.getObject("obj");
+const clone_btn = GUI.getObject("clone_btn");
+let clone_obj_list = []; // Array to store cloned objects
+
+// When clone button is clicked, clone 'obj' 10 times
+clone_btn.onClick(function() {
+    for(let i=0; i<10; i++)
+    {
+        clone_obj_list[i] = obj.clone();
+        WORLD.add(clone_obj_list[i]); // Cloned objects must be added as children to WORLD to be usable
+        clone_obj_list[i].position.x = i*5; // Set position for each cloned object
+    }
+});
+
+// Each frame, calculate the distance between the player and cloned objects, and kill the object if it gets too close
+function Update(){
+    clone_obj_list.forEach(element => {
+        if(PLAYER.position.distanceTo(element.position) <= KILL_DISTANCE){
+            element.kill();
+        }
+    });
+}
+```
