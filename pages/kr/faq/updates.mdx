@@ -1,12 +1,45 @@
-import { Steps } from "nextra/components";
+import { Steps, Callout } from "nextra/components";
 
 ## 업데이트
 
-- 업데이트 날짜: `2024/05/30`
+### 업데이트 날짜: `2024/07/24`
+
+#### 추가 사항
+
+- [`.useTPV()`](../script/api/perspective-camera#usetpv) 메소드에 "MOUSE_LOCK" 모드 추가  
+  3인칭 시점을 설정해주는 메소드 `useTPV()`에 "MOUSE_LOCK" 모드가 추가되었습니다.  
+  이 모드는 아래 사진과 같이 마우스를 움직이는 것 만으로 카메라를 회전할 수 있습니다.  
+  또한 이 모드를 사용하면 카메라 세팅을 커스터마이징 할 수 있습니다.  
+
+  <Callout type="info">
+  NORMAL 모드와 MOUSE_LOCK 모드  
+  <br/>
+  | NORMAL | MOUSE_LOCK |
+  |:------------------:|:---------------------:|
+  | ![](../../../images/useTPV-normal-mode.gif) | ![](../../../images/useTPV-mouse-lock-mode.gif) |
+  </Callout>
+<br/>
+
+- RPM 아바타에 떨어질 떄의 애니메이션이 추가되었습니다.
+<br/>
+<center>
+  ![](../../../images/rpm-falling-animation.gif)  
+</center>
+<br/>
+
+- 스크립트 편집기에 코드 정렬기능이 추가되었습니다.
+<br/>
+<center>
+  ![](../../../images/code-formatter.gif)
+</center>
+
+- 위키에 다양한 [스니펫 예제](../snippet/management-multiple-similar-objects.mdx)들이 추가되었습니다.
+
+### 업데이트 날짜: `2024/05/30`
 
 <Steps>
 
-### 추가 사항
+#### 추가 사항
 
 - 플레이어 점프 높이 제어 기능 [`.changePlayerJumpHeight`](../script/api/avatar#changeplayerjumpheight) 추가
 - 내장 메서드 [`.cloneWithMethods()`](../script/api/object3d#clonewithmethods)를 사용하여 객체를 쉽게 복제할 수 있는 클론 기능이 추가
@@ -21,7 +54,7 @@ import { Steps } from "nextra/components";
   - GUI에 텍스트 설정 기능 `setText` 추가
   - OOBC를 위한 스프라이트 썸네일 지원 추가
 
-### 개선 사항
+#### 개선 사항
 
 - 현재 활성화된 카메라를 올바르게 추적하도록 아바타의 닉네임 스프라이트 조정
 - 현재 활성화된 카메라를 따라 정확하게 이동하도록 아바타의 WASD 이동 수정
