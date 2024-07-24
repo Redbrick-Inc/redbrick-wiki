@@ -1,12 +1,45 @@
-import { Steps } from "nextra/components";
+import { Steps, Callout } from "nextra/components";
 
 ## Update
 
-- Updated on `2024/05/30`
+### Update Date: `2024/07/24`
+
+#### Additional Changes
+
+- Added "MOUSE_LOCK" mode to the [`.useTPV()`](../script/api/perspective-camera#usetpv) method  
+  The `useTPV()` method, which sets up a third-person view, now includes the "MOUSE_LOCK" mode.  
+  This mode allows the camera to rotate simply by moving the mouse, as shown in the images below.  
+  Additionally, this mode enables customization of camera settings.
+
+  <Callout type="info">
+  NORMAL mode vs. MOUSE_LOCK mode  
+  <br/>
+  | NORMAL | MOUSE_LOCK |
+  |:------------------:|:---------------------:|
+  | ![](../../../images/useTPV-normal-mode.gif) | ![](../../../images/useTPV-mouse-lock-mode.gif) |
+  </Callout>
+<br/>
+
+- Added a falling animation for the RPM avatar.
+<br/>
+<center>
+  ![](../../../images/rpm-falling-animation.gif)  
+</center>
+<br/>
+
+- Added code formatting functionality to the script editor.
+<br/>
+<center>
+  ![](../../../images/code-formatter.gif)
+</center>
+
+- Added various [snippet examples](../snippet/management-multiple-similar-objects.mdx) to the wiki.
+
+### Updated on `2024/05/30`
 
 <Steps>
 
-### Additions
+#### Additions
 
 - Added control for player jump height using [`.changePlayerJumpHeight`](../script/api/avatar#changeplayerjumpheight).
 - Introduced a clone feature to easily duplicate objects with the built-in method [`.cloneWithMethods()`](../script/api/object3d#clonewithmethods).
@@ -21,7 +54,7 @@ import { Steps } from "nextra/components";
   - Added `setText` method to GUI for OOBC.
   - Added sprite thumbnail support for OOBC.
 
-### Improvements
+#### Improvements
 
 - Adjusted the avatar's nickname sprite to track the currently enabled camera correctly.
 - Corrected the avatar's WASD movement to follow the currently enabled camera accurately.
