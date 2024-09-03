@@ -4,6 +4,20 @@ import { Callout } from "nextra/components";
 
 > This class provides information about properties and methods related to audio.
 
+<Callout type="warning">
+    The following properties and methods can only be used on an audio object retrieved using `.getAudio()`.  
+    
+    Example:
+    ```js showLineNumbers copy filename="getAudio"
+    const audio_obj = WORLD.getObject("audio_object").getAudio();
+
+    audio_obj.play();
+    audio_obj.stop();
+    console.log(audio_obj.isPlaying);
+    ```
+</Callout>
+
+
 <Callout type="info">
     Besides the information below, you can also utilize various properties and methods of [THREE.Audio](https://threejs.org/docs/?q=audio#api/en/audio/Audio).
 </Callout>

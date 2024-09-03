@@ -4,6 +4,19 @@ import { Callout } from "nextra/components";
 
 > 이 클래스는 오디오와 관련된 속성 및 메서드에 대한 정보를 제공합니다.
 
+<Callout type="warning">
+    아래의 속성과 메소드들은 오디오 객체에 `.getAudio()`를 이용해 불러온 객체에만 사용할 수 있습니다.  
+    
+    ex:
+    ```js showLineNumbers copy filename="getAudio"
+    const audio_obj = WORLD.getObject("audio_object").getAudio();
+
+    audio_obj.play();
+    audio_obj.stop();
+    console.log(audio_obj.isPlaying);
+    ```
+</Callout>
+
 <Callout type="info">
     아래 내용 이외에도 [THREE.Audio](https://threejs.org/docs/?q=audio#api/en/audio/Audio)의 다양한 속성과 메소드를 사용할 수 있습니다.
 </Callout>
