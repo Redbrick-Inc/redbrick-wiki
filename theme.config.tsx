@@ -10,8 +10,8 @@ const config: DocsThemeConfig = {
     </>
   ),
   banner: {
-    key: "Enjoy message",
-    content: "Enjoy building new games with the brand new WIKI 🎉",
+    key: "Join message",
+    content: "Create, Compete & Win at Redbrick Connect 2024! 🎉",
   },
   head: function useHead() {
     const config = useConfig();
