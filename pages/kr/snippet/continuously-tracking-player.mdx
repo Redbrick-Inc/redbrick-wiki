@@ -35,6 +35,9 @@ function Update(dt) {
     objPosition.y + direction.y * speed * dt,
     objPosition.z + direction.z * speed * dt
   );
+
+  //오브젝트의 Physics Body 속성이 활성화 되어있다면, 아래 코드를 실행해야합니다.
+  // obj.body.needUpdate = true;
   
   //오브젝트가 플레이어를 바라보게 합니다
   vehicle.lookAt(PLAYER.position)
