@@ -1,3 +1,4 @@
 export default {
-  object: "Object",
+  object: "객체",
+  scene : "씬"
 };
