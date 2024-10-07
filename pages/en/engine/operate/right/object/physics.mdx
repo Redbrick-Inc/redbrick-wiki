@@ -13,8 +13,7 @@ import { Callout } from "nextra/components";
 Determines whether the object contains a physical body. If not checked, the object is not physically affected. The properties below are displayed only when Body is present.
 
 <Callout type="error" emoji="️‼️">
-  When moving an object with a "Body" through the code, you should be aware of
-  the following.
+  When moving an object with a "Body" through the code, you should be aware of the following.
 </Callout>
 
 The position/rotation value of the object depends on the body of the object. If the position, rotation value is set or changed using TWEEN, but the body is not changed, the position of the object will not move. Therefore, you need to update the body after moving/rotating the object through a property needUpdate like below.

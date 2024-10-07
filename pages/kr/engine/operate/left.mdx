@@ -1,11 +1,13 @@
 import { Callout } from "nextra/components";
 import Image from "next/image";
 
-# 에셋 라이브러리 패널 (왼쪽 패널)
+# 에셋 라이브러리, 코드 패널 (왼쪽, 아래 패널)
 
 레드브릭 스튜디오에서 세계를 구성하는 시각적 요소들을 객체라고 합니다.
 
-`≡` 버튼을 눌러 패널을 열고 에셋 라이브러리를 통해 객체를 얻을 수 있습니다.
+`v` 버튼을 눌러 왼쪽 패널 열고 에셋 라이브러리를 통해 객체를 얻을 수 있고 코드 스크립트에 접근할 수 있습니다.
+
+아래쪽 패널을 열어 에셋 라이브러리에만 접근할 수도 있습니다.
 
 ## 모델
 
@@ -25,32 +27,33 @@ import Image from "next/image";
 <br />
 <center>![검색](../../../../images/search.png) 검색</center>
 
-## 에셋
+## 씬
 
-에셋은 라이브러리에서 가져온 완성된 모델을 의미합니다.
+씬에서는 카메라, 스폰 지점, 빛을 추가할 수 있습니다.
 
 <br />
-<center>![에셋](../../../../images/asset.png) 에셋</center>
+<center>![에셋](../../../../images/asset-scene.png) 씬</center>
 
-'모두 보기'를 클릭하여 모든 에셋에 접근할 수 있습니다.
+## 구성 요소
+
+구성 요소에서는 GUI, 이펙트, 메시, 사운드, 비디오를 추가할 수 있습니다.
+
+<br />
+<center>![에셋](../../../../images/asset-element.png) 구성 요소</center>
 
 <Callout type="info" emoji="ℹ️">
   에셋과 관련된 더 많은 정보는 [여기](./left/asset)에서 찾을 수 있습니다.
 </Callout>
-<br />
-<center>
-  ![모든 에셋 보기](../../../../images/asset-seeall.png) 모두 보기
-</center>
 
-## 레이어
+## 탐색기
 
-에셋 레이어를 확장하는 버튼을 누르면 객체나 GUI를 조작할 수 있습니다.
+Explorer 버튼을 누르면 객체나 GUI를 조작할 수 있습니다.
 
 <br />
 <center>
 세계             |  GUI
 :-------------------------:|:-------------------------:
-![](../../../../images/layers.webp)  |  ![](../../../../images/layers1.webp)
+![](../../../../images/layers.png)  |  ![](../../../../images/layers1.png)
 
 </center>
 
@@ -60,14 +63,15 @@ import Image from "next/image";
   기본적으로 [다음 기능들을 사용할 수 있습니다](./left/layer).
 </Callout>
 
-## 내 에셋
+## 코드 스크립트
 
-레드브릭 스튜디오에서 제공하는 객체 외에도 자체 커스텀 에셋을 추가하여 사용할 수 있습니다.
+Code 버튼을 눌러 코드 스크립트를 열 수 있습니다
 
 <Callout type="info" emoji="ℹ️">
-  내 에셋과 관련된 더 많은 정보는 [여기](./left/my-asset)에서 찾을 수 있습니다.
+  **참고:** 스크립트를 추가, 삭제, 이름 변경하는 방법을 알고 싶다면
+  [여기](../../script/start/object)를 확인하세요.
 </Callout>
 
-## 스크립트 (코드 스크립트 켜기)
+![스크립트 토글](../../../../images/scriptToggle.png)
 
-<Callout type="warning" emoji="⚠️"></Callout>
+<p align="center">코드 스크립트</p>
