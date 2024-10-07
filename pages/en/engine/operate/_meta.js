@@ -1,5 +1,5 @@
 export default {
   "top": "Top Panel",
-  "left": "Asset Library Panel",
+  "left": "Asset Library, Code Panel",
   "right": "Property Panel"
 }

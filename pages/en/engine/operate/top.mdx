@@ -2,46 +2,11 @@ import { Callout } from "nextra/components";
 
 # Top Panel
 
-## Asset Library Panel Button
-
-You can access the Asset Library by pressing the `≡` button on the top left. Users can get full access to the assets through this panel.
-
-<Callout>
-  More information about the Asset Library can be [found here](./left).
-</Callout>
-![Asset Library](../../../../images/assetlibrary.png)
-
-<p align="center">Asset Library</p>
-
-## Object & Scene Property Panel
-
-To access the Scene and Object Property Panel, press the `<<<` button on the top right corner. Here, you can tweak properties of objects and the scene.
-
-<Callout>
-  More information about the Property Panel can be [found here](./right).
-</Callout>
-![Property Panel](../../../../images/propertyPanel.png)
-
-<p align="center">Property Panel</p>
-
-## Script Toggle
-
-To access scripts in your project, press the `</>` button. This will open new Scripts in your left panel.
-
-<Callout type="info" emoji="ℹ️">
-  **Note:** If you want to know how to add, delete, and rename scripts, please
-  take a look [here](../../script/start/object).
-</Callout>
-
-![Script Toggle](../../../../images/scriptToggle.png)
-
-<p align="center">Script Toggle</p>
-
 ## File Menu
 
 Press **File Menu** to access all the features listed down below.
 
-From here, you can create new projects, save files, publish them, and more.
+From here, you can save files, publish them, save the object as an asset, and more.
 
 |    **List**    |               **Function**               |
 | :------------: | :--------------------------------------: |
@@ -51,11 +16,63 @@ From here, you can create new projects, save files, publish them, and more.
 |   Import GLB   |                Import GLB                |
 |   Export GLB   |           Save project as GLB            |
 | Save as Asset  |      Save selected object as asset       |
+|   Help    | Show light, camera position, etc |
 |   Auto Save    | On/Off button for automated project save |
 
 ![File Menu](../../../../images/filemenu.png)
 
 <center>File Menu</center>
+
+## My Assets
+
+You can upload custom assets in the form of models, images, videos, and sounds for use.
+
+<Callout type="warning">
+  Supported file formats: `gltf, glb, png, jpg, jpeg, mov, mp4, mpeg, mp3, wav`.
+</Callout>
+
+### How to Use My Assets
+
+Go to the `[My]` category through the left panel, and click the upload button to upload the file you want to use.
+
+<br />
+<center>![](../../../../images/add-to-my-asset.png)</center>
+
+<Callout type="info">
+  Uploaded files are automatically categorized and can be accessed from the My > Models, Images, Videos, Sounds tabs.
+</Callout>
+
+You can add uploaded items to the scene in two ways:  
+Add as a 3D Object to the scene or add as a GUI Object to the scene.  
+For the differences between 3D objects and GUI objects, refer to [this guide](../../script/start/3d-and-gui-object#differences-between-3d-objects-and-gui-objects).
+
+### Adding to the Scene as a 3D Object
+
+Click the item or drag and drop it into the scene to add it as a 3D object, making it a child of the WORLD.
+
+<center>
+<br/>
+  ![](../../../../images/add-to-world-from-my-aaset.gif)Click the item to add as a 3D Object
+  <br/>
+  ![](../../../../images/add-to-world-from-my-aaset-dragging.gif)Drag and drop the item into the scene to add as a 3D Object
+</center>
+
+### Adding to the Scene as a GUI Object
+
+Hover over the item and click the three dots that appear, then select Add to GUI to add it as a GUI object, making it a child of the GUI.  
+Only images or GUI files can be added as GUI objects.
+
+
+<center>
+<br/>
+  ![](../../../../images/add-to-gui-from-my-asset.gif)Adding to the scene as a GUI Object
+</center>
+
+## 템플릿
+
+<Callout type="error" emoji="️🚫">
+  It will be added when the update is complete.
+</Callout>
 
 ## Help Menu
 
@@ -93,6 +110,28 @@ The top menu contains buttons that allow you to move, rotate, and resize objects
 
 <center>Object Setting Buttons</center>
 
+## Panel Button
+
+You can access the desired panel by pressing the 'v' button at the top right.
+Press Left to open the asset library, code panel, and Right to open the property panel.
+Press Boston to open only the asset library below.
+
+<Callout>
+  More information about the Asset Library, Code can be [found here](./left).
+</Callout>
+
+<Callout>
+  More information about the Property can be [found here](./right).
+</Callout>
+
+![Panel](../../../../images/assetlibrary.png)
+
+<p align="center">Panel</p>
+
+![Panel](../../../../images/allPanel.png)
+
+<p align="center">Show All Panel</p>
+
 ## Publish
 
 Press the **Publish** button in the top right corner to publish your project on Redbrick.
@@ -108,8 +147,6 @@ Press the `[▶️]` button at the top center to enter Run Mode.
 ![Play Button](../../../../images/play.png)
 
 <center>Play Button</center>
-
----
 
 Press the `[■]` button at the top center to revert to Edit Mode.
 
