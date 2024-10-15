@@ -1,0 +1,120 @@
+import { Steps, Callout } from "nextra/components";
+
+## 🛠️ Step 1: Unity에서 WebGL 파일 빌드하기
+
+<Steps>
+
+### Unity 프로젝트 열기
+
+Unity를 열고 WebGL로 내보낼 프로젝트를 불러옵니다.
+
+---
+
+### Build Settings로 이동
+
+상단 메뉴 바에서 **File**을 클릭하고 **Build Settings**를 선택합니다.
+
+<br />
+<center>![](/images/unity/unity_1.png)</center>
+
+---
+
+### WebGL Platform 선택
+
+**Build Settings** 창에서:
+
+- **Platform** 섹션에서 **WebGL**을 선택합니다.
+- WebGL이 보이지 않으면 **Open Download Page**를 클릭하여 설치합니다.
+- **Switch Platform**을 클릭하여 WebGL로 전환합니다.
+
+<br />
+<center>![](/images/unity/unity_2.png)</center>
+
+---
+
+### Player Settings 조정 (선택 사항)
+
+빌드를 맞춤 설정하려면:
+
+- **Build Settings** 창에서 **Player Settings**를 클릭합니다.
+- **Resolution and Presentation**, **Publishing Settings** 등의 설정을 필요에 맞게 조정할 수 있습니다.
+
+<br />
+<center>![](/images/unity/unity_3.png)</center>
+
+---
+
+### 프로젝트 Build하기
+
+- **Build Settings** 창에서 **Build**를 클릭합니다.
+- WebGL 파일을 저장할 디렉토리를 선택하면 Unity가 WebGL 형식으로 프로젝트를 빌드하기 시작합니다.
+
+---
+
+**📂 WebGL 빌드가 준비되었습니다!** 선택한 폴더에서 파일을 찾을 수 있으며, 이제 온라인 업로드가 가능합니다.
+
+---
+
+### 🔑 마지막 주의 사항
+
+<Callout type="warning">
+  **Player Settings**에서 **Decompression Fallback**이 활성화되어 있는지 확인하여 WebGL 빌드가 온라인에서 원활하게 작동하도록 하세요.
+
+<br />
+<center>![](/images/unity/unity_4.png)</center>
+
+</Callout>
+
+</Steps>
+
+## Step 2: Unity WebGL 파일 Redbrick에 업로드하기
+
+<Steps>
+
+### Redbrick 사이트 열기
+
+브라우저에서 `creator.redbrick.land`를 엽니다.
+
+---
+
+### Import 버튼 찾기
+
+사이트 왼쪽 패널에서 **Import** 버튼을 찾습니다.
+
+<br />
+<center>![](/images/unity/unity_5.png)</center>
+<center>![](/images/unity/unity_6.png)</center>
+
+---
+
+### WebGL 파일 선택하기
+
+**Import** 버튼을 클릭하여 Import UI를 엽니다:
+
+- WebGL 파일이 저장된 폴더로 이동합니다.
+- 필요한 파일을 선택하면 자동으로 인식됩니다.
+
+<br />
+<center>![](/images/unity/unity_7.png)</center>
+
+---
+
+### 프로젝트 게시 준비
+
+필요한 파일이 모두 선택되면 **Publish** 단계로 이동합니다:
+
+- **이름**, **설명**, **썸네일 이미지**를 입력합니다.
+- **Publish** 버튼을 클릭합니다.
+
+<br />
+<center>![](/images/unity/unity_8.png)</center>
+
+</Steps>
+
+## **🎉 프로젝트가 이제 Redbrick에 업로드되었습니다!**
+
+온라인에서 확인하고 공유할 수 있습니다.
+
+<br />
+<center>![](/images/unity/unity_9.png)</center>
+<center>![](/images/unity/unity_10.png)</center>
