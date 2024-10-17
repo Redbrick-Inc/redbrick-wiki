@@ -23,4 +23,8 @@ export default {
     title: "Appendix",
     type: "page",
   },
+  gpt: {
+    title: "GPT",
+    type: "page",
+  },
 };
