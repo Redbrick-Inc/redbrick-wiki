@@ -1,0 +1,51 @@
+import { Callout, Steps } from "nextra/components";
+
+# 에셋 교체하기
+
+> 에셋 교체에 대한 정보를 제공합니다.
+
+---
+
+### 에셋 종류
+
+에셋은 크게 두 종류가 있습니다.
+
+1. **3D 오브젝트**: Camera, Spawn, Light, Effect, Mesh, Sound, Video와 같은 오브젝트가 여기에 속합니다. 
+<br/>Transform 속성으로 position, rotation, scale을 가지고 있습니다.
+
+2. **GUI 오브젝트**: GUI 오브젝트가 여기에 속합니다. 
+<br/>Transform 속성으로 center, anchor, offset, size를 가지고 있습니다.
+
+<br/>
+<center>![asset-type](/images/replace-asset_asset-type.png) 에셋 종류</center>
+
+<Callout type="error">
+    서로 다른 종류의 OBJECT끼리 교체할 수 없습니다.
+    <br/>현재 Sound와 Video는 다른 모든 종류의 에셋과 교체할 수 없습니다. 추후 추가될 예정입니다.
+</Callout>
+
+### 에셋 교체
+
+먼저 에셋 교체 시 유지되는 속성은 다음과 같습니다.
+- 공통
+    - title(제목)
+    - Parent(부모 오브젝트)
+- 3D 오브젝트
+    - Object Transform
+- GUI 오브젝트
+    - GUI Transform: anchor, offset(px)
+    - Text: textInput, fontSize, fontColor
+
+<br/>
+<center>![retained-property](/images/replace-asset_retained-property.png) 에셋 교체 시 유지되는 속성</center>
+
+<Steps>
+### 교체하고 싶은 에셋을 선택
+### 에셋 라이브러리 또는 My 에셋에 있는 에셋의 더보기(...) 선택
+### Replace를 누릅니다. 교체가 완료되었습니다!
+</Steps>
+
+<br/>
+<center>![3dObject-replace](/images/replace-asset_3dObject-replace.gif) 3D 오브젝트 교체</center>
+<br/>
+<center>![gui-replace](/images/replace-asset_gui-replace.gif) GUI 오브젝트 교체</center>

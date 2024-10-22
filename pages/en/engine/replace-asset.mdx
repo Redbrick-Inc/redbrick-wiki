@@ -1,0 +1,48 @@
+import { Callout, Cards } from "nextra/components";
+
+# Replacing Assets
+
+> This provides information on asset replacement.
+
+---
+
+### Asset Types
+
+Assets are broadly classified into two types.
+
+1. **3D Objects**: Objects such as Camera, Spawn, Light, Effect, Mesh, Sound, and Video belong to this category. 
+<br/>They have Transform properties including position, rotation, and scale.
+
+2. **GUI Objects**: GUI objects belong to this category. 
+<br/>They have Transform properties including center, anchor, offset, and size.
+
+<br/>
+<center>![asset-type](/images/replace-asset_asset-type.png) Asset Types</center>
+
+<Callout type="error">
+    You cannot replace objects of different types.
+    <br/>Currently, Sound and Video cannot be replaced with any other types of assets. This will be added in the future.
+</Callout>
+
+### Asset Replacement
+
+First, the properties retained during asset replacement are as follows:
+- Common
+    - title
+    - Parent
+- 3D Objects
+    - Object Transform
+- GUI Objects
+    - GUI Transform: anchor, offset(px)
+    - Text: textInput, fontSize, fontColor
+
+<br/>
+<center>![retained-property](/images/replace-asset_retained-property.png) Properties Retained During Asset Replacement</center>
+
+Select the asset you want to replace and click on the "more..." option of the asset in the asset library or My Assets.
+<br/>Click "Replace." The replacement is complete!
+
+<br/>
+<center>![3dObject-replace](/images/replace-asset_3dObject-replace.gif) Replacing 3D Objects</center>
+<br/>
+<center>![gui-replace](/images/replace-asset_gui-replace.gif) Replacing GUI Objects</center>
