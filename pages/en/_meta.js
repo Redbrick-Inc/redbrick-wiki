@@ -27,4 +27,8 @@ export default {
     title: "GPT",
     type: "page",
   },
+  connect2024: {
+    title: "Sad",
+    type: "page",
+  },
 };
