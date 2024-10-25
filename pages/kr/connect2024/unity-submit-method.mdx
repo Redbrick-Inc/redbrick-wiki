@@ -3,12 +3,17 @@ import { Steps } from "nextra/components";
 import { Tabs } from "nextra/components";
 import { Cards } from "nextra/components";
 
+import { YouTube } from "mdx-embed";
+
 # 유니티 제출 방법
 <br />
 <Callout>
 
 아래 유니티 프로젝트 제출 방법은 <span style={{ color: 'white' }}>**영상**</span>으로도 소개되어 있습니다. <br />
-https://www.youtube.com/watch?v=AsOIFQIg_yU  
+
+<br/>
+<YouTube youTubeId="AsOIFQIg_yU" />
+
 위의 영상을 보시면 아래 내용들을 더욱 자세하게 참고하실 수 있습니다!
 만약에 레드 브릭 사이트에 프로젝트 publish 까지 완료 하셨다면, 해당 글에서 <span style={{ color: 'white' }}>**3단계 : 프로젝트 제출하기**</span> 로 바로 보셔도 됩니다.
 
@@ -22,7 +27,7 @@ https://www.youtube.com/watch?v=AsOIFQIg_yU
 
 Unity를 열고 WebGL로 내보낼 프로젝트를 불러옵니다.
 <br />
-<center>![](/images/connect2024/image.png)</center>
+<center>![IMAGE](/images/connect2024/image.png)</center>
 
 ---
 
@@ -30,7 +35,7 @@ Unity를 열고 WebGL로 내보낼 프로젝트를 불러옵니다.
 
 상단 메뉴 바에서 **File**을 클릭하고 **Build Settings**를 선택합니다.
 <br />
-<center>![](/images/connect2024/image_(1).png)</center>
+<center>![IMAGE](/images/connect2024/image_(1).png)</center>
 
 ---
 
@@ -41,7 +46,7 @@ Unity를 열고 WebGL로 내보낼 프로젝트를 불러옵니다.
 - WebGL이 보이지 않으면 **Open Download Page**를 클릭하여 설치합니다.
 - **Switch Platform**을 클릭하여 WebGL로 전환합니다.
 <br />
-<center>![](/images/connect2024/image_(2).png)</center>
+<center>![IMAGE](/images/connect2024/image_(2).png)</center>
 
 ---
 
@@ -50,11 +55,11 @@ Unity를 열고 WebGL로 내보낼 프로젝트를 불러옵니다.
 빌드를 맞춤 설정 하려면:
 - **Build Settings** 창에서 **Player Settings**를 클릭합니다.
 <br />
-<center>![](/images/connect2024/image_(3).png)</center>
+<center>![IMAGE](/images/connect2024/image_(3).png)</center>
 
 - **Resolution and Presentation, Publishing Settings** 등의 설정을 필요에 맞게 조정할 수 있습니다.
 <br />
-<center>![](/images/connect2024/image_(4).png)</center>
+<center>![IMAGE](/images/connect2024/image_(4).png)</center>
 
 ---
 
@@ -64,11 +69,11 @@ Unity를 열고 WebGL로 내보낼 프로젝트를 불러옵니다.
   1. Player Settings에서 <span style={{ color: 'white' }}>**Compression Format**</span>이 disable 되어 있으면 WebGL 파일이 안나오므로 , <span style={{ color: 'white' }}>**Brotli**</span> 로 변경해야 합니다. 
   2. Player Settings에서 <span style={{ color: 'white' }}>**Decompression Fallback이 활성화**</span>되어 있는지 확인하여 WebGL 빌드가 온라인에서 원활하게 작동하도록 하세요.
 
-  <center>![](/images/connect2024/image_(5).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(5).png)</center>
 
   또한, <span style={{ color: 'white' }}>**development build**</span> 체크를 해제 했는지 확인합니다. ( 체크되어 있으면 오류납니다. )  
   <br />
-  <center>![](/images/connect2024/image_(6).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(6).png)</center>
 </Callout>
 
 ---
@@ -80,30 +85,30 @@ _빌드 버튼 활성화 안되는 오류 해결하는 방법을 알고 싶다�
 <Callout type="error">
   1. 아래와 같은 오류가 발생하면서 빌드 버튼이 활성화되지 않을 경우
 
-  <center>![](/images/connect2024/image_(7).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(7).png)</center>
 
 </Callout>
 
 <Callout type="error">
   2. Project Setting 에 들어가서 제일 오른쪽에 있는 탭을 눌려주세요. <br /> 그 후, Other Settings 를 눌려서 페이지를 펼쳐주세요.
 
-  <center>![](/images/connect2024/image_(8).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(8).png)</center>
 
 </Callout>
 <Callout type="error"> 
   3. Color Space 에서 Linear 라고 되어 있는 부분을 Gamma 라고 바꿔주세요.
 
-  <center>![](/images/connect2024/image_(9).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(9).png)</center>
 
   4.다음과 같이 설치 창이 뜨면 **change to Gamma** 버튼을 눌려주세요.
 <br />
-  <center>![](/images/connect2024/image_(10).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(10).png)</center>
 
   </Callout>
   <Callout type="error">
   5. 아래와 같이 정상적으로 바뀌고 오류가 없어지면서 Build 버튼이 활성화된 것을 확인할 수 있습니다.
 
-  <center>![](/images/connect2024/image_(11).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(11).png)</center>
 
 </Callout>
 
@@ -114,15 +119,15 @@ _빌드 버튼 활성화 안되는 오류 해결하는 방법을 알고 싶다�
 Build Settings 창에서 Build 버튼을 클릭합니다. 
 Save as 옆에는 폴더 이름을 팀이름_게임이름 으로 작성해주세요. <br /> 그 이후, Save 버튼을 눌려주세요.
 <br />
-  <center>![](/images/connect2024/image_(12).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(12).png)</center>
 
 아래 where 옆에 있는 주소로 파일이 저장됩니다.
 <br />
-  <center>![](/images/connect2024/image_(13).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(13).png)</center>
 
 저장 버튼을 누르면 Unity가 WebGL 형식으로 프로젝트를 빌드하기 시작합니다.
 <br />
-  <center>![](/images/connect2024/image_(14).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(14).png)</center>
 
 ---
 
@@ -145,7 +150,7 @@ Save as 옆에는 폴더 이름을 팀이름_게임이름 으로 작성해주세
 프로젝트를 올리기 위해서는 계정이 필요하며 어떤 계정으로 회원 가입 하든 상관없습니다.
 회원 가입 후 로그인을 해줍니다.
 <br />
-  <center>![](/images/connect2024/image_(15).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(15).png)</center>
 
 ---
 
@@ -153,12 +158,12 @@ Save as 옆에는 폴더 이름을 팀이름_게임이름 으로 작성해주세
 
 계정 옆에 있는 Create 버튼을 누릅니다.
 <br />
-  <center>![](/images/connect2024/image_(15)-1.png)</center>
+  <center>![IMAGE](/images/connect2024/image_(15)-1.png)</center>
 
 사이트 왼쪽 패널에서 Import 버튼을 찾습니다.
 <br />
-  <center>![](/images/connect2024/image_(16).png)</center>
-  <center>![](/images/connect2024/image_(17).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(16).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(17).png)</center>
 
 ---
 
@@ -167,7 +172,7 @@ Save as 옆에는 폴더 이름을 팀이름_게임이름 으로 작성해주세
 **Import** 버튼을 클릭하여 WebGL 파일이 저장된 폴더로 이동합니다. <br />
 위에서 저장한 파일 폴더를 누른 후 업로드 버튼을 클릭합니다.
 <br />
-  <center>![](/images/connect2024/image_(18).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(18).png)</center>
 
 ---
 
@@ -176,13 +181,13 @@ Save as 옆에는 폴더 이름을 팀이름_게임이름 으로 작성해주세
 위에서 업로드 버튼을 누르면 아래와 같은 창이 뜹니다.  <br />
 **이름**, **설명**, **썸네일 이미지**를 입력을 다 한 후, **Publish** 버튼을 클릭 합니다.
 <br />
-  <center>![](/images/connect2024/image_(19).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(19).png)</center>
 
 그럼, 프로젝트가 Redbrick에 업로드되었습니다! <br />
 publishing 탭을 클릭해서 올린 프로젝트를 클릭 하세요. 그럼 온라인에서 확인하고 공유할 수 있습니다.
 <br />
-  <center>![](/images/connect2024/image_(20).png)</center>
-  <center>![](/images/connect2024/image_(21).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(20).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(21).png)</center>
 
 </Steps>
 
@@ -246,65 +251,65 @@ publishing 탭을 클릭해서 올린 프로젝트를 클릭 하세요. 그럼 �
 
 ### 작품 링크 달기
 <br />
-  <center>![](/images/connect2024/image_(22).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(22).png)</center>
 
 1. 이때, 작품 링크는 위 Redbrick 에 올렸던 프로젝트 링크입니다. publishing (1번째)를 누르고 자신이 만든 프로젝트(3번째)를 클릭 합니다. 이때, 프로젝트 공개를 위해 꼭 2번째 버튼이 **공개** 되어 있어야 합니다.
 
 <br />
-  <center>![](/images/connect2024/image_(23).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(23).png)</center>
 
 2. 아래 주소가 위에 제출하는 작품 링크 입니다.
 <br />
-  <center>![](/images/connect2024/image_(24).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(24).png)</center>
  
 3. 위 링크를 복사해서 아래와 같이 넣어주시면 됩니다.
 <br />
-  <center>![](/images/connect2024/image_(25).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(25).png)</center>
 
 ---
 
 ### 작품 파일 업로드하기
 <br />
-  <center>![](/images/connect2024/image_(26).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(26).png)</center>
 
 1. 위에서 저장한 유니티 webGL 파일을 업로드 해야 합니다.
 먼저 유니티에서 저장한 파일 위치로 가서 파일 위에서 마우스 우클릭을 통해 압축 버튼을 눌려줍니다.
 <br />
-  <center>![](/images/connect2024/image_(27).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(27).png)</center>
 
 2. 정상적으로 압축되면 아래와 같이 파일 생깁니다.
 <br />
-  <center>![](/images/connect2024/image_(28).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(28).png)</center>
 
 3. 아래에서 Add file 을 누르면,
 <br />
-  <center>![](/images/connect2024/image_(29).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(29).png)</center>
 
 4. 아래와 같은 창이 뜨는데, 여기서도 Browse 버튼을 눌려줍니다.
 <br />
-  <center>![](/images/connect2024/image_(30).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(30).png)</center>
 
 5. 위에서 압축한 파일 선택해서 열기 버튼을 누르면,
 <br />
-  <center>![](/images/connect2024/image_(30)-1.png)</center>
+  <center>![IMAGE](/images/connect2024/image_(30)-1.png)</center>
 
 6. 아래와 같이 잠시 뜨다가,
 <br />
-  <center>![](/images/connect2024/image_(30)-2.png)</center>
+  <center>![IMAGE](/images/connect2024/image_(30)-2.png)</center>
 
 7. 아래와 같이 정상적으로 파일이 업로드 된 것을 확인할 수 있습니다. 
 <br />
-  <center>![](/images/connect2024/image_(30)-3.png)</center>
+  <center>![IMAGE](/images/connect2024/image_(30)-3.png)</center>
 
 ---
 
 ### 유니티 사용 에셋 출처 첨부하기
 <br />
-  <center>![](/images/connect2024/image_(31).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(31).png)</center>
 
 공지 드렸듯이, 유니티 상용 에셋 사용 검수를 위한 출처 기재를 받고 있습니다.
 <br />
-  <center>![](/images/connect2024/image_(32).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(32).png)</center>
 
 위와 같이 사용 에셋 별로 링크를 달아주시면 됩니다.
 
@@ -315,7 +320,7 @@ publishing 탭을 클릭해서 올린 프로젝트를 클릭 하세요. 그럼 �
 모든 제출과 내용 작성이 끝났으면 아래 버튼을 눌려 제출해주시면 됩니다.<br />
 제출한 내용은 변경이 어려우니 꼭 꼼꼼히 확인 부탁드립니다.
 <br />
-  <center>![](/images/connect2024/image_(33).png)</center>
+  <center>![IMAGE](/images/connect2024/image_(33).png)</center>
 
 </Steps>
 
