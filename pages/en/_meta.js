@@ -28,7 +28,7 @@ export default {
     type: "page",
   },
   connect2024: {
-    title: "Sad",
+    title: "connect 2024",
     type: "page",
   },
 };
