@@ -1,32 +1,36 @@
-import { Callout, Cards } from "nextra/components";
+import { Callout, Steps, Tabs } from "nextra/components";
+import Link from 'next/link';
 
 # Replacing Assets
 
-> This provides information on asset replacement.
+> This section provides information on replacing assets.
 
 ---
 
-### Asset Types
+### Types of Assets
 
-Assets are broadly classified into two types.
+There are two main types of assets.
 
-1. **3D Objects**: Objects such as Camera, Spawn, Light, Effect, Mesh, Sound, and Video belong to this category. 
-<br/>They have Transform properties including position, rotation, and scale.
+1. **3D Objects**: Objects like Camera, Spawn, Light, Effect, Mesh, Sound, and Video fall under this category.
+   <br/>They have Transform properties such as position, rotation, and scale.
 
-2. **GUI Objects**: GUI objects belong to this category. 
-<br/>They have Transform properties including center, anchor, offset, and size.
+2. **GUI Objects**: GUI objects are included here. 
+   <br/>They have Transform properties such as center, anchor, offset, and size.
 
 <br/>
-<center>![asset-type](/images/replace-asset_asset-type.png) Asset Types</center>
+<center>![asset-type](/images/replace-asset/asset-type.png) Types of Assets</center>
 
 <Callout type="error">
     You cannot replace objects of different types.
-    <br/>Currently, Sound and Video cannot be replaced with any other types of assets. This will be added in the future.
+    <br/>Currently, Sound and Video cannot be replaced with any other type of asset. This will be added in the future.
 </Callout>
+<br/>
 
-### Asset Replacement
+---
 
-First, the properties retained during asset replacement are as follows:
+### Replacing Assets [#asset-type]
+
+First, the properties that will be retained when replacing assets are as follows:
 - Common
     - title
     - Parent
@@ -37,12 +41,37 @@ First, the properties retained during asset replacement are as follows:
     - Text: textInput, fontSize, fontColor
 
 <br/>
-<center>![retained-property](/images/replace-asset_retained-property.png) Properties Retained During Asset Replacement</center>
-
-Select the asset you want to replace and click on the "more..." option of the asset in the asset library or My Assets.
-<br/>Click "Replace." The replacement is complete!
+<center>![retained-property](/images/replace-asset/retained-property.png) Properties Retained During Asset Replacement</center>
 
 <br/>
-<center>![3dObject-replace](/images/replace-asset_3dObject-replace.gif) Replacing 3D Objects</center>
-<br/>
-<center>![gui-replace](/images/replace-asset_gui-replace.gif) Replacing GUI Objects</center>
+### Replacement Steps
+<Steps>
+    ### Select the Asset to Replace
+
+    You can select the asset you want to replace from the Explorer tab or the Scene panel.
+
+    <br/>
+    <center>![replace-step-1](/images/replace-asset/replace-step-1.png) Select the Asset to Replace</center>
+
+    ### Click More (...) on the Asset to be Replaced
+
+    In the asset library or My Assets, select the asset to be replaced and click on More.
+
+    <br/>
+    <center>![replace-step-2](/images/replace-asset/replace-step-2.png) Click More on the Asset</center>
+
+    ### Click Replace to Replace the Asset
+    The replacement is complete! If it does not succeed, please refer to the <Link href="#asset-type">related information</Link>.
+
+    <br/>
+    <center>![replace-step-3](/images/replace-asset/replace-step-3.png) Click Replace</center>
+</Steps>
+
+<Tabs items={['3D Object', 'GUI Object']} defaultIndex="0">
+    <Tabs.Tab>
+        <center>![3d-replace](/images/replace-asset/3d-replace.gif) Replace 3D Object</center>
+    </Tabs.Tab>
+    <Tabs.Tab>
+        <center>![gui-replace](/images/replace-asset/gui-replace.gif) Replace GUI Object</center>
+    </Tabs.Tab>
+</Tabs>
