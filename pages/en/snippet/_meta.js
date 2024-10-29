@@ -2,6 +2,7 @@ export default {
   "management-multiple-similar-objects": "Managing Multiple Similar Objects",
   "collect-items": "Collect items",
   "change-avatar-speed": "Avatar speed change ",
+  tween: 'Using TWEEN',
   spawn: "Set the Starting Point",
   respawn: "Return to original position when it falls",
   "create-savepoints": "Create Save Point",

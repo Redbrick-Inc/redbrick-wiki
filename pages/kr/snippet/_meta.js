@@ -2,6 +2,7 @@ export default {
   "management-multiple-similar-objects" : "다수의 유사한 오브젝트 관리",
   "collect-items": "아이템 수집하기",
   "change-avatar-speed": "아바타 속도 변경하기",
+  tween: 'TWEEN 활용하기',
   spawn: "시작점 설정하기",
   respawn: "떨어졌을 때 원래 위치로 돌아가기",
   "create-savepoints": "세이브 포인트 생성하기",

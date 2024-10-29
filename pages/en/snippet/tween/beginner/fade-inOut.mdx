@@ -1,0 +1,68 @@
+import { Steps, Cards } from "nextra/components";
+import Link from 'next/link';
+
+# Creating a Fade In/Out Effect
+
+> Use TWEEN to create a fade in/out (scene transition) effect.
+
+---
+
+The fade in/out effect can be achieved by using a black image and adjusting its opacity.
+
+<Steps>
+    ### Adding a Black Image to the GUI
+
+    <Link href="/kr/engine/operate/top#my-asset"><u>Upload</u></Link> the provided black image asset and add it to the GUI.
+    <br/>
+    <Cards.Card title='Download Black Image' href='/images/tween/beginner/fade-inOut/black.png' download/>
+    <br/>
+    <center>![fade-inOut_step-1](/images/tween/beginner/fade-inOut/fade-inOut_step-1.png) Adding the Black Image to the GUI</center>
+
+    ### Basic Settings for the Black Image in the GUI
+
+    1. Set the name of the object to "black."
+    2. Configure it to respond to screen size changes and cover the entire screen.
+        - Set the size units to percentage (%) and set both x and y values to 100.
+        - Turn off Maintain Aspect Ratio to prevent the black image from maintaining its ratio.
+    3. Set the transparency to 100 so that the black image starts off invisible.
+    <br/>
+    <center>![fade-inOut_step-2](/images/tween/beginner/fade-inOut/fade-inOut_step-2.png) Basic Settings for the Black Image in the GUI</center>
+
+    ### Writing the TWEEN Script for Fade In/Out
+
+    Use TWEEN to adjust the opacity of the black image. <br/>
+    Since we use the yoyo option, the transition time for fade in/out will be double the duration specified in `tween.to(object, duration)`.
+
+    ``` js showLineNumbers, copy {6}
+    const black = GUI.getObject('black');
+    black.hide();
+    black.material.opacity = 0;
+    const tween = new TWEEN.Tween(black.material);
+    // Transition time adjustable, default is 1000ms
+    tween.to({opacity: 1});
+    tween.onStart(() => black.show())
+    .onComplete(() => black.hide());
+    tween.easing(TWEEN.Easing.Circular.InOut);
+    tween.yoyo(true).repeat(1);
+    ```
+
+    ### Executing TWEEN During Scene Transitions
+
+    Move the player when the opacity of the black image is 1 (when the screen is completely covered).
+
+    ``` js showLineNumbers, copy {3}
+    tween.onUpdate(() => {
+        // Move when the opacity of the black image is 1
+        if(black.material.opacity === 1) {
+            PLAYER.spawn();
+        }
+    });
+    function Update(dt) {
+        if(PLAYER.position.y < -5) tween.start();
+    }
+    ```
+</Steps>
+
+### Result
+<br/>
+<center>![fade-inOut_result](/images/tween/beginner/fade-inOut/fade-inOut_result.gif) Fade In/Out Result</center>
