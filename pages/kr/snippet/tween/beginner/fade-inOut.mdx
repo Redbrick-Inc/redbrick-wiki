@@ -1,4 +1,4 @@
-import { Steps, Cards } from "nextra/components";
+import { Steps, Cards, Callout } from "nextra/components";
 import Link from 'next/link';
 
 # 페이드 인/아웃 효과 만들기
@@ -27,6 +27,10 @@ import Link from 'next/link';
     3. 검은색 이미지가 안 보이는 상태로 시작될 수 있게 투명도를 100으로 설정해줍니다.
     <br/>
     <center>![fade-inOut_step-2](/images/tween/beginner/fade-inOut/fade-inOut_step-2.png) GUI에 검은색 이미지 추가하기</center>
+    <Callout type='default'>
+        반응형 GUI를 구성하기 위해서는 반드시 단위를 px에서 %(퍼센트)로 변경해주어야 합니다. <br/>
+        추가로 비율 유지 여부에 따라 Maintain AspectRatio를 ON/OFF 해주면 됩니다. <br/>
+    </Callout>
 
     ### 페이드 인/아웃 TWEEN 스크립트 작성하기
 
@@ -45,6 +49,9 @@ import Link from 'next/link';
     tween.easing(TWEEN.Easing.Circular.InOut);
     tween.yoyo(true).repeat(1);
     ```
+    <Callout type='info'>
+        TWEEN의 기본 전환 시간은 1000밀리초, 즉 1초입니다.
+    </Callout>
 
     ### 화면 전환 상황에서 TWEEN 실행시키기
 
@@ -61,6 +68,10 @@ import Link from 'next/link';
         if(PLAYER.position.y < -5) tween.start();
     }
     ```
+    <Callout type='info'>
+        TWEEN의 `yoyo` 메소드를 사용할 때, 타겟값에 도달해도 별다른 콜백함수가 실행되지 않기 때문에 <br/>
+        `onUpdate` 내부에서 조건문을 통해 `yoyo` 시작에 대한 처리가 가능합니다.
+    </Callout>
 </Steps>
 
 ### 결과물

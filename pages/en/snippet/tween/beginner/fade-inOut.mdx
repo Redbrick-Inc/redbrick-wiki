@@ -1,4 +1,4 @@
-import { Steps, Cards } from "nextra/components";
+import { Steps, Cards, Callout } from "nextra/components";
 import Link from 'next/link';
 
 # Creating a Fade In/Out Effect
@@ -12,11 +12,15 @@ The fade in/out effect can be achieved by using a black image and adjusting its 
 <Steps>
     ### Adding a Black Image to the GUI
 
-    <Link href="/kr/engine/operate/top#my-asset"><u>Upload</u></Link> the provided black image asset and add it to the GUI.
+    <Link href="/en/engine/operate/top#my-assets"><u>Upload</u></Link> the provided black image asset and add it to the GUI.
     <br/>
     <Cards.Card title='Download Black Image' href='/images/tween/beginner/fade-inOut/black.png' download/>
     <br/>
     <center>![fade-inOut_step-1](/images/tween/beginner/fade-inOut/fade-inOut_step-1.png) Adding the Black Image to the GUI</center>
+    <Callout type='default'>
+        To create a responsive GUI, it is essential to change the units from px to % (percent). <br/>
+        Additionally, you should toggle Maintain Aspect Ratio ON/OFF depending on whether you want to maintain the proportions.
+    </Callout>
 
     ### Basic Settings for the Black Image in the GUI
 
@@ -45,6 +49,9 @@ The fade in/out effect can be achieved by using a black image and adjusting its 
     tween.easing(TWEEN.Easing.Circular.InOut);
     tween.yoyo(true).repeat(1);
     ```
+    <Callout type='info'>
+        The default transition time of TWEEN is 1000 milliseconds, or 1 second.
+    </Callout>
 
     ### Executing TWEEN During Scene Transitions
 
@@ -61,6 +68,10 @@ The fade in/out effect can be achieved by using a black image and adjusting its 
         if(PLAYER.position.y < -5) tween.start();
     }
     ```
+    <Callout type='info'>
+        When using the `yoyo` method of TWEEN, no specific callback function is executed upon reaching the target value.
+        Therefore, you can handle the start of the `yoyo` in the `onUpdate` function using a conditional statement.
+    </Callout>
 </Steps>
 
 ### Result
