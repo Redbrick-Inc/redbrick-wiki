@@ -1,0 +1,102 @@
+import { Steps, Cards, Callout } from "nextra/components";
+import Link from 'next/link';
+
+# 부메랑 만들기
+
+> TWEEN을 활용하여 부메랑을 만듭니다.
+
+---
+
+부메랑은 부메랑 오브젝트의 위치값을 조절하여 만들 수 있습니다. <br/>
+TWEEN의 `.chain()`과 `.dynamic()`을 사용합니다.
+
+<Steps>
+    ### 부메랑 오브젝트 추가하기 
+
+    torus 메쉬를 추가해줍니다.
+    <br/>
+    <center>![boomerang_step-1](/images/tween/beginner/boomerang/boomerang_step-1.png) 부메랑 오브젝트 추가하기</center>
+
+    ### 부메랑 기본 설정하기
+
+    a. 오브젝트의 이름을 Boomerang으로 설정해줍니다. <br/>
+    b. 오브젝트의 회전값을 변경해줍니다. <br/>
+    c. 오브젝트의 색상을 변경해줍니다. <br/>
+    <br/>
+    <center>![boomerang_step-2](/images/tween/beginner/boomerang/boomerang_step-2.png) 부메랑 기본 설정하기</center>
+    <br/>
+
+    ### 부메랑 TWEEN 스크립트 작성하기
+
+    ##### a. 부메랑의 목표위치를 설정하는 스크립트를 작성해줍니다.
+        카메라의 direction(forward)를 통해서 목표위치를 설정해줍니다. 카메라의 움직임에 따라 목표위치가 지속적으로 변해야하기 때문에 Update문 내부에 작성해줍니다.
+    <br/>
+    <center>![boomerang_camera-direction](/images/tween/beginner/boomerang/boomerang_camera-direction.png) 카메라 direction(forward)을 통한 목표위치 설정</center>
+    
+    ``` js showLineNumbers, copy {5-7}
+    const camera = WORLD.getObject('MainCamera');
+    const direction = new THREE.Vector3();
+
+    function Update(dt) {
+        camera.getWorldDirection(direction);
+        direction.multiplyScalar(60);
+        direction.add(camera.position);
+    }
+    ```
+
+    <br/>
+    ##### b. 부메랑 TWEEN 스크립트를 작성해줍니다.
+        부메랑 TWEEN은 두 가지의 TWEEN이 `.chain()`을 통해 연결되어 이어집니다. <br/>
+        먼저 첫번째 TWEEN은 목표위치까지 가는 TWEEN이고, 두번째 TWEEN은 다시 플레이어에게 돌아오는 TWEEN입니다. <br/>
+        플레이어는 움직이는 오브젝트이므로 `.dynamic()`을 통해 타겟 객체를 참조할 수 있게 해줍니다. <br/>
+        또한 두 가지의 TWEEN 모두 기본 전환시간을 사용하기 때문에 총 전환시간은 2초가 됩니다. 
+
+        ``` js showLineNumbers, copy {9,15-16}
+        // ...
+
+        const boomerang = WORLD.getObject('Boomerang');
+        let isPlaying = false;
+
+        function boomerangStart() {
+            boomerang.position.copy(PLAYER.position);
+            const tweenA = new TWEEN.Tween(boomerang.position);
+            // 부메랑 날라가는 시간 조정 가능, 기본은 1000ms
+            tweenA.to(direction);
+            tweenA.onStart(() => { 
+                isPlaying = true;
+                boomerang.revive()
+            });
+            const tweenB = new TWEEN.Tween(boomerang.position);
+            tweenB.to(PLAYER.position);
+            tweenB.dynamic(true)
+            .onComplete(() => {
+                isPlaying = false;
+                boomerang.kill();
+            });
+            tweenA.chain(tweenB).start();
+        }
+        ```
+        <Callout type='info'>
+            TWEEN의 기본 전환시간은 1000밀리초, 즉 1초입니다. <br/>
+        </Callout>
+        <Callout type='default'>
+            두 개의 TWEEN이 `.chain()`을 통해 연결되어 있기 때문에 현재 TWEEN이 실행중인지를 보기 위해서는 별도의 변수가 필요합니다. <br/>
+            첫번째 TWEEN의 `.onStart()`와 두번째 TWEEN의 `.onComplete()`을 통해 해당 변수를 변경해줍니다.
+        </Callout>
+
+    ### 특정 키가 눌렸을 때 TWEEN 실행시키기
+
+    F가 눌렸을 때, TWEEN을 실행해줍니다. 4번 라인을 수정하여 원하는 키로 변경할 수 있습니다.
+
+    ``` js showLineNumbers, copy {4}
+    // ...
+
+    function OnKeyDown(event) {
+        if(event.code === 'KeyF') boomerangStart();
+    }
+    ```
+</Steps>
+
+### 결과물
+<br/>
+<center>![boomerang_result](/images/tween/beginner/boomerang/boomerang_result.gif) 부메랑 결과물</center>

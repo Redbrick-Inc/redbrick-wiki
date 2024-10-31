@@ -7,85 +7,83 @@ import Link from 'next/link';
 
 ---
 
-버튼 애니메이션은 버튼의 위치값을 조절하여 만들 수 있습니다.
+GUI 애니메이션은 GUI의 <Link href='/kr/engine/operate/right/object/gui-transform#offset'><u>Offset</u></Link>을 조절하여 만들 수 있습니다.
+<br/>TWEEN의 .easing()과 .yoyo()를 사용합니다.
 
 <Steps>
-    ### 버튼 몸통과 버튼 추가하기
+    ### GUI에 애니메이션을 적용할 이미지 추가하기
 
-    box나 cylinder와 중에 원하는 메쉬를 두 개 추가해줍니다.
+    애니메이션을 적용할 이미지를 GUI에 추가해줍니다.
     <br/>
-    <center>![button-animation_step-1](/images/tween/beginner/button-animation/button-animation_step-1.png) 버튼 몸통과 버튼 추가하기</center>
+    <center>![gui-animation_step-1](/images/tween/beginner/gui-animation/gui-animation_step-1.png) GUI에 이미지 추가하기</center>
 
-    ### 버튼 몸통과 버튼 기본 설정하기
+    ### 이미지 GUI 기본 설정하기
     
-    a. 오브젝트의 이름을 각각 RedbuttonBody와 Redbutton으로 설정해줍니다.
+    ##### a. 이미지의 사이즈를 설정해줍니다.
+        비율이 유지되도록 Maintain AspectRatio를 켜주고, 단위를 퍼센트(%)로 바꾼 후 사이즈를 조정해줍니다.
     <br/>
-    <center>![button-animation_step-2-a](/images/tween/beginner/button-animation/button-animation_step-2-a.png) 오브젝트 이름 설정하기</center>
-    <br/>
-
-    b. 오브젝트를 원하는 색상으로 변경해줍니다.
-    <br/>
-    <center>![button-animation_step-2-b](/images/tween/beginner/button-animation/button-animation_step-2-b.png) 오브젝트 색상 설정하기</center>
+    <center>![gui-animation_step-2-a](/images/tween/beginner/gui-animation/gui-animation_step-2-a.png) 이미지 사이즈 설정하기</center>
     <br/>
 
-    c. 버튼 몸통의 사이즈를 조절해줍니다.
+    ##### b. 이미지의 시작위치를 설정해줍니다.
+        Anchor를 통해 이미지의 기준점을 잡아주고 Offset을 조정해줍니다.
     <br/>
-    <center>![button-animation_step-2-c](/images/tween/beginner/button-animation/button-animation_step-2-c.png) 버튼 몸통 사이즈 조절하기</center>
-    <br/>
+    <center>![gui-animation_step-2-b](/images/tween/beginner/gui-animation/gui-animation_step-2-b.png) 이미지 시작위치 설정하기</center>
 
-    d. 버튼 몸통의 하위 자식으로 버튼을 넣어줍니다.
-    <br/>
-    <center>![button-animation_step-2-d](/images/tween/beginner/button-animation/button-animation_step-2-d.png) 버튼 몸통의 하위 자식으로 버튼 추가하기</center>
-    <br/>
-
-    e. 버튼의 사이즈를 조절해줍니다.
-    <br/>
-    <center>![button-animation_step-2-e](/images/tween/beginner/button-animation/button-animation_step-2-e.png) 버튼 사이즈 조절하기</center>
-    <br/>
-
-    f. 버튼의 끝위치를 확인해주고, 시작위치로 설정해줍니다.
-    <br/>
-    <center>![button-animation_step-2-f](/images/tween/beginner/button-animation/button-animation_step-2-f.png) 버튼 끝위치 확인하기</center>
-    <center>![button-animation_step-2-g](/images/tween/beginner/button-animation/button-animation_step-2-g.png) 버튼 시작위치로 설정하기</center>
-    <br/>
-    
     <Callout type='default'>
-        버튼을 하위 오브젝트로 추가하게 되면 버튼 몸통이 이동해도 따라 이동하게 되고, 
-        버튼의 <Link href='/kr/script/start/absolute-and-relative-coordinates#상대-좌표-이동'><u>상대좌표</u></Link>를 통해 손쉽게 버튼 애니메이션을 만들 수 있습니다.
+        반응형 GUI를 구성하기 위해서는 반드시 단위를 px에서 %(퍼센트)로 변경해주어야 합니다. <br/>
+        추가로 비율 유지 여부에 따라 Maintain AspectRatio를 ON/OFF 해주면 됩니다. <br/>
     </Callout>
 
-    ### 버튼 애니메이션 TWEEN 스크립트 작성하기
+    ### GUI 애니메이션 TWEEN 스크립트 작성하기
 
-    TWEEN을 통해 버튼의 위치값을 변경해줍니다. <br/>
-    yoyo 옵션을 사용하기 때문에 버튼 애니메이션 시간은 `tween.to(object, duration)`에서 duration의 2배가 됩니다.
+    이미지 GUI에 오브젝트(클라이언트) 스크립트를 추가해줍니다. TWEEN을 통해 이미지의 Offset을 변경해줍니다. <br/>
+    offset 객체는 간략하게 본다면 `{ x : { value : Number }, y : { value : Number } }`로 구성되어 있기 때문에 한 축으로만 값을 변경하고 싶다면 `ui.offset.y`를 TWEEN의 초기객체로 사용해주어야 합니다. <br/>
 
-    ``` js showLineNumbers, copy {3}
-    const tween = new TWEEN.Tween(this.position);
-    // 버튼 애니메이션 시간 조정 가능, 기본은 1000ms
-    tween.to({ y : 0.1 }, 100) // duration
-    tween.yoyo(true).repeat(1);
+    yoyo 옵션을 사용하기 때문에 GUI 애니메이션 시간은 `tween.to(object, duration)`에서 duration의 2배가 됩니다. 
+    <Link href='/kr/script/built-in/tween/easing'><u>.easing()</u></Link>을 통해 객체의 움직임(보간 방정식)을 변경할 수 있습니다. <br/>
+    <br/>
+    <center>
+        <img src="/images/tween/beginner/gui-animation/gui-animation_easing.gif" alt="gui-animation_easing" style={{ maxWidth: '50%', height: 'auto' }}/>
+        <p style={{margin: '0'}}>TWEEN\.Easing\.Exponential\.InOut</p>
+    </center>
+
+    ``` js showLineNumbers, copy {2,6}
+    const ui = GUI.getObject('Copy_notification.png(9cf)');
+    const tween = new TWEEN.Tween(ui.offset.y);
+    // GUI 애니메이션 시간 조정 가능, 기본은 1000ms
+    tween.to({ value : 20 });
+    // .easing()을 통해 움직임(보간 방정식)을 변경할 수 있습니다.
+    tween.easing(TWEEN.Easing.Exponential.InOut)
+    .yoyo(true).repeat(1);
     ```
     <Callout type='info'>
         TWEEN의 기본 전환 시간은 1000밀리초, 즉 1초입니다.
     </Callout>
 
-    ### 버튼이 클릭되었을 때 TWEEN 실행시키기
+    ### 특정 이벤트가 발생했을 때 TWEEN 실행시키기
 
-    onClick 콜백함수를 통해 버튼이 클릭되었을 때, TWEEN을 실행해줍니다.
+    아래는 키보드의 c가 눌렸을 때, TWEEN을 실행해주는 예시입니다. <br/>
+    해당 TWEEN을 실행시키고 싶은 이벤트가 발생했을 때, `tween.start()`를 사용해주면 됩니다.
 
-    ``` js showLineNumbers, copy {3}
+    ``` js showLineNumbers, copy {3,7}
     // ...
 
-    this.onClick(() => {
-        if(tween.isPlaying()) return;
-        tween.start();
-    });
+    function OnKeyDown(event) {
+        if(event.code === 'KeyC') { 
+            if(tween.isPlaying()) {
+                tween.stop();
+                ui.offset.y.value = -15 // 초기 위치
+            }
+            tween.start();
+        }
+    }
     ```
     <Callout type='info'>
-        버튼 애니메이션 TWEEN이 끝나고 다시 버튼이 눌릴 수 있도록 현재 TWEEN이 실행중인지 확인해줍니다.
+        GUI 애니메이션이 끝나기 전에 다시 시작된다면 다시 처음 위치에서 애니메이션이 실행될 수 있도록 정지시킨 후 위치값을 초기화해줍니다.
     </Callout>
 </Steps>
 
 ### 결과물
 <br/>
-<center>![button-animation_result](/images/tween/beginner/button-animation/button-animation_result.gif) 버튼 애니메이션 결과물</center>
+<center>![gui-animation_result](/images/tween/beginner/gui-animation/gui-animation_result.gif) GUI 애니메이션 결과물</center>
