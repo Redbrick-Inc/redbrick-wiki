@@ -24,17 +24,17 @@ The fade in/out effect can be achieved by using a black image and adjusting its 
 
     ### Basic Settings for the Black Image in the GUI
 
-    1. Set the name of the object to "black."
-    2. Configure it to respond to screen size changes and cover the entire screen.
+    a. Set the name of the object to "black."
+    b. Configure it to respond to screen size changes and cover the entire screen.
         - Set the size units to percentage (%) and set both x and y values to 100.
         - Turn off Maintain Aspect Ratio to prevent the black image from maintaining its ratio.
-    3. Set the transparency to 100 so that the black image starts off invisible.
+    c. Set the transparency to 100 so that the black image starts off invisible.
     <br/>
     <center>![fade-inOut_step-2](/images/tween/beginner/fade-inOut/fade-inOut_step-2.png) Basic Settings for the Black Image in the GUI</center>
 
     ### Writing the TWEEN Script for Fade In/Out
 
-    Use TWEEN to adjust the opacity of the black image. <br/>
+    Add an object (client) script to the black image GUI. Use TWEEN to adjust the opacity of the black image. <br/>
     Since we use the yoyo option, the transition time for fade in/out will be double the duration specified in `tween.to(object, duration)`.
 
     ``` js showLineNumbers, copy {6}
