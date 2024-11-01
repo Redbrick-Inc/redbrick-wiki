@@ -1,0 +1,84 @@
+import { Steps, Cards, Callout } from "nextra/components";
+import Link from 'next/link';
+
+# Create Fade In/Out Effects
+
+> This tutorial shows how to create fade in/out (scene transition) effects using TWEEN.
+
+---
+
+![fade-inOut_result](/images/snippet/tween/beginner/fade-inOut/fade-inOut_result.gif)
+<br/>
+
+The fade in/out effect can be created by adjusting the opacity of a black image. <br/>
+We will use TWEEN's `.onStart()` / `.onComplete()` / `.easing()` / `.yoyo()` / `.repeat()` methods.
+
+<Steps>
+    ### Adding a Black Image to the GUI
+
+    Upload the provided black image <Link href="/en/engine/operate/top#my-assets"><u>asset</u></Link> and add it to the GUI.
+    <br/>
+    <Cards.Card title='Download Black Image' href='/image/snippet/tween/beginner/fade-inOut/black.png' download/>
+    <br/>
+    <center>![fade-inOut_step-1](/images/snippet/tween/beginner/fade-inOut/fade-inOut_step-1.png) Adding Black Image to GUI</center>
+
+    ### Basic Setup for the Black Image GUI
+ 
+    a. Set the object's name to black. <br/>
+    b. Configure it to respond to screen size changes and cover the entire screen. <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;b-1. Set the size units to percent (%) and set both x and y values to 100. <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;b-2. Turn off Maintain AspectRatio to prevent the black image from keeping its ratio. <br/>
+    c. Set the transparecy to 100 to ensure the black image starts invisible. <br/>
+    <br/>
+    <center>![fade-inOut_step-2](/images/snippet/tween/beginner/fade-inOut/fade-inOut_step-2.png) Basic Setup for Black Image GUI</center>
+    
+    <Callout type='default'>
+        To create a responsive GUI, you must change the unit from px to % (percent). <br/>
+        Additionally, you can toggle Maintain AspectRatio ON/OFF based on whether you want to maintain the ratio. <br/>
+    </Callout>
+
+    ### Writing TWEEN Script for Fade In/Out
+
+    Add the object (client) script to the black image GUI. Use TWEEN to adjust the opacity of the black image. <br/>
+    Since we are using `yoyo()`, the transition time for fade in/out will be double the `duration` in `tween.to(object, duration)`.
+
+    ``` js showLineNumbers, copy {6}
+    const black = GUI.getObject('black');
+    black.hide();
+    black.material.opacity = 0;
+    const tween = new TWEEN.Tween(black.material);
+    // Adjust the fade in/out transition time, the default is 1000ms
+    tween.to({opacity : 1});
+    tween.onStart(() => black.show())
+    .onComplete(() => black.hide());
+    tween.easing(TWEEN.Easing.Circular.InOut);
+    tween.yoyo(true).repeat(1);
+    ```
+    <Callout type='info'>
+        The default transition time for TWEEN is 1000 milliseconds, or 1 second.
+    </Callout>
+    <Callout type='default'>
+        The black image is also a Sprite object in the world, which means it can be affected by raycasting, i.e., `.onClick()`. <br/>
+        Therefore, use `.onStart()` / `.onComplete()` to control when the image appears and disappears during the fade in/out.
+    </Callout>
+
+    ### Executing TWEEN During Screen Transitions
+
+    Move the player when the opacity of the black image reaches 1 (when the screen is completely covered).
+
+    ``` js showLineNumbers, copy {3}
+    tween.onUpdate(() => {
+        // Move the player when the black image's opacity is 1
+        if(black.material.opacity === 1) {
+            PLAYER.spawn();
+        }
+    });
+    function Update(dt) {
+        if(PLAYER.position.y < -5) tween.start();
+    }
+    ```
+    <Callout type='info'>
+        When using `.yoyo()`, no callback function is executed upon reaching the target value, so
+        you can handle the `yoyo` start condition inside the `.onUpdate()` method with a conditional statement.
+    </Callout>
+</Steps>

@@ -1,0 +1,84 @@
+import { Steps, Cards, Callout } from "nextra/components";
+import Link from 'next/link';
+
+# 페이드 인/아웃 효과 만들기
+
+> TWEEN을 활용하여 페이드 인/아웃(장면 전환) 효과를 만듭니다.
+
+---
+
+![fade-inOut_result](/images/snippet/tween/beginner/fade-inOut/fade-inOut_result.gif)
+<br/>
+
+페이드 인/아웃 효과는 검은색 이미지의 투명도를 조절하여 만들 수 있습니다. <br/>
+TWEEN의 `.onStart()` / `.onComplete()` / `.easing()` / `.yoyo()` / `.repeat()`를 사용합니다.
+
+<Steps>
+    ### GUI에 검은색 이미지 추가하기
+
+    아래에 제공된 검은색 이미지 <Link href="/kr/engine/operate/top#my-에셋"><u>에셋을 업로드</u></Link>하고 GUI에 추가해줍니다.
+    <br/>
+    <Cards.Card title='검은색 이미지 다운로드' href='/image/snippet/tween/beginner/fade-inOut/black.png' download/>
+    <br/>
+    <center>![fade-inOut_step-1](/images/snippet/tween/beginner/fade-inOut/fade-inOut_step-1.png) GUI에 검은색 이미지 추가하기</center>
+
+    ### 검은색 이미지 GUI 기본 설정하기
+ 
+    a. 오브젝트의 이름을 black으로 설정해줍니다. <br/>
+    b. 화면 크기 변화에 반응하면서 화면 전체를 덮을 수 있도록 설정합니다. <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;b-1. 사이즈 단위를 퍼센트(%)로 x,y 값을 100으로 설정해줍니다. <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;b-2. 검은색 이미지의 비율이 유지되지 않도록 Maintain AspectRatio를 꺼줍니다. <br/>
+    c. 검은색 이미지가 안 보이는 상태로 시작될 수 있게 투명도를 100으로 설정해줍니다. <br/>
+    <br/>
+    <center>![fade-inOut_step-2](/images/snippet/tween/beginner/fade-inOut/fade-inOut_step-2.png) 검은색 이미지 GUI 기본 설정하기</center>
+    
+    <Callout type='default'>
+        반응형 GUI를 구성하기 위해서는 반드시 단위를 px에서 %(퍼센트)로 변경해주어야 합니다. <br/>
+        추가로 비율 유지 여부에 따라 Maintain AspectRatio를 ON/OFF 해주면 됩니다. <br/>
+    </Callout>
+
+    ### 페이드 인/아웃 TWEEN 스크립트 작성하기
+
+    검은색 이미지 GUI에 오브젝트(클라이언트) 스크립트를 추가해줍니다. TWEEN을 통해 검은색 이미지의 불투명도를 조절해줍니다. <br/>
+    `yoyo()`를 사용하기 때문에 페이드 인/아웃 전환 시간은 `tween.to(object, duration)`에서 duration의 2배가 됩니다.
+
+    ``` js showLineNumbers, copy {6}
+    const black = GUI.getObject('black');
+    black.hide();
+    black.material.opacity = 0
+    const tween = new TWEEN.Tween(black.material);
+    // 페이드 인/아웃 전환 시간 조정 가능, 기본은 1000ms
+    tween.to({opacity : 1});
+    tween.onStart(() => black.show())
+    .onComplete(() => black.hide());
+    tween.easing(TWEEN.Easing.Circular.InOut);
+    tween.yoyo(true).repeat(1);
+    ```
+    <Callout type='info'>
+        TWEEN의 기본 전환시간은 1000밀리초, 즉 1초입니다.
+    </Callout>
+    <Callout type='default'>
+        검은색 이미지 또한 월드상에 존재하는 Sprite 오브젝트이기 때문에 raycast 즉, `.onClick()`에 영향을 줍니다. <br/>
+        그렇기 때문에 페이드 인/아웃을 사용할 때만 해당 이미지가 보이고 사라질 수 있도록 `.onStart()` / `.onComplete()`를 사용하여 제어해줍니다.
+    </Callout>
+
+    ### 화면 전환 상황에서 TWEEN 실행시키기
+
+    검은색 이미지의 불투명도가 1일 때(화면이 완전히 가려질 때), 플레이어를 이동시킵니다.
+
+    ``` js showLineNumbers, copy {3}
+    tween.onUpdate(() => {
+        // 검은색 이미지가 불투명도가 1일 때 이동
+        if(black.material.opacity === 1) {
+            PLAYER.spawn();
+        }
+    });
+    function Update(dt) {
+        if(PLAYER.position.y < -5) tween.start();
+    }
+    ```
+    <Callout type='info'>
+        `.yoyo()`를 사용할 때, 타겟값에 도달해도 별다른 콜백함수가 실행되지 않기 때문에 <br/>
+        `.onUpdate()` 내부에서 조건문을 통해 `yoyo` 시작에 대한 처리가 가능합니다.
+    </Callout>
+</Steps>

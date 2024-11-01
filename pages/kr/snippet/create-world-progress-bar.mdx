@@ -1,0 +1,86 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# WORLD 프로그래스 바 만들기
+
+> WORLD에서 프로그래스 바를 만드는 방법을 안내합니다.
+
+---
+
+![create-world-progress-bar_result](/images/snippet/create-world-progress-bar/create-world-progress-bar_result.gif)
+<br/>
+
+<Steps>
+    ### 프로그래스 바 오브젝트 구성 알아보기
+
+    ![create-world-progress-bar_progress-bar-structure](/images/snippet/create-world-progress-bar/create-world-progress-bar_progress-bar-structure.png)
+    
+    WORLD에서 프로그래스 바를 구성하기 위해서는 위와 같은 형태로 오브젝트가 구성되어야 합니다.  
+
+    각각의 오브젝트 역할에 대해 설명 드리면 다음과 같습니다.
+    - ProgressBar : 프로그래스 바 전체를 의미하며 크기조정에 용이하게 scale 값을 모두 1로 두고 오브젝트를 구성하면 좋습니다.
+    - Scaler : 바의 길이를 조절해주는 용도입니다. scale.x를 통해 바의 길이를 조정합니다.
+    - Bar : Scaler에 의해 길이가 조정되는 바입니다. Scaler 중앙에 Bar의 좌측 끝부분이 위치 할 수 있도록 합니다.
+    - Background : 프로그래스 바의 테두리이자 뒷 배경입니다.
+
+    ### 프로그래스 바 기본 설정하기
+
+    - ProgressBar의 하위 오브젝트들의 position을 모두 0으로 맞춰줍니다.
+    - Bar와 Background의 scale을 적절하게 조정해줍니다.
+    - Bar의 좌측 끝을 Scaler의 중심과 일치시켜줍니다.
+    - Scaler의 중심을 Background의 좌측 끝과 일치시켜줍니다.
+
+    파란색 구체가 Scaler로 Scaler의 position.x와 Bar의 position.x가 반대로 되면 한 쪽 끝으로 정확하게 일치하게 됩니다.
+
+    ![create-world-progress-bar_setup-scaler-bar-1](/images/snippet/create-world-progress-bar/create-world-progress-bar_setup-scaler-bar-1.png)
+    ![create-world-progress-bar_setup-scaler-bar-2](/images/snippet/create-world-progress-bar/create-world-progress-bar_setup-scaler-bar-2.png)
+
+    ### 프로그래스 바 스크립트 작성하기
+
+    ProgressBar라는 클래스를 만들어주고, 프로그래스 바 오브젝트와 최댓값을 통해 ProgressBar 객체를 생성해줍니다.  
+    이후 변화되는 값을 설정할 때, 최댓값을 기준으로 한 비율을 통해 scale.x가 변화하게 됩니다.
+
+    ``` js showLineNumbers copy {6,15,20}
+    class ProgressBar {
+        #object;
+        scaler;
+        MAX_VALUE;
+        
+        constructor(object, MAX_VALUE){
+            this.#object = object;
+            this.scaler = this.#object.children[0];
+            this.MAX_VALUE = MAX_VALUE;
+        }
+        
+        setValue(value) {
+            if(value < 0) value = 0;
+            else if(value > this.MAX_VALUE) value = this.MAX_VALUE;
+            this.scaler.scale.x = value/this.MAX_VALUE;
+        }
+    }
+
+    let currentValue = 100;
+    const progressBar = new ProgressBar(WORLD.getObject('ProgressBar'), currentValue);
+    ```
+
+    ### 특정 이벤트가 발생했을 때 프로그래스 바 변경하기
+
+    아래는 키보드의 i와 k가 눌렸을 때, 프로그래스 바를 증감시키는 예시입니다. <br/>
+    해당 프로그래스 바를 변경시키고 싶은 이벤트가 발생했을 때, `progressBar.setValue()`를 사용해주면 됩니다.
+
+    ``` js showLineNumbers copy {5,9}
+    // ...
+
+    function OnKeyDown(event) {
+        switch(event.code){
+            case 'KeyI':
+                currentValue += 10;
+                progressBar.setValue(currentValue);
+                break;
+            case 'KeyK':
+                currentValue -= 10;
+                progressBar.setValue(currentValue);
+                break;
+        }
+    }
+    ```
+</Steps>
