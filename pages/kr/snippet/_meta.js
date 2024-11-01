@@ -22,8 +22,11 @@ export default {
   "Making-object-face-to-another" : "오브젝트가 항상 특정 객체를 바라보게 만들기",
   "random-position" : "랜덤한 위치 설정하기",
   "change-avatar-appearance" : "아바타 모습 바꾸기",
-  "create-progress-bar" : "프로그래스 바 GUI 만들기",
+  "create-progress-bar" : "GUI 프로그래스 바 만들기",
+  "create-world-progress-bar" : "WOLRD 프로그래스 바 만들기",
   "object-rotation" : "오브젝트 지속적으로 회전시키기",
   "save-data-to-local-storage" : "로컬 저장소에 데이터 저장하기",
   "how-to-use-clone" : "오브젝트를 복제하여 사용하기",
+  "clone-audio" : "오디오를 복제하여 사용하기",
+  "add-text-to-world" : "월드에 텍스트 추가하기",
 };

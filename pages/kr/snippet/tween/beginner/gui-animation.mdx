@@ -7,28 +7,31 @@ import Link from 'next/link';
 
 ---
 
+![gui-animation_result](/images/snippet/tween/beginner/gui-animation/gui-animation_result.gif)
+<br/>
+
 GUI 애니메이션은 GUI의 <Link href='/kr/engine/operate/right/object/gui-transform#offset'><u>Offset</u></Link>을 조절하여 만들 수 있습니다.
-<br/>TWEEN의 .easing()과 .yoyo()를 사용합니다.
+<br/>TWEEN의 `.easing()`과 `.yoyo()`를 사용합니다.
 
 <Steps>
     ### GUI에 애니메이션을 적용할 이미지 추가하기
 
     애니메이션을 적용할 이미지를 GUI에 추가해줍니다.
     <br/>
-    <center>![gui-animation_step-1](/images/tween/beginner/gui-animation/gui-animation_step-1.png) GUI에 이미지 추가하기</center>
+    <center>![gui-animation_step-1](/images/snippet/tween/beginner/gui-animation/gui-animation_step-1.png) GUI에 이미지 추가하기</center>
 
     ### 이미지 GUI 기본 설정하기
     
     ##### a. 이미지의 사이즈를 설정해줍니다.
         비율이 유지되도록 Maintain AspectRatio를 켜주고, 단위를 퍼센트(%)로 바꾼 후 사이즈를 조정해줍니다.
     <br/>
-    <center>![gui-animation_step-2-a](/images/tween/beginner/gui-animation/gui-animation_step-2-a.png) 이미지 사이즈 설정하기</center>
+    <center>![gui-animation_step-2-a](/images/snippet/tween/beginner/gui-animation/gui-animation_step-2-a.png) 이미지 사이즈 설정하기</center>
     <br/>
 
     ##### b. 이미지의 시작위치를 설정해줍니다.
         Anchor를 통해 이미지의 기준점을 잡아주고 Offset을 조정해줍니다.
     <br/>
-    <center>![gui-animation_step-2-b](/images/tween/beginner/gui-animation/gui-animation_step-2-b.png) 이미지 시작위치 설정하기</center>
+    <center>![gui-animation_step-2-b](/images/snippet/tween/beginner/gui-animation/gui-animation_step-2-b.png) 이미지 시작위치 설정하기</center>
 
     <Callout type='default'>
         반응형 GUI를 구성하기 위해서는 반드시 단위를 px에서 %(퍼센트)로 변경해주어야 합니다. <br/>
@@ -38,13 +41,13 @@ GUI 애니메이션은 GUI의 <Link href='/kr/engine/operate/right/object/gui-tr
     ### GUI 애니메이션 TWEEN 스크립트 작성하기
 
     이미지 GUI에 오브젝트(클라이언트) 스크립트를 추가해줍니다. TWEEN을 통해 이미지의 Offset을 변경해줍니다. <br/>
-    offset 객체는 간략하게 본다면 `{ x : { value : Number }, y : { value : Number } }`로 구성되어 있기 때문에 한 축으로만 값을 변경하고 싶다면 `ui.offset.y`를 TWEEN의 초기객체로 사용해주어야 합니다. <br/>
+    offset 객체는 간략하게 본다면 `{ x : { value : Number }, y : { value : Number } }`로 구성되어 있기 때문에 한 축으로만 값을 변경하고 싶다면 `ui.offset.y`를 TWEEN의 시작객체로 사용해주어야 합니다. <br/>
 
-    yoyo 옵션을 사용하기 때문에 GUI 애니메이션 시간은 `tween.to(object, duration)`에서 duration의 2배가 됩니다. 
-    <Link href='/kr/script/built-in/tween/easing'><u>.easing()</u></Link>을 통해 객체의 움직임(보간 방정식)을 변경할 수 있습니다. <br/>
+    `.yoyo()`를 사용하기 때문에 GUI 애니메이션 시간은 `tween.to(object, duration)`에서 duration의 2배가 됩니다. 
+    <Link href='/kr/script/built-in/tween/easing'><u>`.easing()`</u></Link>을 통해 객체의 움직임(보간 방정식)을 변경할 수 있습니다. <br/>
     <br/>
     <center>
-        <img src="/images/tween/beginner/gui-animation/gui-animation_easing.gif" alt="gui-animation_easing" style={{ maxWidth: '50%', height: 'auto' }}/>
+        <img src="/images/snippet/tween/beginner/gui-animation/gui-animation_easing.gif" alt="gui-animation_easing" loading="lazy" decoding="async" style={{ maxWidth: '50%', height: 'auto' }}/>
         <p style={{margin: '0'}}>TWEEN\.Easing\.Exponential\.InOut</p>
     </center>
 
@@ -58,7 +61,7 @@ GUI 애니메이션은 GUI의 <Link href='/kr/engine/operate/right/object/gui-tr
     .yoyo(true).repeat(1);
     ```
     <Callout type='info'>
-        TWEEN의 기본 전환 시간은 1000밀리초, 즉 1초입니다.
+        TWEEN의 기본 전환시간은 1000밀리초, 즉 1초입니다.
     </Callout>
 
     ### 특정 이벤트가 발생했을 때 TWEEN 실행시키기
@@ -83,7 +86,3 @@ GUI 애니메이션은 GUI의 <Link href='/kr/engine/operate/right/object/gui-tr
         GUI 애니메이션이 끝나기 전에 다시 시작된다면 다시 처음 위치에서 애니메이션이 실행될 수 있도록 정지시킨 후 위치값을 초기화해줍니다.
     </Callout>
 </Steps>
-
-### 결과물
-<br/>
-<center>![gui-animation_result](/images/tween/beginner/gui-animation/gui-animation_result.gif) GUI 애니메이션 결과물</center>

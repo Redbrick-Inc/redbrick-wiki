@@ -1,0 +1,86 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# Creating a Progress Bar in WORLD
+
+> This guide explains how to create a progress bar in WORLD.
+
+---
+
+![create-world-progress-bar_result](/images/snippet/create-world-progress-bar/create-world-progress-bar_result.gif)
+<br/>
+
+<Steps>
+    ### Understanding the Structure of the Progress Bar Object
+
+    ![create-world-progress-bar_progress-bar-structure](/images/snippet/create-world-progress-bar/create-world-progress-bar_progress-bar-structure.png)
+    
+    To create a progress bar in WORLD, the objects should be structured as shown above.  
+
+    Here's a breakdown of each object's role:
+    - **ProgressBar**: Represents the entire progress bar object. It’s helpful to set all scale values to 1 for easier resizing.
+    - **Scaler**: Used to adjust the length of the bar by modifying scale.x.
+    - **Bar**: The actual bar whose length is adjusted by the Scaler. The left end of the Bar should be positioned at the center of the Scaler.
+    - **Background**: The border and background of the progress bar.
+
+    ### Basic Setup for the Progress Bar
+
+    - Set the position of all sub-objects of ProgressBar to 0.
+    - Adjust the scale of the Bar and Background appropriately.
+    - Align the left end of the Bar with the center of the Scaler.
+    - Align the center of the Scaler with the left end of the Background.
+
+    The blue sphere represents the Scaler; if the position.x of the Scaler and the Bar are opposite, they will align perfectly at one end.
+
+    ![create-world-progress-bar_setup-scaler-bar-1](/images/snippet/create-world-progress-bar/create-world-progress-bar_setup-scaler-bar-1.png)
+    ![create-world-progress-bar_setup-scaler-bar-2](/images/snippet/create-world-progress-bar/create-world-progress-bar_setup-scaler-bar-2.png)
+
+    ### Writing the Progress Bar Script
+
+    Create a class named ProgressBar and initialize it with the progress bar object and its maximum value.  
+    Then, when setting a new value, scale.x will change based on the ratio relative to the maximum value.
+
+    ``` js showLineNumbers copy {6,15,20}
+    class ProgressBar {
+        #object;
+        scaler;
+        MAX_VALUE;
+        
+        constructor(object, MAX_VALUE){
+            this.#object = object;
+            this.scaler = this.#object.children[0];
+            this.MAX_VALUE = MAX_VALUE;
+        }
+        
+        setValue(value) {
+            if(value < 0) value = 0;
+            else if(value > this.MAX_VALUE) value = this.MAX_VALUE;
+            this.scaler.scale.x = value / this.MAX_VALUE;
+        }
+    }
+
+    let currentValue = 100;
+    const progressBar = new ProgressBar(WORLD.getObject('ProgressBar'), currentValue);
+    ```
+
+    ### Changing the Progress Bar on Specific Events
+
+    Below is an example that increases or decreases the progress bar when the 'I' and 'K' keys are pressed.  
+    You can call `progressBar.setValue()` whenever the desired event occurs to modify the progress bar.
+
+    ``` js showLineNumbers copy {5,9}
+    // ...
+
+    function OnKeyDown(event) {
+        switch(event.code){
+            case 'KeyI':
+                currentValue += 10;
+                progressBar.setValue(currentValue);
+                break;
+            case 'KeyK':
+                currentValue -= 10;
+                progressBar.setValue(currentValue);
+                break;
+        }
+    }
+    ```
+</Steps>

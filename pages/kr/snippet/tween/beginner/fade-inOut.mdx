@@ -7,6 +7,9 @@ import Link from 'next/link';
 
 ---
 
+![fade-inOut_result](/images/snippet/tween/beginner/fade-inOut/fade-inOut_result.gif)
+<br/>
+
 페이드 인/아웃 효과는 검은색 이미지의 투명도를 조절하여 만들 수 있습니다. <br/>
 TWEEN의 `.onStart()` / `.onComplete()` / `.easing()` / `.yoyo()` / `.repeat()`를 사용합니다.
 
@@ -15,9 +18,9 @@ TWEEN의 `.onStart()` / `.onComplete()` / `.easing()` / `.yoyo()` / `.repeat()`�
 
     아래에 제공된 검은색 이미지 <Link href="/kr/engine/operate/top#my-에셋"><u>에셋을 업로드</u></Link>하고 GUI에 추가해줍니다.
     <br/>
-    <Cards.Card title='검은색 이미지 다운로드' href='/images/tween/beginner/fade-inOut/black.png' download/>
+    <Cards.Card title='검은색 이미지 다운로드' href='/image/snippet/tween/beginner/fade-inOut/black.png' download/>
     <br/>
-    <center>![fade-inOut_step-1](/images/tween/beginner/fade-inOut/fade-inOut_step-1.png) GUI에 검은색 이미지 추가하기</center>
+    <center>![fade-inOut_step-1](/images/snippet/tween/beginner/fade-inOut/fade-inOut_step-1.png) GUI에 검은색 이미지 추가하기</center>
 
     ### 검은색 이미지 GUI 기본 설정하기
  
@@ -27,7 +30,7 @@ TWEEN의 `.onStart()` / `.onComplete()` / `.easing()` / `.yoyo()` / `.repeat()`�
     &nbsp;&nbsp;&nbsp;&nbsp;b-2. 검은색 이미지의 비율이 유지되지 않도록 Maintain AspectRatio를 꺼줍니다. <br/>
     c. 검은색 이미지가 안 보이는 상태로 시작될 수 있게 투명도를 100으로 설정해줍니다. <br/>
     <br/>
-    <center>![fade-inOut_step-2](/images/tween/beginner/fade-inOut/fade-inOut_step-2.png) 검은색 이미지 GUI 기본 설정하기</center>
+    <center>![fade-inOut_step-2](/images/snippet/tween/beginner/fade-inOut/fade-inOut_step-2.png) 검은색 이미지 GUI 기본 설정하기</center>
     
     <Callout type='default'>
         반응형 GUI를 구성하기 위해서는 반드시 단위를 px에서 %(퍼센트)로 변경해주어야 합니다. <br/>
@@ -37,7 +40,7 @@ TWEEN의 `.onStart()` / `.onComplete()` / `.easing()` / `.yoyo()` / `.repeat()`�
     ### 페이드 인/아웃 TWEEN 스크립트 작성하기
 
     검은색 이미지 GUI에 오브젝트(클라이언트) 스크립트를 추가해줍니다. TWEEN을 통해 검은색 이미지의 불투명도를 조절해줍니다. <br/>
-    yoyo 옵션을 사용하기 때문에 페이드 인/아웃 전환 시간은 `tween.to(object, duration)`에서 duration의 2배가 됩니다.
+    `yoyo()`를 사용하기 때문에 페이드 인/아웃 전환 시간은 `tween.to(object, duration)`에서 duration의 2배가 됩니다.
 
     ``` js showLineNumbers, copy {6}
     const black = GUI.getObject('black');
@@ -52,7 +55,7 @@ TWEEN의 `.onStart()` / `.onComplete()` / `.easing()` / `.yoyo()` / `.repeat()`�
     tween.yoyo(true).repeat(1);
     ```
     <Callout type='info'>
-        TWEEN의 기본 전환 시간은 1000밀리초, 즉 1초입니다.
+        TWEEN의 기본 전환시간은 1000밀리초, 즉 1초입니다.
     </Callout>
     <Callout type='default'>
         검은색 이미지 또한 월드상에 존재하는 Sprite 오브젝트이기 때문에 raycast 즉, `.onClick()`에 영향을 줍니다. <br/>
@@ -79,7 +82,3 @@ TWEEN의 `.onStart()` / `.onComplete()` / `.easing()` / `.yoyo()` / `.repeat()`�
         `.onUpdate()` 내부에서 조건문을 통해 `yoyo` 시작에 대한 처리가 가능합니다.
     </Callout>
 </Steps>
-
-### 결과물
-<br/>
-<center>![fade-inOut_result](/images/tween/beginner/fade-inOut/fade-inOut_result.gif) 페이드 인/아웃 결과물</center>

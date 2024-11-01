@@ -1,0 +1,101 @@
+import { Steps, Cards, Callout } from "nextra/components";
+import Link from 'next/link';
+
+# Create a Boomerang
+
+> This tutorial demonstrates how to create a boomerang using TWEEN.
+
+---
+
+<img src="/images/snippet/tween/beginner/boomerang/boomerang_result.gif" alt="boomerang_result" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
+A boomerang can be created by adjusting the position of the boomerang object. <br/>
+We will use TWEEN's `.chain()` and `.dynamic()` methods.
+
+<Steps>
+    ### Adding the Boomerang Object 
+
+    Add a torus mesh.
+    <br/>
+    <center>![boomerang_step-1](/images/snippet/tween/beginner/boomerang/boomerang_step-1.png) Adding the Boomerang Object</center>
+
+    ### Basic Setup for the Boomerang
+
+    a. Set the object's name to Boomerang. <br/>
+    b. Change the object's rotation values. <br/>
+    c. Change the object's color. <br/>
+    <br/>
+    <center>![boomerang_step-2](/images/snippet/tween/beginner/boomerang/boomerang_step-2.png) Basic Setup for the Boomerang</center>
+    <br/>
+
+    ### Writing the TWEEN Script for the Boomerang
+
+    ##### a. Write a script to set the target position of the boomerang.
+        Use the camera's direction (forward) to set the target position. Since the target position needs to continuously change based on the camera's movement, place this in the Update function.
+    <br/>
+    <center>![boomerang_camera-direction](/images/snippet/tween/beginner/boomerang/boomerang_camera-direction.png) Setting Target Position Using Camera Direction (Forward)</center>
+    
+    ``` js showLineNumbers, copy {5-7}
+    const camera = WORLD.getObject('MainCamera');
+    const direction = new THREE.Vector3();
+
+    function Update(dt) {
+        camera.getWorldDirection(direction);
+        direction.multiplyScalar(60);
+        direction.add(camera.position);
+    }
+    ```
+
+    <br/>
+    ##### b. Write the TWEEN script for the boomerang.
+        The boomerang TWEEN consists of two TWEENs connected by `.chain()`. <br/>
+        The first TWEEN moves to the target position, and the second TWEEN returns it to the player. <br/>
+        Since the player is a moving object, use `.dynamic()` to allow the target object to be referenced. <br/>
+        Both TWEENs use the default transition time, so the total transition time will be 2 seconds.
+
+        ``` js showLineNumbers, copy {9,15-16}
+        // ...
+
+        const boomerang = WORLD.getObject('Boomerang');
+        let isPlaying = false;
+
+        function boomerangStart() {
+            boomerang.position.copy(PLAYER.position);
+            const tweenA = new TWEEN.Tween(boomerang.position);
+            // Adjust the time it takes for the boomerang to fly, the default is 1000ms
+            tweenA.to(direction);
+            tweenA.onStart(() => { 
+                isPlaying = true;
+                boomerang.revive();
+            });
+            const tweenB = new TWEEN.Tween(boomerang.position);
+            tweenB.to(PLAYER.position);
+            tweenB.dynamic(true)
+            .onComplete(() => {
+                isPlaying = false;
+                boomerang.kill();
+            });
+            tweenA.chain(tweenB).start();
+        }
+        ```
+        <Callout type='info'>
+            The default transition time for TWEEN is 1000 milliseconds, or 1 second. <br/>
+        </Callout>
+        <Callout type='default'>
+            Since the two TWEENs are connected by `.chain()`, a separate variable is needed to track whether the current TWEEN is playing. <br/>
+            Use the `.onStart()` of the first TWEEN and the `.onComplete()` of the second TWEEN to update this variable.
+        </Callout>
+
+    ### Executing TWEEN When a Specific Key is Pressed
+
+    Execute the TWEEN when the 'F' key is pressed. You can change line 4 to your desired key.
+
+    ``` js showLineNumbers, copy {4}
+    // ...
+
+    function OnKeyDown(event) {
+        if(event.code === 'KeyF') boomerangStart();
+    }
+    ```
+</Steps>

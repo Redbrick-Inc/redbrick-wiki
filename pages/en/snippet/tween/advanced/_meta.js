@@ -1,3 +1,5 @@
 export default {
-    'squence-control': 'Control sequence',
+    // 'squence-control': 'Squence Control',
+    // 'squence-control': 'Squence Control',
+    // 'squence-control': 'Squence Control',
 };

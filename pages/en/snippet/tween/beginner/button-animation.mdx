@@ -1,0 +1,90 @@
+import { Steps, Cards, Callout } from "nextra/components";
+import Link from 'next/link';
+
+# Create Button Animation
+
+> This tutorial demonstrates how to create button animations using TWEEN.
+
+---
+
+![button-animation_result](/images/snippet/tween/beginner/button-animation/button-animation_result.gif)
+<br/>
+
+Button animations can be created by adjusting the position of the button. <br/>
+We will use TWEEN's `.yoyo()` function.
+
+<Steps>
+    ### Adding Button Body and Button Objects
+
+    Add two desired meshes, such as a box or cylinder.
+    <br/>
+    <center>![button-animation_step-1](/images/snippet/tween/beginner/button-animation/button-animation_step-1.png) Adding Button Body and Button</center>
+
+    ### Basic Setup for Button Body and Button
+    
+    ##### a. Set the names of the objects to RedbuttonBody and Redbutton, respectively.
+    <br/>
+    <center>![button-animation_step-2-a](/images/snippet/tween/beginner/button-animation/button-animation_step-2-a.png) Setting Object Names</center>
+    <br/>
+
+    ##### b. Change the color of the objects to your desired color.
+    <br/>
+    <center>![button-animation_step-2-b](/images/snippet/tween/beginner/button-animation/button-animation_step-2-b.png) Setting Object Color</center>
+    <br/>
+
+    ##### c. Adjust the size of the button body.
+    <br/>
+    <center>![button-animation_step-2-c](/images/snippet/tween/beginner/button-animation/button-animation_step-2-c.png) Adjusting Button Body Size</center>
+    <br/>
+
+    ##### d. Place the button as a child of the button body.
+    <br/>
+    <center>![button-animation_step-2-d](/images/snippet/tween/beginner/button-animation/button-animation_step-2-d.png) Adding Button as Child of Button Body</center>
+    <br/>
+
+    ##### e. Adjust the size of the button.
+    <br/>
+    <center>![button-animation_step-2-e](/images/snippet/tween/beginner/button-animation/button-animation_step-2-e.png) Adjusting Button Size</center>
+    <br/>
+
+    ##### f. Check the end position of the button and set it as the starting position.
+    <br/>
+    <center>![button-animation_step-2-f](/images/snippet/tween/beginner/button-animation/button-animation_step-2-f.png) Checking Button End Position</center>
+    <center>![button-animation_step-2-g](/images/snippet/tween/beginner/button-animation/button-animation_step-2-g.png) Setting Starting Position for Button</center>
+    
+    <Callout type='default'>
+        By adding the button as a child object, it will move together with the button body. 
+        You can easily create button animations through the button's <Link href='/en/script/start/absolute-and-relative-coordinates#상대-좌표-이동'><u>relative coordinates</u></Link>.
+    </Callout>
+
+    ### Writing TWEEN Script for Button Animation
+
+    Add the object (client) script to the button object. Use TWEEN to change the position of the button. <br/>
+    Since we are using `.yoyo()`, the button animation duration will be double the `duration` in `tween.to(object, duration)`.
+
+    ``` js showLineNumbers, copy {3}
+    const tween = new TWEEN.Tween(this.position);
+    // Adjust the button animation time, the default is 1000ms
+    tween.to({ y : 0.1 }, 100) // duration
+    tween.yoyo(true).repeat(1);
+    ```
+    <Callout type='info'>
+        The default transition time for TWEEN is 1000 milliseconds, or 1 second.
+    </Callout>
+
+    ### Executing TWEEN When the Button is Clicked
+
+    Use `.onClick()` to trigger TWEEN when the button is clicked.
+
+    ``` js showLineNumbers, copy {3}
+    // ...
+
+    this.onClick(() => {
+        if(tween.isPlaying()) return;
+        tween.start();
+    });
+    ```
+    <Callout type='info'>
+        This checks if the current TWEEN is running, allowing the button to be pressed again after the button animation finishes.
+    </Callout>
+</Steps>

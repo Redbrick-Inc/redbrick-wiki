@@ -1,0 +1,88 @@
+import { Steps, Cards, Callout } from "nextra/components";
+import Link from 'next/link';
+
+# Create GUI Animation
+
+> This tutorial demonstrates how to create GUI animations using TWEEN.
+
+---
+
+![gui-animation_result](/images/snippet/tween/beginner/gui-animation/gui-animation_result.gif)
+<br/>
+
+GUI animations can be created by adjusting the GUI's <Link href='/en/engine/operate/right/object/gui-transform#offset'><u>Offset</u></Link>. 
+<br/>We will use TWEEN's `.easing()` and `.yoyo()` functions.
+
+<Steps>
+    ### Adding an Image to the GUI for Animation
+
+    Add the image you want to animate to the GUI.
+    <br/>
+    <center>![gui-animation_step-1](/images/snippet/tween/beginner/gui-animation/gui-animation_step-1.png) Adding Image to GUI</center>
+
+    ### Basic Setup for the Image GUI
+    
+    ##### a. Set the size of the image.
+        Make sure to turn on Maintain AspectRatio to keep the ratio, change the unit to percent (%), and then adjust the size.
+    <br/>
+    <center>![gui-animation_step-2-a](/images/snippet/tween/beginner/gui-animation/gui-animation_step-2-a.png) Setting Image Size</center>
+    <br/>
+
+    ##### b. Set the starting position of the image.
+        Use the Anchor to define the reference point for the image and adjust the Offset.
+    <br/>
+    <center>![gui-animation_step-2-b](/images/snippet/tween/beginner/gui-animation/gui-animation_step-2-b.png) Setting Image Starting Position</center>
+
+    <Callout type='default'>
+        To create a responsive GUI, you must change the unit from px to % (percent). <br/>
+        Additionally, you can toggle Maintain AspectRatio ON/OFF based on whether you want to maintain the ratio. <br/>
+    </Callout>
+
+    ### Writing TWEEN Script for GUI Animation
+
+    Add the object (client) script to the image GUI. Use TWEEN to change the image's Offset. <br/>
+    The offset object can be simply viewed as `{ x : { value : Number }, y : { value : Number } }`. If you want to change the value along only one axis, you should use `ui.offset.y` as the starting object for TWEEN. <br/>
+
+    Since we are using `.yoyo()`, the GUI animation time will be double the `duration` in `tween.to(object, duration)`. 
+    You can change the object's movement (interpolation equation) using <Link href='/en/script/built-in/tween/easing'><u>`.easing()`</u></Link>. <br/>
+    <br/>
+    <center>
+        <img src="/images/snippet/tween/beginner/gui-animation/gui-animation_easing.gif" alt="gui-animation_easing" loading="lazy" decoding="async" style={{ maxWidth: '50%', height: 'auto' }}/>
+        <p style={{margin: '0'}}>TWEEN\.Easing\.Exponential\.InOut</p>
+    </center>
+
+    ``` js showLineNumbers, copy {2,6}
+    const ui = GUI.getObject('Copy_notification.png(9cf)');
+    const tween = new TWEEN.Tween(ui.offset.y);
+    // Adjust the GUI animation time, the default is 1000ms
+    tween.to({ value : 20 });
+    // You can change the movement (interpolation equation) using .easing().
+    tween.easing(TWEEN.Easing.Exponential.InOut)
+    .yoyo(true).repeat(1);
+    ```
+    <Callout type='info'>
+        The default transition time for TWEEN is 1000 milliseconds, or 1 second.
+    </Callout>
+
+    ### Executing TWEEN When a Specific Event Occurs
+
+    Below is an example of executing TWEEN when the "C" key is pressed. <br/>
+    When the desired event occurs to execute this TWEEN, you can use `tween.start()`.
+
+    ``` js showLineNumbers, copy {3,7}
+    // ...
+
+    function OnKeyDown(event) {
+        if(event.code === 'KeyC') { 
+            if(tween.isPlaying()) {
+                tween.stop();
+                ui.offset.y.value = -15; // Initial position
+            }
+            tween.start();
+        }
+    }
+    ```
+    <Callout type='info'>
+        If the GUI animation restarts before it finishes, stop it and reset the position value to ensure the animation starts from the initial position.
+    </Callout>
+</Steps>

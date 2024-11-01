@@ -22,6 +22,11 @@ export default {
   "Making-object-face-to-another" : "Making Object Always Face Target",
   "random-position" : "Setting a Random Position",
   "change-avatar-appearance" : "Changing Avatar Appearance",
+  "create-progress-bar" : "Creating a Progress Bar in GUI",
+  "create-world-progress-bar" : "Creating a Progress Bar in WORLD",
   "object-rotation" : "Continuously Rotating Object",
+  "save-data-to-local-storage" : "Saving Data to Local Storage",
   "how-to-use-clone" : "Using Object Cloning",
+  "clone-audio" : "Using Audio Cloning",
+  "add-text-to-world" : "Adding Text to the World",
 };

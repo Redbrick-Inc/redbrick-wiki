@@ -7,6 +7,9 @@ import Link from 'next/link';
 
 ---
 
+<img src="/images/snippet/tween/beginner/boomerang/boomerang_result.gif" alt="boomerang_result" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
 부메랑은 부메랑 오브젝트의 위치값을 조절하여 만들 수 있습니다. <br/>
 TWEEN의 `.chain()`과 `.dynamic()`을 사용합니다.
 
@@ -15,7 +18,7 @@ TWEEN의 `.chain()`과 `.dynamic()`을 사용합니다.
 
     torus 메쉬를 추가해줍니다.
     <br/>
-    <center>![boomerang_step-1](/images/tween/beginner/boomerang/boomerang_step-1.png) 부메랑 오브젝트 추가하기</center>
+    <center>![boomerang_step-1](/images/snippet/tween/beginner/boomerang/boomerang_step-1.png) 부메랑 오브젝트 추가하기</center>
 
     ### 부메랑 기본 설정하기
 
@@ -23,7 +26,7 @@ TWEEN의 `.chain()`과 `.dynamic()`을 사용합니다.
     b. 오브젝트의 회전값을 변경해줍니다. <br/>
     c. 오브젝트의 색상을 변경해줍니다. <br/>
     <br/>
-    <center>![boomerang_step-2](/images/tween/beginner/boomerang/boomerang_step-2.png) 부메랑 기본 설정하기</center>
+    <center>![boomerang_step-2](/images/snippet/tween/beginner/boomerang/boomerang_step-2.png) 부메랑 기본 설정하기</center>
     <br/>
 
     ### 부메랑 TWEEN 스크립트 작성하기
@@ -31,7 +34,7 @@ TWEEN의 `.chain()`과 `.dynamic()`을 사용합니다.
     ##### a. 부메랑의 목표위치를 설정하는 스크립트를 작성해줍니다.
         카메라의 direction(forward)를 통해서 목표위치를 설정해줍니다. 카메라의 움직임에 따라 목표위치가 지속적으로 변해야하기 때문에 Update문 내부에 작성해줍니다.
     <br/>
-    <center>![boomerang_camera-direction](/images/tween/beginner/boomerang/boomerang_camera-direction.png) 카메라 direction(forward)을 통한 목표위치 설정</center>
+    <center>![boomerang_camera-direction](/images/snippet/tween/beginner/boomerang/boomerang_camera-direction.png) 카메라 direction(forward)을 통한 목표위치 설정</center>
     
     ``` js showLineNumbers, copy {5-7}
     const camera = WORLD.getObject('MainCamera');
@@ -96,7 +99,3 @@ TWEEN의 `.chain()`과 `.dynamic()`을 사용합니다.
     }
     ```
 </Steps>
-
-### 결과물
-<br/>
-<center>![boomerang_result](/images/tween/beginner/boomerang/boomerang_result.gif) 부메랑 결과물</center>
