@@ -8,6 +8,16 @@ import { MDXProvider } from '@mdx-js/react';
 ---
 
 You can change the equation for interpolating between the starting value and the target value using `.easing()`.
+The default value is `TWEEN.Easing.Linear.None`. Below is an example of usage.
+``` js showLineNumbers copy {6}
+const startPosition = new THREE.Vector3();
+const endPosition = new THREE.Vector3(1, 0, 0);
+
+const tween = new TWEEN.Tween(startPosition);
+tween.to(endPosition);
+tween.easing(TWEEN.Easing.Quadratic.In);
+tween.start();
+```
 
 <br/>
 <center>![tween-easing_graph](/images/script/built-in/tween/tween-easing_graph.png) Graph of Tween Easing Interpolation Equations</center>
