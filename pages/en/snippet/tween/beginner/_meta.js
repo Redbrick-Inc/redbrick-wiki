@@ -1,7 +1,8 @@
 export default {
-    'button-animation': 'Create Button Animations',
-    'gui-animation': 'Create GUI Animations',
-    'fade-inOut': 'Create Fade In/Out Effects',
-    'boomerang': 'Create a Boomerang',
-    'character-movement-animation': 'Create Character Movement Animations',
+    'repeatedly-moving-object': 'Repeatedly Moving Object',
+    'button-animation': 'Button Animations',
+    'gui-animation': 'GUI Animations',
+    'fade-inOut': 'Fade In/Out Effects',
+    'boomerang': 'Boomerang',
+    'character-movement-animation': 'Character Movement Animations',
 };
