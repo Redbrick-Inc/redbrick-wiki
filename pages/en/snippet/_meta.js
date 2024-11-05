@@ -10,7 +10,6 @@ export default {
   "create-timer": "Create Timer, Countdown",
   "create-game-button": "Create a Game Start button",
   "victory-gui": "Return to first screen at the end of the game",
-  "create-shooting": "How to create shooting game",
   debug: "How to debug and error?",
   "create-quarter-view-camera" : "Create quarter view camera",
   "how-to-use-portal" : "Switching to another game",
@@ -28,4 +27,5 @@ export default {
   "how-to-use-clone" : "Using Object Cloning",
   "clone-audio" : "Using Audio Cloning",
   "add-text-to-world" : "Adding Text to the World",
+  'sample-game' : 'Sample Game',
 };

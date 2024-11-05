@@ -1,6 +1,4 @@
-import { Callout } from "nextra/components";
 import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
 
 # How to create shooting game
 
@@ -11,7 +9,7 @@ import { Tabs } from "nextra/components";
 Set FPS mode with `camera.useFPS()`, detect mouse clicks with `OnPointerDown()` to trigger `createBullet()` which initializes and positions bullets stored in the bullets array, using `BULLET_SPEED` and `BULLET_RANGE_SQUARED` to define their speed and range, then add bullets to the world, and move them using `Update()` which calls `moveBullets()` to handle movement and removal of out-of-range bullets.
 
 <br />
-<center>![](../../../images/shooting1.gif) Shooting</center>
+<center>![shooting-game_shooting](/images/snippet/sample-game/shooting-game/shooting-game_shooting.gif) Shooting</center>
 
 ```js showLineNumbers copy filename="Shooting logic"
 const camera = WORLD.getObject("MainCamera");
@@ -88,7 +86,7 @@ function moveBullets() {
 Define a hit detection range with `TARGET_HIT_RANGE` and initialize an array `targetObjects` to store targets. Add objects like a `"car"` to targetObjects using `WORLD.getObject()`. Modify `moveBullets()` to include collision detection with targetObjects, checking the distance between each bullet and target. If a bullet is within `TARGET_HIT_RANGE` of a target, invoke `target.kill()` to handle the hit, remove the bullet from the world, and clean up its resources.
 
 <br />
-<center>![image](../../../images/shooting2.gif) Shooting Target</center>
+<center>![shooting-game_target](/images/snippet/sample-game/shooting-game/shooting-game_target.gif) Target</center>
 
 ```js showLineNumbers copy filename="Shooting logic" {1, 3-4, 14-26}
 const TARGET_HIT_RANGE = 32;
@@ -218,9 +216,9 @@ function moveBullets() {
 You can add gun objects and guis to customize it.
 
 <br />
-<center>![image](../../../images/shooting3.gif) Custom Shooting Game</center>
+<center>![shooting-game_custom](/images/snippet/sample-game/shooting-game/shooting-game_custom.gif) Custom Shooting Game</center>
 
-Check out the [My asset](../engine/operate/left/my-asset.mdx) page for instructions on how to add your assets.
+Check out the [My asset](/en/engine/operate/top#my-assets) page for instructions on how to add your assets.
 
 If you want to use an asset instead of creating bullets with Three.js, modify the following lines in the previous final code.
 

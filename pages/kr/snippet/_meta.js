@@ -10,7 +10,6 @@ export default {
   "create-timer": "타이머, 카운트다운 만들기",
   "create-game-button": "게임 시작 버튼 만들기",
   "victory-gui": "게임 종료 후 첫 화면으로 돌아가기",
-  "create-shooting": "슈팅 게임 만들기",
   debug: "디버깅 및 오류 해결 방법은?",
   "create-quarter-view-camera" : "쿼터뷰 카메라 만들기",
   "how-to-use-portal" : "다른게임으로 전환하기",
@@ -28,4 +27,5 @@ export default {
   "how-to-use-clone" : "오브젝트를 복제하여 사용하기",
   "clone-audio" : "오디오를 복제하여 사용하기",
   "add-text-to-world" : "월드에 텍스트 추가하기",
+  'sample-game' : '샘플 게임',
 };
