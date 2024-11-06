@@ -1,9 +1,8 @@
 export default {
   'redbrick-extension' : '레드브릭 확장',
+  event : '이벤트',
   "management-multiple-similar-objects" : "다수의 유사한 오브젝트 관리",
-  "collect-items": "아이템 수집하기",
   tween: 'TWEEN',
-  "squid-game": "밟으면 사라지는 디딤돌 만들기",
   "create-game-button": "게임 시작 버튼 만들기",
   "victory-gui": "게임 종료 후 첫 화면으로 돌아가기",
   debug: "디버깅 및 오류 해결 방법은?",

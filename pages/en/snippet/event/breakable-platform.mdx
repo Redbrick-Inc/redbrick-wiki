@@ -1,8 +1,6 @@
-import { Callout } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
+import { Steps, Callout } from "nextra/components";
 
-# Making a stepping stone that disappears when you step on it
+# Create a stepping stone that breaks when stepped on it
 
 <Steps>
 
@@ -11,12 +9,12 @@ import { Tabs } from "nextra/components";
 Create a stepping stones and rename the title of the stones that should disappear.
 
 <br />
-<center>![](../../../images/example-squid.png) Put Stepping Stones</center>
+<center>![breakable-platform_deploy](/images/snippet/event/breakable-platform/breakable-platform_deploy.png) Put Stepping Stones</center>
 
 <Callout type="error" icon="‼️">
   Don't forget to check Body in the object's properties panel to use methods
   like `onCollide`!
-  <center>![](../../../images/example-collect-body.png) Physics -> Body</center>
+  <center>![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body</center>
 </Callout>
 
 ### Code
@@ -40,5 +38,8 @@ function Start() {
 ```
 
 <br />
-<center>![](../../../images/example-squid.gif) Result</center>
+<center>
+  <img src='/images/snippet/event/breakable-platform/breakable-platform_result.gif' alt='breakable-platform_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+  <p style={{margin: '0'}}>Result</p>
+</center>
 </Steps>

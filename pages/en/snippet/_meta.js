@@ -1,9 +1,8 @@
 export default {
   'redbrick-extension' : 'REDBRICK EXTENSION',
+  event : 'EVENT',
   "management-multiple-similar-objects": "Managing Multiple Similar Objects",
-  "collect-items": "Collect items",
   tween: 'TWEEN',
-  "squid-game": "Making a stepping stone that disappears when you step on it",
   "create-game-button": "Create a Game Start button",
   "victory-gui": "Return to first screen at the end of the game",
   debug: "How to debug and error?",

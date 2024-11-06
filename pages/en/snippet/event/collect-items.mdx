@@ -1,32 +1,32 @@
-import { Callout } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
+import { Steps, Callout, Tabs } from "nextra/components";
 
-# 아이템 수집하기
+# Collect Items
 
 <Steps>
 
-### 원하는 곳에 객체를 배치하세요.
+### Place objects wherever you want
 
+    Place the items wherever you want.
     <Callout type="info">
-        많은 아이템이 있는 경우 정리하기가 어려울 수 있으므로 제목을 더 읽기 쉽게 만드는 것이 좋은 아이디어입니다.
+        It's hard to stay organized when you have a lot of items, so it's a good idea to make the title easier to read.
     </Callout>
-
     <Callout type="error" icon="‼️">
-    `onCollide` 같은 메소드를 사용하려면 객체의 속성 패널에서 Body를 체크하는 것을
-    잊지 마세요!
-    <center>![](../../../images/example-collect-body.png) 물리학 -> 몸체</center>
+        Don't forget to check Body in the object's properties panel to use methods like `onCollide`!
+        <center>
+        ![snippet_physics-body](/images/snippet/snippet_physics-body.png)
+        Physics > Body
+        </center>
     </Callout>
 
     <br/>
-    <center>![](../../../images/example-collect.png) Place items </center>
+    <center>![collect-items_deploy](/images/snippet/event/collect-items/collect-items_item-deploy.png) Place items </center>
 
 ### Code
 
 <Tabs items={["example 1", "example 2"]} defaultIndex="0">
     <Tabs.Tab>
         <Callout type="info">
-            다음은 그것을 하는 기본적인 예제입니다. 더 개선된 해결책을 원하시면 예제 2를 참조하세요 👉🏼.
+            Here's a basic example of how to do it. For an enhanced solution, refer to Example 2 👉🏼
         </Callout>
         ```js showLineNumbers copy
         const diamond0 = WORLD.getObject("diamond0");
@@ -56,9 +56,9 @@ import { Tabs } from "nextra/components";
     </Tabs.Tab>
     <Tabs.Tab>
 
-        여기에는 중복된 줄을 최소화한 사용 예제가 조금 더 개선된 버전이 있습니다.
+        Here's a slightly improved example of usage, minimizing redundant lines.
 
-         ```js showLineNumbers copy
+        ```js showLineNumbers copy
         function Start() {
             // 5 diamonds
             for (let i = 0; i < 5; i++) {

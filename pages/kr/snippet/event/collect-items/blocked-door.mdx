@@ -1,13 +1,11 @@
-import { Callout } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
+import { Tabs, Callout } from "nextra/components";
 
-# 아이템 획득 조건이 충족될 때 차단된 벽이 열리게 만들기
+# 아이템 획득 조건 충족 시 차단된 벽이 열리게 만들기
 
-<Tabs items={["example 1", "example 2"]} defaultIndex="0">
+<Tabs items={["예시 1", "예시 2"]} defaultIndex="0">
     <Tabs.Tab>
         <Callout type="info">
-            _이것은 해당 기능 구현을 위한 기본적인 예제입니다. 개선된 해결책은 예제 2를 참조하세요 👉🏼._
+            _이것은 해당 기능 구현을 위한 기본적인 예제입니다. 개선된 해결책은 예제 2를 참조하세요 👉🏼_
         </Callout>
         ```js showLineNumbers {20, 26, 32, 38, 44, 49-51}
         const diamond0 = WORLD.getObject("diamond0");
@@ -100,11 +98,14 @@ import { Tabs } from "nextra/components";
     <Callout type="info">
         `onCollide()`는 Physics Body가 활성화 되어있어야 작동합니다.
         <center>
-            ![](../../../../images/example-collect-body.png) Physics -> Body
+            ![snippet_physic-body](/images/snippet/snippet_physics-body.png) Physics > Body
         </center>
     </Callout>
 
 </Tabs>
 
 <br />
-<center>![](../../../../images/example-collect-door.gif) Door move </center>
+<center>
+  <img src='/images/snippet/event/collect-items/collect-items_result.gif' alt='collect-items_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+  <p style={{margin: '0'}}>결과</p>
+</center>

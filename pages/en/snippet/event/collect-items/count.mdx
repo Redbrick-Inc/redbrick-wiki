@@ -1,6 +1,4 @@
-import { Callout } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
+import { Steps, Tabs, Callout } from "nextra/components";
 
 # Make it count on the screen when an item is acquired
 
@@ -10,14 +8,14 @@ import { Tabs } from "nextra/components";
 Select the desired GUI and put it to scene.
 
 <br />
-<center>![](../../../../images/example-collect-gui.png) Place GUI </center>
+<center>![collect-items_gui-deploy](/images/snippet/event/collect-items/collect-items_gui-deploy.png) Place GUI </center>
 
 ### Code
 
 <Tabs items={["example 1", "example 2"]} defaultIndex="0">
     <Tabs.Tab>
 
-        _Here's a basic example of how to do it. For an enhanced solution, refer to Example 2 👉🏼._
+        _Here's a basic example of how to do it. For an enhanced solution, refer to Example 2 👉🏼_
 
         ```js showLineNumbers {8-10, 15-16, 20-21, 25-26, 30-31, 35-36}
         const diamond0 = WORLD.getObject("diamond0");
@@ -89,12 +87,15 @@ Select the desired GUI and put it to scene.
     <Callout type="info">
         `onCollide()` requires the Physics Body to be active in order to function.
         <center>
-            ![](../../../../images/example-collect-body.png) Physics -> Body
+            ![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body
         </center>
     </Callout>
 
 </Tabs>
 
 <br />
-<center>![](../../../../images/example-collect-gui-display.gif) GUI display </center>
+<center>
+  <img src='/images/snippet/event/collect-items/collect-items_gui-result.gif' alt='collect-items_gui-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+  <p style={{margin: '0'}}>GUI Result</p>
+</center>
 </Steps>
