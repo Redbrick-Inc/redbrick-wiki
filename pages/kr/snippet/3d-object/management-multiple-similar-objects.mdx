@@ -1,22 +1,18 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
-
 # 다수의 유사한 오브젝트 관리
 
-<center>
 <br/>
-![](../../../images/multiple-similar-objects.gif)
+<center>
+    <img src='/images/snippet/3d-object/multiple-similar-objects/multiple-similar-objects_result.gif' alt='multiple-similar-objects_result' loading="lazy" decoding="async" style={{width: '75%'}}/>
 </center>
 
 동일하거나 비슷한 로직을 가진 다수의 오브젝트들을 관리할 때, 아래 사진처럼 오브젝트들의 이름을 연속적으로 지으면 for문을 이용해 간단하게 해당 오브젝트들을 불러올 수 있습니다.  
 
-<center>
 <br/>
-![](../../../images/multiple-similar-objects.png)
+<center>
+    ![multiple-similar-objects_explorer](/images/snippet/3d-object/multiple-similar-objects/multiple-similar-objects_explorer.png)
 </center>
 
-```js copy showLineNumbers filename="similar-objects"
+```js copy showLineNumbers
 let objs = []; ///오브젝트들을 관리하기 위한 배열입니다
 
 //for문을 이용해 연속적인 이름을 가진 오브젝트 들을 불러옵니다

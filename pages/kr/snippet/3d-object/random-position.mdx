@@ -1,16 +1,15 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
-
 # 랜덤한 위치 설정하기
 
-<br />
-<center>![](../../../images/random-position.gif) Example</center>
+<br/>
+<center>
+  <img src='/images/snippet/3d-object/random-position_result.gif' alt='random-position_result' loading="lazy" decoding="async" style={{width: '75%'}}/>
+</center>
+<br/>
 
 특정 범위내에서 랜덤한 위치를 설정하는 방법을 알아보겠습니다.  
 이 예제에서는 0.5초마다 랜덤한 위치로 오브젝트를 이동시키게 했습니다.  
 
-```js showLineNumbers copy filename="random_position"
+```js showLineNumbers copy
 //특정 범위 내에서 랜덤한 값을 뽑아내기 위해 범위를 지정합니다  MIN:최솟값, MAX:최댓값
 const X_RANGE = {"MIN" : 10, "MAX" : 20};
 const Y_RANGE = {"MIN" : 1, "MAX" : 5};

@@ -1,17 +1,13 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
-
 # 플레이어를 지속적으로 추적하는 오브젝트 만들기
 
 <br/>
 <center>
-![](../../../images/player-tracking-object.gif)
+  <img src='/images/snippet/3d-object/player-tracking-object_result.gif' alt='player-tracking-object_result' loading="lazy" decoding="async" style={{width: '75%'}}/>
 </center>
 
 다음과 같이 코드를 작성하여 해당 기능을 구현할 수 있습니다.  
 
-```js showLineNumbers filename="Tracking_player" copy
+```js showLineNumbers copy
 const vehicle = WORLD.getObject("vehicle"); //플레이어를 추적할 오브젝트를 가져옵니다.
 
 function Update(dt) {

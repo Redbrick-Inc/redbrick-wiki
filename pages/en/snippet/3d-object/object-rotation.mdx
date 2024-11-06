@@ -1,0 +1,46 @@
+import { Tabs } from "nextra/components";
+
+# Continuously Rotating Object
+
+<br/>
+<center>
+  <img src='/images/snippet/3d-object/object-rotation_result.gif' alt='object-rotation_result' loading="lazy" decoding="async" style={{width: '75%'}}/>
+</center>
+<br/>
+
+You can implement it simply using the following methods.
+
+<Tabs items={["Example 1", "Example 2"]} defaultIndex="0">
+  <Tabs.Tab>
+    This method modifies the `rotation` value directly.
+
+    ```js copy showLineNumbers
+    const SPEED = 5;
+
+    const obj = WORLD.getObject('obj');
+
+    function Update(dt) {
+        obj.rotation.y += dt * SPEED;
+        
+        // If the object's Physics Body property is enabled, run the following code.
+        // obj.body.needUpdate = true;
+    }
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    This method uses the `rotate` function.
+
+    ```js copy showLineNumbers
+    const SPEED = 5;
+
+    const obj = WORLD.getObject('obj');
+
+    function Update(dt) {
+        obj.rotate(0, SPEED, 0);
+        
+        // If the object's Physics Body property is enabled, run the following code.
+        // obj.body.needUpdate = true;
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>

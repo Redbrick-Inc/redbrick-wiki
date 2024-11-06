@@ -1,0 +1,99 @@
+import { Tabs } from "nextra/components";
+
+# Creating an Object That Always Looks at a Specific Object
+
+<br/>
+
+### Creating an Object That Always Looks at the Player
+
+<Tabs items={['Rotate on All Axes', 'Rotate on Y-Axis Only']} defaultIndex="0">
+    <Tabs.Tab>
+        <center>
+            <img src='/images/snippet/3d-object/look-at-object/look-at-object_player-1.gif' alt='look-at-object_player-1' loading="lazy" decoding="async" style={{width: '75%'}}/>
+        </center>
+
+        You can easily implement this using the [`.lookAt()`](/en/script/built-in/three/object3d#lookat) method.
+
+        ```js copy showLineNumbers
+        const obj = WORLD.getObject("object");
+
+        function Update() {
+            obj.lookAt(PLAYER.position.x, PLAYER.position.y, PLAYER.position.z);
+        }
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        <center>
+            <img src='/images/snippet/3d-object/look-at-object/look-at-object_player-2.gif' alt='look-at-object_player-2' loading="lazy" decoding="async" style={{width: '75%'}}/>
+        </center>
+
+        There are two methods.  
+        The first is to use `.lookAt()` to make the object look at the player, then set only the x and z rotation values to 0.  
+        The second is to calculate the direction using a vector and rotate only the Y-axis.
+
+        <Tabs items={[".lookAt()", "Vector"]} defaultIndex="0">
+            <Tabs.Tab>
+                ```js copy showLineNumbers
+                const obj = WORLD.getObject("object");
+
+                function Update() {
+                    obj.lookAt(PLAYER.position.x, PLAYER.position.y, PLAYER.position.z);
+
+                    // Set only the x and z rotation values to 0
+                    obj.quaternion.x = 0;
+                    obj.quaternion.z = 0;
+                }
+                ```
+            </Tabs.Tab>
+            <Tabs.Tab>
+                ```js copy showLineNumbers
+                const obj = WORLD.getObject("object");
+
+                function Update() {
+                    const direction = new THREE.Vector3().subVectors(PLAYER.position, obj.position); // Calculate direction
+                    obj.rotation.y = Math.atan2(direction.x, direction.z); // Rotate object only on Y-axis
+                }
+                ```
+            </Tabs.Tab>
+        </Tabs>
+    </Tabs.Tab>
+</Tabs>
+
+---
+
+### Creating an Object That Always Looks at the Camera
+
+<Tabs items={[".lookAt()", "Sprite"]} defaultIndex="0">
+    <Tabs.Tab>
+        <center>
+            <img src='/images/snippet/3d-object/look-at-object/look-at-object_camera-1.gif' alt='look-at-object_camera-1' loading="lazy" decoding="async" style={{width: '100%'}}/>
+        </center>
+
+        You can easily implement this using the `.lookAt()` method.
+
+        ```js copy showLineNumbers
+        const obj = WORLD.getObject("object");
+        const camera = WORLD.getObject("MainCamera");
+
+        function Update() {
+            obj.lookAt(camera.position.x, camera.position.y, camera.position.z);
+        }
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        <center>
+            <img src='/images/snippet/3d-object/look-at-object/look-at-object_camera-2.gif' alt='look-at-object_camera-2' loading="lazy" decoding="async" style={{width: '100%'}}/>
+        </center>
+
+        If the object you want to look at the camera is an image, you can also implement this using [`Sprite`](/en/script/built-in/three/sprite) provided by Three.js.
+
+        ```js copy showLineNumbers
+        const image = WORLD.getObject("image"); // Retrieve the image object added to the scene
+        const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map: image.material.map})); // Create a Sprite object with the image
+
+        sprite.position.set(10, 5, 10); // Set the position of the sprite
+        sprite.scale.set(5, 3, 1); // Set the scale of the sprite
+        WORLD.add(sprite); // Add to the world for rendering
+        ```
+    </Tabs.Tab>
+</Tabs>

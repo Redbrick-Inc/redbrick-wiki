@@ -1,25 +1,21 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
-
 # Using Object Cloning
 
 <br/>
 <center>
-![](../../../images/use-clone-1.gif)Object Cloning
+    ![clone-object_clone](/images/snippet/3d-object/clone/clone-object/clone-object_clone.gif) Object Cloning
 </center>
 
-Object cloning can be performed using [`.clone()`](../script/built-in/three/object3d#clone) or [`.cloneWithMethods()`](../script/api/object3d#clonewithmethods).  
+Object cloning can be performed using [`.clone()`](/en/script/built-in/three/object3d#clone) or [`.cloneWithMethods()`](/en/script/api/object3d#clonewithmethods).  
 Both `.clone()` and `.cloneWithMethods()` do not copy Behavior and Physics attributes.  
 Therefore, cloned objects have Behavior and Physics attributes (such as CanCollide, Shadow, Body) disabled.  
-The difference between these two methods lies in their ability to utilize methods from the [extended Object3D API](../script/api/object3d.mdx).  
+The difference between these two methods lies in their ability to utilize methods from the [extended Object3D API](/en/script/api/object3d).  
 
 `.clone()` does not allow the use of methods from the extended Object3D API.  
-`.cloneWithMethods()` allows their use, but cloned objects have the Physics Body attribute disabled, so the [`onCollide()`](../script/api/object3d#oncollide) method cannot be used.  
+`.cloneWithMethods()` allows their use, but cloned objects have the Physics Body attribute disabled, so the [`onCollide()`](/en/script/api/object3d#oncollide) method cannot be used.  
 
 ## .clone()
 
-```js showLineNumbers filename="Tracking_player" copy
+```js showLineNumbers copy
 const obj = WORLD.getObject("obj");
 const clone_btn = GUI.getObject("clone_btn");
 let clone_obj_list = []; // Array to store cloned objects
@@ -43,7 +39,7 @@ clone_btn.onClick(function() {
 
 ## .cloneWithMethods()
 
-```js showLineNumbers filename="Tracking_player" copy
+```js showLineNumbers copy
 const obj = WORLD.getObject("obj");
 const clone_btn = GUI.getObject("clone_btn");
 let clone_obj_list = []; // Array to store cloned objects
@@ -66,15 +62,16 @@ clone_btn.onClick(function() {
 
 ## Collision Detection with Cloned Objects
 
-<center>
 <br/>
-![](../../../images/use-clone-2.gif)
+<center>
+    ![clone-object_collision-detection](/images/snippet/3d-object/clone/clone-object/clone-object_collision-detection.gif)
+    Collision detection with duplicated objects
 </center>
 
 Cloned objects cannot use `onCollide()` because the Physics Body attribute is disabled.
 However, a similar effect can be achieved by calculating the distance between objects.
 
-```js showLineNumbers filename="Distance_calculation" copy
+```js showLineNumbers copy
 const KILL_DISTANCE = 3; // If the distance is less than or equal to this value, kill() is called
 
 const obj = WORLD.getObject("obj");

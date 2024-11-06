@@ -1,17 +1,13 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
-
 # Create an object that continuously tracks the player
 
 <br/>
 <center>
-![](../../../images/player-tracking-object.gif)
+  <img src='/images/snippet/3d-object/player-tracking-object_result.gif' alt='player-tracking-object_result' loading="lazy" decoding="async" style={{width: '75%'}}/>
 </center>
 
 Here’s how to implement the desired functionality.  
 
-```js showLineNumbers filename="Tracking_player" copy
+```js showLineNumbers copy
 const vehicle = WORLD.getObject("vehicle"); // Retrieve the object that will track the player.
 
 function Update(dt) {

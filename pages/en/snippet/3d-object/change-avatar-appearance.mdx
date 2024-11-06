@@ -1,12 +1,10 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
+import { Callout } from "nextra/components";
 
 # Changing Avatar Appearance
 
-<center>
 <br/>
-![](../../../images/change-avatar.gif)
+<center>
+  <img src='/images/snippet/3d-object/change-avatar-appearance_result.gif' alt='change-avatar-appearance_result' loading="lazy" decoding="async" style={{width: '75%'}}/>
 </center>
 
 You can make the player's avatar invisible and add another object as a child of the player to create the appearance of changing the avatar.
@@ -15,7 +13,7 @@ You can make the player's avatar invisible and add another object as a child of 
   Make sure to add the avatar you want to change to the scene in advance.
 </Callout>
 
-```js showLineNumbers copy filename="change_avatar"
+```js showLineNumbers copy
 const obj = WORLD.getObject("obj");  // Object to use for the new appearance
 const btn = GUI.getObject('btn');
 

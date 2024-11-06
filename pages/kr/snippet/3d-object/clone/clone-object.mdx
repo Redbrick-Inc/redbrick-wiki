@@ -1,25 +1,21 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
-
 # 오브젝트를 복제하여 사용하기
 
 <br/>
 <center>
-![](../../../images/use-clone-1.gif)오브젝트 복제
+    ![clone-object_clone](/images/snippet/3d-object/clone/clone-object/clone-object_clone.gif) 오브젝트 복제
 </center>
 
-오브젝트의 복제는 [`.clone()`](../script/built-in/three/object3d#clone) 또는 [`.cloneWithMethods()`](../script/api/object3d#clonewithmethods)를 사용해 수행할 수 있습니다.  
+오브젝트의 복제는 [`.clone()`](/kr/script/built-in/three/object3d#clone) 또는 [`.cloneWithMethods()`](/kr/script/api/object3d#clonewithmethods)를 사용해 수행할 수 있습니다.  
 `.clone()`과 `.cloneWithMethods()` 둘 다 Behavior, Physics 속성은 복제되지 않습니다.  
 따라서 복제된 오브젝트는 Behavior, Physics에 속한 속성들(CanCollide, Shadow, Body 등)이 비활성화 되어 있습니다.  
-이 두 메소드의 차이는 [확장된 Ojbect3D API의 메소드](../script/api/object3d.mdx)들을 사용할 수 있냐 없냐 입니다.  
+이 두 메소드의 차이는 [확장된 Ojbect3D API의 메소드](/kr/script/api/object3d)들을 사용할 수 있냐 없냐 입니다.  
 
 `.clone()`은 확장된 Object3D의 메소드를 사용할 수 없습니다.  
-`.cloneWithMethods()`는 사용할 수 있지만, 복제된 오브젝트는 Physics의 Body속성이 비활성화 되어있으므로 [`onCollide()`](../script/api/object3d#oncollide) 메소드는 사용할 수 없습니다.  
+`.cloneWithMethods()`는 사용할 수 있지만, 복제된 오브젝트는 Physics의 Body속성이 비활성화 되어있으므로 [`onCollide()`](/kr/script/api/object3d#oncollide) 메소드는 사용할 수 없습니다.  
 
 ## .clone()
 
-```js showLineNumbers filename=".clone()" copy
+```js showLineNumbers copy
 const obj = WORLD.getObject("obj");
 const clone_btn = GUI.getObject("clone_btn");
 let clone_obj_list = []; //복제한 오브젝트를 담을 배열
@@ -42,7 +38,7 @@ clone_btn.onClick(function() {
 
 ## .cloneWithMethods()
 
-```js showLineNumbers filename=".cloneWithMethods()" copy
+```js showLineNumbers copy
 const obj = WORLD.getObject("obj");
 const clone_btn = GUI.getObject("clone_btn");
 let clone_obj_list = []; //복제한 오브젝트를 담을 배열
@@ -65,15 +61,15 @@ clone_btn.onClick(function() {
 
 ## 복제한 오브젝트로 충돌검사 하기
 
-<center>
 <br/>
-![](../../../images/use-clone-2.gif)복제한 오브젝트로 충돌 검사
+<center>
+    ![clone-object_collision-detection](/images/snippet/3d-object/clone/clone-object/clone-object_collision-detection.gif) 복제한 오브젝트로 충돌 검사
 </center>
 
 복제한 오브젝트는 Physics의 Body 속성이 비활성화되기 때문에 `onCollide()`를 사용할 수 없습니다.  
 그러나, 오브젝트와의 거리를 계산하는 방법으로 비슷한 효과를 낼 수 있습니다.  
 
-```js showLineNumbers filename="Distance_calculation" copy
+```js showLineNumbers copy
 const KILL_DISTANCE = 3; //해당 거리 이하로 가까워지면 kill() 합니다
 
 const obj = WORLD.getObject("obj");

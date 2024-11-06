@@ -1,12 +1,10 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
+import { Callout } from "nextra/components";
 
 # 아바타 모습 바꾸기
 
-<center>
 <br/>
-![](../../../images/change-avatar.gif)
+<center>
+  <img src='/images/snippet/3d-object/change-avatar-appearance_result.gif' alt='change-avatar-appearance_result' loading="lazy" decoding="async" style={{width: '75%'}}/>
 </center>
 
 플레이어 아바타의 모습을 안보이게 하고, 다른 오브젝트를 플레이어의 자식으로 추가하여 모습이 바뀐것처럼 연출할 수 있습니다.  
@@ -15,7 +13,7 @@ import { Tabs } from "nextra/components";
   모습을 바꿀 아바타를 미리 씬에 추가해 놓아야 합니다.
 </Callout>
 
-```js showLineNumbers copy filename="change_avatar"
+```js showLineNumbers copy
 const obj = WORLD.getObject("obj");  //모습을 바꿀 오브젝트
 const btn = GUI.getObject('btn');
 
