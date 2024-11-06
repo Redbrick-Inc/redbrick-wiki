@@ -1,0 +1,38 @@
+# 게임 종료 후 시작 화면으로 돌아가기
+
+<br/>
+<img src='/images/snippet/game-flow/return-to-start_result.gif' alt='return-to-start_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+### 코드
+
+```js showLineNumbers copy {8,13,21}
+const item = WORLD.getObject("item");
+const startbtn = GUI.getObject("ballstopcle_button_play_on(e77)");
+const success = GUI.getObject("good_d(b37)");
+const retrybtn = GUI.getObject("button_text_large_yellow_retry(8c4)");
+
+success.hide();
+retrybtn.hide();
+startbtn.onClick(() => { //시작 버튼을 눌렀을 때 실행할 동작
+  startbtn.hide();
+});
+
+function Start() {
+  item.onCollide(PLAYER, () => { //아이템에 플레이어가 닿으면 게임 종료
+    item.kill();
+    success.show();
+    setTimeout(() => {
+      retrybtn.show();
+    }, 2000);
+  });
+
+  retrybtn.onClick(() => { //재시작 버튼을 눌렀을 때 실행할 동작
+    success.hide();
+    PLAYER.spawn();
+    item.revive();
+
+    retrybtn.hide();
+    startbtn.show();
+  });
+}
+```

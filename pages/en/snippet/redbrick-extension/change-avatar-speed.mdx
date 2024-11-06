@@ -1,0 +1,60 @@
+import { Steps, Callout } from "nextra/components";
+
+# Character speed change period under certain conditions
+
+<Callout type="info">
+  To change movement speed of an PLAYER, you can use
+  `PLAYER.changePlayerSpeed(1)`, by default speed is 1. More information about
+  avatar api can be found [here](/en/script/api/avatar)
+</Callout>
+<Callout type="error" icon="‼️">
+  Don't forget to check Body in the object's properties panel to use methods
+  like `onCollide()`!
+  <center>![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body</center>
+</Callout>
+<br />
+<center>![change-avatar-speed_boost](/images/snippet/redbrick-extension/change-avatar-speed/change-avatar-speed_boost.gif) Result </center>
+
+<Steps>
+
+### Place objects wherever you want
+
+Place the object where you want it.
+
+<br />
+<center>![change-avatar-speed_boost-item](/images/snippet/redbrick-extension/change-avatar-speed/change-avatar-speed_boost-item.png) Boost Item</center>
+
+### Code
+
+```js showLineNumbers copy filename="BoostItem"
+const boost = WORLD.getObject("boostTitle");
+
+function Start() {
+  // use here PLAYER related logic
+  boost.onCollide(PLAYER, () => {
+    boost.kill();
+    //change PLAYER speed
+    PLAYER.changePlayerSpeed(2);
+  });
+}
+```
+
+### Make it fast for 3 seconds when you eat a specific item
+
+```js showLineNumbers copy filename="BoostItem"
+const boost = WORLD.getObject("boostTitle");
+
+function Start() {
+  // use here PLAYER related logic
+  boost.onCollide(PLAYER, () => {
+    boost.kill();
+    //change PLAYER speed
+    PLAYER.changePlayerSpeed(2);
+    setTimeout(() => {
+      PLAYER.changePlayerSpeed(1);
+    }, 3000); //wait 3 seconds
+  });
+}
+```
+
+</Steps>

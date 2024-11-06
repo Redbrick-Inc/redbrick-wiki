@@ -7,7 +7,17 @@ import { MDXProvider } from '@mdx-js/react';
 
 ---
 
-`.easing()`을 통해 시작값과 타겟값 사이를 보간할 방정식을 변경할 수 있습니다.
+`.easing()`을 통해 시작값과 타겟값 사이를 보간할 방정식을 변경할 수 있습니다.  
+기본값은 `TWEEN.Easing.Linear.None`입니다. 아래는 사용 예시입니다.
+``` js showLineNumbers copy {6}
+const startPosition = new THREE.Vector3();
+const endPosition = new THREE.Vector3(1, 0, 0);
+
+const tween = new TWEEN.Tween(startPosition);
+tween.to(endPosition);
+tween.easing(TWEEN.Easing.Quadratic.In);
+tween.start();
+```
 
 <br/>
 <center>![tween-easing_graph](/images/script/built-in/tween/tween-easing_graph.png) 트윈 easing 보간 방정식 그래프</center>

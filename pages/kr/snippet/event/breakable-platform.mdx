@@ -1,0 +1,45 @@
+import { Steps, Callout } from "nextra/components";
+
+# 밟으면 부서지는 디딤돌 만들기
+
+<Steps>
+
+### 원하는 곳에 객체 배치하기
+
+디딤돌을 만들고 부서져야 할 돌의 이름을 변경하세요.
+
+<br />
+<center>![breakable-platform_deploy](/images/snippet/event/breakable-platform/breakable-platform_deploy.png) 디딤돌 놓기</center>
+
+<Callout type="error" icon="‼️">
+  `onCollide` 같은 메소드를 사용하려면 객체의 속성 패널에서 Body를 체크하는 것을
+  잊지 마세요!
+  <center>![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body</center>
+</Callout>
+
+### 코드
+
+```js showLineNumbers copy
+const falseboxes = [];
+for (let i = 0; i < 5; i++) {
+  falseboxes[i] = WORLD.getObject("falsebox_" + i);
+}
+
+function Start() {
+  falseboxes.forEach((box) => {
+    box.onCollide(PLAYER, () => {
+      box.kill();
+      setTimeout(() => {
+        box.revive();
+      }, 1000);
+    });
+  });
+}
+```
+
+<br />
+<center>
+  <img src='/images/snippet/event/breakable-platform/breakable-platform_result.gif' alt='breakable-platform_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+  <p style={{margin: '0'}}>결과</p>
+</center>
+</Steps>

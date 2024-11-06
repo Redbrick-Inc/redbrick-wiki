@@ -1,0 +1,97 @@
+# 오브젝트를 복제하여 사용하기
+
+<br/>
+<center>
+    ![clone-object_clone](/images/snippet/3d-object/clone/clone-object/clone-object_clone.gif) 오브젝트 복제
+</center>
+
+오브젝트의 복제는 [`.clone()`](/kr/script/built-in/three/object3d#clone) 또는 [`.cloneWithMethods()`](/kr/script/api/object3d#clonewithmethods)를 사용해 수행할 수 있습니다.  
+`.clone()`과 `.cloneWithMethods()` 둘 다 Behavior, Physics 속성은 복제되지 않습니다.  
+따라서 복제된 오브젝트는 Behavior, Physics에 속한 속성들(CanCollide, Shadow, Body 등)이 비활성화 되어 있습니다.  
+이 두 메소드의 차이는 [확장된 Ojbect3D API의 메소드](/kr/script/api/object3d)들을 사용할 수 있냐 없냐 입니다.  
+
+`.clone()`은 확장된 Object3D의 메소드를 사용할 수 없습니다.  
+`.cloneWithMethods()`는 사용할 수 있지만, 복제된 오브젝트는 Physics의 Body속성이 비활성화 되어있으므로 [`onCollide()`](/kr/script/api/object3d#oncollide) 메소드는 사용할 수 없습니다.  
+
+## .clone()
+
+```js showLineNumbers copy
+const obj = WORLD.getObject("obj");
+const clone_btn = GUI.getObject("clone_btn");
+let clone_obj_list = []; //복제한 오브젝트를 담을 배열
+
+//클론 버튼을 누르면 obj를 10개 복제합니다
+clone_btn.onClick(function() {
+    for(let i=0; i<10; i++)
+    {
+        clone_obj_list[i] = obj.clone();
+        WORLD.add(clone_obj_list[i]); //clone 후에 WORLD에 자식으로 넣어 주어야 사용 가능합니다
+        clone_obj_list[i].position.x = i*5; //복제된 오브젝트 위치 설정해주기
+    }
+
+    // clone()을 사용하면 확장된 Object3D의 메소드를 사용할 수 없기 떄문에 아래 코드를 실행할 때 에러가납니다
+    // clone_obj_list.forEach(element => {
+    //     element.move(10, 0, 0, 10);
+    // });
+});
+```
+
+## .cloneWithMethods()
+
+```js showLineNumbers copy
+const obj = WORLD.getObject("obj");
+const clone_btn = GUI.getObject("clone_btn");
+let clone_obj_list = []; //복제한 오브젝트를 담을 배열
+
+//클론 버튼을 누르면 obj를 10개 복제합니다
+clone_btn.onClick(function() {
+    for(let i=0; i<10; i++)
+    {
+        clone_obj_list[i] = obj.cloneWithMethods();
+        WORLD.add(clone_obj_list[i]); //clone 후에 WORLD에 자식으로 넣어 주어야 사용 가능합니다
+        clone_obj_list[i].position.x = i*5; //복제된 오브젝트 위치 설정해주기
+    }
+
+    //cloneWithMethods()를 사용하면 아래와 같이 확장된 Ojbect3D의 메소드를 이용할 수 있습니다
+    clone_obj_list.forEach(element => {
+        element.move(0, 0, 10, 10);
+    });
+})
+```
+
+## 복제한 오브젝트로 충돌검사 하기
+
+<br/>
+<center>
+    ![clone-object_collision-detection](/images/snippet/3d-object/clone/clone-object/clone-object_collision-detection.gif) 복제한 오브젝트로 충돌 검사
+</center>
+
+복제한 오브젝트는 Physics의 Body 속성이 비활성화되기 때문에 `onCollide()`를 사용할 수 없습니다.  
+그러나, 오브젝트와의 거리를 계산하는 방법으로 비슷한 효과를 낼 수 있습니다.  
+
+```js showLineNumbers copy
+const KILL_DISTANCE = 3; //해당 거리 이하로 가까워지면 kill() 합니다
+
+const obj = WORLD.getObject("obj");
+const clone_btn = GUI.getObject("clone_btn");
+let clone_obj_list = []; //복제한 오브젝트를 담을 배열
+
+//클론 버튼을 누르면 obj를 10개 복제합니다
+clone_btn.onClick(function() {
+    for(let i=0; i<10; i++)
+    {
+        clone_obj_list[i] = obj.clone();
+        WORLD.add(clone_obj_list[i]); //clone 후에 WORLD에 자식으로 넣어 주어야 사용 가능합니다
+        clone_obj_list[i].position.x = i*5; //복제된 오브젝트 위치 설정해주기
+    }
+});
+
+//매 프레임마다 복제된 오브젝트와 플레이어와의 거리를 계산하여, 가까워지면 오브젝트를 kill() 합니다
+function Update(){
+    clone_obj_list.forEach(element => {
+        if(PLAYER.position.distanceTo(element.position) <= KILL_DISTANCE){
+            element.kill();
+        }
+    });
+}
+```

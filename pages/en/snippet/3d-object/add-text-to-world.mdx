@@ -1,0 +1,86 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# Adding Text to the World
+
+> This guide explains how to add text objects to the world.
+
+---
+
+![add-text-to-world_result](/images/snippet/3d-object/add-text-to-world_result.png)
+<br/>
+
+You can import fonts using `THREEADDON.fontLoader()` and create text objects with `THREEADDON.TextGeometry()`.  
+
+Fonts can be fetched locally via file paths or online via URLs.  
+Currently, Redbrick Studio does not have a method to access local files, so we will retrieve them online using a URL.
+We will use GitHub, as it is easy to save and retrieve files.
+
+<Steps>
+    ### Setting the URL to Fetch the Font
+
+    You can check the font collection to find an available font and set its URL for use.  
+    <br/>
+    <Cards.Card title='Font Collection' href='https://github.com/Dave-Redbrick/Font' arrow style={{width: '40%'}}/>
+    
+    ``` js showLineNumbers copy
+    const url = 'https://raw.githubusercontent.com/Dave-Redbrick/Font/main/EN/Roboto_Regular.json'
+    ```
+
+    <Callout type='warning'>
+        When reading files from GitHub, simply using the GitHub URL will not grant access, so you need to modify the URL to fetch the Raw value. Change github.com to raw.githubusercontent.com as shown above.
+    </Callout>
+
+    ### Fetching and Storing the Font
+
+    Use `THREE.fontLoader()` to fetch and store the font.
+
+    ``` js showLineNumbers copy
+    // ...
+
+    const fontLoader = new THREEADDON.FontLoader();
+    let myFont = null;
+    fontLoader.load(url, font => myFont = font);
+    ```
+
+    ### Adding Text to the World
+
+    Use `THREEADDON.TextGeometry()` to add text to the world.
+
+    ``` js showLineNumbers copy {3}
+    // ...
+
+    const geometry = new THREEADDON.TextGeometry(
+        'I Love ThreeJS',
+        {
+            font: myFont,
+            size: 1,
+            height: 0.1,
+        }
+    );
+
+    // Change text pivot
+    geometry.computeBoundingBox();
+    const xMid = -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+    geometry.translate(xMid, 0, 0);
+    
+    const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(0, 5, 0);
+
+    WORLD.add(mesh);
+    ```
+</Steps>
+
+--- 
+
+### Bonus: Requesting or Adding Fonts
+
+If there is a font not in the collection that you would like to add, please submit a request in the issues section of the font collection.  
+<br/>
+<Cards.Card title='Request to Add a Font' href='https://github.com/Dave-Redbrick/Font/issues' arrow style={{width: '40%'}}/>
+
+Alternatively, if you know how to use GitHub, you can upload it to your own repository or clone the font collection repository, add the font, and then submit a pull request for review and addition.  
+
+<Callout type='error'>
+    All requested fonts must be usable for both commercial and non-commercial purposes.
+</Callout>

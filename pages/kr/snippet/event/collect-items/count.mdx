@@ -1,0 +1,101 @@
+import { Steps, Tabs, Callout } from "nextra/components";
+
+# 아이템을 획득할 때 화면에 카운트되게 만들기
+
+<Steps>
+### 원하는 GUI를 선택하고 씬에 넣으세요.
+
+<br />
+<center>![collect-items_gui-deploy](/images/snippet/event/collect-items/collect-items_gui-deploy.png) GUI 배치하기</center>
+
+### 코드
+
+<Tabs items={["예시 1", "예시 2"]} defaultIndex="0">
+    <Tabs.Tab>
+        
+        <Callout type="info">
+            _이것은 해당 기능 구현을 위한 기본적인 예제입니다. 개선된 해결책은 예제 2를 참조하세요 👉🏼_
+        </Callout>
+
+         ```js showLineNumbers {8-10, 15-16, 20-21, 25-26, 30-31, 35-36}
+        const diamond0 = WORLD.getObject("diamond0");
+        const diamond1 = WORLD.getObject("diamond1");
+        const diamond2 = WORLD.getObject("diamond2");
+        const diamond3 = WORLD.getObject("diamond3");
+        const diamond4 = WORLD.getObject("diamond4");
+
+        //intialize gui
+        const showpoint = GUI.getObject("guiBoardTitle");
+        let diamondCount = 0;
+        showpoint.setText(diamondCount);
+
+        function Start() {
+            diamond0.onCollide(PLAYER, () => {
+                diamond0.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+            });
+            diamond1.onCollide(PLAYER, () => {
+                diamond1.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+            });
+            diamond2.onCollide(PLAYER, () => {
+                diamond2.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+            });
+            diamond3.onCollide(PLAYER, () => {
+                diamond3.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+            });
+            diamond4.onCollide(PLAYER, () => {
+                diamond4.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+            });
+        }
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+
+        <Callout type="info">
+            _이것은 중복된 줄을 최소화한 개선된 코드입니다._
+        </Callout>
+
+         ```js showLineNumbers  {2-4, 12-13}
+        //intialize gui
+        const showpoint = GUI.getObject("guiBoardTitle");
+        let diamondCount = 0;
+        showpoint.setText(diamondCount);
+
+        function Start() {
+        // since we have 5 diamonds
+            for (let i = 0; i < 5; i++) {
+                const diamond = WORLD.getObject("diamond" + i);
+                diamond.onCollide(PLAYER, () => {
+                    diamond.kill();
+                    diamondCount += 1;
+                    showpoint.setText(diamondCount);
+                });
+            }
+        }
+        ```
+    </Tabs.Tab>
+
+    <Callout type="info">
+        `onCollide()`는 Physics Body가 활성화 되어있어야 작동합니다.
+        <center>
+            ![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body
+        </center>
+    </Callout>
+
+</Tabs>
+
+<br/>
+<center>
+  <img src='/images/snippet/event/collect-items/collect-items_gui-result.gif' alt='collect-items_gui-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+  <p style={{margin: '0'}}>GUI 결과</p>
+</center>
+</Steps>

@@ -1,0 +1,47 @@
+import { Steps, Callout } from "nextra/components";
+
+# Changing the Background Image During Gameplay
+
+<br/>
+<img src='/images/snippet/tips/change-background/change-background_result.gif' alt='change-background_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+## Steps
+
+<Steps>
+
+### Add an Image to the Scene and Set its Size
+
+1. To add an image to the scene, please refer to [this guide](/en/engine/operate/top#my-assets.mdx).
+2. Adjust the size of the added image to 0.
+<br/>
+![change-background_add-image](/images/snippet/tips/change-background/change-background_add-image.png)
+
+### Write the Script
+
+In this snippet, we will create a logic to change the background image when a specific object is touched.
+To do this, place an object in the scene for collision detection and write the code to change the background image.
+
+<Callout type="warning">
+  To use `onCollide()`, you need to check the Body in the object's property panel.
+  <center>![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body</center>
+</Callout>
+
+```js showLineNumbers copy
+const obj = WORLD.getObject("obj");
+
+obj.onCollide(PLAYER, function() {
+    const newBackground = GUI.getObject("background_IMG").material.map; // Load the background image map
+    newBackground.wrapS = THREE.RepeatWrapping;
+    newBackground.wrapT = THREE.RepeatWrapping;
+    newBackground.mapping = THREE.EquirectangularReflectionMapping;
+    newBackground.encoding = THREE.sRGBEncoding;
+    newBackground.repeat.set(1, 1);
+    WORLD.background = newBackground; // Set the new background
+})
+```
+
+### Interact with the Object in the Game
+
+When you run the game and interact with the object, the background image will change.
+
+</Steps>

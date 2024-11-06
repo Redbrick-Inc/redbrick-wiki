@@ -1,0 +1,27 @@
+# Managing Multiple Similar Objects
+
+<br/>
+<center>
+    <img src='/images/snippet/3d-object/multiple-similar-objects/multiple-similar-objects_result.gif' alt='multiple-similar-objects_result' loading="lazy" decoding="async" style={{width: '75%'}}/>
+</center>
+
+When managing multiple objects with the same or similar logic, you can name the objects sequentially as shown in the picture below and use a for loop to easily retrieve them.
+
+<br/>
+<center>
+    ![multiple-similar-objects_explorer](/images/snippet/3d-object/multiple-similar-objects/multiple-similar-objects_explorer.png)
+</center>
+
+```js copy showLineNumbers
+let objs = []; // An array to manage the objects
+
+// Use a for loop to retrieve objects with sequential names
+for(let i=1; i<=5; i++){
+    objs.push(WORLD.getObject("obj" + i)); 
+    
+    // Allow each retrieved object to perform collision detection with onCollide
+    objs[i-1].onCollide(PLAYER, function() {
+        objs[i-1].kill()
+    })
+}
+```

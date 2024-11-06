@@ -1,0 +1,87 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# 월드에 텍스트 추가하기
+
+> 월드에 텍스트 오브젝트를 추가하는 방법을 안내합니다.
+
+---
+
+![add-text-to-world_result](/images/snippet/3d-object/add-text-to-world_result.png)
+<br/>
+
+`THREEADDON.fontLoader()`를 통해 폰트를 가져오고, `THREEADDON.TextGeometry()`를 통해 텍스트 오브젝트를 만들 수 있습니다.  
+
+폰트는 파일경로를 통해 로컬에서 가져오거나 URL을 통해 온라인에서 가져올 수 있습니다.  
+현재 Redbrick Studio에서는 로컬에 접근하여 파일을 가져올 수 있는 방법이 없기 때문에, URL을 통해서 온라인에서 가져오도록 합니다.
+저장하기도 쉽고 불러오기도 쉬운 Github를 사용합니다.
+
+<Steps>
+    ### 폰트를 가져올 URL 설정하기
+
+    폰트 모음집에서 존재하는 폰트를 확인하고 원하는 폰트로 URL을 지정하여 사용할 수 있습니다.  
+    <br/>
+    <Cards.Card title='폰트 모음집' href='https://github.com/Dave-Redbrick/Font' arrow style={{width: '40%'}}/>
+    
+    ``` js showLineNumbers copy
+    const url = 'https://raw.githubusercontent.com/Dave-Redbrick/Font/main/EN/Roboto_Regular.json'
+    ```
+
+    <Callout type='warning'>
+        Github에서 파일을 읽어올 때, 그냥 Github URL을 넣으면 접근이 불가능하기 때문에 Raw 값으로 가져올 수 있게
+        URL을 수정해주어야 합니다. 위와 같이 github.com을 raw.githubusercontent.com 으로 변경해주시면 됩니다.
+    </Callout>
+
+    ### 폰트 가져와 저장하기
+
+    `THREE.fontLoader()`를 통해 폰트를 가져와 저장해줍니다.
+
+    ``` js showLineNumbers copy
+    // ...
+
+    const fontLoader = new THREEADDON.FontLoader();
+    let myFont = null;
+    fontLoader.load(url, font => myFont = font);
+    ```
+
+    ### 월드에 텍스트 추가하기
+
+    `THREEADDON.TextGeometry()`를 통해 월드에 텍스트를 추가해줍니다.
+
+    ``` js showLineNumbers copy {3}
+    // ...
+
+    const geometry = new THREEADDON.TextGeometry(
+        'I Love ThreeJS',
+        {
+            font: myFont,
+            size: 1,
+            height: 0.1,
+        }
+    );
+
+    // 텍스트 피벗 변경
+    geometry.computeBoundingBox();
+    const xMid = -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+    geometry.translate(xMid, 0, 0);
+    
+    const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF });
+    mesh.position.set(0, 5, 0);
+    const mesh = new THREE.Mesh(geometry, material);
+
+    WORLD.add(mesh);
+    ```
+</Steps>
+
+--- 
+
+### 번외 : 폰트 추가 또는 요청하기
+
+폰트 모음집에 없는 폰트 중에 추가하고 싶은 폰트가 있다면 폰트 모음집의 issues 부분에 추가해주세요.
+<br/>
+<Cards.Card title='폰트 추가 요청하기' href='https://github.com/Dave-Redbrick/Font/issues' arrow style={{width: '40%'}}/>
+
+또는 Github 사용법을 안다면 자신의 Github 저장소의 올려 사용하거나 폰트 모음집 저장소를 clone하고 폰트를 추가한 이후에 Pull request 요청하시면 확인 후 추가해드립니다.  
+
+<Callout type='error'>
+    추가 요청할 모든 폰트는 상업적 및 비상업적으로 사용 가능해야 합니다.
+</Callout>

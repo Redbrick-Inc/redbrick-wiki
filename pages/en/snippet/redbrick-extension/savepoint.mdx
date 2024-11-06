@@ -1,0 +1,37 @@
+import { Callout } from "nextra/components";
+
+# Create Save Point
+
+<br/>
+<img src='/images/snippet/redbrick-extension/savepoint_result.gif' alt='savepoint_result' loading='lazy' decoding='async' style={{width:'100%'}}/>
+<br/>
+
+## Code
+
+<Callout type="error" icon="‼️">
+  Don't forget to check Body in the object's properties panel to use methods
+  like `onCollide`!
+  <center>![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body</center>
+</Callout>
+
+```js showLineNumbers copy
+let startLocation = WORLD.getObject("StartLocation(aa3)");
+
+function Start() {
+  // 4 save points form spawn1 ~ spawn4
+  for (let i = 1; i < 5; i++) {
+    const point = WORLD.getObject("spawn" + i);
+
+    point.onCollide(PLAYER, () => {
+      startLocation = point;
+    });
+  }
+}
+
+function Update(dt) {
+  //respawn when avatar y position is less than -5
+  if (PLAYER.position.y < -5) {
+    PLAYER.spawn(startLocation);
+  }
+}
+```

@@ -1,0 +1,45 @@
+import { Steps, Callout } from "nextra/components";
+
+# Create a stepping stone that breaks when stepped on it
+
+<Steps>
+
+### Place objects wherever you want
+
+Create a stepping stones and rename the title of the stones that should disappear.
+
+<br />
+<center>![breakable-platform_deploy](/images/snippet/event/breakable-platform/breakable-platform_deploy.png) Put Stepping Stones</center>
+
+<Callout type="error" icon="‼️">
+  Don't forget to check Body in the object's properties panel to use methods
+  like `onCollide`!
+  <center>![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body</center>
+</Callout>
+
+### Code
+
+```js showLineNumbers copy
+const falseboxes = [];
+for (let i = 0; i < 5; i++) {
+  falseboxes[i] = WORLD.getObject("falsebox_" + i);
+}
+
+function Start() {
+  falseboxes.forEach((box) => {
+    box.onCollide(PLAYER, () => {
+      box.kill();
+      setTimeout(() => {
+        box.revive();
+      }, 1000);
+    });
+  });
+}
+```
+
+<br />
+<center>
+  <img src='/images/snippet/event/breakable-platform/breakable-platform_result.gif' alt='breakable-platform_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+  <p style={{margin: '0'}}>Result</p>
+</center>
+</Steps>

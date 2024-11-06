@@ -1,0 +1,109 @@
+import { Tabs, Callout } from "nextra/components";
+
+# Create blocked walls open when item acquisition conditions are met
+
+<Tabs items={["example 1", "example 2"]} defaultIndex="0">
+    <Tabs.Tab>
+        <Callout type="info">
+            Here's a basic example of how to do it. For an enhanced solution, refer to Example 2 👉🏼
+        </Callout>
+        ```js showLineNumbers {20, 26, 32, 38, 44, 49-51}
+        const diamond0 = WORLD.getObject("diamond0");
+        const diamond1 = WORLD.getObject("diamond1");
+        const diamond2 = WORLD.getObject("diamond2");
+        const diamond3 = WORLD.getObject("diamond3");
+        const diamond4 = WORLD.getObject("diamond4");
+
+        //intialize gui
+        const showpoint = GUI.getObject("guiBoardTitle");
+        let diamondCount = 0;
+        showpoint.setText(diamondCount);
+
+        //intialize door
+        const door = WORLD.getObject("door");
+
+        function Start() {
+            diamond0.onCollide(PLAYER, () => {
+                diamond0.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+                checkCount(diamondCount);
+            });
+            diamond1.onCollide(PLAYER, () => {
+                diamond1.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+                checkCount(diamondCount);
+            });
+            diamond2.onCollide(PLAYER, () => {
+                diamond2.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+                checkCount(diamondCount);
+            });
+            diamond3.onCollide(PLAYER, () => {
+                diamond3.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+                checkCount(diamondCount);
+            });
+            diamond4.onCollide(PLAYER, () => {
+                diamond4.kill();
+                diamondCount += 1;
+                showpoint.setText(diamondCount);
+                checkCount(diamondCount);
+            });
+        }
+
+        function checkCount(count){
+            if (count === 5){
+                door.move(0, 8, 0, 2);
+            }
+        }
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+
+        Here's a slightly improved example of usage, minimizing redundant lines.
+
+        ```js showLineNumbers {7, 31-33}
+        //intialize gui
+        const showpoint = GUI.getObject("guiBoardTitle");
+        let diamondCount = 0;
+        showpoint.setText(diamondCount);
+
+        //intialize door
+        const door = WORLD.getObject("door");
+
+        function Start() {
+            // since we have 5 diamonds
+            for (let i = 0; i < 5; i++) {
+                const diamond = WORLD.getObject("diamond" + i);
+
+                diamond.onCollide(PLAYER, () => {
+                    diamond.kill();
+                    diamondCount += 1;
+                    showpoint.setText(diamondCount);
+                    if (diamondCount === 5){
+                        door.move(0, 8, 0, 2);
+                    }
+                });
+            }
+        }
+        ```
+    </Tabs.Tab>
+
+    <Callout type="info">
+        `onCollide()` requires the Physics Body to be active in order to function.
+        <center>
+            ![snippet_physic-body](/images/snippet/snippet_physics-body.png) Physics > Body
+        </center>
+    </Callout>
+
+</Tabs>
+
+<br />
+<center>
+  <img src='/images/snippet/event/collect-items/collect-items_result.gif' alt='collect-items_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+  <p style={{margin: '0'}}>Result</p>
+</center>

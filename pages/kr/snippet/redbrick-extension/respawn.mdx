@@ -1,0 +1,68 @@
+import { Tabs, Steps } from "nextra/components";
+
+# 떨어졌을 때 원래 위치로 돌아가기
+
+<Tabs items={['예시 1', '예시 2']} defaultIndex="0" >
+    
+    <Tabs.Tab>
+
+        해당 기능은 `아바타`의 `Y` 위치를 확인하여 간단하게 만들 수 있습니다.
+
+        ```js showLineNumbers copy
+        function Update(dt) {
+            //respawn when PLAYER y position is less than -5
+            if (PLAYER.position.y < -5){
+                PLAYER.spawn();
+            }
+        }
+        ```
+
+    </Tabs.Tab>
+
+    <Tabs.Tab>
+
+        이 예제에서는 월드 아래의 메쉬와 충돌하여 만들 수 있습니다.
+        <Steps>
+
+            ### 월드 아래에 객체를 배치하세요.
+
+            메쉬를 원하는 위치에 놓고 크기를 조정하세요. Body를 확인하고, Anchored가 선택되었는지 확인하세요.
+
+            <br/>
+            <center>![respawn_step-1](/images/snippet/redbrick-extension/respawn/respawn_step-1.png) 메시를 배치하고 Body 및 Anchored 여부를 확인하기</center>
+
+            ### 메쉬를 투명하게 만드세요.
+
+
+            메쉬를 투명하게 만들려면 투명도(Opacity)를 조절하세요.
+
+            <br/>
+            <center>![respawn_step-2](/images/snippet/redbrick-extension/respawn/respawn_step-2.png) 투명도 조절하기</center>
+
+            ### 원래 위치로 돌아갈 수 있는 장소를 만드세요.
+
+            원하는 스폰을 클릭하고 시작 위치(Start Location)를 배치하세요.
+
+            <br/>
+            <center>![respawn_step-3](/images/snippet/redbrick-extension/respawn/respawn_step-3.png) 스폰 위치 생성 및 배치</center>
+
+            ### 코드
+
+            ```js showLineNumbers copy
+            const spawnbox = WORLD.getObject("BOX(b5d)");
+
+            function Start() {
+                // use here spawn related logic
+                spawnbox.onCollide(PLAYER, () => {
+                    PLAYER.spawn();
+                });
+            }
+            ```
+
+        </Steps>
+    </Tabs.Tab>
+
+    <br/>
+    <center>![respawn_result](/images/snippet/redbrick-extension/respawn/respawn_result.gif) 결과</center>
+
+</Tabs>

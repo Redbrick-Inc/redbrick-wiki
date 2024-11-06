@@ -1,0 +1,86 @@
+import { Cards, Callout } from "nextra/components";
+
+# Using Audio Cloning
+
+> This guide will show you how to clone and use audio.
+
+---
+
+By cloning audio, you can play the same audio track without interruption, allowing for individual playback.
+
+Since audio objects cannot be cloned using `.clone()`, you will need to use a different method.
+If you have an audio object like this
+<center>
+    <img src="/images/snippet/3d-object/clone/clone-audio_audio-object.png" alt="clone-audio_audio-object" loading="lazy" decoding="async" style={{ maxWidth: '50%', height: 'auto' }}/>
+    <p style={{margin: '0'}}>Audio Object</p>
+</center>
+
+You can clone the audio object as follows
+``` js showLineNumbers copy {4-5}
+const audio = WORLD.getObject('effect_7').getAudio();
+
+function playAudioClone() {
+    const audioClone = new THREE.Audio(audio.listener);
+    audioClone.setBuffer(audio.buffer);
+    audioClone.play();
+}
+
+function OnKeyDown(event) {
+    if(event.code === 'KeyP') playAudioClone();
+}
+```
+<Callout type='default'>
+    An audio object is essentially composed of an AudioListener and an AudioBuffer.  
+    The AudioListener is used to control how the audio is heard and its directionality.  
+    The AudioBuffer is information of the loaded sound file in memory.
+</Callout>
+
+<br/>
+Additionally, continuously creating new audio objects can impact performance, so it's advisable to use an object pool pattern.  
+Since audio objects have individual playback times, they can return to the pool using `.onEnded()`.
+
+``` js showLineNumbers copy {1,16,37}
+class AudioPool {
+    #originAudio;
+    audios = [];
+
+    // getAudio()
+    constructor(audio, poolSize) {
+        this.#originAudio = audio;
+        for(let i = 0; i < poolSize; i++) {
+            this.audios.push(this.create());
+        }
+    }
+    
+    create() {
+        const audio = new THREE.Audio(this.#originAudio.listener);
+        audio.setBuffer(this.#originAudio.buffer);
+        audio.onEnded = () => {
+            this.push(audio);
+        };
+        return audio;
+    }
+    pop() {
+        let audio = null;
+        if(this.audios.length) {
+            audio = this.audios.shift();
+        } else {
+            audio = this.create();
+        }
+        return audio;
+    }
+    push(audio) {
+        if(audio === null) return;
+        audio.stop();
+        this.audios.push(audio);
+    }
+}
+const audio = WORLD.getObject('effect_7').getAudio();
+const audioPool = new AudioPool(audio, 10);
+
+function playFromAudioPool() {
+    audioPool.pop().play();
+}
+function OnKeyDown(event) {
+    if(event.code === 'KeyP') playFromAudioPool();
+}
