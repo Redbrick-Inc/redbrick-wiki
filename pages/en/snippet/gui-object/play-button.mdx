@@ -1,0 +1,46 @@
+import { Steps, Tabs } from "nextra/components";
+
+# Create a Game Start button
+
+<Steps>
+
+  ### Select the start button you want
+
+  Click the + button in the upper left > GUI > Select the start button you want
+
+  <br />
+  <center>
+    ![play-button_deploy](/images/snippet/gui-object/play-button/play-button_deploy.png) Deploy Start Button
+  </center>
+
+  ### Code
+
+  <Tabs items={['Scene Script', 'Object Script']} defualtIndex="0">
+    <Tabs.Tab>
+      If you write it as a scene script, you can write it like this.
+
+      ```js showLineNumbers copy filename="PresetScript"
+      const startbtn = GUI.getObject("ballstopcle_button_play_on(e77)");
+
+      function Start() {
+        startbtn.onClick(() => {
+          startbtn.hide();
+        });
+      }
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      If you write it as an object script, you can write it like this.
+
+      ```js showLineNumbers copy filename="ballstopcle_button_play_on(e77)"
+      function Start() {
+        this.onClick(() => {
+          this.hide();
+        });
+      }
+      ```
+    </Tabs.Tab>
+  </Tabs>
+</Steps>
+
+![play-button_result](/images/snippet/gui-object/play-button/play-button_result.gif)
