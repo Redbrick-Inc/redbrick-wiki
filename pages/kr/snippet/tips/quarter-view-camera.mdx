@@ -1,10 +1,9 @@
-import { Callout, Code } from "nextra/components";
 import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
 
 # 쿼터뷰 카메라 만들기
 
-![](../../../images/quarter-view.gif)
+<br/>
+<img src='/images/snippet/tips/quarter-view-camera/quarter-view-camera_result.gif' alt='quarter-view-camera_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ### Steps
 
@@ -18,13 +17,13 @@ import { Tabs } from "nextra/components";
 4. 카메라 뷰를 통해 실제 게임에서 어떻게 보일지 확인합니다.  
 5. 값을 계속 변경해가며 마음에 드는 값을 찾습니다.  
 
-<center>![](../../../images/camera-parameter-tweak.png)</center>
+<center>![quarter-view-camera_setup](/images/snippet/tips/quarter-view-camera/quarter-view-camera_setup.png)</center>
 
 ### 카메라 설정을 위한 스크립트 추가
 
 씬 스크립트를 생성하여 아래와 같은 코드를 입력합니다.  
 
-```js showLineNumbers copy filename="Camera_Setting"
+```js showLineNumbers copy
 //카메라가 플레이어 위치로부터 떨어진 거리, 로테이션 값
 const CAMERA_POSITION_WEIGHT_Z = 20;
 const CAMERA_POSITION_WEIGHT_Y = 20; 

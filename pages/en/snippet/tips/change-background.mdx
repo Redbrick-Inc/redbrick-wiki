@@ -1,10 +1,9 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
+import { Steps, Callout } from "nextra/components";
 
 # Changing the Background Image During Gameplay
 
-![](../../../images/snippet_change-background_example.gif)
+<br/>
+<img src='/images/snippet/tips/change-background/change-background_result.gif' alt='change-background_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ## Steps
 
@@ -12,10 +11,10 @@ import { Tabs } from "nextra/components";
 
 ### Add an Image to the Scene and Set its Size
 
-1. To add an image to the scene, please refer to [this guide](../engine/operate/left/my-asset.mdx).
+1. To add an image to the scene, please refer to [this guide](/en/engine/operate/top#my-assets.mdx).
 2. Adjust the size of the added image to 0.
 <br/>
-<center>![](../../../images/snippet_change-background_add-image.png)</center>
+![change-background_add-image](/images/snippet/tips/change-background/change-background_add-image.png)
 
 ### Write the Script
 
@@ -23,11 +22,11 @@ In this snippet, we will create a logic to change the background image when a sp
 To do this, place an object in the scene for collision detection and write the code to change the background image.
 
 <Callout type="warning">
-  To use `onCollide`, you need to check the Body in the object's property panel.
+  To use `onCollide()`, you need to check the Body in the object's property panel.
   <center>![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body</center>
 </Callout>
 
-```js showLineNumbers copy filename="Set_background"
+```js showLineNumbers copy
 const obj = WORLD.getObject("obj");
 
 obj.onCollide(PLAYER, function() {

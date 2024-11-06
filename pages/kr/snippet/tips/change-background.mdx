@@ -1,10 +1,9 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
+import { Steps, Callout } from "nextra/components";
 
 # 게임 플레이 중 배경이미지 바꾸기
 
-![](../../../images/snippet_change-background_example.gif)
+<br/>
+<img src='/images/snippet/tips/change-background/change-background_result.gif' alt='change-background_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ## Steps
 
@@ -12,10 +11,10 @@ import { Tabs } from "nextra/components";
 
 ### 씬에 이미지 추가 및 크기 설정
 
-1. 씬에 이미지를 추가하는 방법은 [이곳](../engine/operate/left/my-asset.mdx)을 참고해 주세요.  
+1. 씬에 이미지를 추가하는 방법은 [이 곳](/kr/engine/operate/top#my-에셋)을 참고해 주세요.  
 2. 추가한 이미지의 크기를 0으로 조절합니다.  
 <br/>
-<center>![](../../../images/snippet_change-background_add-image.png)</center>
+![change-background_add-image](/images/snippet/tips/change-background/change-background_add-image.png)
 
 ### 스크립트 작성 
 
@@ -23,11 +22,11 @@ import { Tabs } from "nextra/components";
 이를 위해 씬에 충돌검사를 위한 오브젝트를 배치하고, 배경 이미지를 변경 할 코드를 작성합니다.  
 
 <Callout type="warning">
-  `onCollide`를 사용하려면 오브젝트의 속성 패널에서 Body를 체크해야 합니다.
+  `onCollide()`를 사용하려면 오브젝트의 속성 패널에서 Body를 체크해야 합니다.
   <center>![snippet_physics-body](/images/snippet/snippet_physics-body.png) Physics > Body</center>
 </Callout>
 
-```js showLineNumbers copy filename="Set_background"
+```js showLineNumbers copy
 const obj = WORLD.getObject("obj");
 
 obj.onCollide(PLAYER, function() {

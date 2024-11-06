@@ -1,10 +1,8 @@
-import { Callout, Code } from "nextra/components";
 import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
 
 # Creating a Quarter-View Camera
 
-![](../../../images/quarter-view.gif)
+<img src='/images/snippet/tips/quarter-view-camera/quarter-view-camera_result.gif' alt='quarter-view-camera_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ### Steps
 
@@ -18,13 +16,13 @@ import { Tabs } from "nextra/components";
 4. Check how it looks in the actual game through the camera view.
 5. Keep adjusting the values until you find the desired settings.
 
-<center>![](../../../images/camera-parameter-tweak.png)</center>
+<center>![quarter-view-camera_setup](/images/snippet/tips/quarter-view-camera/quarter-view-camera_setup.png)</center>
 
 ### Adding a Script for Camera Settings
 
 Create a scene script and enter the following code.
 
-```js showLineNumbers copy filename="Camera_Setting"
+```js showLineNumbers copy
 // Distance from the player to the camera, rotation value
 const CAMERA_POSITION_WEIGHT_Z = 20;
 const CAMERA_POSITION_WEIGHT_Y = 20; 
