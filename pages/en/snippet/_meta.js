@@ -1,6 +1,6 @@
 export default {
   'redbrick-extension' : 'REDBRICK EXTENSION',
-  'game-flow' : 'Game Flow',
+  'game-flow' : 'GAME FLOW',
   event : 'EVENT',
   '3d-object' : '3D OBJECT',
   'gui-object' : 'GUI OBJECT',
