@@ -1,4 +1,4 @@
 export default {
-    beginner: 'Beginner',
-    advanced: 'Advanced',
+    beginner: 'BEGINNER',
+    advanced: 'ADVANCED',
 };
