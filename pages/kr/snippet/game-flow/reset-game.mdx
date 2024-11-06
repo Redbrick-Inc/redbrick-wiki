@@ -1,19 +1,17 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
-
 # 게임을 초기화 시키는 기능 만들기
 
-<center>
 <br/>
-![](../../../images/game-reset.gif)
+<center>
+  <img src='/images/snippet/game-flow/reset-game_result.gif' alt='reset-game_result' loading="lazy" decoding="async" style={{width: '50%'}}/>
 </center>
 
 현재 레드브릭 스튜디오에서 게임을 재시작 또는 초기화 해주는 기능은 따로 없습니다.  
 그러나 사용자 정의 함수로 비슷한 효과를 낼 수 있습니다.  
 게임을 초기화하는 함수를 정의하고, 초기화 할 떄마다 그 함수를 사용하면됩니다.  
 
-```js showLineNumbers filename="example restart" {6-11, 18-20}
+### 코드
+
+```js showLineNumbers {6-11, 18-20}
 const timer_board = GUI.getObject("timer_board");
 const reset_btn = GUI.getObject("reset_btn");
 const start_btn = GUI.getObject("start_btn");

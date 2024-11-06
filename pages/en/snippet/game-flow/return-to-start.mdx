@@ -1,15 +1,11 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
+# Return to start screen at the end of the game
 
-# Return to first screen at the end of the game
+<br/>
+<img src='/images/snippet/game-flow/return-to-start_result.gif' alt='return-to-start_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
-<br />
-<center>![](../../../images/example-victory-retry.gif) Example</center>
+### Code
 
-## Code
-
-```js showLineNumbers copy
+```js showLineNumbers copy {8,13,21}
 const item = WORLD.getObject("item");
 const startbtn = GUI.getObject("ballstopcle_button_play_on(e77)");
 const success = GUI.getObject("good_d(b37)");

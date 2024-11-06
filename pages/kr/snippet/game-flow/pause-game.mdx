@@ -1,19 +1,17 @@
-import { Callout, Code } from "nextra/components";
-import { Steps } from "nextra/components";
-import { Tabs } from "nextra/components";
-
 # 게임을 일시정지 시키는 기능 만들기
 
-<center>
 <br/>
-![](../../../images/game-pause.gif)
+<center>
+  <img src='/images/snippet/game-flow/pause-game_result.gif' alt='pause-game_result' loading="lazy" decoding="async" style={{width: '50%'}}/>
 </center>
 
 현재 레드브릭 스튜디오에서 게임을 일시정지해주는 기능은 따로 없습니다.  
 그러나 사용자 정의 함수로 비슷한 효과를 낼 수 있습니다.  
 게임을 멈추는 함수를 정의하고, 멈춰야 할 떄마다 그 함수를 사용하면됩니다.  
 
-```js showLineNumbers filename="example game pause" {13-17, 19-22}
+### 코드
+
+```js showLineNumbers {13-17, 19-22}
 const timer = new REDBRICK.Timer();
 const timer_board = GUI.getObject("timer_board");
 const pauseButton = GUI.getObject("pause_button");
