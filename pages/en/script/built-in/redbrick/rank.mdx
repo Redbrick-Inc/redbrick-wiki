@@ -1,0 +1,67 @@
+import { Callout } from "nextra/components";
+
+# Rank
+
+> A module that allows you to save player scores and show rankings (leaderboards).
+
+---
+
+This class is used to save player scores and show rankings for each game.
+
+<br/>
+<center>
+    ![redbrick_rank-result](/images/script/built-in/redbrick/redbrick_rank-result.png)
+    [What The Frog Ranking](https://redbrick.land/detail-play?pid=dbc573d8-29f8-4065-a9f4-ac7fa98e40b0)
+</center>
+
+<Callout type="info">
+  Currently, there is only one type of ranking UI, but more will be added in the future.
+</Callout>
+
+## Methods
+
+### `.saveScore(score)`
+
+Saves the player's score to the server.
+
+<Callout type="warning">
+    The score is saved as an **Integer**, so when designing the score system, ensure it is calculated as an **Integer**.
+</Callout>
+
+### `.show()`
+
+Shows the ranking. The current player's score is shown at the top of the leaderboard.
+
+### `.hide()`
+
+Hides the ranking. Once the ranking is shown, other GUIs cannot be clicked until it is closed by pressing the close (X) button. You can use `setTimeout()` to automatically hide the ranking after a few seconds if desired.
+
+## Example
+
+```js showLineNumbers copy filename="rank-button" {3}
+// This Button shows the ranking
+this.onClick(() => {
+    REDBRICK.Rank.show();
+});
+```
+
+```js showLineNumbers copy filename="game-manager" {4}
+// This Function saves the score as Integer.
+function onGameEnd() {
+    // ...
+    REDBRICK.Rank.saveScore(score);
+}
+```
+
+<br/>
+You can use `.hide()` as follows
+
+```js showLineNumbers copy filename="rank-button_auto-hide" {3,5}
+// This Button shows the ranking and hides after 1 sec
+this.onClick(() => {
+    REDBRICK.Rank.show();
+    setTimeout(() => {
+        REDBRICK.Rank.hide();
+    }, 1000);
+});
+```
