@@ -1,119 +1,158 @@
-import { Steps, Callout } from "nextra/components";
+import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
 
-## Update
+# Update Notes
 
-### Update Date: `2024/07/24`
+> Covers newly updated content.
 
-#### Additional Changes
+---
 
-- Added "MOUSE_LOCK" mode to the [`.useTPV()`](../script/api/perspective-camera#usetpv) method  
-  The `useTPV()` method, which sets up a third-person view, now includes the "MOUSE_LOCK" mode.  
-  This mode allows the camera to rotate simply by moving the mouse, as shown in the images below.  
-  Additionally, this mode enables customization of camera settings.
+# 2024
+<Tabs items={[
+  '11.07',
+  '07.24',
+  '05.30',
+  '01.25(v1.1.1)',
+]} defaultIndex="0">
+  <Tabs.Tab>
+    ### _Main Features_
 
-  <Callout type="info">
-  NORMAL mode vs. MOUSE_LOCK mode  
-  <br/>
-  | NORMAL | MOUSE_LOCK |
-  |:------------------:|:---------------------:|
-  | ![](../../../images/useTPV-normal-mode.gif) | ![](../../../images/useTPV-mouse-lock-mode.gif) |
-  </Callout>
-<br/>
+    - Creator Page and Redbrick Studio Redesign
+      <Tabs items={['Creator Page', 'Redbrick Studio']}>
+        <Tabs.Tab>
+          ![updates_creator](/images/appendix/updates/2024/updates_creator.png)
+        </Tabs.Tab>
+        <Tabs.Tab>
+          ![updates_engine](/images/appendix/updates/2024/updates_engine.png)
+        </Tabs.Tab>
+      </Tabs>
+      <br/>
+      <Cards.Card title="View Redesign Details" href="/en/engine/operate" arrow style={{width:'50%'}}/>
+      <br/>
+    - Various sample games have been added as templates. You can quickly create your own game using these samples.<br/>
+      <br/>
+      ![updates_sample-game](/images/appendix/updates/2024/updates_sample-game.png)
+      <br/>
+    - Added Replace and Rank functions.
+      <Tabs items={['Replace', 'Rank']}>
+        <Tabs.Tab>
+          Easily replace assets.<br/>
+          ![3d-replace](/images/engine/replace-asset/replace-asset_3d-replace.gif)
+        </Tabs.Tab>
+        <Tabs.Tab>
+          Easily integrate a ranking system.<br/>
+          ![redbrick_rank-result](/images/script/built-in/redbrick/redbrick_rank-result.png)
+        </Tabs.Tab>
+      </Tabs>
+      <br/>
+    - Unity WebGL import function added. Share games created in Unity on the Redbrick platform.<br/>
+      <br/>
+      <Cards.Card title="Learn about Unity WebGL import" href="/en/faq/unity" arrow style={{width:'50%'}}/>
+      
+    ### _Other Features_
+    - Delete objects by selecting them and pressing Delete (Backspace).
+    - A new version of the [Tutorial Video](https://youtube.com/playlist?list=PLSbSaH8fJFbhxE49jz_VqhyUrX6f76Cdq&feature=shared) is now available.
+    - Added content on [TWEEN](/en/snippet/tween/beginner) in the Snippets section.
+    - Snippets are now categorized and organized by topic.
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ### _Main Features_
 
-- Added a falling animation for the RPM avatar.
-<br/>
-<center>
-  ![](../../../images/rpm-falling-animation.gif)  
-</center>
-<br/>
+    - Added "MOUSE_LOCK" mode to [`.useTPV()`](/en/script/api/perspective-camera#usetpv) method  
+      This mode allows you to rotate the camera simply by moving the mouse, as shown below. This also enables customizing camera settings.
+      <Table>
+        <thead>
+          <Tr>
+            <Th style={{textAlign:'center'}}>NORMAL</Th>
+            <Th style={{textAlign:'center'}}>MOUSE_LOCK</Th>
+          </Tr>
+        </thead>
+        <tbody>
+          <Tr>
+            <Td>![perspective-camera_useTPV-normal-mode](/images/script/api/perspective-camera/perspective-camera_useTPV-normal-mode.gif)</Td>
+            <Td>![perspective-camera_useTPV-mouse-lock-mode](/images/script/api/perspective-camera/perspective-camera_useTPV-mouse-lock-mode.gif)</Td>
+          </Tr>
+        </tbody>
+      </Table>
 
-- Added code formatting functionality to the script editor.
-<br/>
-<center>
-  ![](../../../images/code-formatter.gif)
-</center>
+    ### _Other Features_
 
-- Added various [snippet examples](../snippet/management-multiple-similar-objects.mdx) to the wiki.
+    - Added falling animation for RPM avatars / Added code formatting in the script editor.<br/>
+      <br/>
+      <table style={{ borderCollapse: 'collapse' }}>
+        <tbody>
+          <tr>
+            <td><img src='/images/appendix/updates/2024/updates_rpm-falling-animation.gif' alt='rpm-falling-animation' loading="lazy" decoding="async" style={{width: '100%'}}/></td>
+            <td><img src='/images/appendix/updates/2024/updates_code-formatter.gif' alt='code-formatter' loading="lazy" decoding="async" style={{width: '100%'}}/></td>
+          </tr>
+        </tbody>
+      </table>
+    - Added various [snippet examples](/en/snippet/redbrick-extension/spawn) to the wiki.
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ### _Main Features_
 
-### Updated on `2024/05/30`
+    - Added player jump height control function [`.changePlayerJumpHeight`](../script/api/avatar#changeplayerjumpheight)
+    - Added cloning feature with the built-in method [`.cloneWithMethods()`](../script/api/object3d#clonewithmethods) for easily duplicating objects
+    - Camera updates
+      - Added camera switch API [`.activate()`](../script/api/perspective-camera#activate) to automatically activate the selected camera and deactivate others.
+      - Added first-person perspective camera API [`.useFPS()`](../script/api/perspective-camera#usefps).
+      - Added third-person perspective camera API [`.useTPV()`](../script/api/perspective-camera#usetpv).
+      - Added VR mode camera API [`.useVR({ VRObject: PLAYER })`](../script/api/perspective-camera#usevr).
+    - OOBC (Out of Bounds Control)
+      - Added respawn function for OOBC
+      - Added OOBC GUI control (kill, respawn, teleport, etc.)
+      - Added text setting function `setText` to GUI
+      - Added sprite thumbnail support for OOBC
 
-<Steps>
+    ### _Other Features_
 
-#### Additions
+    - Adjusted avatar name tag sprite to follow the active camera correctly
+    - Updated avatar WASD movement to follow the active camera accurately
+    - Limited max/min range of orbit controls to avoid mouse issues
+    - Adjusted code editor's auto-completion functionality
+    - Updated AI Assistant (GPT) UI
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ### _Main Features_
 
-- Added control for player jump height using [`.changePlayerJumpHeight`](../script/api/avatar#changeplayerjumpheight).
-- Introduced a clone feature to easily duplicate objects with the built-in method [`.cloneWithMethods()`](../script/api/object3d#clonewithmethods).
-- Camera
-  - Introduced a camera switch API with [`.activate()`](../script/api/perspective-camera#activate), which automatically enables the corresponding camera and disables all other cameras.
-  - Added camera api to switch to first-person view [`.useFPS()`](../script/api/perspective-camera#usefps).
-  - Added camera api to switch to third-person view, [`.useTPV()`](../script/api/perspective-camera#usetpv).
-  - Added camera api to switch to VR, [`.useVR({ VRObject: PLAYER })`](../script/api/perspective-camera#usevr).
-- OOBC
-  - Added OOBC revive functionality.
-  - Added GUI control for OOBC, including options for kill, revive, and move.
-  - Added `setText` method to GUI for OOBC.
-  - Added sprite thumbnail support for OOBC.
+    - Documentation added for the [`PLAYER` global object](/en/script/start/global-objects#player)
+    - Documentation added for the [`GLOBAL` global object](/en/script/start/global-objects#global)
+    - Removed `async` functions from preset scripts.
 
-#### Improvements
-
-- Adjusted the avatar's nickname sprite to track the currently enabled camera correctly.
-- Corrected the avatar's WASD movement to follow the currently enabled camera accurately.
-- Limited the maximum and minimum range for orbit control to prevent mouse issues.
-- Fixed code editor autocomplete functionality.
-- Updated the AI Assistant (GPT) UI.
-
-</Steps>
-
-## Version 1.1.1 `RECENT`
-
-- Released on `2024/01/25`
-
-<Steps>
-### Additions
-
-#### Global objects
-
-- Added documentation for the [`PLAYER` global object](../script/start/global-objects#player)
-- Added documentation for the [`GLOBAL` global object](../script/start/global-objects#global)
-
-### Changes
-
-For detailed information, please click [here](../engine/content-type)
-
-#### Removal of `async` function in the Preset Script.
-
-```jsx copy filename="new Preset Script"
-const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
-const camera = WORLD.getObject("MainCamera");
-const followingCamera = avatar.setFollowingCamera(camera);
-avatar.setDefaultController();
-```
-
-</Steps>
-
-## Version 1.1.0
-
-<Steps>
-
-### Removed
-
-#### Global objects
-
-Removed the `PLAYER` global object
-
-### Changes
-
-Updated the Preset Script to remove async function.
-
-```jsx copy filename="version1.1.0 Preset Script"
-function Start() {
-  (async () => {
-    const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+    ```jsx copy filename="PresetScript-v1.1.1"
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
     const camera = WORLD.getObject("MainCamera");
     const followingCamera = avatar.setFollowingCamera(camera);
     avatar.setDefaultController();
-  })();
-}
-```
+    ```
 
-</Steps>
+    ### _Other Features_
+
+    For more details, click [here](/en/engine/content-type)
+  </Tabs.Tab>
+</Tabs>
+
+---
+
+# 2023
+
+<Tabs items={[ 'Legacy(v1.1.0)' ]} defaultIndex="0">
+  <Tabs.Tab>
+    ### _Main Features_
+
+    - Removed `PLAYER` global object
+
+    - Updated preset scripts to remove async functions.
+
+    ```jsx copy filename="PresetScript-v1.1.0"
+    function Start() {
+      (async () => {
+        const avatar = await REDBRICK.AvatarManager.createDefaultAvatar();
+        const camera = WORLD.getObject("MainCamera");
+        const followingCamera = avatar.setFollowingCamera(camera);
+        avatar.setDefaultController();
+      })();
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>

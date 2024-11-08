@@ -23,12 +23,4 @@ export default {
     title: "부록",
     type: "page",
   },
-  gpt: {
-    title: "GPT",
-    type: "page",
-  },
-  connect2024: {
-    title: "커넥트 2024",
-    type: "page",
-  },
 };
