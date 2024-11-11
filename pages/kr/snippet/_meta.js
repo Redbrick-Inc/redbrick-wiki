@@ -1,5 +1,5 @@
 export default {
-  'redbrick-extension' : '레드브릭 확장',
+  'redbrick-extension' : '레드브릭 API 익스텐션',
   'game-flow' : '게임 흐름',
   event : '이벤트',
   '3d-object' : '3D 오브젝트',
