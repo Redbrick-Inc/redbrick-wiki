@@ -1,0 +1,271 @@
+import { Steps } from "nextra/components";
+import { Callout } from "nextra/components";
+
+# 스핀 게임 만들기
+
+<center>
+    ![spin_game_full](/images/snippet/sample-game/spin-game/spin_game_full.gif)
+</center>
+
+<Steps>
+
+### 돌아다닐 맵과 움직일 오브젝트 생성하기
+
+Mesh 에셋의 sphere 오브젝트를 추가한 후 위치와 크기를 조절해줍니다.
+![spin_game_map](/images/snippet/sample-game/spin-game/spin_game_map.gif)
+
+플레이어 오브젝트의 경우 로테이션으로 위치가 옮겨질 수 있도록 빈 객체를 만들고 sphere를 추가한 후 위치를 조절해줍니다.
+이후 빈 객체의 이름을 player, sphere 객체의 이름을 body로 변경합니다.
+
+<Callout type="info">
+  아무 에셋이나 추가한 후 자식 객체를 제거해 빈 객체처럼 사용할 수 있습니다.
+</Callout>
+
+![spin_game_player](/images/snippet/sample-game/spin-game/spin_game_player.gif)
+
+메인 카메라가 player의 움직임을 쫓아가도록 player 객체 안으로 넣어줍니다.   
+이후 player 객체가 잘 보이도록 카메라의 위치와 각도를 조절해줍니다.
+![spin_game_camera](/images/snippet/sample-game/spin-game/spin_game_camera.gif)
+
+### 방향키에 맞춰 플레이어 객체가 움직이도록 스크립트 작성하기
+
+<Callout type="warning">
+먼저 메타버스로 프로젝트를 시작했다면 PresetScript에 있는 코드를 전부 지워줍니다.
+</Callout>
+
+a. OnKeyDown과 OnKeyUp 함수를 사용해 키보드 입력 처리를 해줍니다.      
+b. 입력된 정보를 바탕으로 플레이어 객체를 Rotate 해줍니다.
+
+```js showLineNumbers copy filename="Spin logic"
+const player = WORLD.getObject("player");
+const body = WORLD.getObject("body");
+const key_state = { w: false, a: false, s: false, d: false }; // 키 입력 상황을 저장할 배열
+
+const speed = 30; // player의 스피드
+let x_rotate = speed; 
+let z_rotate = 0; // 첫 시작시 자동으로 아래로 움직이도록 설정
+
+function Update(dt) {
+    player.rotate(dt * x_rotate, 0, dt * z_rotate); // rotate함수를 이용해 x값과 z값을 동시에 변경
+}
+
+function OnKeyDown(event) {
+    switch (event.code) {
+        case "KeyW":
+        case "ArrowUp":
+            x_rotate = -speed; // 위로 이동
+            key_state.w = true;
+            if (!key_state.a && !key_state.d) {
+                z_rotate = 0; // 자동으로 구르고 있었다면 더 이상 구르지 않도록
+            }
+            break;
+        case "KeyS":
+        case "ArrowDown":
+            x_rotate = speed; // 아래로 이동
+            key_state.s = true;
+            if (!key_state.a && !key_state.d) {
+                z_rotate = 0; // 자동으로 구르고 있었다면 더 이상 구르지 않도록
+            }
+            break;
+        case "KeyA":
+        case "ArrowLeft":
+            z_rotate = speed; // 왼쪽으로 이동
+            key_state.a = true;
+            if (!key_state.w && !key_state.s) {
+                x_rotate = 0; // 자동으로 구르고 있었다면 더 이상 구르지 않도록
+            }
+            break;
+        case "KeyD":
+        case "ArrowRight":
+            z_rotate = -speed; // 오른쪽으로 이동
+            key_state.d = true;
+            if (!key_state.w && !key_state.s) {
+                x_rotate = 0; // 자동으로 구르고 있었다면 더 이상 구르지 않도록
+            }
+            break;
+    }
+}
+
+function OnKeyUp(event) {
+    switch (event.code) {
+        case "KeyW":
+        case "ArrowUp":
+            key_state.w = false;
+            if (z_rotate !== 0 && x_rotate === -speed) {
+                x_rotate = 0; // 대각선으로 움직이고 있을때만 속도를 멈추고 아니라면 그대로 진행
+            }
+            if (key_state.s) {
+                x_rotate = speed; // 키를 뗐을 때 반대편 방향키가 눌려있다면 그 방향으로 변경
+            }
+            break;
+        case "KeyS":
+        case "ArrowDown":
+            key_state.s = false;
+            if (z_rotate !== 0 && x_rotate === speed) {
+                x_rotate = 0; // 대각선으로 움직이고 있을때만 속도를 멈추고 아니라면 그대로 진행
+            }
+            if (key_state.w) {
+                x_rotate = -speed; // 키를 뗐을 때 반대편 방향키가 눌려있다면 그 방향으로 변경
+            }
+            break;
+        case "KeyA":
+        case "ArrowLeft":
+            key_state.a = false;
+            if (x_rotate !== 0 && z_rotate === speed) {
+                z_rotate = 0; // 대각선으로 움직이고 있을때만 속도를 멈추고 아니라면 그대로 진행
+            }
+            if (key_state.d) {
+                z_rotate = -speed; // 키를 뗐을 때 반대편 방향키가 눌려있다면 그 방향으로 변경
+            }
+            break;
+        case "KeyD":
+        case "ArrowRight":
+            key_state.d = false;
+            if (x_rotate !== 0 && z_rotate === -speed) {
+                z_rotate = 0; // 대각선으로 움직이고 있을때만 속도를 멈추고 아니라면 그대로 진행
+            }
+            if (key_state.a) {
+                z_rotate = speed; // 키를 뗐을 때 반대편 방향키가 눌려있다면 그 방향으로 변경
+            }
+            break;
+    }
+}
+```
+
+<Callout type="info">
+  공이 절대 멈추지 않게 하면서 3개 이상의 키보드 입력을 처리해주는 방법입니다.
+</Callout>
+
+### 스페이스바로 점프하도록 스크립트 작성하기
+a. 카메라 객체를 받아옵니다.        
+b. key_state에 space를 추가하고 스페이스바 입력 상태를 처리합니다.      
+c. 플레이어 객체와 카메라를 move를 이용해 뛰어오르도록 함수를 만들어줍니다.     
+```js showLineNumbers copy filename="Jump logic"
+...
+const camera = WORLD.getObject("MainCamera");
+
+let jump_up; // 점프 실행시 올라가는 Timeout을 저장
+let jump_down; // 점프 실행시 내려가는 Timeout을 저장
+let is_jump = false; // 점프 실행 여부를 확인
+
+function Update(dt) {
+    ...
+    if (key_state.space && !is_jump) {
+        do_jump(); // 스페이스바가 눌려있고 점프 중이 아닐때만 점프를 실행
+    }
+}
+
+function OnKeyDown(event) {
+    switch (event.code) {
+        ...
+        case "Space":
+            key_state.space = true;
+            break;
+    }
+}
+
+function OnKeyUp(event) {
+    switch (event.code) {
+        ...
+        case "Space":
+            key_state.space = false;
+            break;
+    }
+}
+
+function do_jump() {
+    is_jump = true; // 점프 시작시 true로 변경
+    body.move(0, 3, 0, 0.5);
+    camera.move(0, 3, 0, 0.5); // 플레이어 body와 카메라의 y값을 변경
+    jump_up = setTimeout(() => { // 
+        body.move(0, -3, 0, 0.5);
+        camera.move(0, -3, 0, 0.5);
+        jump_down = setTimeout(() => {
+            is_jump = false; // 점프 종료시 false로 변경
+        }, 550)
+    }, 550)
+}
+```
+
+<Callout type="info">
+  Timeout이나 Interval을 객체로 받아주면 추후 초기화나 중복 방지에 용이합니다.
+</Callout>
+
+### 플레이어를 따라 생성될 트레일 오브젝트 생성하기
+플레이어 객체를 복사한 후 카메라를 제거하고 객체 이름을 각각 'trail', 'trail_body'로 변경합니다.
+![spin_game_trail](/images/snippet/sample-game/spin-game/spin_game_trail.gif)
+
+### 트레일 객체를 클래스화하고 플레이어 위치에 계속해서 생성되도록 스크립트 작성하기
+a. trail, trail_body 오브젝트를 받아옵니다.     
+b. trail 클래스를 만들고 객체와 위치정보를 생성자로 지정합니다.     
+c. 클론 갯수를 지정해두고 클론을 생성한 후 클래스로 변환해 저장합니다.      
+d. 일정 시간마다 trail 클론을 플레이어 위치에 생성합니다.       
+
+```js showLineNumbers copy filename="Trail logic"
+const trail = WORLD.getObject("trail");
+const trail_body = WORLD.getObject("trail_body");
+const max_trail = 40; // 클론의 최대 갯수 지정
+const trails = []; // 클론 저장
+
+let now_trail = 0; // 현재 소환한 클론 번호
+let trail_interval;
+
+function Start() {
+    for (let i = 0; i < max_trail; i++) { // 사용할 만큼의 클론을 미리 생성
+        const trail_clone = trail.cloneWithMethods();
+        WORLD.add(trail_clone); 
+        trails.push(new Trail(trail_clone)); // 클론의 클래스화
+    }
+    
+    make_trail();
+}
+// 0.1초마다 트레일을 플레이어 위치에 남기는 함수
+function make_trail() {
+    trail_interval = setInterval(() => {
+        trails[now].spawn_trail();
+        now++;
+        if (now_trail === max_trail) {
+            now_trail = 0;
+        }
+    }, 100)
+}
+
+class Trail {
+    constructor(object) {
+        this.object = object;
+        this.trail_position = new THREE.Vector3();
+        this.timeout;
+    }
+
+    spawn_trail() {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
+
+        this.reset_trail();
+        // 트레일과 바디의 위치를 플레이어에 맞게 설정
+        this.object.position.copy(player.position);
+        this.object.rotation.copy(player.rotation);
+        this.object.children[0].position.copy(player_body.position);
+        this.object.children[0].rotation.copy(player_body.rotation);
+        this.object.children[0].getWorldPosition(this.trail_position);
+
+        // 4초가 지나면 사라지도록
+        this.timeout = setTimeout(() => {
+            this.reset_trail();
+        }, 4000)
+    }
+
+    // 오브젝트를 먼 곳으로 보내 World에서 삭제한 것처럼 하기
+    reset_trail() {
+        this.object.position.set(0, 300, 0);
+    }
+}
+```
+
+<Callout type="info">
+  추후 거리 계산에 쓰기 위해 `trail_body`를 `getWorldPosition`으로 받아둡니다.      
+  `player_body` 역시 `getWorldPosition`으로 받아와 비교할 수 있습니다.
+</Callout>
+
+</Steps>

@@ -1,0 +1,273 @@
+import { Steps } from "nextra/components";
+import { Callout } from "nextra/components";
+
+# How to create spin game
+
+<center>
+    ![spin_game_full](/images/snippet/sample-game/spin-game/spin_game_full.gif)
+</center>
+
+<Steps>
+
+### Creating the Map and Objects for Movement
+
+Add a sphere object from the Mesh assets, then adjust its position and size as needed.
+![spin_game_map](/images/snippet/sample-game/spin-game/spin_game_map.gif)
+
+For the player object, create an empty object to enable movement via rotation.          
+Add a sphere to this empty object and adjust its position.      
+Rename the empty object to "player" and the sphere object to "body."
+
+<Callout type="info">
+  You can add any asset and remove its child objects to use it as an empty object.
+</Callout>
+
+![spin_game_player](/images/snippet/sample-game/spin-game/spin_game_player.gif)
+
+Attach the main camera to the player object so it follows the player's movements.       
+Adjust the camera's position and angle to ensure a clear view of the player.
+![spin_game_camera](/images/snippet/sample-game/spin-game/spin_game_camera.gif)
+
+### Writing a Script for Player Movement Using Arrow Keys
+
+<Callout type="warning">
+If you started the project in Metaverse, delete all the code in the PresetScript first.
+</Callout>
+
+a. Use the OnKeyDown and OnKeyUp functions to handle keyboard input.            
+b. Rotate the player object based on the input data.
+
+```js showLineNumbers copy filename="Spin logic"
+const player = WORLD.getObject("player");
+const body = WORLD.getObject("body");
+const key_state = { w: false, a: false, s: false, d: false }; // Array to store key input states
+
+const speed = 30; // Player's speed
+let x_rotate = speed; 
+let z_rotate = 0; // Initial setting to automatically move downward
+
+function Update(dt) {
+    player.rotate(dt * x_rotate, 0, dt * z_rotate); // Adjust both x and z values simultaneously using the rotate function
+}
+
+function OnKeyDown(event) {
+    switch (event.code) {
+        case "KeyW":
+        case "ArrowUp":
+            x_rotate = -speed; // Move up
+            key_state.w = true;
+            if (!key_state.a && !key_state.d) {
+                z_rotate = 0; // Stop auto-rolling if applicable
+            }
+            break;
+        case "KeyS":
+        case "ArrowDown":
+            x_rotate = speed; // Move down
+            key_state.s = true;
+            if (!key_state.a && !key_state.d) {
+                z_rotate = 0; // Stop auto-rolling if applicable
+            }
+            break;
+        case "KeyA":
+        case "ArrowLeft":
+            z_rotate = speed; // Move left
+            key_state.a = true;
+            if (!key_state.w && !key_state.s) {
+                x_rotate = 0; // Stop auto-rolling if applicable
+            }
+            break;
+        case "KeyD":
+        case "ArrowRight":
+            z_rotate = -speed; // Move right
+            key_state.d = true;
+            if (!key_state.w && !key_state.s) {
+                x_rotate = 0; // Stop auto-rolling if applicable
+            }
+            break;
+    }
+}
+
+function OnKeyUp(event) {
+    switch (event.code) {
+        case "KeyW":
+        case "ArrowUp":
+            key_state.w = false;
+            if (z_rotate !== 0 && x_rotate === -speed) {
+                x_rotate = 0; // Only stop if moving diagonally, otherwise continue
+            }
+            if (key_state.s) {
+                x_rotate = speed; // Adjust to the opposite direction if that key is pressed
+            }
+            break;
+        case "KeyS":
+        case "ArrowDown":
+            key_state.s = false;
+            if (z_rotate !== 0 && x_rotate === speed) {
+                x_rotate = 0;
+            }
+            if (key_state.w) {
+                x_rotate = -speed;
+            }
+            break;
+        case "KeyA":
+        case "ArrowLeft":
+            key_state.a = false;
+            if (x_rotate !== 0 && z_rotate === speed) {
+                z_rotate = 0;
+            }
+            if (key_state.d) {
+                z_rotate = -speed;
+            }
+            break;
+        case "KeyD":
+        case "ArrowRight":
+            key_state.d = false;
+            if (x_rotate !== 0 && z_rotate === -speed) {
+                z_rotate = 0;
+            }
+            if (key_state.a) {
+                z_rotate = speed;
+            }
+            break;
+    }
+}
+```
+
+<Callout type="info">
+  This method keeps the ball from stopping entirely while allowing up to three simultaneous key inputs. 
+</Callout>
+
+### Writing a Script to Jump Using the Spacebar
+a. Retrieve the camera object.      
+b. Add space to key_state and handle the Spacebar input.         
+c. Create a function to move the player object and camera to simulate jumping.
+```js showLineNumbers copy filename="Jump logic"
+...
+const camera = WORLD.getObject("MainCamera");
+
+let jump_up; // Timeout for jump-up movement
+let jump_down; // Timeout for jump-down movement
+let is_jump = false; // Check if jumping
+
+function Update(dt) {
+    ...
+    if (key_state.space && !is_jump) {
+        do_jump(); // Only jump if Spacebar is pressed and not already jumping
+    }
+}
+
+function OnKeyDown(event) {
+    switch (event.code) {
+        ...
+        case "Space":
+            key_state.space = true;
+            break;
+    }
+}
+
+function OnKeyUp(event) {
+    switch (event.code) {
+        ...
+        case "Space":
+            key_state.space = false;
+            break;
+    }
+}
+
+function do_jump() {
+    is_jump = true; // Set to true at the start of the jump
+    body.move(0, 3, 0, 0.5);
+    camera.move(0, 3, 0, 0.5); // Adjust y-value of both player body and camera
+    jump_up = setTimeout(() => { 
+        body.move(0, -3, 0, 0.5);
+        camera.move(0, -3, 0, 0.5);
+        jump_down = setTimeout(() => {
+            is_jump = false; // Set back to false after jump ends
+        }, 550)
+    }, 550)
+}
+```
+
+<Callout type="info">
+  Storing Timeouts or Intervals as objects can help with clearing or preventing duplication.
+</Callout>
+
+### Creating a Trail Object to Follow the Player
+Copy the player object, remove the camera, and rename the objects to trail and trail_body, respectively.
+![spin_game_trail](/images/snippet/sample-game/spin-game/spin_game_trail.gif)
+
+### Creating a Trail Class and Writing a Script to Continuously Generate Trails at the Player’s Position
+a. Retrieve the trail and trail_body objects.           
+b. Create a Trail class and set the object and position information in the constructor.             
+c. Specify the number of clones, create them, and store them as instances of the Trail class.             
+d. Generate trail clones at the player’s position at regular intervals.
+
+```js showLineNumbers copy filename="Trail logic"
+const trail = WORLD.getObject("trail");
+const trail_body = WORLD.getObject("trail_body");
+const max_trail = 40; // Set maximum number of clones
+const trails = []; // Store clones
+
+let now_trail = 0; // Current clone number
+let trail_interval;
+
+function Start() {
+    for (let i = 0; i < max_trail; i++) { // Pre-generate clones as needed
+        const trail_clone = trail.cloneWithMethods();
+        WORLD.add(trail_clone); 
+        trails.push(new Trail(trail_clone)); // Classify clones
+    }
+    
+    make_trail();
+}
+
+// Function to leave trails at the player's position every 0.1 seconds
+function make_trail() {
+    trail_interval = setInterval(() => {
+        trails[now_trail].spawn_trail();
+        now_trail++;
+        if (now_trail === max_trail) {
+            now_trail = 0;
+        }
+    }, 100)
+}
+
+class Trail {
+    constructor(object) {
+        this.object = object;
+        this.trail_position = new THREE.Vector3();
+        this.timeout;
+    }
+
+    spawn_trail() {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
+
+        this.reset_trail();
+        // Match the trail and body positions to the player's
+        this.object.position.copy(player.position);
+        this.object.rotation.copy(player.rotation);
+        this.object.children[0].position.copy(player_body.position);
+        this.object.children[0].rotation.copy(player_body.rotation);
+        this.object.children[0].getWorldPosition(this.trail_position);
+
+        // Disappear after 4 seconds
+        this.timeout = setTimeout(() => {
+            this.reset_trail();
+        }, 4000)
+    }
+
+    // Move the object far away to simulate removal from the World
+    reset_trail() {
+        this.object.position.set(0, 300, 0);
+    }
+}
+```
+
+<Callout type="info">
+`getWorldPosition` allows for future distance calculations with `trail_body`.       
+`player_body` can also be used with `getWorldPosition` for comparison.
+</Callout>
+
+</Steps>
