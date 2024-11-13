@@ -15,8 +15,8 @@
     "@svgr/webpack": "^8.1.0",
     "mdx-embed": "^1.1.2",
     "next": "^14.0.4",
-    "nextra": "^3.0.0-alpha.11",
-    "nextra-theme-docs": "^3.0.0-alpha.11",
+    "nextra": "3.2.3",
+    "nextra-theme-docs": "3.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.33.1"
