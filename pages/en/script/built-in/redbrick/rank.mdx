@@ -1,8 +1,10 @@
+Here's the updated content with the new section added at the bottom:
+
 import { Callout } from "nextra/components";
 
 # Rank
 
-> A module that allows you to save player scores and show rankings (leaderboards).
+> A module that allows you to save player scores and show & get rankings (leaderboards).
 
 ---
 
@@ -28,10 +30,40 @@ Saves the player's score to the server.
     The score is saved as an **Integer**, so when designing the score system, ensure it is calculated as an **Integer**.
 </Callout>
 
-### `.show()`
+### `.show(options)`
 
-Shows the ranking in **descending order (from highest score to lowest)**. The current player's score is shown at the top of the leaderboard.
+Shows the ranking in the specified order. The current player's score is shown at the top of the leaderboard.
 
+#### Parameters:
+- `options` (optional): An object with the following properties:
+  - `theme` (string, optional): The visual theme for the ranking UI. Default is "default". 
+  - `type` (string, optional): The type of ranking display. Default is "default".
+
+#### Example Usage:
+
+```javascript
+// Show default ranking
+REDBRICK.Rank.show();
+
+// Show ranking with custom options
+REDBRICK.Rank.show({
+  type: "time",
+});
+```
+
+#### show with time type
+
+```javascript
+// Show ranking with timer/time option: hh:mm:ss
+REDBRICK.Rank.show({
+  type: "time",
+});
+```
+<br/>
+<center>
+    ![redbrick_rank-result](/images/script/built-in/redbrick/redbrick_rank-time.png)
+</center>
+<br/>
 ### `.hide()`
 
 Hides the ranking. Once the ranking is shown, other GUIs cannot be clicked until it is closed by pressing the close (X) button. You can use `setTimeout()` to automatically hide the ranking after a few seconds if desired.
@@ -64,4 +96,88 @@ this.onClick(() => {
         REDBRICK.Rank.hide();
     }, 1000);
 });
+```
+
+<br/>
+### Fetching My Rank
+
+#### `getMyRank()`
+
+An asynchronous function that retrieves the current user's rank information.
+
+```javascript
+async function fetchMyRank() {
+  const myRank = await REDBRICK.Rank.getMyRank();
+  return myRank;
+}
+```
+<Callout type="warning">
+    `getMyRank()` is `asynchronous` function and should be used with `await` or `.then()`.
+</Callout>
+
+##### Return Value:
+Returns a JSON object with the user's rank information, or an empty object if the score doesn't exist.
+
+##### Example Response:
+```json
+{
+  "id": 21,
+  "pid": "pid of the game",
+  "score": 24,
+  "rank": 1,
+  "username": "username",
+  "avatar": "avatar_url"
+}
+```
+
+### Fetching All Ranks
+
+#### `getAllRank(options)`
+
+An asynchronous function that retrieves the ranking information for all users.
+
+```javascript
+async function fetchAllRanks() {
+  // fetches 100 top users by default when options isn't passed
+  const allRanks = await REDBRICK.Rank.getAllRank();
+  return allRanks;
+}
+```
+<Callout type="warning">
+    `getAllRank()` is `asynchronous` function and should be used with `await` or `.then()`.
+</Callout>
+
+##### Parameters:
+- `options` (optional): An object with a `take` property to specify the number of top ranks to retrieve. Default is 100.
+
+##### Example Usage:
+```javascript
+// Fetch top 10 ranks
+const top10Ranks = await fetchAllRanks({ take: 10 });
+```
+
+##### Return Value:
+Returns an array of JSON objects, each containing a user's rank information.
+
+##### Example Response:
+```json
+[
+  {
+    "id": 21,
+    "pid": "pid of the game",
+    "score": 24,
+    "rank": 1,
+    "username": "username",
+    "avatar": "avatar_url"
+  },
+  {
+    "id": 22,
+    "pid": "pid of the game",
+    "score": 21,
+    "rank": 2,
+    "username": "username2",
+    "avatar": "avatar_url"
+  },
+  // ... more rank entries
+]
 ```
