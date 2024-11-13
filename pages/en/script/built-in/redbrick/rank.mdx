@@ -36,8 +36,19 @@ Shows the ranking in the specified order. The current player's score is shown at
 
 #### Parameters:
 - `options` (optional): An object with the following properties:
-  - `theme` (string, optional): The visual theme for the ranking UI. Default is "default". 
-  - `type` (string, optional): The type of ranking display. Default is "default".
+  - `theme` (string, optional): The visual theme for the ranking UI. 
+  - `type` (string, optional): The type of ranking display. 
+  - `order` (string, optional): The order of ranking display
+
+<Callout type="info">
+  Currently, there is only default type of `theme` for ranking UI, but more will be added in the future.
+</Callout>
+<Callout type="info">
+  `time` option is available along with `default` type. More will be added in the future
+</Callout>
+<Callout type="info">
+  By default ranking displayed in `ASC` order. Also, `DESC` order is available.
+</Callout>
 
 #### Example Usage:
 
@@ -51,10 +62,9 @@ REDBRICK.Rank.show({
 });
 ```
 
-#### show with time type
+Display ranking with **time** option: **hh:mm:ss**
 
 ```javascript
-// Show ranking with timer/time option: hh:mm:ss
 REDBRICK.Rank.show({
   type: "time",
 });
@@ -63,6 +73,15 @@ REDBRICK.Rank.show({
 <center>
     ![redbrick_rank-result](/images/script/built-in/redbrick/redbrick_rank-time.png)
 </center>
+
+Display the ranking in **time** type and **ascending** order.
+
+```javascript
+REDBRICK.Rank.show({
+  type: "time",
+  order: "DESC"
+});
+```
 <br/>
 ### `.hide()`
 
@@ -112,7 +131,7 @@ async function fetchMyRank() {
 }
 ```
 <Callout type="warning">
-    `getMyRank()` is `asynchronous` function and should be used with `await` or `.then()`.
+    **getMyRank()** is **asynchronous** function and should be used with **await** or **.then()**.
 </Callout>
 
 ##### Return Value:
@@ -144,7 +163,7 @@ async function fetchAllRanks() {
 }
 ```
 <Callout type="warning">
-    `getAllRank()` is `asynchronous` function and should be used with `await` or `.then()`.
+    **getAllRank()** is **asynchronous** function and should be used with **await** or **.then()**.
 </Callout>
 
 ##### Parameters:
