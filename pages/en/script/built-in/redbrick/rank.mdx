@@ -22,13 +22,48 @@ This class is used to save player scores and show rankings for each game.
 
 ## Methods
 
-### `.saveScore(score)`
+### `.saveScore(options)`
 
 Saves the player's score to the server.
+
+#### Parameters
+
+`options` (Object): An object containing the following properties:
+
+- `score` (Integer): The player's score to be saved.
+- `order` (String, optional): The order in which scores should be ranked. Can be either "ASC" (ascending) or "DESC" (descending). Defaults to "ASC" if not specified.
 
 <Callout type="warning">
     The score is saved as an **Integer**, so when designing the score system, ensure it is calculated as an **Integer**.
 </Callout>
+
+#### Returns
+
+Promise: A promise that resolves when the score is successfully saved.
+
+#### Examples
+
+```javascript
+// Save a score with default ascending order
+REDBRICK.Rank.saveScore({ score: 10 });
+
+// Save a score with descending order
+REDBRICK.Rank.saveScore({ score: 10, order: "DESC" });
+
+// Save a score with explicitly set ascending order
+REDBRICK.Rank.saveScore({ score: 10, order: "ASC" });
+```
+
+#### Notes
+
+- If the `order` parameter is not provided, the score will be saved with ascending order ("ASC").
+- When retrieving scores, they will be ordered according to the `order` parameter specified when saving.
+
+<Callout type="info">
+    It's recommended to consistently use the same `order` for all score saves within a game to ensure proper ranking.
+</Callout>
+
+<br/>
 
 ### `.show(options)`
 
