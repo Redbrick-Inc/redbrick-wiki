@@ -10,7 +10,7 @@ import { Callout } from "nextra/components";
 
 <br/>
 <center>
-    ![redbrick_rank-result](/images/script/built-in/redbrick/redbrick_rank-result.png)
+    redbrick_rank-result
     [What The Frog 랭킹](https://redbrick.land/detail-play?pid=dbc573d8-29f8-4065-a9f4-ac7fa98e40b0)
 </center>
 
@@ -20,33 +20,121 @@ import { Callout } from "nextra/components";
 
 ## 메소드
 
-### `.saveScore(score)`
+### `.saveScore(options)`
 
 플레이어의 점수를 서버에 저장합니다.
 
+#### 매개변수
+
+`options` (객체): 다음 속성을 포함하는 객체:
+
+- `score` (정수): 저장할 플레이어의 점수.
+- `order` (문자열, 선택사항): 점수 정렬 순서. "ASC" (오름차순) 또는 "DESC" (내림차순)이 가능합니다. 지정하지 않으면 기본값은 "ASC"입니다.
+
 <Callout type="warning">
-    score는 **정수**로 변환되어 저장되므로, 점수를 설계할 때 **정수**로 계산되도록 고려해야 합니다.
+    점수는 **정수**로 저장되므로, 점수 시스템을 설계할 때 **정수**로 계산되도록 고려해야 합니다.
 </Callout>
 
-### `.show()`
+#### 반환값
 
-랭킹을 <strong>내림차순(높은 점수부터 낮은 점수 순으로)</strong>으로 보여줍니다. 최상위에 현재 플레이하고 있는 플레이어의 점수가 표시됩니다.
+Promise: 점수가 성공적으로 저장되면 해결되는 프로미스.
+
+#### 예시
+
+```javascript
+// 기본 오름차순으로 점수 저장
+REDBRICK.Rank.saveScore({ score: 10 });
+
+// 내림차순으로 점수 저장
+REDBRICK.Rank.saveScore({ score: 10, order: "DESC" });
+
+// 명시적으로 오름차순 설정하여 점수 저장
+REDBRICK.Rank.saveScore({ score: 10, order: "ASC" });
+```
+
+#### 참고사항
+
+- `order` 매개변수를 제공하지 않으면 점수는 오름차순("ASC")으로 저장됩니다.
+- 점수를 검색할 때는 저장 시 지정한 `order` 매개변수에 따라 정렬됩니다.
+
+<Callout type="info">
+    적절한 랭킹을 보장하기 위해 게임 내에서 모든 점수 저장에 동일한 `order`를 일관되게 사용하는 것이 좋습니다.
+</Callout>
+<Callout type="info">
+    정렬 순서는 데이터베이스에 별도로 저장됩니다. `order: "ASC"`로 저장된 점수는 `show({order: "DESC"})`로 검색할 수 없으며, 그 반대의 경우도 마찬가지입니다.
+</Callout>
+
+<br/>
+
+### `.show(options)`
+
+지정된 순서로 랭킹을 보여줍니다. 현재 플레이어의 점수가 리더보드 상단에 표시됩니다.
+
+#### 매개변수:
+- `options` (선택사항): 다음 속성을 포함하는 객체:
+  - `theme` (문자열, 선택사항): 랭킹 UI의 시각적 테마. 
+  - `type` (문자열, 선택사항): 랭킹 표시 유형. 
+  - `order` (문자열, 선택사항): 랭킹 표시 순서
+
+<Callout type="info">
+  현재는 랭킹 UI의 `theme`가 기본 유형 하나만 있지만, 추후 더 추가될 예정입니다.
+</Callout>
+<Callout type="info">
+  `default` 유형과 함께 `time` 옵션을 사용할 수 있습니다. 추후 더 많은 옵션이 추가될 예정입니다.
+</Callout>
+<Callout type="info">
+  기본적으로 랭킹은 `ASC` 순서로 표시됩니다. `DESC` 순서도 사용 가능합니다.
+</Callout>
+
+#### 사용 예시:
+
+```javascript
+// 기본 랭킹 표시
+REDBRICK.Rank.show();
+
+// 사용자 지정 옵션으로 랭킹 표시
+REDBRICK.Rank.show({
+  type: "time",
+});
+```
+
+**time** 옵션으로 랭킹 표시: **hh:mm:ss**
+
+```javascript
+REDBRICK.Rank.show({
+  type: "time",
+});
+```
+<br/>
+<center>
+    ![redbrick_rank-result](/images/script/built-in/redbrick/redbrick_rank-time.png)
+</center>
+
+**time** 유형과 **내림차순** 순서로 랭킹 표시.
+
+```javascript
+REDBRICK.Rank.show({
+  type: "time",
+  order: "DESC"
+});
+```
+<br/>
 
 ### `.hide()`
 
-랭킹을 숨깁니다. 랭킹이 보여지면 닫기(X)를 눌러서 끄기 전까지 다른 GUI가 클릭되진 않지만, `setTimeout()`을 사용하여 몇 초 뒤에 자동으로 끄고 싶다면 사용할 수 있습니다.
+랭킹을 숨깁니다. 랭킹이 표시되면 닫기(X) 버튼을 눌러 닫기 전까지 다른 GUI를 클릭할 수 없습니다. 원하는 경우 `setTimeout()`을 사용하여 몇 초 후에 자동으로 랭킹을 숨길 수 있습니다.
 
 ## 예시
 
 ```js showLineNumbers copy filename="rank-button" {3}
-// This Button shows the ranking
+// 이 버튼은 랭킹을 보여줍니다
 this.onClick(() => {
     REDBRICK.Rank.show();
 });
 ```
 
 ```js showLineNumbers copy filename="game-manager" {4}
-// This Function saves the score as Integer.
+// 이 함수는 점수를 정수로 저장합니다
 function onGameEnd() {
     // ...
     REDBRICK.Rank.saveScore(score);
@@ -54,14 +142,98 @@ function onGameEnd() {
 ```
 
 <br/>
-`.hide()`를 아래와 같이 사용할 수 있습니다.
+`.hide()`는 다음과 같이 사용할 수 있습니다
 
 ```js showLineNumbers copy filename="rank-button_auto-hide" {3,5}
-// This Button shows the ranking and hides after 1 sec
+// 이 버튼은 랭킹을 보여주고 1초 후에 숨깁니다
 this.onClick(() => {
     REDBRICK.Rank.show();
     setTimeout(() => {
         REDBRICK.Rank.hide();
     }, 1000);
 });
+```
+
+<br/>
+### 내 랭킹 가져오기
+
+#### `getMyRank()`
+
+현재 사용자의 랭킹 정보를 가져오는 비동기 함수입니다.
+
+```javascript
+async function fetchMyRank() {
+  const myRank = await REDBRICK.Rank.getMyRank();
+  return myRank;
+}
+```
+<Callout type="warning">
+    **getMyRank()**는 **비동기** 함수이며 **await** 또는 **.then()**과 함께 사용해야 합니다.
+</Callout>
+
+##### 반환값:
+사용자의 랭킹 정보가 포함된 JSON 객체를 반환하며, 점수가 존재하지 않는 경우 빈 객체를 반환합니다.
+
+##### 응답 예시:
+```json
+{
+  "id": 21,
+  "pid": "게임의 pid",
+  "score": 24,
+  "rank": 1,
+  "username": "사용자명",
+  "avatar": "아바타_url"
+}
+```
+
+### 모든 랭킹 가져오기
+
+#### `getAllRank(options)`
+
+모든 사용자의 랭킹 정보를 가져오는 비동기 함수입니다.
+
+```javascript
+async function fetchAllRanks() {
+  // 옵션을 전달하지 않으면 기본적으로 상위 100명의 사용자를 가져옵니다
+  const allRanks = await REDBRICK.Rank.getAllRank();
+  return allRanks;
+}
+```
+<Callout type="warning">
+    **getAllRank()**는 **비동기** 함수이며 **await** 또는 **.then()**과 함께 사용해야 합니다.
+</Callout>
+
+##### 매개변수:
+- `options` (선택사항): 가져올 상위 랭킹 수를 지정하는 `take` 속성을 가진 객체. 기본값은 100입니다.
+
+##### 사용 예시:
+```javascript
+// 상위 10개 랭킹 가져오기
+const top10Ranks = await fetchAllRanks({ take: 10 });
+```
+
+##### 반환값:
+각 사용자의 랭킹 정보가 포함된 JSON 객체 배열을 반환합니다.
+
+##### 응답 예시:
+```json
+[
+  {
+    "id": 21,
+    "pid": "게임의 pid",
+    "score": 24,
+    "rank": 1,
+    "username": "사용자명",
+    "avatar": "아바타_url"
+  },
+  {
+    "id": 22,
+    "pid": "게임의 pid",
+    "score": 21,
+    "rank": 2,
+    "username": "사용자명2",
+    "avatar": "아바타_url"
+  },
+  // ... 더 많은 랭킹 항목
+]
 ```
