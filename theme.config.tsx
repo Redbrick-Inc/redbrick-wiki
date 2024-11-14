@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 import Logo from "./images/logo.svg";
 import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 
@@ -15,12 +14,10 @@ const config: DocsThemeConfig = {
   },
   head: function useHead() {
     const config = useConfig();
-    const { route } = useRouter();
-    const title = config.title + (route === "/" ? "" : " - Redbrick");
+    const title = (config.title || "Redbrick Wiki Guide") + " | Redbrick";
     const description =
       config.frontMatter.description ||
-      "Create your favorite games by using Redbrick Engine";
-
+      "Explore the comprehensive guide to Redbrick's tools and services";
     return (
       <>
         <title>{title}</title>
@@ -37,7 +34,6 @@ const config: DocsThemeConfig = {
   },
   feedback: {
     content: "",
-    // useLink: () => "https://discord.com/invite/redbrick-create",
   },
   footer: {
     content: `Copyright © ${new Date().getFullYear()} Redbrick Inc. All rights reserved`,
