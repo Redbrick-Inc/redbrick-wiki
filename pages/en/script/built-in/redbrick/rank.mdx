@@ -62,6 +62,9 @@ REDBRICK.Rank.saveScore({ score: 10, order: "ASC" });
 <Callout type="info">
     It's recommended to consistently use the same `order` for all score saves within a game to ensure proper ranking.
 </Callout>
+<Callout type="info">
+    Orders are saved separately in the database. Scores saved with `order: "ASC"` can't retrived with `show({order: "DESC"})` or vice versa,
+</Callout>
 
 <br/>
 
