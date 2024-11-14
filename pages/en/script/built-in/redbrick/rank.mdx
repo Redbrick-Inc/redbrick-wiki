@@ -1,8 +1,10 @@
+Here's the updated content with the new section added at the bottom:
+
 import { Callout } from "nextra/components";
 
 # Rank
 
-> A module that allows you to save player scores and show rankings (leaderboards).
+> A module that allows you to save player scores and show & get rankings (leaderboards).
 
 ---
 
@@ -20,18 +22,105 @@ This class is used to save player scores and show rankings for each game.
 
 ## Methods
 
-### `.saveScore(score)`
+### `.saveScore(options)`
 
 Saves the player's score to the server.
+
+#### Parameters
+
+`options` (Object): An object containing the following properties:
+
+- `score` (Integer): The player's score to be saved.
+- `order` (String, optional): The order in which scores should be ranked. Can be either "ASC" (ascending) or "DESC" (descending). Defaults to "ASC" if not specified.
 
 <Callout type="warning">
     The score is saved as an **Integer**, so when designing the score system, ensure it is calculated as an **Integer**.
 </Callout>
 
-### `.show()`
+#### Returns
 
-Shows the ranking in **descending order (from highest score to lowest)**. The current player's score is shown at the top of the leaderboard.
+Promise: A promise that resolves when the score is successfully saved.
 
+#### Examples
+
+```javascript
+// Save a score with default ascending order
+REDBRICK.Rank.saveScore({ score: 10 });
+
+// Save a score with descending order
+REDBRICK.Rank.saveScore({ score: 10, order: "DESC" });
+
+// Save a score with explicitly set ascending order
+REDBRICK.Rank.saveScore({ score: 10, order: "ASC" });
+```
+
+#### Notes
+
+- If the `order` parameter is not provided, the score will be saved with ascending order ("ASC").
+- When retrieving scores, they will be ordered according to the `order` parameter specified when saving.
+
+<Callout type="info">
+    It's recommended to consistently use the same `order` for all score saves within a game to ensure proper ranking.
+</Callout>
+<Callout type="info">
+    Orders are saved separately in the database. Scores saved with `order: "ASC"` can't retrived with `show({order: "DESC"})` or vice versa,
+</Callout>
+
+<br/>
+
+### `.show(options)`
+
+Shows the ranking in the specified order. The current player's score is shown at the top of the leaderboard.
+
+#### Parameters:
+- `options` (optional): An object with the following properties:
+  - `theme` (string, optional): The visual theme for the ranking UI. 
+  - `type` (string, optional): The type of ranking display. 
+  - `order` (string, optional): The order of ranking display
+
+<Callout type="info">
+  Currently, there is only default type of `theme` for ranking UI, but more will be added in the future.
+</Callout>
+<Callout type="info">
+  `time` option is available along with `default` type. More will be added in the future
+</Callout>
+<Callout type="info">
+  By default ranking displayed in `ASC` order. Also, `DESC` order is available.
+</Callout>
+
+#### Example Usage:
+
+```javascript
+// Show default ranking
+REDBRICK.Rank.show();
+
+// Show ranking with custom options
+REDBRICK.Rank.show({
+  type: "time",
+});
+```
+
+Display ranking with **time** option: **hh:mm:ss**
+
+```javascript
+REDBRICK.Rank.show({
+  type: "time",
+});
+```
+<br/>
+<center>
+    ![redbrick_rank-result](/images/script/built-in/redbrick/redbrick_rank-time.png)
+</center>
+
+Display the ranking in **time** type and **ascending** order.
+
+```javascript
+REDBRICK.Rank.show({
+  type: "time",
+  order: "DESC"
+});
+```
+<br/>
 ### `.hide()`
 
 Hides the ranking. Once the ranking is shown, other GUIs cannot be clicked until it is closed by pressing the close (X) button. You can use `setTimeout()` to automatically hide the ranking after a few seconds if desired.
@@ -64,4 +153,88 @@ this.onClick(() => {
         REDBRICK.Rank.hide();
     }, 1000);
 });
+```
+
+<br/>
+### Fetching My Rank
+
+#### `getMyRank()`
+
+An asynchronous function that retrieves the current user's rank information.
+
+```javascript
+async function fetchMyRank() {
+  const myRank = await REDBRICK.Rank.getMyRank();
+  return myRank;
+}
+```
+<Callout type="warning">
+    **getMyRank()** is **asynchronous** function and should be used with **await** or **.then()**.
+</Callout>
+
+##### Return Value:
+Returns a JSON object with the user's rank information, or an empty object if the score doesn't exist.
+
+##### Example Response:
+```json
+{
+  "id": 21,
+  "pid": "pid of the game",
+  "score": 24,
+  "rank": 1,
+  "username": "username",
+  "avatar": "avatar_url"
+}
+```
+
+### Fetching All Ranks
+
+#### `getAllRank(options)`
+
+An asynchronous function that retrieves the ranking information for all users.
+
+```javascript
+async function fetchAllRanks() {
+  // fetches 100 top users by default when options isn't passed
+  const allRanks = await REDBRICK.Rank.getAllRank();
+  return allRanks;
+}
+```
+<Callout type="warning">
+    **getAllRank()** is **asynchronous** function and should be used with **await** or **.then()**.
+</Callout>
+
+##### Parameters:
+- `options` (optional): An object with a `take` property to specify the number of top ranks to retrieve. Default is 100.
+
+##### Example Usage:
+```javascript
+// Fetch top 10 ranks
+const top10Ranks = await fetchAllRanks({ take: 10 });
+```
+
+##### Return Value:
+Returns an array of JSON objects, each containing a user's rank information.
+
+##### Example Response:
+```json
+[
+  {
+    "id": 21,
+    "pid": "pid of the game",
+    "score": 24,
+    "rank": 1,
+    "username": "username",
+    "avatar": "avatar_url"
+  },
+  {
+    "id": 22,
+    "pid": "pid of the game",
+    "score": 21,
+    "rank": 2,
+    "username": "username2",
+    "avatar": "avatar_url"
+  },
+  // ... more rank entries
+]
 ```
