@@ -12,6 +12,7 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.6.16",
     "@mdx-js/react": "^1.6.16",
+    "@next/third-parties": "^15.0.3",
     "@svgr/webpack": "^8.1.0",
     "mdx-embed": "^1.1.2",
     "next": "^14.0.4",
