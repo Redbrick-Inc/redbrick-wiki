@@ -1,0 +1,131 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# Puzzle pressed in the right order
+
+> Let's create a puzzle that pressed in the right order, which is often used in VR content.
+
+---
+
+<img src="/images/snippet/vr/example/touch-puzzle-in-order/click-in-order.gif" alt="click-in-order" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
+Above is the result of completion. <br/>
+If you press the numbered box and press it in the correct order, all the boxes will disappear. If wrong, the password is reset again.
+
+<Steps>
+    ### To add boxes object
+
+    Make 4 boxes using the asset in Redbrick Studio.
+    <br/>
+    <center>![Touch-puzzle-in-order_1](/images/snippet/vr/example/touch-puzzle-in-order/Touch-puzzle-in-order_1.png) </center>
+
+    ### Add the UI Object to Display
+
+    If you press the **My Asset button(1st)** and the **Upload button(2nd)** to get the desired images(3rd). <br/>
+    And click it(4th), you can see that the image has entered the object as shown in the screen below.
+    <br/>
+    <center>![Touch-puzzle-in-order_2](/images/snippet/vr/example/touch-puzzle-in-order/Touch-puzzle-in-order_2.png) </center>
+    <br/>
+
+    ### Displaying through the Object UI
+
+    Adjust the appropriate size and position as shown in the picture below.   <br/>
+    Through the above method, you can create a box number, password UI to display what you pressed, and hint UI as shown in the picture below.
+    <br/>
+    <center>![Touch-puzzle-in-order_3](/images/snippet/vr/example/touch-puzzle-in-order/Touch-puzzle-in-order_3.png) </center>
+    <br/>
+
+    ### Write the Script Below
+
+    At this time, you need to change the Box objects name produced above by referring to the script below. <br/>
+    (password1, password2 .... puzzle1, puzzle2 ....)
+
+    ``` js showLineNumbers
+    // VR Option Setting
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+    followingCamera.useVR({VRObject: avatar});
+
+    const puzzles = []; // Puzzle box object list
+    const answer = [1, 0, 2, 3]; // answer list
+
+    let puzzleAnswer = []; // current input answer list
+    let passwordsUI = []; // puzzle UI object list
+    let currentClickNum = 0; // current input answer list length
+    let isChecking = false; 
+
+    function Start() {
+        // Save the password UI object in the array and set it to invisible at first.
+        for(let i=1; i<=4; i++){
+            let ui = WORLD.getObject("password" + i);
+            ui.visible = false;
+            passwordsUI.push(ui); 
+        }
+        for(let i=1; i<=4; i++){
+            let object = WORLD.getObject("puzzle" + i);
+            puzzles.push(object); 
+        }
+        puzzles.forEach((puzzle, index) => {
+            // each puzzle box is clicked
+            puzzle.onClick(() => {
+                if(isChecking) return;
+                
+                puzzleAnswer.push(index); // save in the list
+                CheckAnswer(); // check answer 
+                // password * UI Set it to be visible
+                passwordsUI[currentClickNum].visible = true;
+                currentClickNum++;
+                if(currentClickNum === 4){
+                    currentClickNum = 0;
+                }
+            });
+        });
+        
+        Init();
+    }
+
+    function Init(){
+        puzzleAnswer = [];
+    }
+
+    // check answer
+    function CheckAnswer(){
+        if(puzzleAnswer.length >= 4){
+            console.log(puzzleAnswer);
+            let isTrue = true;
+            
+            // Make sure they all match
+            answer.forEach((ans, index) => {
+                if(puzzleAnswer[index] != ans){
+                    isTrue = false;
+                }   
+            });
+            
+            // If they all match
+            if(isTrue){
+                // Set the puzzle box so that it doesn't show
+                puzzles.forEach((obj) => {
+                    obj.visible = false;
+                });
+            }else{
+                // if it doesn't match
+                // Reset password list and password * UI invisible
+                puzzleAnswer = [];
+                isChecking = true;
+                setTimeout(() => {
+                    passwordsUI.forEach((ui) => {
+                    ui.visible = false; 
+                    });
+                    isChecking = false;
+                }, 500);
+            }
+        }
+    }
+    ```
+
+    ### Run the Test
+
+    If you test it later, you can see that it works like the first screen.
+</Steps>

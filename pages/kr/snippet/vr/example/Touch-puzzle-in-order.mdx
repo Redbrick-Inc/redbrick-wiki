@@ -1,0 +1,133 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# 알맞은 순서로 눌려야 풀리는 퍼즐 만들기
+
+> VR 콘텐츠에서 많이 사용되는 알맞은 순서로 눌려야 풀리는 퍼즐을 만들어봅시다. 
+
+---
+
+<img src="/images/snippet/vr/example/touch-puzzle-in-order/click-in-order.gif" alt="click-in-order" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
+위에는 완성 결과입니다. 숫자가 적힌 박스를 눌려 알맞은 순서로 누를 경우, 모든 박스가 사라집니다.  <br/>
+반대로 틀렸을 경우, 다시 비밀번호가 리셋됩니다.
+
+<Steps>
+    ### 박스 오브젝트 추가하기 
+
+    레드브릭 스튜디오 내 에셋을 활용해서 박스를 4개 만들어 줍니다.
+    <br/>
+    <center>![Touch-puzzle-in-order_1](/images/snippet/vr/example/touch-puzzle-in-order/Touch-puzzle-in-order_1.png) </center>
+
+    ### 표시해줄 수 있는 UI 오브젝트 추가하기
+
+    1번째 My Asset 버튼을 누르고 2번째 Upload 버튼을 눌려 3번째처럼 원하는 이미지를 가져와 줍니다.  <br/>
+    그다음, 4번째 가져온 이미지를 누르면 아래 화면과 같이 이미지가 오브젝트로 들어간 것을 확인할 수 있습니다.
+    <br/>
+    <center>![Touch-puzzle-in-order_2](/images/snippet/vr/example/touch-puzzle-in-order/Touch-puzzle-in-order_2.png) </center>
+    <br/>
+
+    ### 오브젝트 UI를 통해 표시해주기
+
+    가져온 이미지를 위치와 사이즈를 알맞게 조정해줍니다.   <br/>
+    위와 같은 방법을 통해 사진 2번째와 같이 박스의 번호, 누른 것을 표시해줄 비밀번호 UI, 힌트 UI 를 만들어줄 수 있습니다.
+    <br/>
+    <center>![Touch-puzzle-in-order_3](/images/snippet/vr/example/touch-puzzle-in-order/Touch-puzzle-in-order_3.png) </center>
+    <br/>
+
+    ### 아래와 같은 스크립트를 작성해줍니다.
+
+    이때, 위에서 제작한 퍼즐 박스 오브젝트의 이름과 UI 오브젝트 이름을 아래 스크립트를 참고해서 바꿔주셔야 합니다. <br/>
+    (password1, password2 .... puzzle1, puzzle2 ....)
+
+    ``` js showLineNumbers
+    // VR Option Setting
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+    followingCamera.useVR({VRObject: avatar});
+
+    const puzzles = []; // 퍼즐 박스 오브젝트 배열
+    const answer = [1, 0, 2, 3]; // 정답
+
+    let puzzleAnswer = []; // 현재 입력한 퍼즐 정답 배열
+    let passwordsUI = []; // 퍼즐 UI 오브젝트 배열
+    let currentClickNum = 0; // 현재 입력한 비밀번호 길이값
+    let isChecking = false; // 비밀번호 확인 중인지 확인하는 변수
+
+    function Start() {
+        // 비밀 번호 UI 오브젝트를 배열에 저장하고 처음에는 안 보이게 설정해줍니다.
+        for(let i=1; i<=4; i++){
+            let ui = WORLD.getObject("password" + i);
+            ui.visible = false;
+            passwordsUI.push(ui); 
+        }
+        // 퍼즐 박스 오브젝트 배열에 저장하기
+        for(let i=1; i<=4; i++){
+            let object = WORLD.getObject("puzzle" + i);
+            puzzles.push(object); 
+        }
+        puzzles.forEach((puzzle, index) => {
+            // 각 퍼즐 박스가 클릭될 때마다
+            puzzle.onClick(() => {
+                if(isChecking) return;
+                
+                puzzleAnswer.push(index); // 배열에 저장하고
+                CheckAnswer(); // 정답 확인하기 
+                // 비밀번호 * UI 보이게 설정
+                passwordsUI[currentClickNum].visible = true;
+                currentClickNum++;
+                if(currentClickNum === 4){
+                    currentClickNum = 0;
+                }
+            });
+        });
+        
+        Init();
+    }
+
+    function Init(){
+        puzzleAnswer = [];
+    }
+
+    // 정답 확인하기 
+    function CheckAnswer(){
+        // 4자리가 찼을 경우에만, 확인
+        if(puzzleAnswer.length >= 4){
+            console.log(puzzleAnswer);
+            let isTrue = true;
+            
+            // 다 일치하는지 확인
+            answer.forEach((ans, index) => {
+                if(puzzleAnswer[index] != ans){
+                    isTrue = false;
+                }   
+            });
+            
+            // 다 일치하면
+            if(isTrue){
+                // 퍼즐 박스 안 보이게 설정
+                puzzles.forEach((obj) => {
+                    obj.visible = false;
+                });
+            }else{
+                // 일치하지 않으면 
+                // 현재까지 입력한 비밀번호 배열 리셋 및 비밀번호 * UI 안 보이게 설정
+                puzzleAnswer = [];
+                isChecking = true;
+                setTimeout(() => {
+                    passwordsUI.forEach((ui) => {
+                    ui.visible = false; 
+                    });
+                    isChecking = false;
+                }, 500);
+            }
+        }
+    }
+    ```
+
+    ### 테스트 실행하기
+
+    이후 테스트 해보면, 처음 화면과 같이 작동하는 것을 확인하실 수 있습니다.
+</Steps>

@@ -1,0 +1,59 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# 카메라 바라보는 UI
+
+> GUI 대신에 스프라이트 3D 객체를 이용해서 정보를 알려주고 어느 각도든 플레이어가 볼 수 있게 계속 플레이어를 향해 바라보게 만들어봅시다.
+
+---
+
+<img src="/images/snippet/vr/example/follow-ui/follow-img.gif" alt="follow-img" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
+위에는 완성 결과입니다. 해당 UI 객체는 플레이어가 어느 쪽으로 이동하던 회전해서 보여주는 것을 확인할 수 있습니다.
+
+<Steps>
+    ### 표시해줄 수 있는 UI 오브젝트 추가하기 
+
+    1번째 My Asset 버튼을 누르고 2번째 Upload 버튼을 눌려 3번째처럼 원하는 이미지를 가져와 클릭하면,  <br/>
+    아래 화면과 같이 이미지가 오브젝트로 들어간 것을 확인할 수 있습니다.
+    <br/>
+    <center>![follow-ui_1](/images/snippet/vr/example/follow-ui/follow-ui_1.png) </center>
+
+    ### 크기 및 위치 조절해주기
+
+    아래 사진과 같이 적당한 크기와 위치를 조절해줍니다.
+    <br/>
+    <center>![follow-ui_2](/images/snippet/vr/example/follow-ui/follow-ui_2.png) </center>
+    <br/>
+
+    ### 아래와 같은 스크립트를 작성해줍니다.
+
+    이때, 위에서 제작한 UI 오브젝트 이름을 아래 스크립트를 참고해서 바꿔주셔야 합니다. <br/>
+
+    ``` js showLineNumbers
+    // VR Option Setting
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+    followingCamera.useVR({VRObject: avatar});
+
+    // UI 오브젝트 가져오기
+    const followUI = WORLD.getObject("followUI");
+
+    function Update(dt) {
+      // 플레이어 바라보게 세팅
+      followUI.lookAt(avatar.position.x, avatar.position.y, avatar.position.z);
+    }
+    ```
+
+    Update 안에 followUI 가 lookAt 함수를 통해 avatar 를 바라보도록 업데이트 해주는 것을 확인할 수 있습니다. <br/>
+    <Callout type="warning" emoji="⚠️">
+      이때, `followUI.lookAt(camera.position.x, camera.position.y, camera.position.z)` 경우, VR 상에서 제대로 작동하지 않으니 아바타를 향하도록 해줘야 합니다.
+    </Callout>
+
+    ### 테스트 실행하기
+
+    이후 테스트 해보면, 처음 화면과 같이 작동하는 것을 확인하실 수 있습니다.
+
+</Steps>

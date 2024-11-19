@@ -1,0 +1,113 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# Puzzle Matched the same picture
+
+> Let's make the same picture matching puzzle that is used a lot in VR content.
+
+---
+
+<img src="/images/snippet/vr/example/match-same-img/match-same-imges.gif" alt="match-same-imges" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
+Above is the result of completion. When the box is pressed, the box is returned to the y-axis.  <br/>
+If all the box picture match, the box will all disappear.
+
+<Steps>
+    ### To add boxes object
+
+    Make 3 boxes using the asset in Redbrick Studio.
+    <br/>
+    <center>![match-same-img_1](/images/snippet/vr/example/match-same-img/match-same-img_1.png) </center>
+
+    ### Write the Script Below
+
+    At this time, you need to change the Box objects name produced above by referring to the script below. <br/>
+    (randomBox1, randomBox2 ....)
+
+    ``` js showLineNumbers
+    // VR Option Setting
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+    followingCamera.useVR({VRObject: avatar});
+
+    const randomBoxes = []; // box objects list
+    const fristState = {0 : 0 , 1: 90, 2: 180}; // Save the initial boxed state
+    const isTurning = {0 : false , 1: false, 2: false}; 
+
+    function Start() {
+        for(let i=1; i<=3; i++){
+            let object = WORLD.getObject("randomBox" + i);
+            randomBoxes.push(object); 
+        }
+        
+        randomBoxes.forEach((box, index) => {
+            // Click the box
+            box.onClick(() => {
+                // Turn the box
+                turnBox(index);
+            });
+        });
+
+    }
+
+    // Turn the box and make sure the picture matches
+    function turnBox(index){
+        if(isTurning[index]) return;
+        isTurning[index] = true;
+        
+        randomBoxes[index].turn(0,90,0,2); // Rotate the box for 2 seconds
+        fristState[index] += 90; 
+        if(fristState[index] == 360) fristState[index] = 0; 
+        // 2.5 seconds later, make sure the picture matches
+        setTimeout(() => {
+            isTurning[index] = false;
+            checkSameRotateAllBox();
+        }, 2500);
+    }
+
+    // make sure the picture matches
+    function checkSameRotateAllBox(){
+        let isSame = true;
+
+        let currentRotate = fristState[0];
+        // Verify that the current rotation values match all three
+        for(let i=1; i< 3; i++){
+            if(currentRotate !== fristState[i]){
+                isSame = false;
+            }
+        }
+        
+        // If all the pictures match
+        if(isSame){
+            // Set the box to disappear
+            randomBoxes.forEach((box) => {
+                box.kill();
+            });
+        }
+    }
+    ```
+
+    ### Set object settings and rotation values according to the script
+
+    When using Redbrick assets, be aware that the actual object might be placed in a child object(2nd) rather than the parent object(1st). <br/> 
+    If the **OnClick** function is attached to the parent object(1st), it might not register clicks correctly. <br/> 
+    Therefore, you should ensure that the **OnClick** function is attached to the child object(2nd) in the script. <br/> 
+    In addition, the first rotation angle on the code is set to `const fristState = {0 : 0 , 1: 90, 2: 180}` , so set the angle like 3rd accordingly. <br/>
+    <br/>
+    <center>![match-same-img_2](/images/snippet/vr/example/match-same-img/match-same-img_2.png) </center>
+    <br/>
+
+    <Callout type='warning'>
+        If `if(box.rotation.y.toFixed(2) !== num)` is used to compare the box rotation values, <br/>
+        The value comes out like 45.45 / 44.78, so it may not be checked properly. <br/>
+        That's why it's better to set the arrangement separately as above.
+    </Callout>
+
+    ### Run the Test
+
+    If you test it later, you can see that it works like the first screen. <br/> 
+    The current code is set to `randomBoxes[index].turn(0,90,0,2)`, which rotates the Y axis, but you can modify it to create another axis rotation puzzle.
+
+</Steps>

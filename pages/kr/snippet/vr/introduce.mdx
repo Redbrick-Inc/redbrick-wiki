@@ -1,0 +1,127 @@
+import { Callout } from "nextra/components";
+
+# VR 개발 소개
+
+> VR 조작 방식에 대한 간단한 설명과 개발 방법에 대해 소개드립니다.
+
+## VR 기본적인 조작 방식 알아보기
+<br />
+<center>![vrImg](/images/snippet/vr/introduce/vrImg.png) </center>
+
+레드브릭 스튜디오에 기본적인 VR 조작 방식은 위 사진과 같이 설정되어 있습니다. <br />
+- **왼손 조이스틱** : 화면 좌우를 돌릴 때 사용합니다. <br />
+- **오른쪽 조이스틱** : 앞뒤좌우 이동할 때 사용합니다. <br />
+- **앞쪽 트리거 버튼** : 어떤 물체를 선택할 때 사용합니다. <br />
+- **옆쪽 트리거 버튼** : 점프를 할 때 사용합니다. <br />
+
+<Callout type="warning" emoji="⚠️">
+  **NOTE**: 현재 VR에서는 GUI가 렌더링되지 않으므로 이 점을 유의해 주세요.
+</Callout>
+
+<Callout type="info" emoji="ℹ️">
+  GUI가 렌더링되지 않지만, 스프라이트 3D 객체를 이용해 GUI를 대신할 수 있습니다.
+</Callout>
+
+<br />
+## 기본적인 VR Option 설정 방법 
+
+템플릿을 생성하는 동안 'VR 옵션'을 전환하여 사용할 수 있습니다. 이렇게 하면 `PresetScript`에 추가 코드가 자동으로 추가되므로 수동으로 추가할 필요가 없습니다.
+
+```js showLineNumbers copy filename="PresetScript"
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+followingCamera.useVR({ VRObject: avatar }); //VR needs to have VRObject
+```
+
+<Callout type="warning" emoji="⚠️">
+  **참고**: VR 기능은 `perspective`카메라에만 호환됩니다.
+</Callout>
+
+또한 VR은 다른 VRObject와도 사용할 수 있습니다.
+
+```js showLineNumbers copy filename="VRObject" {3}
+const headOfSomething = WORLD.getObject("headOfSomething");
+const camera = WORLD.getObject("cameraTitle");
+camera.useVR({ VRObject: headOfSomething }); // now you can use VR without an avatar
+```
+
+게임 모드와 VR 설정을 선택하면 PresetScript는 이렇게 보일 수 있습니다. 그러나 이전 예제(headOfSomething)에서처럼 이를 사용자 정의할 수 있습니다.
+
+```js showLineNumbers copy filename="VR GAME PresetScript"
+const camera = WORLD.getObject("MainCamera");
+if (!camera) return;
+const obj = new THREE.Object3D();
+WORLD.add(obj);
+obj.position.copy(camera.position);
+camera.useVR({ VRObject: obj });
+```
+
+<br />
+## VR Test 하기 
+<br />
+<img src="/images/snippet/vr/introduce/introduce_VR_2.gif" alt="introduce_VR_2" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+
+**Meta quest 3** 기준으로 설명드립니다. <br />
+VR 기기를 킨 다음, 브라우저를 열여서 레드브릭에 올린 프로젝트 **publishing Link** 로 들어갑니다. <br />
+실행을 누르고 하단에 뜨는 **Enter VR** 버튼을 누르면 VR 테스트를 진행할 수 있습니다. <br />
+<br />
+<img src="/images/snippet/vr/introduce/introduce_VR_3.gif" alt="introduce_VR_3" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+VR Test를 종료하고 싶을 때는, **오큘러스 버튼**을 눌려서 실행 중인 브라우저 창을 띄워줍니다. <br />
+그 다음, **앞쪽 트리거 버튼**으로 **종료** 버튼을 누르면 나올 수 있습니다.
+
+<br />
+## 오브젝트랑 상호작용 만들기
+
+레드브릭 스튜디오 내에서 오브젝트와 **앞쪽 트리거 버튼**을 이용한 상호작용을 만들 수 있습니다. <br />
+**앞쪽 트리거 버튼**을 받아들일 수 있는 함수는 **OnClick** 함수입니다. <br />
+
+```js showLineNumbers copy
+// VR Option Setting
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+followingCamera.useVR({VRObject: avatar});
+
+// Setting interaction
+const box = WORLD.getObject("BOX");
+
+function Start(){
+    box.onClick(() => {
+        box.kill();
+    });
+}
+```
+
+위 코드는 월드 상에 박스 놔두고 트리거 버튼으로 클릭하면 없어지게 설정해 놓은 코드입니다. <br />
+실제로 VR 로 연결해서 테스트하면 아래와 같이 작동되는 것을 확인하실 수 있습니다. <br />
+<br />
+<img src="/images/snippet/vr/introduce/introduce_VR_4.gif" alt="introduce_VR_4" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+
+<Callout type="error">
+  레드브릭 에셋을 쓸 경우, 실제 오브젝트가 상위 객체(1번)이 아닌 하위 객체(2번)에 들어가는 것을 확인할 수 있습니다. <br/>
+  이때, **OnClick** 함수를 실제 오브젝트가 아닌 상위 객체(1번)에 달 경우, 클릭한 것에 대해 제대로 인식하지 못하는 오류가 있습니다. 
+  그렇기 때문에, 꼭 하위 객체(2번)를 스크립트 상에 가져와 **OnClick** 을 달아주도록 해야합니다. <br/>
+  외부 에셋을 사용할 때도, 오브젝트가 들어가 있는 객체와 **OnClick**을 연결시켜줘야 합니다. <br/> 
+  <img src="/images/snippet/vr/introduce/introduceObj.png" alt="introduceObj" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+</Callout>
+
+---
+
+<Callout type="info" emoji="✅">
+  Redbrick Stdio에서 사용 가능한 VR Event Function은 다음과 같습니다.
+</Callout>
+
+|     Text      | Redbrick Studio |
+| :-----------: | :-----------: | 
+|     Move     |      ✅       | 
+|    Jump     |      ✅       | 
+|    Trigger(click)     |      ✅       | 
+|    Grap    |      ❌       | 
+|    GUI    |      ❌       | 
+
+<Callout type="info" emoji="ℹ️">
+  GUI가 렌더링되지 않지만, 스프라이트 3D 객체를 이용해 GUI를 대신할 수 있습니다.
+</Callout>

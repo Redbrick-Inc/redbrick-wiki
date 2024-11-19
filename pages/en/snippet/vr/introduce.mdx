@@ -1,0 +1,128 @@
+import { Callout } from "nextra/components";
+
+# Introduction to VR Development
+
+> introduction to VR controls and how to develop for VR.
+
+## Understanding Basic VR Controls
+<br />
+<center>![vrImg](/images/snippet/vr/introduce/vrImg.png) </center>
+
+In Redbrick Studio, the basic VR controls are set up as shown in the image above. <br />
+- **Left Joystick**: Used to rotate the view left and right. <br />
+- **Right Joystick**: Used to move forward, backward, and sideways. <br />
+- **Front Trigger Button**: Used to select objects. <br />
+- **Side Trigger Button**: Used to jump. <br />
+
+<Callout type="warning" emoji="⚠️">
+  **NOTE**: Currently, the GUI is not rendered in VR, so please keep this in mind. 
+</Callout>
+
+<Callout type="info" emoji="ℹ️">
+  Although the GUI is not rendered, you can use 3D sprite objects to simulate the GUI in VR.
+</Callout>
+
+<br />
+## Basic VR Options
+
+You can toggle the "VR option" while creating a template in order to use it. This will automatically add additional code to `PresetScript`, so you don't have to manually do so.
+
+```js showLineNumbers copy filename="PresetScript"
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+followingCamera.useVR({ VRObject: avatar }); //VR needs to have VRObject
+```
+
+<Callout type="warning" emoji="⚠️">
+  **NOTE**: VR functionality is compatible exclusively with `perspective`
+  cameras.
+</Callout>
+
+Additionally, VR can be used with other VRObjects too.
+
+```js showLineNumbers copy filename="VRObject" {3}
+const headOfSomething = WORLD.getObject("headOfSomething");
+const camera = WORLD.getObject("cameraTitle");
+camera.useVR({ VRObject: headOfSomething }); // now you can use VR without an avatar
+```
+
+If you choose a game mode and VR settings, the PresetScript might look like this. However, you can customize it as in the previous example (headOfSomething).
+
+```js showLineNumbers copy filename="VR GAME PresetScript"
+const camera = WORLD.getObject("MainCamera");
+if (!camera) return;
+const obj = new THREE.Object3D();
+WORLD.add(obj);
+obj.position.copy(camera.position);
+camera.useVR({ VRObject: obj });
+```
+
+<br />
+## How to Test VR
+<br />
+<img src="/images/snippet/vr/introduce/introduce_VR_2.gif" alt="introduce_VR_2" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+
+This section explains using the **Meta Quest 3**.  <br />
+After turning on the VR device, open the browser and go to the **publishing link** of the project uploaded on **Redbrick**. <br />
+Click Run, then press the **Enter VR button** at the bottom to start the VR test. <br />
+<br />
+<img src="/images/snippet/vr/introduce/introduce_VR_3.gif" alt="introduce_VR_3" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+To exit the VR test, press the **Oculus button** to open the browser window. <br /> 
+Then, use the **front trigger button** to click the **Exit button** to leave the VR session.
+
+<br />
+## Creating Interactions with Objects
+
+In Redbrick Studio, you can create interactions with objects using the **front trigger button**. <br /> 
+The function that can **handle the front trigger button** is the **OnClick** function. <br />
+
+```js showLineNumbers copy
+// VR Option Setting
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+followingCamera.useVR({VRObject: avatar});
+
+// Setting interaction
+const box = WORLD.getObject("BOX");
+
+function Start(){
+    box.onClick(() => {
+        box.kill();
+    });
+}
+```
+
+The code above places a box in the world, and when the trigger button is clicked, the box disappears. <br />
+You can test this interaction in VR, and it will behave as shown below.  <br />
+<br />
+<img src="/images/snippet/vr/introduce/introduce_VR_4.gif" alt="introduce_VR_4" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+
+<Callout type="error">
+  When using Redbrick assets, be aware that the actual object might be placed in a child object(2nd) rather than the parent object(1st). <br/> 
+  If the **OnClick** function is attached to the parent object(1st), it might not register clicks correctly. <br/> 
+  Therefore, you should ensure that the **OnClick** function is attached to the child object(2nd) in the script. 
+  <br/> When using external assets, you also need to connect the **OnClick** function to the object the asset is contained within.  <br/> 
+  <img src="/images/snippet/vr/introduce/introduceObj.png" alt="introduceObj" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+</Callout>
+
+---
+
+<Callout type="info" emoji="✅">
+  Here are the available VR event functions in Redbrick Studio:
+</Callout>
+
+|     Text      | Redbrick Studio |
+| :-----------: | :-----------: | 
+|     Move     |      ✅       | 
+|    Jump     |      ✅       | 
+|    Trigger(click)     |      ✅       | 
+|    Grap    |      ❌       | 
+|    GUI    |      ❌       | 
+
+<Callout type="info" emoji="ℹ️">
+  Although the GUI is not rendered, you can use 3D sprite objects to simulate the GUI in VR.
+</Callout>

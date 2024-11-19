@@ -1,0 +1,60 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# UI that follows the camera
+
+> Let's use a 3D sprite object instead of a GUI to display information, and make it always face the player, no matter which direction the player moves.
+
+---
+
+<img src="/images/snippet/vr/example/follow-ui/follow-img.gif" alt="follow-img" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
+The image above shows the completed result. <br/>
+You can see that the UI object continuously rotates to face the player, no matter which direction the player moves.
+
+<Steps>
+    ### Add the UI Object to Display
+
+    If you press the **My Asset button(1st)** and the **Upload button(2nd)** to get the desired image and click it(3rd), 
+    you can see that the image has entered the object as shown in the screen below.
+    <br/>
+    <center>![follow-ui_1](/images/snippet/vr/example/follow-ui/follow-ui_1.png) </center>
+
+    ### Adjust Size and Position
+
+    Adjust the appropriate size and position as shown in the picture below.
+    <br/>
+    <center>![follow-ui_2](/images/snippet/vr/example/follow-ui/follow-ui_2.png) </center>
+    <br/>
+
+    ### Write the Script Below
+
+    At this time, you need to change the UI object name produced above by referring to the script below. <br/>
+
+    ``` js showLineNumbers
+    // VR Option Setting
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+    followingCamera.useVR({VRObject: avatar});
+
+    // Import UI Object
+    const followUI = WORLD.getObject("followUI");
+
+    function Update(dt) {
+      // Set to look at the player
+      followUI.lookAt(avatar.position.x, avatar.position.y, avatar.position.z);
+    }
+    ```
+
+    You can see that the followUI updates to look at avatar through the lookAt function. <br/>
+    <Callout type="warning" emoji="⚠️">
+      However, `followUI.lookAt(camera.position.x, camera.position.y, camera.position.z)` in this case, it doesn't work properly in VR, so you need to point it towards your avatar.
+    </Callout>
+
+    ### Run the Test
+
+    If you test it later, you can see that it works like the first screen.
+
+</Steps>
