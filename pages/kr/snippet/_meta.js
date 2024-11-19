@@ -5,6 +5,7 @@ export default {
   '3d-object' : '3D 오브젝트',
   'gui-object' : 'GUI 오브젝트',
   tween : 'TWEEN',
+  vr : 'VR',
   tips : '팁',
   'sample-game' : '샘플 게임',
 };
