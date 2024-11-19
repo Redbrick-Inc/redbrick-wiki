@@ -33,7 +33,7 @@ import { Callout } from "nextra/components";
 `options` (객체): 다음 속성을 포함하는 객체:
 
 - `score` (정수): 저장할 플레이어의 점수.
-- `order` (문자열, 선택사항): 점수 정렬 순서. "ASC" (오름차순) 또는 "DESC" (내림차순)이 가능합니다. 지정하지 않으면 기본값은 "ASC"입니다.
+- `order` (문자열, 선택사항): 점수 정렬 순서. "ASC" (오름차순) 또는 "DESC" (내림차순)이 가능합니다. 지정하지 않으면 기본값은 "DESC"입니다.
 
 <Callout type="warning">
     점수는 **정수**로 저장되므로, 점수 시스템을 설계할 때 **정수**로 계산되도록 고려해야 합니다.
@@ -46,19 +46,19 @@ Promise: 점수가 성공적으로 저장되면 해결되는 프로미스.
 #### 예시
 
 ```javascript
-// 기본 오름차순으로 점수 저장
+// 기본 내림차순으로 점수 저장
 REDBRICK.Rank.saveScore({ score: 10 });
 
-// 내림차순으로 점수 저장
+// 명시적으로 내림차순 설정하여 점수 저장
 REDBRICK.Rank.saveScore({ score: 10, order: "DESC" });
 
-// 명시적으로 오름차순 설정하여 점수 저장
+// 오름차순으로 점수 저장
 REDBRICK.Rank.saveScore({ score: 10, order: "ASC" });
 ```
 
 #### 참고사항
 
-- `order` 매개변수를 제공하지 않으면 점수는 오름차순("ASC")으로 저장됩니다.
+- `order` 매개변수를 제공하지 않으면 점수는 내림차순("DESC")으로 저장됩니다.
 - 점수를 검색할 때는 저장 시 지정한 `order` 매개변수에 따라 정렬됩니다.
 
 <Callout type="info">
@@ -87,7 +87,7 @@ REDBRICK.Rank.saveScore({ score: 10, order: "ASC" });
   `default` 유형과 함께 `time` 옵션을 사용할 수 있습니다. 추후 더 많은 옵션이 추가될 예정입니다.
 </Callout>
 <Callout type="info">
-  기본적으로 랭킹은 `ASC` 순서로 표시됩니다. `DESC` 순서도 사용 가능합니다.
+  기본적으로 랭킹은 `DESC` 순서로 표시됩니다. `ASC` 순서도 사용 가능합니다.
 </Callout>
 
 #### 사용 예시:

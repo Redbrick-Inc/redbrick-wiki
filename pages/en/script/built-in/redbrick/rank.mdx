@@ -33,7 +33,7 @@ Saves the player's score to the server.
 `options` (Object): An object containing the following properties:
 
 - `score` (Integer): The player's score to be saved.
-- `order` (String, optional): The order in which scores should be ranked. Can be either "ASC" (ascending) or "DESC" (descending). Defaults to "ASC" if not specified.
+- `order` (String, optional): The order in which scores should be ranked. Can be either "ASC" (ascending) or "DESC" (descending). Defaults to "DESC" if not specified.
 
 <Callout type="warning">
     The score is saved as an **Integer**, so when designing the score system, ensure it is calculated as an **Integer**.
@@ -46,7 +46,7 @@ Promise: A promise that resolves when the score is successfully saved.
 #### Examples
 
 ```javascript
-// Save a score with default ascending order
+// Save a score with default descending order
 REDBRICK.Rank.saveScore({ score: 10 });
 
 // Save a score with descending order
@@ -58,14 +58,14 @@ REDBRICK.Rank.saveScore({ score: 10, order: "ASC" });
 
 #### Notes
 
-- If the `order` parameter is not provided, the score will be saved with ascending order ("ASC").
+- If the `order` parameter is not provided, the score will be saved with descending order ("DESC").
 - When retrieving scores, they will be ordered according to the `order` parameter specified when saving.
 
 <Callout type="info">
     It's recommended to consistently use the same `order` for all score saves within a game to ensure proper ranking.
 </Callout>
 <Callout type="info">
-    Orders are saved separately in the database. Scores saved with `order: "ASC"` can't retrived with `show({order: "DESC"})` or vice versa,
+    Orders are saved separately in the database. Scores saved with `order: "ASC"` can't be retrived with `show({order: "DESC"})` or vice versa,
 </Callout>
 
 <br/>
@@ -87,7 +87,7 @@ Shows the ranking in the specified order. The current player's score is shown at
   `time` option is available along with `default` type. More will be added in the future
 </Callout>
 <Callout type="info">
-  By default ranking displayed in `ASC` order. Also, `DESC` order is available.
+  By default ranking displayed in `DESC` order. Also, `ASC` order is available.
 </Callout>
 
 #### Example Usage:
@@ -114,7 +114,7 @@ REDBRICK.Rank.show({
     ![redbrick_rank-result](/images/script/built-in/redbrick/redbrick_rank-time.png)
 </center>
 
-Display the ranking in **time** type and **ascending** order.
+Display the ranking in **time** type and **descending** order.
 
 ```javascript
 REDBRICK.Rank.show({
