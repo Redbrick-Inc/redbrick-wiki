@@ -9,8 +9,9 @@ const config: DocsThemeConfig = {
     </>
   ),
   banner: {
-    key: "Join message",
-    content: "Create, Compete & Win at Redbrick Connect 2024! 🎉",
+    key: "Welcome to Redbrick Wiki",
+    content:
+      "Welcome to Redbrick Wiki 📚, here you can find all the information you need to get started with Redbrick Engine",
   },
   head: function useHead() {
     const config = useConfig();
