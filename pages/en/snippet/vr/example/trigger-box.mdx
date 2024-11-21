@@ -1,0 +1,59 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# Play video using Trigger Box
+
+> Let's create an event where the video plays when we move to a specific location.
+
+---
+
+<img src="/images/snippet/vr/example/trigger-box/trigger-box.gif" alt="trigger-box" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
+Above is the result of completion. Once the player reaches the box, the video will play and the box will disappear.
+
+<Steps>
+    ### To add a video
+
+    Let's bring a video provided by Redbrick Studio and place it.
+    <br/>
+    <center>![trigger_box_1](/images/snippet/vr/example/trigger-box/trigger_box_1.png) </center>
+
+    ### Create Trigger Box
+
+    Bring and place a cube provided by Redbrick Studio. <br/>
+    Material > Opacity (2nd) Use the value to adjust the transparency. <br/>
+    To have a collision event with a player, **Behavior > Body (3rd) is Setting to On**.
+    <br/>
+    <center>![trigger_box_2](/images/snippet/vr/example/trigger-box/trigger_box_2.png) </center>
+    <br/>
+
+    ### Write the Script Below
+
+    At this time, you need to change the video and box object name produced above by referring to the script below.<br/>
+
+    ``` js showLineNumbers
+    // VR Option Setting
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+    followingCamera.useVR({VRObject: avatar});
+
+    const video = WORLD.getObject("video");
+    const TriggerBox = WORLD.getObject("TriggerBox");
+
+    function Start() {
+        // When a player collision into a box
+        TriggerBox.onCollide(PLAYER, () => {
+            video.play(); 
+            TriggerBox.kill(); // delete box
+        });
+        video.pause(); // When start, stop the video
+    }
+    ```
+
+    ### Run the Test
+
+    If you test it later, you can see that it works like the first screen. <br/>
+    Currently, we have not completely lowered transparency for distinction, but if you make it completely transparent, you can use it as a **trigger to cause an event when player pass somewhere**.
+</Steps>
