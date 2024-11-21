@@ -1,0 +1,110 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# Puzzle of matching the right shapes
+
+> Let's make a puzzle that fits the right shapes used a lot in VR content.
+
+---
+
+<img src="/images/snippet/vr/example/shapes-puzzle/shapes-puzzle.gif" alt="shapes-puzzle" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
+Above is the result of completion. If you click on the same figure, it will fill in, and if it is incorrect, you will see the puzzle running again.
+
+<Steps>
+    ### Add puzzle objects to click
+
+    Use the Redbrick Studio Asset to add 3 shapes of objects. <br/>
+    These objects are the shapes that the player will choose to solve the puzzle.
+    <br/>
+    <center>![shapes_puzzle_1](/images/snippet/vr/example/shapes-puzzle/shapes_puzzle_1.png) </center>
+
+    ### Add answer puzzle objects
+
+    Copy the previously added object to adjust the position, color, and transparency. <br/>
+    **Material > Opacity (2nd)** Use the value to adjust the transparency. <br/>
+    These objects are the answers to the puzzle shapes selected by the player.
+    <br/>
+    <center>![shapes_puzzle_2](/images/snippet/vr/example/shapes-puzzle/shapes_puzzle_2.png) </center>
+    <br/>
+
+    ### Write the Script Below
+
+    At this time, you need to change objects name produced above by referring to the script below. <br/>
+    In the script below, we named the objects (blue) to click on as puzzle ~. <br/>
+    In the script below, we named the objects (pink) to be answered as answer ~. <br/>
+
+    ``` js showLineNumbers
+    // VR Option Setting
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+    followingCamera.useVR({VRObject: avatar});
+
+    const puzzleBox = WORLD.getObject("puzzleBox");
+    const answerBox = WORLD.getObject("answerBox");
+    const puzzleCylinder = WORLD.getObject("puzzleCylinder");
+    const answerCylinder = WORLD.getObject("answerCylinder");
+    const puzzleEllipse = WORLD.getObject("puzzleEllipse");
+    const answerEllipse = WORLD.getObject("answerEllipse");
+
+    let currentPuzzleNum = 0; // The value of the puzzle player is currently holding
+    let currentPuzzle = null; // The puzzle object player is currently holding
+
+    let puzzles = [];
+    let answers = [];
+
+    function Start() {
+        // puzzles, answers place the same order of shapes in the array.
+        puzzles.push(puzzleBox); // 1
+        puzzles.push(puzzleCylinder); // 2
+        puzzles.push(puzzleEllipse); // 3
+        
+        answers.push(answerBox); // 1
+        answers.push(answerCylinder); // 2
+        answers.push(answerEllipse); // 3
+        
+        answers.forEach((puzzle, index) => {
+            puzzle.onClick(() => {
+                // If player chose the right puzzle
+                if(currentPuzzle !== null && currentPuzzleNum == index){
+                    // Move it to the right pos
+                    currentPuzzle.position.set(puzzle.position.x, puzzle.position.y, puzzle.position.z);
+                    currentPuzzle.revive();
+                    // Reset the value of the puzzle and the object player is currently holding.
+                    currentPuzzle = null;
+                    currentPuzzleNum = -1;
+                }else{
+                    // If player chose the incorrect puzzle
+                    if(currentPuzzle !== null){
+                        // Put down the puzzle that player is currently holding again.
+                        currentPuzzle.revive();
+                        // Reset the value of the puzzle and the object player is currently holding.
+                        currentPuzzleNum = -1;
+                        currentPuzzle = null;   
+                    }
+                }
+            });
+        });
+        
+        puzzles.forEach((puzzle, index) => {
+            // If player click on the puzzle
+            puzzle.onClick(() => {
+                // save current puzzle value
+                currentPuzzleNum = index;
+                currentPuzzle = puzzle;
+                puzzle.kill();
+            });
+        });
+    }
+    ```
+
+    ### Run the Test
+
+    If you test it later, you can see that it works like the first screen. <br/>
+    You can use the examples above to create a cube game, etc. as below. <br/>
+    <br/>
+    <center>![shapes_puzzle_3](/images/snippet/vr/example/shapes-puzzle/shapes_puzzle_3.png) </center>
+    <br/>
+</Steps>

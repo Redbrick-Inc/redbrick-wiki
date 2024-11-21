@@ -1,0 +1,59 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# Trigger Box를 이용한 영상 재생
+
+> VR 콘텐츠에서 많이 사용되는 특정 위치에 이동했을 때, 영상이 재생되는 이벤트를 만들어봅시다.
+
+---
+
+<img src="/images/snippet/vr/example/trigger-box/trigger-box.gif" alt="trigger-box" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<br/>
+
+위에는 완성 결과입니다. 플레이어가 박스에 닿이자 영상이 재생되고 박스가 사라지는 것을 확인할 수 있습니다.
+
+<Steps>
+    ### 비디오 추가하기
+
+    레드브릭 스튜디오에서 제공해주는 동영상을 하나 가져와서 배치해줍니다.
+    <br/>
+    <center>![trigger_box_1](/images/snippet/vr/example/trigger-box/trigger_box_1.png) </center>
+
+    ### Trigger Box 만들기
+
+    레드브릭 스튜디오에서 제공해주는 Cube을 하나 가져와 배치해줍니다. <br/>
+    Material > Opacity (2번째) 값을 이용해 투명도를 조절해줍니다. <br/>
+    플레이어와의 충돌 처리를 하기 위해 **Behavior > Body (3번째) 를 On**으로 세팅해줍니다.
+    <br/>
+    <center>![trigger_box_2](/images/snippet/vr/example/trigger-box/trigger_box_2.png) </center>
+    <br/>
+
+    ### 아래와 같은 스크립트를 작성해줍니다.
+
+    이때, 위에서 제작한 비디오와 박스 오브젝트 이름을 아래 스크립트를 참고해서 바꿔주셔야 합니다. <br/>
+
+    ``` js showLineNumbers
+    // VR Option Setting
+    const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+    const camera = WORLD.getObject("MainCamera");
+    const followingCamera = avatar.setFollowingCamera(camera);
+    avatar.setDefaultController();
+    followingCamera.useVR({VRObject: avatar});
+
+    const video = WORLD.getObject("video");
+    const TriggerBox = WORLD.getObject("TriggerBox");
+
+    function Start() {
+        // 플레이어가 박스에 충돌했을 때
+        TriggerBox.onCollide(PLAYER, () => {
+            video.play(); // 비디오 재생
+            TriggerBox.kill(); // 박스 없어지기
+        });
+        video.pause(); // 처음 시작할 때, 비디오 멈추기
+    }
+    ```
+
+    ### 테스트 실행하기
+
+    이후 테스트 해보면, 처음 화면과 같이 작동하는 것을 확인하실 수 있습니다. <br/>
+    현재는 구분을 위해 투명도를 완전히 낮추지 않았지만, 완전하게 투명하게 만들면 **어딘가를 지날 때, 이벤트를 발생하는 트리거**로 사용할 수 있습니다.
+</Steps>
