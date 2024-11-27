@@ -1,0 +1,77 @@
+---
+title: "레드브릭 엔진의 오브젝트 그룹화 및 에셋으로 저장"
+description: "레드브릭 엔진에서 오브젝트를 그룹화하고 에셋으로 저장하는 가이드."
+---
+import { Callout, Steps } from "nextra/components";
+
+# 오브젝트 그룹화 및 에셋으로 저장하기
+
+> 오브젝트를 그룹화하고 그룹화된 오브젝트를 에셋으로 저장합니다.
+
+---
+
+<Callout type="default">
+    **GUI 오브젝트**은 그룹화 할 수 없습니다.  
+    또한 에셋으로 저장이 가능하나 저장 시, 빈 오브젝트가 되어버리기 때문에 제대로 사용할 수 없습니다.  
+    그렇기에 현재는 **3D 오브젝트만 가능**하다는 점 유의해주시기 바랍니다.
+</Callout>
+<br/>
+
+### 오브젝트 그룹화
+
+<Callout type="error">
+    충돌체인데 움직여야 하는 오브젝트는 반드시 **CanCollide**가 **ON**으로 설정되어 있는 상태에서 그룹화가 되어야 합니다.  
+    그렇지 않고 그룹화가 된 경우, 충돌 설정을 하려면 **CanCollide**와 **Static** 모두 **ON**으로 설정해주어야 합니다.  
+    그렇게 되면 오브젝트를 코드 상에서 움직였을 때, 충돌체의 위치는 바뀌지 않기 때문에 문제가 발생하게 됩니다.
+</Callout>
+
+오브젝트를 배치하고, 그룹화 할 오브젝트들을 Scene View에서 `Ctrl`을 누른 상태로 하나씩 선택해줍니다.  
+그룹화 할 오브젝트들이 모두 선택되었다면 `Ctrl + G`를 눌러 그룹화를 해줍니다.  
+<br/>
+<center>
+  <img src='/images/engine/grouping-and-save-asset/grouping-and-save-asset_object-grouping.gif' alt='grouping-and-save-asset_object-grouping' loading="lazy" decoding="async" style={{width: '100%'}}/>
+</center>
+
+### 에셋으로 저장하기
+
+Scene View에 존재하는 그룹화된 오브젝트 또는 개별적인 오브젝트 모두 에셋으로 저장할 수 있습니다.
+
+<Steps>
+    ### 그룹화된 오브젝트의 이름 변경하기(옵션)
+
+    에셋으로 저장할 때, 에셋의 이름을 설정하지만 현재 프로젝트에서 알아보기 쉽게 오브젝트의 이름을 변경해주면 좋습니다.
+    <br/>
+    ![grouping-and-save-asset_step-1](/images/engine/grouping-and-save-asset/grouping-and-save-asset_step-1.png)
+
+    ### 저장할 오브젝트 스크린샷 촬영하기
+
+    저장할 오브젝트의 스크린샷을 촬영해줍니다.  
+    Windows의 경우, `Win + Shift + S`를 통해. macOS의 경우, `Cmd + Shift + 4`를 통해 촬영할 수 있습니다.
+    <br/>
+    <center>
+      <img src='/images/engine/grouping-and-save-asset/grouping-and-save-asset_step-1-a.png' alt='grouping-and-save-asset_step-1-a' loading="lazy" decoding="async" style={{width: '50%'}}/>
+    </center>
+    
+    ### 선택한 오브젝트를 에셋으로 저장하기
+
+    저장할 오브젝트를 Explorer 또는 Scene View에서 선택하고, 좌측 상단의 **Menu** > **Save as Asset**을 눌러줍니다.
+
+    ![grouping-and-save-asset_step-2](/images/engine/grouping-and-save-asset/grouping-and-save-asset_step-2.png)
+
+    Save as Asset 팝업이 뜨면 에셋 이미지, 이름 그리고 키워드를 넣고 저장을 눌러줍니다.
+
+    ![grouping-and-save-asset_step-3](/images/engine/grouping-and-save-asset/grouping-and-save-asset_step-3.png)
+
+    ### 저장된 에셋 확인하기
+
+    저장된 에셋은 좌측 상단의 **My Asset**을 통해 확인할 수 있습니다. 최근에 추가된 에셋일수록 아래에 위치하게 됩니다.
+
+    ![grouping-and-save-asset_step-4](/images/engine/grouping-and-save-asset/grouping-and-save-asset_step-4.png)
+
+    ### 저장된 에셋 사용하기
+
+    **My Asset**에서 저장된 에셋을 누르거나 드래그해서 Scene View로 옮기면 Scene에 추가가 됩니다.  
+    충돌체의 경우, **CanCollide**를 **ON**으로 설정해주시면 됩니다.
+
+    ![grouping-and-save-asset_step-5](/images/engine/grouping-and-save-asset/grouping-and-save-asset_step-5.png)
+</Steps>
