@@ -1,0 +1,298 @@
+---
+title: "Creating Enemy Spawn, Move"
+description: "Learn how to spawn enemies at regular intervals in Redbrick Studio."
+---
+import { Steps } from "nextra/components";
+
+# Enemy Spawn, Move
+
+<br/>
+<img src='/images/snippet/tips/Automatic-enemy-spawn/auto-enemy-spawn_result.gif' alt='auto-enemy-spawn_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+### Steps
+##### 1. Manage enemy objects through classes and lists.
+##### 2. If optimization is needed due to excessive creation and deletion, create a recycling list to manage enemy deletion or respawning, reducing the frequency of creation and deletion.
+<Steps>
+
+### Add the enemy object to the scene.
+
+1. Add the enemy object to the scene.
+2. Select the enemy object in the left explorer panel.
+3. Change the object name to "Enemy".
+4. Set the detailed parameters (position, angle, size, etc.) of the enemy in the right properties panel.
+5. Continue adjusting the values until you find the desired settings.
+
+<center>![Create_enemy](/images/snippet/tips/Automatic-enemy-spawn/Create_enemy.png)</center>
+
+### If the enemy has animations, write the animation code.
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-animation.gif' alt='enemy-animation' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+
+
+let mixer; // Declare the mixer globally
+let moveAction;
+
+function Start() {
+    // Set up animation
+    const object = WORLD.getObject("Enemy");
+    
+    mixer = new THREE.AnimationMixer(object);
+    moveAction = mixer.clipAction(object.animations[1]);
+
+    // Set animation speed 
+    moveAction.setEffectiveTimeScale(1.7); // Speed of movement animation
+    
+    moveAction.play();
+}
+
+function Update(dt) {
+    // Update animation
+    if (mixer) {
+        mixer.update(dt);
+    }
+}
+
+```
+
+### Specify where the enemies will respawn and write the code.
+```js showLineNumbers copy
+const enemys = [];
+const object = WORLD.getObject("Enemy");
+const minSpawnRadius = 20; 
+const maxSpawnRadius = 100;
+
+function SpawnRandomPos() {
+    // Select a random angle
+    const angle = Math.random() * 2 * Math.PI; // Random angle from 0 to 2π
+    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // Random radius from 20 to 100
+
+    // Calculate x, z coordinates based on the angle and radius
+    const x = PLAYER.position.x + radius * Math.cos(angle);
+    const z = PLAYER.position.z + radius * Math.sin(angle);
+    const y = 2; // Set y coordinate to a fixed value
+
+    const clone = THREEADDON.SkeletonUtils.clone(object);
+
+    object.animations.forEach((item) => {
+        clone.animations.push(item);
+    });
+    clone.position.set(x, y, z);
+    WORLD.add(clone);
+    const enemy = new Enemy(clone);
+    
+    enemys.push(enemy); 
+}
+```
+### Set the time for enemy creation so that they spawn at regular intervals.
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-random-spawn.gif' alt='enemy-random-spawn' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+let spawnInterval = 300;
+function CreateEnemy() {
+    clearInterval(spawnInterval);
+    spawnInterval = setInterval(() => {
+        SpawnRandomPos();
+    }, spawnInterval);
+}
+```
+
+
+### Write code to make enemies move towards the player.
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-move-to-player.gif' alt='enemy-move-to-player' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+function Move(dt) {
+    // Animation update
+    if (mixer) { mixer.update(dt); }
+
+    const direction = new THREE.Vector3(
+        PLAYER.position.x - object.position.x,
+        0,
+        PLAYER.position.z - object.position.z
+    );
+
+    direction.normalize();
+
+    // Move
+    object.position.add(direction.multiplyScalar(speed * dt));
+    const lookAtPosition = new THREE.Vector3(
+        PLAYER.position.x,
+        object.position.y,
+        PLAYER.position.z
+    );
+    object.lookAt(lookAtPosition);
+}
+```
+
+### Add collision-related code to prevent overlapping.
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-collide-to-enemy.gif' alt='enemy-collide-to-enemy' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+function Move(dt) {
+    // Animation update
+    if (mixer) { mixer.update(dt); }
+
+    const direction = new THREE.Vector3(
+        PLAYER.position.x - object.position.x,
+        0,
+        PLAYER.position.z - object.position.z
+    );
+
+    direction.normalize();
+    
+    // Maintain distance from other enemies
+    const separationForce = new THREE.Vector3();
+    for (let enemy of enemys) {
+        if (enemy !== this) {
+            const distance = this._object.position.distanceTo(enemy._object.position);
+            if (distance < this._radius + enemy._radius) { // Collision avoidance distance
+                const diff = new THREE.Vector3().subVectors(this._object.position, enemy._object.position);
+                diff.normalize();
+                separationForce.add(diff); // Add force to separate
+            }
+        }
+    }
+
+    direction.add(separationForce);
+    direction.normalize();
+    
+    // Move
+    object.position.add(direction.multiplyScalar(speed * dt));
+    const lookAtPosition = new THREE.Vector3(
+        PLAYER.position.x,
+        object.position.y,
+        PLAYER.position.z
+    );
+    object.lookAt(lookAtPosition);
+}
+```
+
+### Complete the code to create the following:
+
+```js showLineNumbers copy
+class Enemy {
+    constructor(object) {
+        this._object = object;
+        this._speed = 10;
+        this._hp = 100;
+
+        //Collision avoidance distance
+        this._radius = 1;
+
+        // animation
+        this._mixer = new THREE.AnimationMixer(this._object);
+        this._moveAction = this._mixer.clipAction(this._object.animations[1]);
+
+        // animation speed 
+        this._moveAction.setEffectiveTimeScale(1.7); // 이동 애니메이션 속도
+
+        this.Init();
+    }
+
+    Init() {
+        // move action play
+        this._moveAction.play();
+    }
+
+    Move(dt) {
+        if (this._hp < 0) return;
+
+        // animation update
+        if (this._mixer) { this._mixer.update(dt); }
+        
+        console.log("move")
+        
+        const direction = new THREE.Vector3(
+            PLAYER.position.x - this._object.position.x,
+            0,
+            PLAYER.position.z - this._object.position.z
+        );
+
+        direction.normalize();
+
+        // maintain distance from other enemies
+        const separationForce = new THREE.Vector3();
+        for (let enemy of enemys) {
+            if (enemy !== this) {
+                const distance = this._object.position.distanceTo(enemy._object
+                    .position);
+                if (distance < this._radius + enemy._radius) { // Collision avoidance distance
+                    const diff = new THREE.Vector3().subVectors(this._object.position,
+                        enemy._object.position);
+                    diff.normalize();
+                    separationForce.add(diff); // 서로 멀어지게 하는 힘 추가
+                }
+            }
+        }
+
+        direction.add(separationForce);
+        direction.normalize();
+
+        // move
+        this._object.position.add(direction.multiplyScalar(this._speed * dt));
+        const lookAtPosition = new THREE.Vector3(
+            PLAYER.position.x,
+            this._object.position.y,
+            PLAYER.position.z
+        );
+        this._object.lookAt(lookAtPosition);
+    }
+
+}
+
+const object = WORLD.getObject("Enemy");
+
+const enemys = [];
+
+let spawnInterval = 300;
+
+const startButton = GUI.getObject("StartButton");
+
+const minSpawnRadius = 20; 
+const maxSpawnRadius = 100;
+
+function SpawnRandomPos() {
+
+    // Select a random angle
+    const angle = Math.random() * 2 * Math.PI; 
+    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; 
+
+    // Calculate x, z coordinates based on the angle and radius
+    const x = PLAYER.position.x + radius * Math.cos(angle);
+    const z = PLAYER.position.z + radius * Math.sin(angle);
+    const y = 2; 
+
+    const clone = THREEADDON.SkeletonUtils.clone(object);
+
+    object.animations.forEach((item) => {
+        clone.animations.push(item);
+    });
+    clone.position.set(x, y, z);
+    WORLD.add(clone);
+    const enemy = new Enemy(clone);
+    
+    enemys.push(enemy); 
+}
+
+function CreateEnemy() {
+    clearInterval(spawnInterval);
+    spawnInterval = setInterval(() => {
+        SpawnRandomPos();
+    }, spawnInterval);
+}
+
+function Start() {
+    startButton.onClick(function() {
+        CreateEnemy();
+        startButton.hide();
+    })
+}
+
+function Update(dt) {
+    for (let i = 0; i < enemys.length; i++) {
+        enemys[i].Move(dt);
+    }
+}
+```
+</Steps>
