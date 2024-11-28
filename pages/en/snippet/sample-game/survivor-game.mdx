@@ -1,0 +1,482 @@
+---
+title: "Creating a Survivor-like Game"
+description: "Learn how to create a survivor-like game in Redbrick Studio."
+---
+import { Steps } from "nextra/components";
+
+# Creating a Survivor-like Game
+
+<br/>
+<img src='/images/snippet/sample-game/survivor-game/enemy-bullet-result.gif' alt='enemy-bullet-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+### Steps
+<Steps>
+
+### Add Enemies and Objects to the Scene
+
+1. Add an enemy object to the scene.
+2. Select the enemy object in the left explorer panel.
+3. Rename the object to "Enemy".
+4. Set the detailed parameters of the enemy (position, angle, size, etc.) in the right properties panel.
+5. Continuously adjust the values until you find the desired settings.
+
+<center>![Create_enemy](/images/snippet/sample-game/survivor-game/Create_enemy.png)</center>
+
+### If the Enemy Has Animations, Write the Animation Code
+<img src='/images/snippet/sample-game/survivor-game/enemy-animation.gif' alt='enemy-animation' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+let mixer; // Declare mixer globally
+let moveAction;
+
+function Start() {
+    // Set up animation
+    const object = WORLD.getObject("Enemy");
+    
+    mixer = new THREE.AnimationMixer(object);
+    moveAction = mixer.clipAction(object.animations[1]);
+
+    // Set animation speed 
+    moveAction.setEffectiveTimeScale(1.7); // Movement animation speed
+    
+    moveAction.play();
+}
+
+function Update(dt) {
+    // Update animation
+    if (mixer) {
+        mixer.update(dt);
+    }
+}
+```
+
+### Specify the Spawn Location for Enemies and Write the Code
+```js showLineNumbers copy
+const enemys = [];
+const object = WORLD.getObject("Enemy");
+const minSpawnRadius = 20; 
+const maxSpawnRadius = 100;
+
+function SpawnRandomPos() {
+    // Select a random angle
+    const angle = Math.random() * 2 * Math.PI; // Random angle between 0 and 2π
+    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // Random radius between 20 and 100
+
+    // Calculate x, z coordinates based on the angle and radius
+    const x = PLAYER.position.x + radius * Math.cos(angle);
+    const z = PLAYER.position.z + radius * Math.sin(angle);
+    const y = 2; // Fixed y-coordinate
+
+    const clone = THREEADDON.SkeletonUtils.clone(object);
+
+    object.animations.forEach((item) => {
+        clone.animations.push(item);
+    });
+    clone.position.set(x, y, z);
+    WORLD.add(clone);
+    const enemy = new Enemy(clone);
+    
+    enemys.push(enemy); 
+}
+```
+### Set the Time for Enemy Creation to Spawn at Regular Intervals
+<img src='/images/snippet/sample-game/survivor-game/enemy-random-spawn.gif' alt='enemy-random-spawn' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+let spawnInterval = 300;
+function CreateEnemy() {
+    clearInterval(spawnInterval);
+    spawnInterval = setInterval(() => {
+        SpawnRandomPos();
+    }, spawnInterval);
+}
+```
+
+
+### Write Code for Enemies to Move Towards the Player
+<img src='/images/snippet/sample-game/survivor-game/enemy-move-to-player.gif' alt='enemy-move-to-player' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+function Move(dt) {
+    // animation update
+    if (mixer) { mixer.update(dt); }
+
+    const direction = new THREE.Vector3(
+        PLAYER.position.x - object.position.x,
+        0,
+        PLAYER.position.z - object.position.z
+    );
+
+    direction.normalize();
+
+    // move
+    object.position.add(direction.multiplyScalar(speed * dt));
+    const lookAtPosition = new THREE.Vector3(
+        PLAYER.position.x,
+        object.position.y,
+        PLAYER.position.z
+    );
+    object.lookAt(lookAtPosition);
+}
+```
+
+### Add Collision Logic to Prevent Overlapping Between Enemies
+<img src='/images/snippet/sample-game/survivor-game/enemy-collide-to-enemy.gif' alt='enemy-collide-to-enemy' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+function Move(dt) {
+    // animation update
+    if (mixer) { mixer.update(dt); }
+
+    const direction = new THREE.Vector3(
+        PLAYER.position.x - object.position.x,
+        0,
+        PLAYER.position.z - object.position.z
+    );
+
+    direction.normalize();
+    
+    // maintain distance from other enemies
+    const separationForce = new THREE.Vector3();
+    for (let enemy of enemys) {
+        if (enemy !== this) {
+            const distance = this._object.position.distanceTo(enemy._object
+                .position);
+            if (distance < this._radius + enemy._radius) { // Collision avoidance distance
+                const diff = new THREE.Vector3().subVectors(this._object.position,
+                    enemy._object.position);
+                diff.normalize();
+                separationForce.add(diff); // 서로 멀어지게 하는 힘 추가
+            }
+        }
+    }
+
+    direction.add(separationForce);
+    direction.normalize();
+    
+    // move
+    object.position.add(direction.multiplyScalar(speed * dt));
+    const lookAtPosition = new THREE.Vector3(
+        PLAYER.position.x,
+        object.position.y,
+        PLAYER.position.z
+    );
+    object.lookAt(lookAtPosition);
+}
+```
+### Add Bullets
+- Add bullet objects to the scene.
+<center>![Create_enemy](/images/snippet/sample-game/survivor-game/create-bullet.png)</center>
+### 일정시간 마다 총알이 생성 및 움직임 구현
+- Implement the creation of bullet objects at regular intervals.
+- Implement bullet movement in the direction the player is facing.
+```js showLineNumbers copy
+class BulletSystem {
+    constructor() {
+        this._bullets = [];
+        this._object = WORLD.getObject("bullet");
+        this._bulletSpeed = 50;
+        this._bulletRange = 20000;
+        this._shootingInterval = 1000;
+    }
+
+    CreateBullet() {
+        const bullet = this._object.clone();
+
+        const direction = new THREE.Vector3(0, 0, 1); // 앞쪽
+
+        if (!bullet) return;
+        bullet.position.set(PLAYER.position.x, PLAYER.position.y + 2, PLAYER.position.z);
+        bullet.direction = direction.applyEuler(PLAYER.rotation).normalize();
+        bullet.lookAt(bullet.position.clone().add(bullet.direction));
+        this._bullets.push({ object: bullet, direction: bullet.direction });
+        WORLD.add(bullet);
+    }
+
+    MoveBullet(dt) {
+        let movementVector;
+        const toRemove = []; // 삭제할 적의 인덱스를 저장할 배열
+
+        for (let i = this._bullets.length - 1; i >= 0; i--) {
+            const bullet = this._bullets[i];
+            const bulletPosition = bullet.object.position;
+
+            movementVector = bullet.direction.clone().multiplyScalar(this._bulletSpeed * dt);
+
+            bullet.object.position.set(
+                bulletPosition.x + movementVector.x,
+                bulletPosition.y + movementVector.y,
+                bulletPosition.z + movementVector.z,
+            );
+
+            if (bullet.object.position.distanceToSquared(PLAYER.position) > 10000) {
+                WORLD.remove(bullet.object);
+                this._bullets.splice(i, 1);
+                continue;
+            }
+        }
+    }
+}
+GLOBAL.bulletSystem = new BulletSystem();
+
+let shotInterval;
+
+function Fire() {
+    clearInterval(hotInterval);
+
+    shotInterval = setInterval(() => {
+        GLOBAL.bulletSystem.CreateBullet();
+    }, 500);
+
+}
+
+const startButton = GUI.getObject("StartButton");
+
+function Start() {
+    startButton.onClick(function() {
+        Fire();
+        startButton.hide();
+    })
+}
+
+function Update(dt) {
+    if (!GLOBAL.isGameStart) return;
+
+    GLOBAL.bulletSystem.MoveBullet(dt);
+}
+```
+### Implement Bullet and Enemy Collision
+- Implement collision logic with enemies and subsequent actions.
+<img src='/images/snippet/sample-game/survivor-game/collide-enemy.gif' alt='collide-enemy' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+Collide(bullet, enemy, toRemove, num) {
+        if (bullet.object.position.distanceToSquared(enemy._object.position) < 5) {
+
+            if (enemy._isInvincibility === true) return;
+
+            enemy._isInvincibility = true;
+
+            if (enemy._alive) {
+                enemy._alive = false;
+                const enemyObject = enemy._object;
+
+                enemy._moveAction.stop();
+                enemy._deathAction.play();
+                enemy._deathAction.setLoop(THREE.LoopOnce);
+
+                // 삭제할 적의 인덱스를 저장
+
+                setTimeout(() => {
+                    toRemove.push(num);
+                    enemyObject.position.set(0, -100, 0);
+                    WORLD.remove(enemyObject);
+                }, 1000);
+
+            }
+
+        }
+    }
+
+    Remove(toRemove) {
+        // 적을 한 번에 삭제
+        for (let i = toRemove.length - 1; i >= 0; i--) {
+            GLOBAL.enemys.splice(toRemove[i], 1);
+            toRemove.splice(i,1);
+        }
+    }
+```
+### Complete Code Integration
+Here’s the complete code with all components integrated, including the bullet and enemy collision.
+
+<img src='/images/snippet/sample-game/survivor-game/enemy-bullet-result.gif' alt='enemy-bullet-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+class Enemy {
+    constructor(object) {
+        this._object = object;
+        this._speed = 10;
+        this._hp = 100;
+
+        // Collision avoidance distance
+        this._radius = 1;
+
+        // Animation
+        this._mixer = new THREE.AnimationMixer(this._object);
+        this._moveAction = this._mixer.clipAction(this._object.animations[1]);
+
+        // Animation speed 
+        this._moveAction.setEffectiveTimeScale(1.7); // Movement animation speed
+
+        this.Init();
+    }
+
+    Init() {
+        // Start the move action
+        this._moveAction.play();
+    }
+
+    Move(dt) {
+        if (this._hp < 0) return;
+
+        // Animation update
+        if (this._mixer) { this._mixer.update(dt); }
+
+        const direction = new THREE.Vector3(
+            PLAYER.position.x - this._object.position.x,
+            0,
+            PLAYER.position.z - this._object.position.z
+        );
+
+        direction.normalize();
+
+        // Maintain distance from other enemies
+        const separationForce = new THREE.Vector3();
+        for (let enemy of enemys) {
+            if (enemy !== this) {
+                const distance = this._object.position.distanceTo(enemy._object.position);
+                if (distance < this._radius + enemy._radius) { // Collision avoidance distance
+                    const diff = new THREE.Vector3().subVectors(this._object.position, enemy._object.position);
+                    diff.normalize();
+                    separationForce.add(diff); // Add force to move apart
+                }
+            }
+        }
+
+        direction.add(separationForce);
+        direction.normalize();
+
+        // Move the enemy
+        this._object.position.add(direction.multiplyScalar(this._speed * dt));
+        const lookAtPosition = new THREE.Vector3(
+            PLAYER.position.x,
+            this._object.position.y,
+            PLAYER.position.z
+        );
+        this._object.lookAt(lookAtPosition);
+    }
+}
+
+class BulletSystem {
+    constructor() {
+        this._bullets = [];
+        this._object = WORLD.getObject("bullet");
+        this._bulletSpeed = 50;
+        this._bulletRange = 20000;
+        this._dmg = 10;
+    }
+
+    CreateBullet() {
+        const bullet = this._object.clone();
+        const direction = new THREE.Vector3(0, 0, 1); // Front direction
+
+        if (!bullet) return;
+        bullet.position.set(PLAYER.position.x, PLAYER.position.y + 2, PLAYER.position.z);
+        bullet.direction = direction.applyEuler(PLAYER.rotation).normalize();
+        bullet.lookAt(bullet.position.clone().add(bullet.direction));
+        this._bullets.push({ object: bullet, direction: bullet.direction });
+        WORLD.add(bullet);
+    }
+
+    MoveBullet(dt) {
+        let movementVector;
+        const toRemove = []; // Array to store indices of bullets to remove
+
+        for (let i = this._bullets.length - 1; i >= 0; i--) {
+            const bullet = this._bullets[i];
+            const bulletPosition = bullet.object.position;
+
+            movementVector = bullet.direction.clone().multiplyScalar(this._bulletSpeed * dt);
+            bullet.object.position.set(
+                bulletPosition.x + movementVector.x,
+                bulletPosition.y + movementVector.y,
+                bulletPosition.z + movementVector.z,
+            );
+
+            // Collision check
+            for (let j = 0; j < GLOBAL.enemys.length; j++) {
+                this.Collide(bullet, GLOBAL.enemys[j], toRemove, j);
+            }
+
+            if (bullet.object.position.distanceToSquared(PLAYER.position) > 10000) {
+                WORLD.remove(bullet.object);
+                this._bullets.splice(i, 1);
+                continue;
+            }
+        }
+        this.Remove(toRemove);
+    }
+
+    Collide(bullet, enemy, toRemove, num) {
+        if (bullet.object.position.distanceToSquared(enemy._object.position) < 5) {
+            if (enemy._isInvincibility === true) return;
+
+            enemy._isInvincibility = true;
+
+            if (enemy._alive) {
+                enemy._alive = false;
+                const enemyObject = enemy._object;
+
+                enemy._moveAction.stop();
+                enemy._deathAction.play();
+                enemy._deathAction.setLoop(THREE.LoopOnce);
+
+                // Store the index of the enemy to be removed
+                setTimeout(() => {
+                    toRemove.push(num);
+                    enemyObject.position.set(0, -100, 0);
+                    WORLD.remove(enemyObject);
+                }, 1000);
+            }
+        }
+    }
+
+    Remove(toRemove) {
+        // Remove enemies at once
+        for (let i = toRemove.length - 1; i >= 0; i--) {
+            GLOBAL.enemys.splice(toRemove[i], 1);
+        }
+    }
+}
+
+GLOBAL.bulletSystem = new BulletSystem();
+
+let shotInterval;
+
+function Fire() {
+    clearInterval(shotInterval);
+
+    shotInterval = setInterval(() => {
+        GLOBAL.bulletSystem.CreateBullet();
+    }, 500);
+}
+
+const startButton = GUI.getObject("StartButton");
+
+function Start() {
+    startButton.onClick(function() {
+        CreateEnemy();
+        Fire();
+        startButton.hide();
+    });
+}
+
+function Update(dt) {
+    for (let i = 0; i < enemys.length; i++) {
+        enemys[i].Move(dt);
+    }
+    GLOBAL.bulletSystem.MoveBullet(dt);
+}
+
+```
+### Summary
+
+- Enemy Class: Handles enemy movement towards the player, including separation logic to avoid overlapping with other enemies.
+
+- BulletSystem Class: Manages bullet creation, movement, and collision detection with enemies. Bullets are removed from the scene if they go out of range or hit an enemy.
+
+- Start and Update Functions: Manage the game's start process and update the state of enemies and bullets each frame.
+
+ This structure allows you to create a simple survivor-like game where enemies spawn, move towards the player, and bullets can collide with enemies.
+
+</Steps>
