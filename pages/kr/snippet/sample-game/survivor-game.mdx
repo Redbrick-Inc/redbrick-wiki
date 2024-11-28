@@ -1,0 +1,535 @@
+---
+title: "뱀서라이크류 게임 만들기"
+description: "레드브릭 스튜디오에서 뱀서라이크류 게임 만드는 방법을 알아봅니다."
+---
+import { Steps } from "nextra/components";
+
+# 뱀서라이크류 게임 만들기
+
+<br/>
+<img src='/images/snippet/sample-game/survivor-game/enemy-bullet-result.gif' alt='enemy-bullet-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+### Steps
+<Steps>
+
+### 씬에 적 및 오브젝트를 추가합니다.
+
+1. 씬에 적 오브젝트나 추가합니다.  
+2. 좌측 탐색기 패널에서 적 오브젝트 선택합니다.  
+3. 오브젝트 이름 을 Enemy로 변경합니다.
+4. 우측 속성 패널에서 적의 세부적인 파라미터(위치, 각도, 크기 등)를 설정합니다.
+5. 값을 계속 변경해가며 마음에 드는 값을 찾습니다.
+
+<center>![Create_enemy](/images/snippet/sample-game/survivor-game/Create_enemy.png)</center>
+
+### 적의 애니메이션이 있다면 애니메이션을 코드를 작성해 줍니다.
+<img src='/images/snippet/sample-game/survivor-game/enemy-animation.gif' alt='enemy-animation' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+
+let mixer; // 믹서를 전역으로 선언
+let moveAction;
+
+function Start() {
+    // 애니메이션 설정
+    const object = WORLD.getObject("Enemy");
+    
+    mixer = new THREE.AnimationMixer(object);
+    moveAction = mixer.clipAction(object.animations[1]);
+
+    // 애니메이션 속도 설정 
+    moveAction.setEffectiveTimeScale(1.7); // 이동 애니메이션 속도
+    
+    moveAction.play();
+}
+
+function Update(dt) {
+    // 애니메이션 업데이트
+    if (mixer) {
+        mixer.update(dt);
+    }
+}
+```
+
+### 적이 리스폰할 장소를 지정해 코드를 작성해 줍니다.
+```js showLineNumbers copy
+const enemys = [];
+const object = WORLD.getObject("Enemy");
+const minSpawnRadius = 20; 
+const maxSpawnRadius = 100;
+
+function SpawnRandomPos() {
+    // Select a random angle
+    const angle = Math.random() * 2 * Math.PI; // 0부터 2π까지의 랜덤 각도
+    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // 20부터 100까지의 랜덤 반지름
+
+    // Calculate x, z coordinates based on the angle and radius
+    const x = PLAYER.position.x + radius * Math.cos(angle);
+    const z = PLAYER.position.z + radius * Math.sin(angle);
+    const y = 2; // y 좌표는 고정값으로 설정
+
+    const clone = THREEADDON.SkeletonUtils.clone(object);
+
+    object.animations.forEach((item) => {
+        clone.animations.push(item);
+    });
+    clone.position.set(x, y, z);
+    WORLD.add(clone);
+    const enemy = new Enemy(clone);
+    
+    enemys.push(enemy); 
+}
+```
+### 적이 생성 될 시간을 설정해 일정시간마다 스폰 되도록 코드를 작성합니다.
+<img src='/images/snippet/sample-game/survivor-game/enemy-random-spawn.gif' alt='enemy-random-spawn' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+let spawnInterval = 300;
+function CreateEnemy() {
+    clearInterval(spawnInterval);
+    spawnInterval = setInterval(() => {
+        SpawnRandomPos();
+    }, spawnInterval);
+}
+```
+
+
+### 적이 플레이어를 향해 이동하도록 코드를 작성해줍니다.
+<img src='/images/snippet/sample-game/survivor-game/enemy-move-to-player.gif' alt='enemy-move-to-player' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+function Move(dt) {
+    // animation update
+    if (mixer) { mixer.update(dt); }
+
+    const direction = new THREE.Vector3(
+        PLAYER.position.x - object.position.x,
+        0,
+        PLAYER.position.z - object.position.z
+    );
+
+    direction.normalize();
+
+    // move
+    object.position.add(direction.multiplyScalar(speed * dt));
+    const lookAtPosition = new THREE.Vector3(
+        PLAYER.position.x,
+        object.position.y,
+        PLAYER.position.z
+    );
+    object.lookAt(lookAtPosition);
+}
+```
+
+### 적 끼리 겹치지 않도록 충돌 관련 코드를 추가해줍니다.
+<img src='/images/snippet/sample-game/survivor-game/enemy-collide-to-enemy.gif' alt='enemy-collide-to-enemy' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+function Move(dt) {
+    // animation update
+    if (mixer) { mixer.update(dt); }
+
+    const direction = new THREE.Vector3(
+        PLAYER.position.x - object.position.x,
+        0,
+        PLAYER.position.z - object.position.z
+    );
+
+    direction.normalize();
+    
+    // maintain distance from other enemies
+    const separationForce = new THREE.Vector3();
+    for (let enemy of enemys) {
+        if (enemy !== this) {
+            const distance = this._object.position.distanceTo(enemy._object
+                .position);
+            if (distance < this._radius + enemy._radius) { // Collision avoidance distance
+                const diff = new THREE.Vector3().subVectors(this._object.position,
+                    enemy._object.position);
+                diff.normalize();
+                separationForce.add(diff); // 서로 멀어지게 하는 힘 추가
+            }
+        }
+    }
+
+    direction.add(separationForce);
+    direction.normalize();
+    
+    // move
+    object.position.add(direction.multiplyScalar(speed * dt));
+    const lookAtPosition = new THREE.Vector3(
+        PLAYER.position.x,
+        object.position.y,
+        PLAYER.position.z
+    );
+    object.lookAt(lookAtPosition);
+}
+```
+### 총알 추가
+- 총알 오브젝트를 씬에 추가합니다.
+<center>![Create_enemy](/images/snippet/sample-game/survivor-game/create-bullet.png)</center>
+### 일정시간 마다 총알이 생성 및 움직임 구현
+- 일정 시간 마다 총알 오브젝트를 만들도록 구현 합니다.
+- 플레이어가 바라보는 방향으로 총알이 움직이도록 구현 합니다.
+```js showLineNumbers copy
+class BulletSystem {
+    constructor() {
+        this._bullets = [];
+        this._object = WORLD.getObject("bullet");
+        this._bulletSpeed = 50;
+        this._bulletRange = 20000;
+        this._shootingInterval = 1000;
+    }
+
+    CreateBullet() {
+        const bullet = this._object.clone();
+
+        const direction = new THREE.Vector3(0, 0, 1); // 앞쪽
+
+        if (!bullet) return;
+        bullet.position.set(PLAYER.position.x, PLAYER.position.y + 2, PLAYER.position.z);
+        bullet.direction = direction.applyEuler(PLAYER.rotation).normalize();
+        bullet.lookAt(bullet.position.clone().add(bullet.direction));
+        this._bullets.push({ object: bullet, direction: bullet.direction });
+        WORLD.add(bullet);
+    }
+
+    MoveBullet(dt) {
+        let movementVector;
+        const toRemove = []; // 삭제할 적의 인덱스를 저장할 배열
+
+        for (let i = this._bullets.length - 1; i >= 0; i--) {
+            const bullet = this._bullets[i];
+            const bulletPosition = bullet.object.position;
+
+            movementVector = bullet.direction.clone().multiplyScalar(this._bulletSpeed * dt);
+
+            bullet.object.position.set(
+                bulletPosition.x + movementVector.x,
+                bulletPosition.y + movementVector.y,
+                bulletPosition.z + movementVector.z,
+            );
+
+            if (bullet.object.position.distanceToSquared(PLAYER.position) > 10000) {
+                WORLD.remove(bullet.object);
+                this._bullets.splice(i, 1);
+                continue;
+            }
+        }
+    }
+}
+GLOBAL.bulletSystem = new BulletSystem();
+
+let shotInterval;
+
+function Fire() {
+    clearInterval(hotInterval);
+
+    shotInterval = setInterval(() => {
+        GLOBAL.bulletSystem.CreateBullet();
+    }, 500);
+
+}
+
+const startButton = GUI.getObject("StartButton");
+
+function Start() {
+    startButton.onClick(function() {
+        Fire();
+        startButton.hide();
+    })
+}
+
+function Update(dt) {
+    if (!GLOBAL.isGameStart) return;
+
+    GLOBAL.bulletSystem.MoveBullet(dt);
+}
+```
+### 총알과 적 충돌 구현
+- 적과의 충돌 구현 및 충돌 이후 로직을 구현합니다.
+<img src='/images/snippet/sample-game/survivor-game/collide-enemy.gif' alt='collide-enemy' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+Collide(bullet, enemy, toRemove, num) {
+        if (bullet.object.position.distanceToSquared(enemy._object.position) < 5) {
+
+            if (enemy._isInvincibility === true) return;
+
+            enemy._isInvincibility = true;
+
+            if (enemy._alive) {
+                enemy._alive = false;
+                const enemyObject = enemy._object;
+
+                enemy._moveAction.stop();
+                enemy._deathAction.play();
+                enemy._deathAction.setLoop(THREE.LoopOnce);
+
+                // 삭제할 적의 인덱스를 저장
+
+                setTimeout(() => {
+                    toRemove.push(num);
+                    enemyObject.position.set(0, -100, 0);
+                    WORLD.remove(enemyObject);
+                }, 1000);
+
+            }
+
+        }
+    }
+
+    Remove(toRemove) {
+        // 적을 한 번에 삭제
+        for (let i = toRemove.length - 1; i >= 0; i--) {
+            GLOBAL.enemys.splice(toRemove[i], 1);
+            toRemove.splice(i,1);
+        }
+    }
+```
+### 코드를 이용하여 아래와 같은 코드를 완성합니다.
+<img src='/images/snippet/sample-game/survivor-game/enemy-bullet-result.gif' alt='enemy-bullet-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+```js showLineNumbers copy
+class Enemy {
+    constructor(object) {
+        this._object = object;
+        this._speed = 10;
+        this._hp = 100;
+
+        //Collision avoidance distance
+        this._radius = 1;
+
+        // animation
+        this._mixer = new THREE.AnimationMixer(this._object);
+        this._moveAction = this._mixer.clipAction(this._object.animations[1]);
+
+        // animation speed 
+        this._moveAction.setEffectiveTimeScale(1.7); // 이동 애니메이션 속도
+
+        this.Init();
+    }
+
+    Init() {
+        // move action play
+        this._moveAction.play();
+    }
+
+    Move(dt) {
+        if (this._hp < 0) return;
+
+        // animation update
+        if (this._mixer) { this._mixer.update(dt); }
+        
+        console.log("move")
+        
+        const direction = new THREE.Vector3(
+            PLAYER.position.x - this._object.position.x,
+            0,
+            PLAYER.position.z - this._object.position.z
+        );
+
+        direction.normalize();
+
+        // maintain distance from other enemies
+        const separationForce = new THREE.Vector3();
+        for (let enemy of enemys) {
+            if (enemy !== this) {
+                const distance = this._object.position.distanceTo(enemy._object
+                    .position);
+                if (distance < this._radius + enemy._radius) { // Collision avoidance distance
+                    const diff = new THREE.Vector3().subVectors(this._object.position,
+                        enemy._object.position);
+                    diff.normalize();
+                    separationForce.add(diff); // 서로 멀어지게 하는 힘 추가
+                }
+            }
+        }
+
+        direction.add(separationForce);
+        direction.normalize();
+
+        // move
+        this._object.position.add(direction.multiplyScalar(this._speed * dt));
+        const lookAtPosition = new THREE.Vector3(
+            PLAYER.position.x,
+            this._object.position.y,
+            PLAYER.position.z
+        );
+        this._object.lookAt(lookAtPosition);
+    }
+
+}
+
+const object = WORLD.getObject("Enemy");
+
+const enemys = [];
+
+let spawnInterval = 300;
+
+const startButton = GUI.getObject("StartButton");
+
+const minSpawnRadius = 20; 
+const maxSpawnRadius = 100;
+
+function SpawnRandomPos() {
+    // Select a random angle
+    const angle = Math.random() * 2 * Math.PI; // 0부터 2π까지의 랜덤 각도
+    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // 20부터 100까지의 랜덤 반지름
+
+    // Calculate x, z coordinates based on the angle and radius
+    const x = PLAYER.position.x + radius * Math.cos(angle);
+    const z = PLAYER.position.z + radius * Math.sin(angle);
+    const y = 2; // y 좌표는 고정값으로 설정
+
+    const clone = THREEADDON.SkeletonUtils.clone(object);
+
+    object.animations.forEach((item) => {
+        clone.animations.push(item);
+    });
+    clone.position.set(x, y, z);
+    WORLD.add(clone);
+    const enemy = new Enemy(clone);
+    
+    enemys.push(enemy); 
+}
+
+function CreateEnemy() {
+    clearInterval(spawnInterval);
+    spawnInterval = setInterval(() => {
+        SpawnRandomPos();
+    }, spawnInterval);
+}
+
+class BulletSystem {
+    constructor() {
+        this._bullets = [];
+        this._object = WORLD.getObject("bullet");
+        this._bulletSpeed = 50;
+        this._bulletRange = 20000;
+        this._shootingInterval = 1000;
+        this._dmg = 10;
+        
+    }
+
+    CreateBullet() {
+        const bullet = this._object.clone();
+
+        const direction = new THREE.Vector3(0, 0, 1); // 앞쪽
+
+        if (!bullet) return;
+        bullet.position.set(PLAYER.position.x, PLAYER.position.y + 2, PLAYER.position.z);
+        bullet.direction = direction.applyEuler(PLAYER.rotation).normalize();
+        bullet.lookAt(bullet.position.clone().add(bullet.direction));
+        this._bullets.push({ object: bullet, direction: bullet.direction });
+        WORLD.add(bullet);
+    }
+
+    MoveBullet(dt) {
+        let movementVector;
+        const toRemove = []; // 삭제할 적의 인덱스를 저장할 배열
+
+        for (let i = this._bullets.length - 1; i >= 0; i--) {
+            const bullet = this._bullets[i];
+            const bulletPosition = bullet.object.position;
+
+            movementVector = bullet.direction.clone().multiplyScalar(this._bulletSpeed * dt);
+
+            bullet.object.position.set(
+                bulletPosition.x + movementVector.x,
+                bulletPosition.y + movementVector.y,
+                bulletPosition.z + movementVector.z,
+            );
+
+            // 충돌체크
+            for (let j = 0; j < GLOBAL.enemys.length; j++) {
+                this.Collide(bullet, GLOBAL.enemys[j],toRemove, j);
+            }
+
+            if (bullet.object.position.distanceToSquared(PLAYER.position) > 10000) {
+                WORLD.remove(bullet.object);
+                this._bullets.splice(i, 1);
+                continue;
+            }
+        }
+        this.Remove(toRemove);
+    }
+
+    Collide(bullet, enemy, toRemove, num) {
+        if (bullet.object.position.distanceToSquared(enemy._object.position) < 5) {
+
+            if (enemy._isInvincibility === true) return;
+
+            enemy._isInvincibility = true;
+
+            if (enemy._alive) {
+                enemy._alive = false;
+                const enemyObject = enemy._object;
+
+                enemy._moveAction.stop();
+                enemy._deathAction.play();
+                enemy._deathAction.setLoop(THREE.LoopOnce);
+
+                // 삭제할 적의 인덱스를 저장
+
+                setTimeout(() => {
+                    toRemove.push(num);
+                    enemyObject.position.set(0, -100, 0);
+                    WORLD.remove(enemyObject);
+                }, 1000);
+
+            }
+
+        }
+    }
+
+    Remove(toRemove) {
+        // 적을 한 번에 삭제
+        for (let i = toRemove.length - 1; i >= 0; i--) {
+            GLOBAL.enemys.splice(toRemove[i], 1);
+            toRemove.splice(i,1);
+        }
+    }
+}
+GLOBAL.bulletSystem = new BulletSystem();
+
+let shotInterval;
+
+function Fire() {
+
+    clearInterval(shotInterval);
+
+    shotInterval = setInterval(() => {
+
+        GLOBAL.bulletSystem.CreateBullet();
+
+    }, 500);
+
+}
+
+function Start() {
+    startButton.onClick(function() {
+        CreateEnemy();
+        Fire();
+        startButton.hide();
+    })
+}
+
+function Update(dt) {
+    for (let i = 0; i < enemys.length; i++) {
+        enemys[i].Move(dt);
+    }
+    GLOBAL.bulletSystem.MoveBullet(dt);
+}
+```
+### 요약
+
+- Enemy 클래스: 적이 플레이어를 향해 이동하도록 처리하며, 다른 적과 겹치지 않도록 분리 로직을 포함합니다.
+
+- BulletSystem 클래스: 총알 생성, 이동 및 적과의 충돌 감지를 관리합니다. 총알은 범위를 벗어나거나 적과 충돌할 경우 씬에서 제거됩니다.
+
+- Start 및 Update 함수: 게임 시작 프로세스를 관리하고 매 프레임마다 적과 총알의 상태를 업데이트합니다.
+
+이 구조를 통해 적이 생성되고 플레이어를 향해 이동하며, 총알이 적과 충돌할 수 있는 간단한 뱀서라이크류 게임을 만들 수 있습니다.
+
+</Steps>

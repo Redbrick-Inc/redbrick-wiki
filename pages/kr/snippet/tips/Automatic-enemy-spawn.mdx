@@ -1,5 +1,5 @@
 ---
-title: "적 자동 스폰 만들기"
+title: "적 스폰, 이동 구현하기"
 description: "레드브릭 스튜디오에서 일정시간마다 적을 스폰하는 방법을 알아봅니다."
 ---
 import { Steps } from "nextra/components";
@@ -7,7 +7,7 @@ import { Steps } from "nextra/components";
 # 적 자동 스폰
 
 <br/>
-<img src='/images/snippet/tips/Automatic-enemy-spawn/auto-enemy-spawn_result.gif' alt='auto-enemy-spawn_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-spawn-result.gif' alt='enemy-spawn-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ### Steps
 ##### 1. 적 object는 클래스와 리스트를 통해 관리합니다.
@@ -22,36 +22,7 @@ import { Steps } from "nextra/components";
 4. 우측 속성 패널에서 적의 세부적인 파라미터(위치, 각도, 크기 등)를 설정합니다.
 5. 값을 계속 변경해가며 마음에 드는 값을 찾습니다.
 
-<center>![Create_enemy](/images/snippet/tips/Automatic-enemy-spawn/Create_enemy.png)</center>
-
-### 적의 애니메이션이 있다면 애니메이션을 코드를 작성해 줍니다.
-<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-animation.gif' alt='enemy-animation' loading="lazy" decoding="async" style={{width: '100%'}}/>
-
-```js showLineNumbers copy
-
-let mixer; // 믹서를 전역으로 선언
-let moveAction;
-
-function Start() {
-    // 애니메이션 설정
-    const object = WORLD.getObject("Enemy");
-    
-    mixer = new THREE.AnimationMixer(object);
-    moveAction = mixer.clipAction(object.animations[1]);
-
-    // 애니메이션 속도 설정 
-    moveAction.setEffectiveTimeScale(1.7); // 이동 애니메이션 속도
-    
-    moveAction.play();
-}
-
-function Update(dt) {
-    // 애니메이션 업데이트
-    if (mixer) {
-        mixer.update(dt);
-    }
-}
-```
+<center>![Create_enemy](/images/snippet/tips/Automatic-enemy-spawn/create-enemy.png)</center>
 
 ### 적이 리스폰할 장소를 지정해 코드를 작성해 줍니다.
 ```js showLineNumbers copy
@@ -83,13 +54,14 @@ function SpawnRandomPos() {
 }
 ```
 ### 적이 생성 될 시간을 설정해 일정시간마다 스폰 되도록 코드를 작성합니다.
-<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-random-spawn.gif' alt='enemy-random-spawn' loading="lazy" decoding="async" style={{width: '100%'}}/>
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-spawn.gif' alt='enemy-spawn' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ```js showLineNumbers copy
 let spawnInterval = 300;
+let startSpawn;
 function CreateEnemy() {
-    clearInterval(spawnInterval);
-    spawnInterval = setInterval(() => {
+    clearInterval(startSpawn);
+    startSpawn = setInterval(() => {
         SpawnRandomPos();
     }, spawnInterval);
 }
@@ -97,13 +69,11 @@ function CreateEnemy() {
 
 
 ### 적이 플레이어를 향해 이동하도록 코드를 작성해줍니다.
-<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-move-to-player.gif' alt='enemy-move-to-player' loading="lazy" decoding="async" style={{width: '100%'}}/>
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-move.gif' alt='enemy-move' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ```js showLineNumbers copy
-function Move(dt) {
-    // animation update
-    if (mixer) { mixer.update(dt); }
-
+function Move(dt, object) {
+    const radius = 1.5;
     const direction = new THREE.Vector3(
         PLAYER.position.x - object.position.x,
         0,
@@ -111,7 +81,6 @@ function Move(dt) {
     );
 
     direction.normalize();
-
     // move
     object.position.add(direction.multiplyScalar(speed * dt));
     const lookAtPosition = new THREE.Vector3(
@@ -124,13 +93,11 @@ function Move(dt) {
 ```
 
 ### 겹치지 않도록 충돌 관련 코드를 추가해줍니다.
-<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-collide-to-enemy.gif' alt='enemy-collide-to-enemy' loading="lazy" decoding="async" style={{width: '100%'}}/>
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-spawn-result.gif' alt='enemy-spawn-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ```js showLineNumbers copy
-function Move(dt) {
-    // animation update
-    if (mixer) { mixer.update(dt); }
-
+function Move(dt, object) {
+    const radius = 1.5;
     const direction = new THREE.Vector3(
         PLAYER.position.x - object.position.x,
         0,
@@ -138,15 +105,15 @@ function Move(dt) {
     );
 
     direction.normalize();
-    
+
     // maintain distance from other enemies
     const separationForce = new THREE.Vector3();
     for (let enemy of enemys) {
-        if (enemy !== this) {
-            const distance = this._object.position.distanceTo(enemy._object
+        if (enemy !== object) {
+            const distance = object.position.distanceTo(enemy._object
                 .position);
-            if (distance < this._radius + enemy._radius) { // Collision avoidance distance
-                const diff = new THREE.Vector3().subVectors(this._object.position,
+            if (distance < radius + enemy._radius) { // Collision avoidance distance
+                const diff = new THREE.Vector3().subVectors(object.position,
                     enemy._object.position);
                 diff.normalize();
                 separationForce.add(diff); // 서로 멀어지게 하는 힘 추가
@@ -156,7 +123,7 @@ function Move(dt) {
 
     direction.add(separationForce);
     direction.normalize();
-    
+
     // move
     object.position.add(direction.multiplyScalar(speed * dt));
     const lookAtPosition = new THREE.Vector3(

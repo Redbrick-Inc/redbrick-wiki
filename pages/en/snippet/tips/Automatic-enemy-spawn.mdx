@@ -1,61 +1,30 @@
 ---
-title: "Creating Enemy Spawn, Move"
+title: "Implementing Enemy Spawn and Movement"
 description: "Learn how to spawn enemies at regular intervals in Redbrick Studio."
 ---
 import { Steps } from "nextra/components";
 
-# Enemy Spawn, Move
+# Automatic Enemy Spawn
 
 <br/>
-<img src='/images/snippet/tips/Automatic-enemy-spawn/auto-enemy-spawn_result.gif' alt='auto-enemy-spawn_result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-spawn-result.gif' alt='enemy-spawn-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ### Steps
-##### 1. Manage enemy objects through classes and lists.
-##### 2. If optimization is needed due to excessive creation and deletion, create a recycling list to manage enemy deletion or respawning, reducing the frequency of creation and deletion.
+##### 1. Manage enemy objects using a class and a list.
+##### 2. If optimization is needed due to excessive creation and deletion, implement a recycling list for enemies to avoid excessive creation and deletion after they die.
 <Steps>
 
-### Add the enemy object to the scene.
+### Add the Enemy Object to the Scene
 
 1. Add the enemy object to the scene.
 2. Select the enemy object in the left explorer panel.
-3. Change the object name to "Enemy".
-4. Set the detailed parameters (position, angle, size, etc.) of the enemy in the right properties panel.
-5. Continue adjusting the values until you find the desired settings.
+3. Rename the object to "Enemy".
+4. Set the enemy's detailed parameters (position, angle, size, etc.) in the right properties panel.
+5. Continuously adjust the values until you find the desired settings.
 
-<center>![Create_enemy](/images/snippet/tips/Automatic-enemy-spawn/Create_enemy.png)</center>
+<center>![Create_enemy](/images/snippet/tips/Automatic-enemy-spawn/create-enemy.png)</center>
 
-### If the enemy has animations, write the animation code.
-<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-animation.gif' alt='enemy-animation' loading="lazy" decoding="async" style={{width: '100%'}}/>
-
-```js showLineNumbers copy
-
-
-let mixer; // Declare the mixer globally
-let moveAction;
-
-function Start() {
-    // Set up animation
-    const object = WORLD.getObject("Enemy");
-    
-    mixer = new THREE.AnimationMixer(object);
-    moveAction = mixer.clipAction(object.animations[1]);
-
-    // Set animation speed 
-    moveAction.setEffectiveTimeScale(1.7); // Speed of movement animation
-    
-    moveAction.play();
-}
-
-function Update(dt) {
-    // Update animation
-    if (mixer) {
-        mixer.update(dt);
-    }
-}
-
-```
-
-### Specify where the enemies will respawn and write the code.
+### Specify the Spawn Location for Enemies and Write the Code
 ```js showLineNumbers copy
 const enemys = [];
 const object = WORLD.getObject("Enemy");
@@ -64,13 +33,13 @@ const maxSpawnRadius = 100;
 
 function SpawnRandomPos() {
     // Select a random angle
-    const angle = Math.random() * 2 * Math.PI; // Random angle from 0 to 2π
-    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // Random radius from 20 to 100
+    const angle = Math.random() * 2 * Math.PI; // 0부터 2π까지의 랜덤 각도
+    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // 20부터 100까지의 랜덤 반지름
 
     // Calculate x, z coordinates based on the angle and radius
     const x = PLAYER.position.x + radius * Math.cos(angle);
     const z = PLAYER.position.z + radius * Math.sin(angle);
-    const y = 2; // Set y coordinate to a fixed value
+    const y = 2; // y 좌표는 고정값으로 설정
 
     const clone = THREEADDON.SkeletonUtils.clone(object);
 
@@ -84,28 +53,27 @@ function SpawnRandomPos() {
     enemys.push(enemy); 
 }
 ```
-### Set the time for enemy creation so that they spawn at regular intervals.
-<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-random-spawn.gif' alt='enemy-random-spawn' loading="lazy" decoding="async" style={{width: '100%'}}/>
+### Set the Time for Enemy Creation to Spawn at Regular Intervals
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-spawn.gif' alt='enemy-spawn' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ```js showLineNumbers copy
 let spawnInterval = 300;
+let startSpawn;
 function CreateEnemy() {
-    clearInterval(spawnInterval);
-    spawnInterval = setInterval(() => {
+    clearInterval(startSpawn);
+    startSpawn = setInterval(() => {
         SpawnRandomPos();
     }, spawnInterval);
 }
 ```
 
 
-### Write code to make enemies move towards the player.
-<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-move-to-player.gif' alt='enemy-move-to-player' loading="lazy" decoding="async" style={{width: '100%'}}/>
+### Write Code for Enemies to Move Towards the Player
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-move.gif' alt='enemy-move' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ```js showLineNumbers copy
-function Move(dt) {
-    // Animation update
-    if (mixer) { mixer.update(dt); }
-
+function Move(dt, object) {
+    const radius = 1.5;
     const direction = new THREE.Vector3(
         PLAYER.position.x - object.position.x,
         0,
@@ -113,8 +81,7 @@ function Move(dt) {
     );
 
     direction.normalize();
-
-    // Move
+    // move
     object.position.add(direction.multiplyScalar(speed * dt));
     const lookAtPosition = new THREE.Vector3(
         PLAYER.position.x,
@@ -125,14 +92,12 @@ function Move(dt) {
 }
 ```
 
-### Add collision-related code to prevent overlapping.
-<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-collide-to-enemy.gif' alt='enemy-collide-to-enemy' loading="lazy" decoding="async" style={{width: '100%'}}/>
+### Add Collision Logic to Prevent Overlapping
+<img src='/images/snippet/tips/Automatic-enemy-spawn/enemy-spawn-result.gif' alt='enemy-spawn-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
 
 ```js showLineNumbers copy
-function Move(dt) {
-    // Animation update
-    if (mixer) { mixer.update(dt); }
-
+function Move(dt, object) {
+    const radius = 1.5;
     const direction = new THREE.Vector3(
         PLAYER.position.x - object.position.x,
         0,
@@ -140,24 +105,26 @@ function Move(dt) {
     );
 
     direction.normalize();
-    
-    // Maintain distance from other enemies
+
+    // maintain distance from other enemies
     const separationForce = new THREE.Vector3();
     for (let enemy of enemys) {
-        if (enemy !== this) {
-            const distance = this._object.position.distanceTo(enemy._object.position);
-            if (distance < this._radius + enemy._radius) { // Collision avoidance distance
-                const diff = new THREE.Vector3().subVectors(this._object.position, enemy._object.position);
+        if (enemy !== object) {
+            const distance = object.position.distanceTo(enemy._object
+                .position);
+            if (distance < radius + enemy._radius) { // Collision avoidance distance
+                const diff = new THREE.Vector3().subVectors(object.position,
+                    enemy._object.position);
                 diff.normalize();
-                separationForce.add(diff); // Add force to separate
+                separationForce.add(diff); // 서로 멀어지게 하는 힘 추가
             }
         }
     }
 
     direction.add(separationForce);
     direction.normalize();
-    
-    // Move
+
+    // move
     object.position.add(direction.multiplyScalar(speed * dt));
     const lookAtPosition = new THREE.Vector3(
         PLAYER.position.x,
@@ -168,7 +135,7 @@ function Move(dt) {
 }
 ```
 
-### Complete the code to create the following:
+### Complete the Code Using the Below Example
 
 ```js showLineNumbers copy
 class Enemy {
@@ -253,15 +220,14 @@ const minSpawnRadius = 20;
 const maxSpawnRadius = 100;
 
 function SpawnRandomPos() {
-
     // Select a random angle
-    const angle = Math.random() * 2 * Math.PI; 
-    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; 
+    const angle = Math.random() * 2 * Math.PI; // 0부터 2π까지의 랜덤 각도
+    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // 20부터 100까지의 랜덤 반지름
 
     // Calculate x, z coordinates based on the angle and radius
     const x = PLAYER.position.x + radius * Math.cos(angle);
     const z = PLAYER.position.z + radius * Math.sin(angle);
-    const y = 2; 
+    const y = 2; // y 좌표는 고정값으로 설정
 
     const clone = THREEADDON.SkeletonUtils.clone(object);
 
