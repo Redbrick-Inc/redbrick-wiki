@@ -5,4 +5,5 @@ export default {
   "change-background" : "플레이 중 배경이미지 바꾸기",
   "Automatic-enemy-spawn" : "적 스폰, 이동",
   "raycaster" : "레이캐스터",
+  "minimap" : "미니맵",
 };

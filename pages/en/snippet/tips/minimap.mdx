@@ -1,0 +1,142 @@
+---
+title: "n-Game Minimap"
+description: "Learn how to create and script a minimap in Redbrick Studio."
+---
+import { Steps } from "nextra/components";
+
+# Minimap
+The minimap is an essential element that visually represents the player's position and the surrounding environment during gameplay.
+ It allows players to easily check their position on the overall map and identify the location of enemies or objectives. 
+ In this section, we will explore how to implement a minimap in Redbrick Studio.
+
+### Components of the Minimap
+To construct a minimap, the following key elements are necessary:
+- Player Position: The current position of the player must be displayed on the minimap.
+- Enemy Position: The positions of nearby enemies or NPCs should be indicated to help players assess the situation.
+- Minimap Rotation: The minimap should rotate according to the player's line of sight, providing a more intuitive navigation experience.
+<br/>
+<img src='/images/snippet/tips/minimap/minimap-result.gif' alt='minimap-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+### Steps
+
+<Steps>
+
+### Minimap Initialization
+Add the minimap, enemy, and player GUI to the scene and create the necessary objects.
+
+```js showLineNumbers copy
+class Minimap {
+    constructor() {
+        this.enemyGUI = GUI.getObject("ENEMY");
+        this.miniMap = GUI.getObject("minimap");
+        this.miniMap.material.rotation = 0; // Initial rotation angle
+    }
+}
+``` 
+
+### Updating Player Position
+Update the elements of the minimap based on the player's position.
+```js showLineNumbers copy
+moveMinimapUI() {
+    const playerPosition = PLAYER.position;
+    this.updateEnemyMinimap(this.enemyGUI, enemy, playerPosition);
+}
+``` 
+
+### Calculating Enemy Position
+
+Calculate the relative position to display the enemy's location on the minimap.
+
+```js showLineNumbers copy
+updateEnemyMinimap(enemyGui, enemy, playerPosition) {
+    const { x: playerPosX, z: playerPosZ } = playerPosition;
+    const enemyPosX = -enemy.position.x + playerPosX;
+    const enemyPosZ = enemy.position.z - playerPosZ;
+    
+    const { rotatedX, rotatedZ } = this.calculateRotatedPosition(enemyPosX, enemyPosZ);
+    this.setEnemyGuiPosition(enemyGui, rotatedX, rotatedZ);
+}
+```
+
+### Minimap Rotation
+
+Rotate the minimap according to the player's line of sight.
+
+```js showLineNumbers copy
+const forwardDirection = new THREE.Vector3(0, 0, -1).applyEuler(PLAYER.rotation);
+GLOBAL.minimap.miniMap.material.rotation = -Math.atan2(forwardDirection.x, forwardDirection.z);
+```
+
+### Complete Code
+
+```js showLineNumbers copy
+const enemy = WORLD.getObject("Enemy");
+
+class Minimap {
+    constructor() {
+        this.enemyGUI = GUI.getObject("ENEMY");
+        this.miniMap = GUI.getObject("minimap");
+        this.miniMap.material.rotation = 0; // Initial rotation angle
+        this.previousRotationY = 0; // Initialize previous rotation value
+    }
+
+    moveMinimapUI() {
+        const playerPosition = PLAYER.position;
+
+        // Update enemy position on minimap
+        this.updateEnemyMinimap(this.enemyGUI, enemy, playerPosition);
+    }
+
+    updateEnemyMinimap(enemyGui, enemy, playerPosition) {
+        const { x: playerPosX, z: playerPosZ } = playerPosition;
+        const enemyPosX = -enemy.position.x + playerPosX;
+        const enemyPosZ = enemy.position.z - playerPosZ;
+
+        const { rotatedX, rotatedZ } = this.calculateRotatedPosition(enemyPosX, enemyPosZ);
+
+        this.setEnemyGuiPosition(enemyGui, rotatedX, rotatedZ);
+    }
+    
+    calculateRotatedPosition(posX, posZ) {
+        const scaledX = posX / 100;
+        const scaledZ = posZ / 100;
+        const rotationY = this.miniMap.material.rotation; // Y-axis rotation
+
+        // Reflect Y-axis rotation
+        const rotatedX = scaledX * Math.cos(rotationY) - scaledZ * Math.sin(rotationY);
+        const rotatedZ = scaledX * Math.sin(rotationY) + scaledZ * Math.cos(rotationY);
+
+        return { rotatedX, rotatedZ };
+    }
+
+    setEnemyGuiPosition(gui, rotatedX, rotatedZ) {
+        const radius = 0.4;
+        const distance = Math.sqrt(rotatedX * rotatedX + rotatedZ * rotatedZ);
+
+        if (distance > radius) {
+            const scale = radius / distance;
+            gui.position.x = -rotatedX * scale;
+            gui.position.y = -rotatedZ * scale;
+        } else {
+            gui.position.x = -rotatedX;
+            gui.position.y = -rotatedZ;
+        }
+    }
+}
+
+GLOBAL.minimap = new Minimap();
+
+function Start() {
+    // Initialization tasks
+}
+
+function Update(dt) {
+    // Update minimap rotation
+    const forwardDirection = new THREE.Vector3(0, 0, -1).applyEuler(PLAYER.rotation);
+    GLOBAL.minimap.miniMap.material.rotation = -Math.atan2(forwardDirection.x, forwardDirection.z); // Rotate based on direction
+    
+    GLOBAL.minimap.moveMinimapUI();
+}
+
+```
+</Steps>

@@ -1,0 +1,147 @@
+---
+title: "게임 내 미니맵(minimap)"
+description: "레드브릭 스튜디오에서 미니 맵을 구성하고 스크립팅하는 방법을 알아봅니다."
+---
+import { Steps } from "nextra/components";
+
+# 미니 맵
+미니 맵은 게임 플레이 중 플레이어의 위치 및 주변 환경을 시각적으로 나타내는 중요한 요소입니다. 
+이를 통해 플레이어는 전체 맵에서 자신의 위치를 쉽게 확인하고, 적이나 목표물의 위치를 파악할 수 있습니다. 
+이번 섹션에서는 레드브릭 스튜디오에서 미니 맵을 구현하는 방법에 대해 살펴보겠습니다.
+
+### 미니 맵의 구성 요소:
+미니 맵을 구성하기 위해서는 다음과 같은 주요 요소가 필요합니다:
+
+- 플레이어 위치: 플레이어의 현재 위치를 미니 맵에 표시해야 합니다.
+- 적 위치: 주변의 적이나 NPC의 위치를 표시하여 플레이어가 상황을 파악할 수 있도록 합니다.
+- 미니 맵 회전: 플레이어의 시선 방향에 따라 미니 맵이 회전하도록 설정하여 더욱 직관적인 네비게이션을 제공합니다.
+
+<br/>
+<img src='/images/snippet/tips/minimap/minimap-result.gif' alt='minimap-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+### Steps
+
+<Steps>
+
+### 미니 맵 초기화
+미니맵, 적, 플레이어 GUI를 씬에 추가하고 필요한 객체를 생성합니다.
+
+```js showLineNumbers copy
+class Minimap {
+    constructor() {
+        this.enemyGUI = GUI.getObject("ENEMY");
+        this.miniMap = GUI.getObject("minimap");
+        this.miniMap.material.rotation = 0; // 초기 회전 각도
+    }
+}
+``` 
+
+### 플레이어 위치 업데이트
+플레이어의 위치를 기반으로 미니 맵의 요소를 업데이트합니다.
+```js showLineNumbers copy
+moveMinimapUI() {
+    const playerPosition = PLAYER.position;
+    this.updateEnemyMinimap(this.enemyGUI, enemy, playerPosition);
+}
+``` 
+
+### 적 위치 계산
+
+적의 위치를 미니 맵에 표시하기 위해 상대적 위치를 계산합니다.
+
+```js showLineNumbers copy
+updateEnemyMinimap(enemyGui, enemy, playerPosition) {
+    const { x: playerPosX, z: playerPosZ } = playerPosition;
+    const enemyPosX = -enemy.position.x + playerPosX;
+    const enemyPosZ = enemy.position.z - playerPosZ;
+    
+    const { rotatedX, rotatedZ } = this.calculateRotatedPosition(enemyPosX, enemyPosZ);
+    this.setEnemyGuiPosition(enemyGui, rotatedX, rotatedZ);
+}
+```
+
+### 미니 맵 회전
+
+플레이어의 시선 방향에 따라 미니 맵을 회전시킵니다.
+
+```js showLineNumbers copy
+const forwardDirection = new THREE.Vector3(0, 0, -1).applyEuler(PLAYER.rotation);
+GLOBAL.minimap.miniMap.material.rotation = -Math.atan2(forwardDirection.x, forwardDirection.z);
+```
+
+### 전체 코드
+
+```js showLineNumbers copy
+const enemy = WORLD.getObject("Enemy")
+
+class Minimap {
+    constructor() {
+        this.enemyGUI = GUI.getObject("ENEMY");
+
+        this.miniMap = GUI.getObject("minimap");
+
+        this.miniMap.material.rotation = 0; // 초기 회전 각도
+        this.previousRotationY = 0; // 이전 회전 값 초기화
+    }
+
+    moveMinimapUI() {
+        const playerPosition =PLAYER.position;
+
+        //Eenmy
+        this.updateEnemyMinimap(this.enemyGUI, enemy, playerPosition);
+    }
+
+    updateEnemyMinimap(enemyGui, enemy, playerPosition) {
+        const { x: playerPosX, z: playerPosZ } = playerPosition;
+        const enemyPosX = -enemy.position.x + playerPosX;
+        const enemyPosZ = enemy.position.z - playerPosZ;
+
+        const { rotatedX, rotatedZ } = this.calculateRotatedPosition(enemyPosX, enemyPosZ);
+
+        this.setEnemyGuiPosition(enemyGui, rotatedX, rotatedZ);
+    }
+    
+    calculateRotatedPosition(posX, posZ) {
+        const scaledX = posX / 100;
+        const scaledZ = posZ / 100;
+        const rotationY = this.miniMap.material.rotation; // Y축 회전
+
+        // Y축 회전 반영
+        const rotatedX = scaledX * Math.cos(rotationY) - scaledZ * Math.sin(rotationY);
+        const rotatedZ = scaledX * Math.sin(rotationY) + scaledZ * Math.cos(rotationY);
+
+        return { rotatedX, rotatedZ };
+    }
+    setEnemyGuiPosition(gui, rotatedX, rotatedZ) {
+        const radius = 0.4;
+        const distance = Math.sqrt(rotatedX * rotatedX + rotatedZ * rotatedZ);
+
+        if (distance > radius) {
+            const scale = radius / distance;
+            gui.position.x = -rotatedX * scale;
+            gui.position.y = -rotatedZ * scale;
+        } else {
+            gui.position.x = -rotatedX;
+            gui.position.y = -rotatedZ;
+        }
+    }
+
+}
+
+GLOBAL.minimap = new Minimap();
+
+function Start() {
+
+}
+
+function Update(dt) {
+    // 미니맵 회전 업데이트
+    const forwardDirection = new THREE.Vector3(0, 0, -1).applyEuler(PLAYER.rotation);
+    GLOBAL.minimap.miniMap.material.rotation = -Math.atan2(forwardDirection.x, forwardDirection.z); // 방향에 따라 회전
+    
+    
+    GLOBAL.minimap.moveMinimapUI();
+    
+}
+```
+</Steps>
