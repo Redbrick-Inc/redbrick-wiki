@@ -1,0 +1,96 @@
+---
+title: "Raycaster"
+description: "Learn how to set up and script raycasting in RedBrick Studio."
+---
+import { Steps } from "nextra/components";
+
+# Raycasting
+The Raycaster is a tool used to check whether a ray emitted from a specific point in a 3D environment intersects with objects. It is primarily used to enable interactions based on user input.
+
+<br/>
+<img src='/images/snippet/tips/raycaster/ray-result.gif' alt='ray-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
+
+### Steps
+
+<Steps>
+
+### Initialize the Raycaster and Mouse Vector:
+```js showLineNumbers copy
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+``` 
+
+### Normalize Mouse Coordinates:
+When the mouse is clicked, normalize the mouse coordinates based on the size of the browser window.
+```js showLineNumbers copy
+function OnPointerDown(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1; 
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1; 
+}
+``` 
+
+### Set Up the Raycaster
+Set the raycaster based on the normalized mouse coordinates and the camera.
+```js showLineNumbers copy
+raycaster.setFromCamera(mouse, camera);
+
+```
+
+### Handle Intersection Results
+When an intersection is found, perform operations on the corresponding object. For example, this code changes the object's color.
+```js showLineNumbers copy
+const intersects = raycaster.intersectObjects(objects);
+if (intersects.length > 0) {
+    intersects.forEach(intersect => {
+        intersect.object.material.color.set(Math.random() * 0xffffff); // 랜덤 색상으로 변경
+    });
+}
+```
+
+### Complete Code
+
+```js showLineNumbers copy
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+
+const objects = []; // 여러 개의 객체를 저장할 배열
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+// 객체 생성 및 배열에 추가
+for (let i = 0; i < 10; i++) {
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    cube.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
+    WORLD.add(cube);
+    objects.push(cube);
+}
+
+// 마우스 클릭 이벤트 핸들러
+function OnPointerDown(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(objects); // 여러 객체와 교차 검사
+
+    if (intersects.length > 0) {
+        intersects.forEach(intersect => {
+            intersect.object.material.color.set(Math.random() * 0xffffff); // 랜덤 색상으로 변경
+        });
+    }
+}
+
+function Start() {
+    // 초기화 작업 (필요 시)
+}
+
+function Update(dt) {
+    // 매 프레임 업데이트 작업 (필요 시)
+}
+
+```
+</Steps>
