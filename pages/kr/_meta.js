@@ -1,7 +1,8 @@
 export default {
   index: {
-    title: "소개",
+    title: "레드브릭 스튜디오 위키",
     type: "page",
+    display: "hidden",
   },
   engine: {
     title: "레드브릭 엔진",
