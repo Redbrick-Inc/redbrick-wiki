@@ -1,6 +1,7 @@
 export default {
   index: {
-    title: "About",
+    title: "Redbrick Studio Wiki",
+    display: "hidden",
     type: "page",
   },
   engine: {
