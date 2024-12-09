@@ -1,0 +1,35 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# Remove the default VR settings.
+
+> Let's remove the default VR settings.
+
+---
+
+Let's add two lines at the bottom to the default VR setting code.
+
+``` js showLineNumbers
+// default VR setting
+const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
+const camera = WORLD.getObject("MainCamera");
+const followingCamera = avatar.setFollowingCamera(camera);
+avatar.setDefaultController();
+followingCamera.useVR({VRObject: avatar});
+
+followingCamera.removeVRDefaultSettings(); //remove default settings
+const XRManager = followingCamera.getXRManager(); //get XR Manager
+```
+ 
+`followingCamera.removeVRDefaultSettings()` is a function that erases default VR settings. <br/>
+`const XRManager = followingCamera.getXRManager()` can import the XRManager through the code. <br/>
+Currently, when `removeVRDefaultSettings()` is performed, you can see in the video below that the Grab button jump function, which was basically attached, has disappeared. <br/>
+<br/>
+<img src="/images/snippet/vr/controller/remove-vr-setting/remove_img1.gif" alt="remove_img1" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+
+In addition, you can use functions related to VR Controller as shown in the picture below through the imported XRManager. <br/>
+<br/>
+<center>![vrImg](/images/snippet/vr/controller/remove-vr-setting/img2.png) </center>
+
+<Callout type="warning" emoji="⚠️">
+  **Note**: Non-jumping functions (screen rotation, movement, onClick) are not removed during the default setting at this time.
+</Callout>
