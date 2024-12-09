@@ -10,8 +10,11 @@ const config: DocsThemeConfig = {
   ),
   banner: {
     key: "Welcome to Redbrick Wiki",
-    content:
-      "Welcome to Redbrick Wiki 📚, here you can find all the information you need to get started with Redbrick Engine",
+    content: (
+      <div data-nosnippet>
+        Welcome to Redbrick Wiki 📚, here you can find all the information you need to get started with Redbrick Engine
+      </div>
+    ),
   },
   head: function useHead() {
     const config = useConfig();
@@ -37,7 +40,11 @@ const config: DocsThemeConfig = {
     content: "",
   },
   footer: {
-    content: `Copyright © ${new Date().getFullYear()} Redbrick Inc. All rights reserved`,
+    content: (
+      <div data-nosnippet>
+        Copyright © {new Date().getFullYear()} Redbrick Inc. All rights reserved
+      </div>
+    ),
   },
   editLink: {
     content: "",
