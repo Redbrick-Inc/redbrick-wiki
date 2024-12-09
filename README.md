@@ -16,7 +16,7 @@ Before you begin, ensure you have the following tools installed:
 To set up the project locally, follow these steps:
 
 ```bash
-git clone https://github.com/yourusername/redbrick-wiki.git
+git clone https://github.com/Redbrick-Inc/redbrick-wiki.git)
 cd redbrick-wiki
 yarn install
 ```
