@@ -33,13 +33,13 @@ const maxSpawnRadius = 100;
 
 function SpawnRandomPos() {
     // Select a random angle
-    const angle = Math.random() * 2 * Math.PI; // 0부터 2π까지의 랜덤 각도
-    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // 20부터 100까지의 랜덤 반지름
+    const angle = Math.random() * 2 * Math.PI; // Random angle from 0 to 2π
+    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // Random radius from 20 to 100
 
     // Calculate x, z coordinates based on the angle and radius
     const x = PLAYER.position.x + radius * Math.cos(angle);
     const z = PLAYER.position.z + radius * Math.sin(angle);
-    const y = 2; // y 좌표는 고정값으로 설정
+    const y = 2; // The y coordinate is set to a fixed value.
 
     const clone = THREEADDON.SkeletonUtils.clone(object);
 
@@ -116,7 +116,7 @@ function Move(dt, object) {
                 const diff = new THREE.Vector3().subVectors(object.position,
                     enemy._object.position);
                 diff.normalize();
-                separationForce.add(diff); // 서로 멀어지게 하는 힘 추가
+                separationForce.add(diff); // Add force to push them away from each other
             }
         }
     }
@@ -152,7 +152,7 @@ class Enemy {
         this._moveAction = this._mixer.clipAction(this._object.animations[1]);
 
         // animation speed 
-        this._moveAction.setEffectiveTimeScale(1.7); // 이동 애니메이션 속도
+        this._moveAction.setEffectiveTimeScale(1.7); // movement animation speed
 
         this.Init();
     }
@@ -188,7 +188,7 @@ class Enemy {
                     const diff = new THREE.Vector3().subVectors(this._object.position,
                         enemy._object.position);
                     diff.normalize();
-                    separationForce.add(diff); // 서로 멀어지게 하는 힘 추가
+                    separationForce.add(diff); // Add force to push them away from each other
                 }
             }
         }
@@ -221,13 +221,13 @@ const maxSpawnRadius = 100;
 
 function SpawnRandomPos() {
     // Select a random angle
-    const angle = Math.random() * 2 * Math.PI; // 0부터 2π까지의 랜덤 각도
-    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // 20부터 100까지의 랜덤 반지름
+    const angle = Math.random() * 2 * Math.PI; // Random angle from 0 to 2π
+    const radius = Math.random() * (maxSpawnRadius - minSpawnRadius) + minSpawnRadius; // Random radius from 20 to 100
 
     // Calculate x, z coordinates based on the angle and radius
     const x = PLAYER.position.x + radius * Math.cos(angle);
     const z = PLAYER.position.z + radius * Math.sin(angle);
-    const y = 2; // y 좌표는 고정값으로 설정
+    const y = 2; // The y coordinate is set to a fixed value.
 
     const clone = THREEADDON.SkeletonUtils.clone(object);
 
