@@ -4,7 +4,7 @@ description: "Learn how to create a survivor-like game in Redbrick Studio."
 ---
 import { Steps } from "nextra/components";
 
-# Creating a Survivor-like Game
+# Creating a Roguelike Game
 
 <br/>
 <img src='/images/snippet/sample-game/survivor-game/enemy-bullet-result.gif' alt='enemy-bullet-result' loading="lazy" decoding="async" style={{width: '100%'}}/>
@@ -146,7 +146,7 @@ function Move(dt) {
                 const diff = new THREE.Vector3().subVectors(this._object.position,
                     enemy._object.position);
                 diff.normalize();
-                separationForce.add(diff); // 서로 멀어지게 하는 힘 추가
+                separationForce.add(diff); // Add force to push them away from each other
             }
         }
     }
@@ -167,7 +167,7 @@ function Move(dt) {
 ### Add Bullets
 - Add bullet objects to the scene.
 <center>![Create_enemy](/images/snippet/sample-game/survivor-game/create-bullet.png)</center>
-### 일정시간 마다 총알이 생성 및 움직임 구현
+### Implement bullet generation at regular intervals and the movement of generated bullets.
 - Implement the creation of bullet objects at regular intervals.
 - Implement bullet movement in the direction the player is facing.
 ```js showLineNumbers copy
@@ -183,7 +183,7 @@ class BulletSystem {
     CreateBullet() {
         const bullet = this._object.clone();
 
-        const direction = new THREE.Vector3(0, 0, 1); // 앞쪽
+        const direction = new THREE.Vector3(0, 0, 1); // front
 
         if (!bullet) return;
         bullet.position.set(PLAYER.position.x, PLAYER.position.y + 2, PLAYER.position.z);
@@ -195,7 +195,7 @@ class BulletSystem {
 
     MoveBullet(dt) {
         let movementVector;
-        const toRemove = []; // 삭제할 적의 인덱스를 저장할 배열
+        const toRemove = []; // Array to store the index of the enemy to be deleted
 
         for (let i = this._bullets.length - 1; i >= 0; i--) {
             const bullet = this._bullets[i];
@@ -265,7 +265,7 @@ Collide(bullet, enemy, toRemove, num) {
                 enemy._deathAction.play();
                 enemy._deathAction.setLoop(THREE.LoopOnce);
 
-                // 삭제할 적의 인덱스를 저장
+                // Save the index of the enemy to be deleted
 
                 setTimeout(() => {
                     toRemove.push(num);
@@ -279,7 +279,7 @@ Collide(bullet, enemy, toRemove, num) {
     }
 
     Remove(toRemove) {
-        // 적을 한 번에 삭제
+        // Delete enemies at once
         for (let i = toRemove.length - 1; i >= 0; i--) {
             GLOBAL.enemys.splice(toRemove[i], 1);
             toRemove.splice(i,1);
