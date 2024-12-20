@@ -2,15 +2,13 @@
 title: "업데이트 노트"
 description: "레드브릭 스튜디오의 최신 업데이트와 기능에 대한 자세한 내용과 참고 사항입니다."
 ---
+
 import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
 
 # 업데이트 노트
 
-> 새롭게 업데이트된 내용을 다룹니다.
+## 2024
 
----
-
-# 2024
 <Tabs items={[
   '12.09',
   '11.07',
@@ -19,7 +17,7 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
   '01.25(v1.1.1)',
 ]} defaultIndex="0">
   <Tabs.Tab>
-    ### _핵심 사항_
+    ### _카메라 사항_
 
     - [편집 카메라 조작 편의 기능](/kr/engine/edit-camera-related)이 추가되었습니다.
     <Tabs items={['편집 카메라 이동시키기', '편집 카메라 위치/회전 변환 복사시키기']}>
@@ -33,13 +31,14 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
       </Tabs.Tab>
     </Tabs>
 
-    ### _부가 사항_
+    ### _VR 사항_
 
     - 스니펫에 [VR 개발](/kr/snippet/vr/introduce) 관련 내용이 추가되었습니다.
-    - VR 스니펫에서 VR 기본 세팅, 테스트 방법, Controller 관련 함수, VR 개발 예제 등 VR 콘텐츠 개발에 유용한 다양한 내용들이 살펴 볼 수 있습니다.  
+    - VR 스니펫에서 VR 기본 세팅, 테스트 방법, Controller 관련 함수, VR 개발 예제 등 VR 콘텐츠 개발에 유용한 다양한 내용들이 살펴 볼 수 있습니다.
     <br/>
       ![updates_vr_snippet](/images/appendix/updates/2024/update_vr_snippet.png)
     <br/>
+
   </Tabs.Tab>
   <Tabs.Tab>
     ### _핵심 사항_
@@ -80,13 +79,14 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
     - 새로운 버전의 [Tutorial Video](https://youtube.com/playlist?list=PLSbSaH8fJFbhxE49jz_VqhyUrX6f76Cdq&feature=shared)가 배포되었습니다.
     - 스니펫에 [TWEEN](/kr/snippet/tween/beginner) 관련 내용이 추가되었습니다.
     - 스니펫이 추가되고 카테고리별로 정리되었습니다.
+
   </Tabs.Tab>
   <Tabs.Tab>
     ### _핵심 사항_
 
-    - [`.useTPV()`](/kr/script/api/perspective-camera#usetpv) 메소드에 "MOUSE_LOCK" 모드 추가  
-      3인칭 시점을 설정해주는 메소드 `useTPV()`에 "MOUSE_LOCK" 모드가 추가되었습니다.  
-      이 모드는 아래 사진과 같이 마우스를 움직이는 것 만으로 카메라를 회전할 수 있습니다.  
+    - [`.useTPV()`](/kr/script/api/perspective-camera#usetpv) 메소드에 "MOUSE_LOCK" 모드 추가
+      3인칭 시점을 설정해주는 메소드 `useTPV()`에 "MOUSE_LOCK" 모드가 추가되었습니다.
+      이 모드는 아래 사진과 같이 마우스를 움직이는 것 만으로 카메라를 회전할 수 있습니다.
       또한 이 모드를 사용하면 카메라 세팅을 커스터마이징 할 수 있습니다.
       <Table>
         <thead>
@@ -116,6 +116,7 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
         </tbody>
       </table>
     - 위키에 다양한 [스니펫 예제](/kr/snippet/redbrick-extension/spawn)들이 추가되었습니다.
+
   </Tabs.Tab>
   <Tabs.Tab>
     ### _핵심 사항_
@@ -140,6 +141,7 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
     - 마우스 문제를 방지하기 위해 궤도 제어의 최대 및 최소 범위를 제한
     - 코드 편집기 자동 완성 기능 수정
     - AI Assistant (GPT) UI 업데이트
+
   </Tabs.Tab>
   <Tabs.Tab>
     ### _핵심 사항_
@@ -158,12 +160,13 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
     ### _부가 사항_
 
     자세한 정보는 [여기](/kr/engine/content-type)를 클릭하세요
+
   </Tabs.Tab>
 </Tabs>
 
 ---
 
-# 2023
+## 2023
 
 <Tabs items={[ 'Legacy(v1.1.0)' ]} defaultIndex="0">
   <Tabs.Tab>
@@ -183,5 +186,6 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
       })();
     }
     ```
+
   </Tabs.Tab>
 </Tabs>
