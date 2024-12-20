@@ -12,7 +12,8 @@ const config: DocsThemeConfig = {
     key: "Welcome to Redbrick Wiki",
     content: (
       <div data-nosnippet>
-        Welcome to Redbrick Wiki 📚, here you can find all the information you need to get started with Redbrick Engine
+        Welcome to Redbrick Wiki 📚, here you can find all the information you
+        need to get started with Redbrick Engine
       </div>
     ),
   },

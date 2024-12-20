@@ -2,15 +2,13 @@
 title: "Update Notes"
 description: "Details and notes on the latest updates and features in Redbrick Studio."
 ---
+
 import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
 
 # Update Notes
 
-> Covers newly updated content.
+## 2024
 
----
-
-# 2024
 <Tabs items={[
   '12.09',
   '11.07',
@@ -19,7 +17,7 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
   '01.25(v1.1.1)',
 ]} defaultIndex="0">
   <Tabs.Tab>
-    ### _Main Features_
+    ### _Camera Features_
 
     - [Edit Camera Control Features](/en/engine/edit-camera-related) have been added.
     <Tabs items={['Move Edit Camera', "Math with the Edit Camera's Position/Rotation."]}>
@@ -33,13 +31,14 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
       </Tabs.Tab>
     </Tabs>
 
-    ### _Other Features_
+    ### _VR Features_
 
     - Added content on [VR development](/en/snippet/vr/introduce) in the Snippets section.
     - In VR snippets, you can see various useful contents for VR content development, such as basic VR settings, test methods, controller-related functions, and VR development examples.
     <br/>
       ![updates_vr_snippet](/images/appendix/updates/2024/update_vr_snippet.png)
     <br/>
+
   </Tabs.Tab>
   <Tabs.Tab>
     ### _Main Features_
@@ -75,17 +74,18 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
     - Unity WebGL import function added. Share games created in Unity on the Redbrick platform.<br/>
       <br/>
       <Cards.Card title="Learn about Unity WebGL import" href="/en/faq/unity" arrow style={{width:'50%'}}/>
-      
+
     ### _Other Features_
     - Delete objects by selecting them and pressing Delete (Backspace).
     - A new version of the [Tutorial Video](https://youtube.com/playlist?list=PLSbSaH8fJFbhxE49jz_VqhyUrX6f76Cdq&feature=shared) is now available.
     - Added content on [TWEEN](/en/snippet/tween/beginner) in the Snippets section.
     - Snippets are now categorized and organized by topic.
+
   </Tabs.Tab>
   <Tabs.Tab>
     ### _Main Features_
 
-    - Added "MOUSE_LOCK" mode to [`.useTPV()`](/en/script/api/perspective-camera#usetpv) method  
+    - Added "MOUSE_LOCK" mode to [`.useTPV()`](/en/script/api/perspective-camera#usetpv) method
       This mode allows you to rotate the camera simply by moving the mouse, as shown below. This also enables customizing camera settings.
       <Table>
         <thead>
@@ -115,6 +115,7 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
         </tbody>
       </table>
     - Added various [snippet examples](/en/snippet/redbrick-extension/spawn) to the wiki.
+
   </Tabs.Tab>
   <Tabs.Tab>
     ### _Main Features_
@@ -139,6 +140,7 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
     - Limited max/min range of orbit controls to avoid mouse issues
     - Adjusted code editor's auto-completion functionality
     - Updated AI Assistant (GPT) UI
+
   </Tabs.Tab>
   <Tabs.Tab>
     ### _Main Features_
@@ -157,12 +159,13 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
     ### _Other Features_
 
     For more details, click [here](/en/engine/content-type)
+
   </Tabs.Tab>
 </Tabs>
 
 ---
 
-# 2023
+## 2023
 
 <Tabs items={[ 'Legacy(v1.1.0)' ]} defaultIndex="0">
   <Tabs.Tab>
@@ -182,5 +185,6 @@ import { Tabs, Cards, Steps, Table, Td, Th, Tr } from "nextra/components";
       })();
     }
     ```
+
   </Tabs.Tab>
 </Tabs>
