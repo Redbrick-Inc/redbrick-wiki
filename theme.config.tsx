@@ -1,5 +1,8 @@
 import React from "react";
 import Logo from "./images/logo.svg";
+import LogoNoColor from "./public/logo/logo.svg";
+import Youtube from "./public/logo/youtube.svg";
+
 import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
@@ -37,14 +40,21 @@ const config: DocsThemeConfig = {
   chat: {
     link: "https://discord.com/invite/redbrick-create",
   },
+  project: {
+    link: "https://www.youtube.com/channel/UC8copJ0_PZWEVQ1GK9LwPpQ",
+    icon: <Youtube />,
+  },
   feedback: {
     content: "",
   },
   footer: {
     content: (
-      <div data-nosnippet>
+      <span>
+        <a href="https://redbrick.land" target="_blank">
+          <LogoNoColor />
+        </a>
         Copyright © {new Date().getFullYear()} Redbrick Inc. All rights reserved
-      </div>
+      </span>
     ),
   },
   editLink: {
