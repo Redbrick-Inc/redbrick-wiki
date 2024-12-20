@@ -15,6 +15,7 @@ module.exports = {
         lexend: ['"Lexend"', "serif"],
         "bungee-inline": ['"Bungee Inline"', "serif"],
         "press-start": ['"Press Start 2P"', "serif"],
+        galmuri: ['"Galmuri9"', "sans-serif"],
       },
       keyframes: {
         typing: {
