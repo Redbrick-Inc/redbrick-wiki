@@ -1,0 +1,43 @@
+---
+title: "레드브릭 엔진의 편집 카메라 관련 조작법"
+description: "레드브릭 엔진에서 편집 카메라를 조작할 수 있는 기능과 단축키에 대한 가이드."
+---
+import { Callout } from "nextra/components";
+
+# 편집 카메라: 오브젝트 추적 및 변환 복사`
+
+> 편집 카메라를 선택한 오브젝트로 이동시키거나 선택한 오브젝트로 편집 카메라의 위치/회전 변환을 복사합니다.
+
+---
+
+### 선택한 오브젝트로 편집 카메라 이동시키기
+
+Explorer 탭 또는 Scene 뷰에서 오브젝트를 선택하고 `Shift + F`를 누르면 편집 카메라가 선택된 오브젝트로 이동할 수 있습니다.  
+<br/>
+<center>
+    <img src='/images/engine/edit-camera-related/edit-camera-related_follow-object.gif' alt='follow-object' loading="lazy" decoding="async" style={{width: '100%'}}/>
+    <p style={{margin:"0"}}>
+        선택한 오브젝트로 편집 카메라 이동
+    </p>
+</center>
+<Callout type="info">
+    해당 기능을 통해 Scene 내부에서 큰 맵을 쉽게 구성하기 좋으며,  
+    스테이지를 1000단위의 좌표로 배치하는 것과 같은 방법으로 렌더링 거리를 통한 최적화가 가능합니다.
+    <img src='/images/engine/edit-camera-related/edit-camera-related_follow-object-example.gif' alt='follow-object-example' loading="lazy" decoding="async" style={{width: '100%', marginTop: "15px", marginBottom: "15px"}}/>
+</Callout>
+
+### 선택한 오브젝트로 편집 카메라 위치/회전 변환 복사시키기
+
+Explorer 탭 또는 Scene 뷰에서 오브젝트를 선택하고 `Cmd + Shift + F`를 누르면 선택한 오브젝트로 편집 카메라 위치/회전 변환을 복사할 수 있습니다.  
+<br/>
+<center>
+    <img src='/images/engine/edit-camera-related/edit-camera-related_copy-view-transform.gif' alt='copy-view-transform' loading="lazy" decoding="async" style={{width: '100%'}}/>
+    <p style={{margin:"0"}}>
+        선택한 오브젝트로 편집 카메라 위치/회전 변환 복사
+    </p>
+</center>
+<Callout type="info">
+    해당 기능을 카메라 오브젝트에 적용하면 손쉽게 카메라 구도를 잡을 수 있습니다  
+    여러 카메라를 배치시키고 카메라 오브젝트의 `.activate()`를 통해 카메라 연출을 할 수 있습니다.
+    <img src='/images/engine/edit-camera-related/edit-camera-related_copy-view-transform-example.gif' alt='copy-view-transform-example' loading="lazy" decoding="async" style={{width: '100%', marginTop: "15px", marginBottom: "15px"}}/>
+</Callout>
