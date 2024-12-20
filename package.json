@@ -14,13 +14,16 @@
     "@mdx-js/react": "^1.6.16",
     "@next/third-parties": "^15.0.3",
     "@svgr/webpack": "^8.1.0",
+    "autoprefixer": "^10.4.20",
     "mdx-embed": "^1.1.2",
     "next": "^14.0.4",
     "nextra": "3.2.3",
     "nextra-theme-docs": "3.2.3",
+    "postcss": "^8.4.49",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "^0.33.1"
+    "sharp": "^0.33.1",
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@types/node": "18.11.10",

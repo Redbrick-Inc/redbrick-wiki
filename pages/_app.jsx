@@ -1,4 +1,5 @@
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleTagManager } from "@next/third-parties/google";
+import "../global.css";
 
 function MyApp({ Component, pageProps }) {
   return (
