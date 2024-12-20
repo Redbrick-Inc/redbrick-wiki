@@ -1,0 +1,45 @@
+---
+title: "Redbrick Engine: Edit Camera Control Features"
+description: "A guide on features and shortcuts for controlling the edit camera in the Redbrick Engine."
+---
+import { Callout } from "nextra/components";
+
+# Edit Camera Control Features
+
+> Move the edit camera to the selected object or copy the edit camera's position/rotation transform to the selected object.
+
+---
+
+### Move Edit Camera to Selected Object
+
+In the Explorer tab or Scene view, select an object and press `Shift + F` to move the edit camera to the selected object.  
+<br/>
+<center>
+    <img src='/images/engine/edit-camera-related/edit-camera-related_follow-object.gif' alt='follow-object' loading="lazy" decoding="async" style={{width: '100%'}}/>
+    <p style={{margin:"0"}}>
+        Move Edit Camera to the Selected Object
+    </p>
+</center>
+
+<Callout type="info">
+    This feature makes it easy to arrange large maps within the Scene,  
+    Such as placing stages at 1000-unit coordinates, allowing for optimized rendering distances.
+    <img src='/images/engine/edit-camera-related/edit-camera-related_follow-object-example.gif' alt='follow-object-example' loading="lazy" decoding="async" style={{width: '100%', marginTop: "15px", marginBottom: "15px"}}/>
+</Callout>
+
+### Copy Position/Rotation Transform to Edit Camera
+
+In the Explorer tab or Scene view, select an object and press `Cmd + Shift + F` to copy the edit camera's position/rotation transform to the selected object.  
+<br/>
+<center>
+    <img src='/images/engine/edit-camera-related/edit-camera-related_copy-view-transform.gif' alt='copy-view-transform' loading="lazy" decoding="async" style={{width: '100%'}}/>
+    <p style={{margin:"0"}}>
+        Copy Edit Camera Position/Rotation Transform to Selected Object
+    </p>
+</center>
+
+<Callout type="info">
+    This feature allows you to easily set up camera angles by applying it to camera objects.  
+    You can place multiple cameras and use the camera object's `.activate()` method to create cinematic effects.  
+    <img src='/images/engine/edit-camera-related/edit-camera-related_copy-view-transform-example.gif' alt='copy-view-transform-example' loading="lazy" decoding="async" style={{width: '100%', marginTop: "15px", marginBottom: "15px"}}/>
+</Callout>
