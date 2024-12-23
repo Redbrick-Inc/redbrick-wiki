@@ -3,6 +3,7 @@ import Logo from "./images/logo.svg";
 import LogoNoColor from "./public/logo/logo.svg";
 import Youtube from "./public/logo/youtube.svg";
 import Medium from "./public/logo/medium.svg";
+import Instagram from "./public/logo/instagram.svg";
 
 import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 
@@ -47,14 +48,24 @@ const config: DocsThemeConfig = {
   },
   navbar: {
     extraContent: (
-      <a
-        target="_blank"
-        href="https://medium.com/redbrick-official"
-        title="redbrick medium"
-        rel="nofollow noreferrer"
-      >
-        <Medium />
-      </a>
+      <div className="flex items-center gap-4">
+        <a
+          target="_blank"
+          href="https://www.instagram.com/redbrick.official"
+          title="redbrick instagram"
+          rel="nofollow noreferrer"
+        >
+          <Instagram />
+        </a>
+        <a
+          target="_blank"
+          href="https://medium.com/redbrick-official"
+          title="redbrick medium"
+          rel="nofollow noreferrer"
+        >
+          <Medium />
+        </a>
+      </div>
     ),
   },
   feedback: {
