@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./images/logo.svg";
 import LogoNoColor from "./public/logo/logo.svg";
 import Youtube from "./public/logo/youtube.svg";
+import Medium from "./public/logo/medium.svg";
 
 import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 
@@ -44,6 +45,18 @@ const config: DocsThemeConfig = {
     link: "https://www.youtube.com/channel/UC8copJ0_PZWEVQ1GK9LwPpQ",
     icon: <Youtube />,
   },
+  navbar: {
+    extraContent: (
+      <a
+        target="_blank"
+        href="https://medium.com/redbrick-official"
+        title="redbrick medium"
+        rel="nofollow noreferrer"
+      >
+        <Medium />
+      </a>
+    ),
+  },
   feedback: {
     content: "",
   },
@@ -55,7 +68,7 @@ const config: DocsThemeConfig = {
             className="nextra-focus flex items-center gap-1 text-current"
             target="_blank"
             rel="noreferrer"
-            title="vercel.com homepage"
+            title="redbrick.land homepage"
             href="https://redbrick.land"
           >
             <LogoNoColor />
