@@ -1,13 +1,25 @@
+---
+title: "알맞는 도형 맞추는 퍼즐"
+description: "VR 콘텐츠에서 많이 사용되는 알맞는  도형끼리 맞추는 퍼즐을 만들어봅시다."
+hideTitle: true
+---
+
 import { Steps, Cards, Callout } from "nextra/components";
 
 # 알맞는 도형 맞추는 퍼즐
 
-> VR 콘텐츠에서 많이 사용되는 알맞는  도형끼리 맞추는 퍼즐을 만들어봅시다.
+> VR 콘텐츠에서 많이 사용되는 알맞는 도형끼리 맞추는 퍼즐을 만들어봅시다.
 
 ---
 
-<img src="/images/snippet/vr/example/shapes-puzzle/shapes-puzzle.gif" alt="shapes-puzzle" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
-<br/>
+<img
+  src="/images/snippet/vr/example/shapes-puzzle/shapes-puzzle.gif"
+  alt="shapes-puzzle"
+  loading="lazy"
+  decoding="async"
+  style={{ width: "100%", height: "auto" }}
+/>
+<br />
 
 위에는 완성 결과입니다. 같은 도형끼리 클릭할 경우, 채워지며, 틀린 경우, 다시 퍼즐이 돌아가는 것을 확인할 수 있습니다.
 
@@ -60,11 +72,11 @@ import { Steps, Cards, Callout } from "nextra/components";
         puzzles.push(puzzleBox); // 1
         puzzles.push(puzzleCylinder); // 2
         puzzles.push(puzzleEllipse); // 3
-        
+
         answers.push(answerBox); // 1
         answers.push(answerCylinder); // 2
         answers.push(answerEllipse); // 3
-        
+
         answers.forEach((puzzle, index) => {
             puzzle.onClick(() => {
                 // 맞는 퍼즐을 골랐다면
@@ -82,12 +94,12 @@ import { Steps, Cards, Callout } from "nextra/components";
                         currentPuzzle.revive();
                         // 현재 들고 있는 퍼즐 값과 오브젝트를 리셋합니다.
                         currentPuzzleNum = -1;
-                        currentPuzzle = null;   
+                        currentPuzzle = null;
                     }
                 }
             });
         });
-        
+
         puzzles.forEach((puzzle, index) => {
             // 맞출 퍼즐을 클릭하면
             puzzle.onClick(() => {
@@ -107,4 +119,5 @@ import { Steps, Cards, Callout } from "nextra/components";
     <br/>
     <center>![shapes_puzzle_3](/images/snippet/vr/example/shapes-puzzle/shapes_puzzle_3.png) </center>
     <br/>
+
 </Steps>

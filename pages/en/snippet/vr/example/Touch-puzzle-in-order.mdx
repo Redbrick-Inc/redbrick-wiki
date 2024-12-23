@@ -1,3 +1,9 @@
+---
+title: "VR Puzzle pressed in the right order"
+description: "Let's create a puzzle that pressed in the right order, which is often used in VR content."
+hideTitle: true
+---
+
 import { Steps, Cards, Callout } from "nextra/components";
 
 # Puzzle pressed in the right order
@@ -6,8 +12,14 @@ import { Steps, Cards, Callout } from "nextra/components";
 
 ---
 
-<img src="/images/snippet/vr/example/touch-puzzle-in-order/click-in-order.gif" alt="click-in-order" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
-<br/>
+<img
+  src="/images/snippet/vr/example/touch-puzzle-in-order/click-in-order.gif"
+  alt="click-in-order"
+  loading="lazy"
+  decoding="async"
+  style={{ width: "100%", height: "auto" }}
+/>
+<br />
 
 Above is the result of completion. <br/>
 If you press the numbered box and press it in the correct order, all the boxes will disappear. If wrong, the password is reset again.
@@ -54,26 +66,26 @@ If you press the numbered box and press it in the correct order, all the boxes w
     let puzzleAnswer = []; // current input answer list
     let passwordsUI = []; // puzzle UI object list
     let currentClickNum = 0; // current input answer list length
-    let isChecking = false; 
+    let isChecking = false;
 
     function Start() {
         // Save the password UI object in the array and set it to invisible at first.
         for(let i=1; i<=4; i++){
             let ui = WORLD.getObject("password" + i);
             ui.visible = false;
-            passwordsUI.push(ui); 
+            passwordsUI.push(ui);
         }
         for(let i=1; i<=4; i++){
             let object = WORLD.getObject("puzzle" + i);
-            puzzles.push(object); 
+            puzzles.push(object);
         }
         puzzles.forEach((puzzle, index) => {
             // each puzzle box is clicked
             puzzle.onClick(() => {
                 if(isChecking) return;
-                
+
                 puzzleAnswer.push(index); // save in the list
-                CheckAnswer(); // check answer 
+                CheckAnswer(); // check answer
                 // password * UI Set it to be visible
                 passwordsUI[currentClickNum].visible = true;
                 currentClickNum++;
@@ -82,7 +94,7 @@ If you press the numbered box and press it in the correct order, all the boxes w
                 }
             });
         });
-        
+
         Init();
     }
 
@@ -95,14 +107,14 @@ If you press the numbered box and press it in the correct order, all the boxes w
         if(puzzleAnswer.length >= 4){
             console.log(puzzleAnswer);
             let isTrue = true;
-            
+
             // Make sure they all match
             answer.forEach((ans, index) => {
                 if(puzzleAnswer[index] != ans){
                     isTrue = false;
-                }   
+                }
             });
-            
+
             // If they all match
             if(isTrue){
                 // Set the puzzle box so that it doesn't show
@@ -116,7 +128,7 @@ If you press the numbered box and press it in the correct order, all the boxes w
                 isChecking = true;
                 setTimeout(() => {
                     passwordsUI.forEach((ui) => {
-                    ui.visible = false; 
+                    ui.visible = false;
                     });
                     isChecking = false;
                 }, 500);
@@ -128,4 +140,5 @@ If you press the numbered box and press it in the correct order, all the boxes w
     ### Run the Test
 
     If you test it later, you can see that it works like the first screen.
+
 </Steps>

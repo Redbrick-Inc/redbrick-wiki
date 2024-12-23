@@ -1,3 +1,9 @@
+---
+title: "VR Play video using Trigger Box"
+description: "Let's create an event where the video plays when we move to a specific location."
+hideTitle: true
+---
+
 import { Steps, Cards, Callout } from "nextra/components";
 
 # Play video using Trigger Box
@@ -6,8 +12,14 @@ import { Steps, Cards, Callout } from "nextra/components";
 
 ---
 
-<img src="/images/snippet/vr/example/trigger-box/trigger-box.gif" alt="trigger-box" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
-<br/>
+<img
+  src="/images/snippet/vr/example/trigger-box/trigger-box.gif"
+  alt="trigger-box"
+  loading="lazy"
+  decoding="async"
+  style={{ width: "100%", height: "auto" }}
+/>
+<br />
 
 Above is the result of completion. Once the player reaches the box, the video will play and the box will disappear.
 
@@ -45,7 +57,7 @@ Above is the result of completion. Once the player reaches the box, the video wi
     function Start() {
         // When a player collision into a box
         TriggerBox.onCollide(PLAYER, () => {
-            video.play(); 
+            video.play();
             TriggerBox.kill(); // delete box
         });
         video.pause(); // When start, stop the video
@@ -56,4 +68,5 @@ Above is the result of completion. Once the player reaches the box, the video wi
 
     If you test it later, you can see that it works like the first screen. <br/>
     Currently, we have not completely lowered transparency for distinction, but if you make it completely transparent, you can use it as a **trigger to cause an event when player pass somewhere**.
+
 </Steps>

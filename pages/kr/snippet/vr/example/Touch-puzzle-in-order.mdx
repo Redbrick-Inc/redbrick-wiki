@@ -1,19 +1,31 @@
+---
+title: "알맞은 순서로 눌려야 풀리는 퍼즐"
+description: "VR 콘텐츠에서 많이 사용되는 알맞은 순서로 눌려야 풀리는 퍼즐을 만들어봅시다."
+hideTitle: true
+---
+
 import { Steps, Cards, Callout } from "nextra/components";
 
 # 알맞은 순서로 눌려야 풀리는 퍼즐 만들기
 
-> VR 콘텐츠에서 많이 사용되는 알맞은 순서로 눌려야 풀리는 퍼즐을 만들어봅시다. 
+> VR 콘텐츠에서 많이 사용되는 알맞은 순서로 눌려야 풀리는 퍼즐을 만들어봅시다.
 
 ---
 
-<img src="/images/snippet/vr/example/touch-puzzle-in-order/click-in-order.gif" alt="click-in-order" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
-<br/>
+<img
+  src="/images/snippet/vr/example/touch-puzzle-in-order/click-in-order.gif"
+  alt="click-in-order"
+  loading="lazy"
+  decoding="async"
+  style={{ width: "100%", height: "auto" }}
+/>
+<br />
 
-위에는 완성 결과입니다. 숫자가 적힌 박스를 눌려 알맞은 순서로 누를 경우, 모든 박스가 사라집니다.  <br/>
+위에는 완성 결과입니다. 숫자가 적힌 박스를 눌려 알맞은 순서로 누를 경우, 모든 박스가 사라집니다. <br/>
 반대로 틀렸을 경우, 다시 비밀번호가 리셋됩니다.
 
 <Steps>
-    ### 박스 오브젝트 추가하기 
+    ### 박스 오브젝트 추가하기
 
     레드브릭 스튜디오 내 에셋을 활용해서 박스를 4개 만들어 줍니다.
     <br/>
@@ -61,20 +73,20 @@ import { Steps, Cards, Callout } from "nextra/components";
         for(let i=1; i<=4; i++){
             let ui = WORLD.getObject("password" + i);
             ui.visible = false;
-            passwordsUI.push(ui); 
+            passwordsUI.push(ui);
         }
         // 퍼즐 박스 오브젝트 배열에 저장하기
         for(let i=1; i<=4; i++){
             let object = WORLD.getObject("puzzle" + i);
-            puzzles.push(object); 
+            puzzles.push(object);
         }
         puzzles.forEach((puzzle, index) => {
             // 각 퍼즐 박스가 클릭될 때마다
             puzzle.onClick(() => {
                 if(isChecking) return;
-                
+
                 puzzleAnswer.push(index); // 배열에 저장하고
-                CheckAnswer(); // 정답 확인하기 
+                CheckAnswer(); // 정답 확인하기
                 // 비밀번호 * UI 보이게 설정
                 passwordsUI[currentClickNum].visible = true;
                 currentClickNum++;
@@ -83,7 +95,7 @@ import { Steps, Cards, Callout } from "nextra/components";
                 }
             });
         });
-        
+
         Init();
     }
 
@@ -91,20 +103,20 @@ import { Steps, Cards, Callout } from "nextra/components";
         puzzleAnswer = [];
     }
 
-    // 정답 확인하기 
+    // 정답 확인하기
     function CheckAnswer(){
         // 4자리가 찼을 경우에만, 확인
         if(puzzleAnswer.length >= 4){
             console.log(puzzleAnswer);
             let isTrue = true;
-            
+
             // 다 일치하는지 확인
             answer.forEach((ans, index) => {
                 if(puzzleAnswer[index] != ans){
                     isTrue = false;
-                }   
+                }
             });
-            
+
             // 다 일치하면
             if(isTrue){
                 // 퍼즐 박스 안 보이게 설정
@@ -112,13 +124,13 @@ import { Steps, Cards, Callout } from "nextra/components";
                     obj.visible = false;
                 });
             }else{
-                // 일치하지 않으면 
+                // 일치하지 않으면
                 // 현재까지 입력한 비밀번호 배열 리셋 및 비밀번호 * UI 안 보이게 설정
                 puzzleAnswer = [];
                 isChecking = true;
                 setTimeout(() => {
                     passwordsUI.forEach((ui) => {
-                    ui.visible = false; 
+                    ui.visible = false;
                     });
                     isChecking = false;
                 }, 500);
@@ -130,4 +142,5 @@ import { Steps, Cards, Callout } from "nextra/components";
     ### 테스트 실행하기
 
     이후 테스트 해보면, 처음 화면과 같이 작동하는 것을 확인하실 수 있습니다.
+
 </Steps>

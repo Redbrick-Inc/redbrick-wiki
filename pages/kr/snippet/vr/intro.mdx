@@ -1,3 +1,9 @@
+---
+title: "VR 개발 소개"
+description: "VR 조작 방식에 대한 간단한 설명과 개발 방법에 대해 소개드립니다."
+hideTitle: true
+---
+
 import { Callout } from "nextra/components";
 import { Steps } from "nextra/components";
 import { Cards } from "nextra/components";
@@ -8,10 +14,12 @@ import { Tabs } from "nextra/components";
 > VR 조작 방식에 대한 간단한 설명과 개발 방법에 대해 소개드립니다.
 
 ## VR 기본적인 조작 방식 알아보기
+
 <br />
 <center>![vrImg](/images/snippet/vr/introduce/vrImg.png) </center>
 
 레드브릭 스튜디오에 기본적인 VR 조작 방식은 위 사진과 같이 설정되어 있습니다. <br />
+
 - **왼손 조이스틱** : 화면 좌우를 돌릴 때 사용합니다. <br />
 - **오른쪽 조이스틱** : 앞뒤좌우 이동할 때 사용합니다. <br />
 - **앞쪽 트리거 버튼** : 어떤 물체를 선택할 때 사용합니다. <br />
@@ -26,7 +34,7 @@ import { Tabs } from "nextra/components";
 </Callout>
 
 <br />
-## 기본적인 VR Option 설정 방법 
+## 기본적인 VR Option 설정 방법
 
 템플릿을 생성하는 동안 'VR 옵션'을 전환하여 사용할 수 있습니다. 이렇게 하면 `PresetScript`에 추가 코드가 자동으로 추가되므로 수동으로 추가할 필요가 없습니다.
 
@@ -62,21 +70,24 @@ camera.useVR({ VRObject: obj });
 ```
 
 <br />
-## VR Test 하기 
+## VR Test 하기
 <br />
-<img src="/images/snippet/vr/introduce/introduce_VR_2.gif" alt="introduce_VR_2" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+![introduce_VR_2](/images/snippet/vr/introduce/introduce_VR_2.gif)
 
 **Meta quest 3** 기준으로 설명드립니다. <br />
 VR 기기를 킨 다음, 브라우저를 열여서 레드브릭에 올린 프로젝트 **publishing Link** 로 들어갑니다. <br />
 실행을 누르고 하단에 뜨는 **Enter VR** 버튼을 누르면 VR 테스트를 진행할 수 있습니다. <br />
+
 <br />
-<img src="/images/snippet/vr/introduce/introduce_VR_3.gif" alt="introduce_VR_3" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
-VR Test를 종료하고 싶을 때는, **오큘러스 버튼**을 눌려서 실행 중인 브라우저 창을 띄워줍니다. <br />
+
+![introduce_VR_3](/images/snippet/vr/introduce/introduce_VR_3.gif)
+VR Test를 종료하고 싶을 때는, **오큘러스 버튼**을 눌려서 실행 중인 브라우저 창을
+띄워줍니다. <br />
 그 다음, **앞쪽 트리거 버튼**으로 **종료** 버튼을 누르면 나올 수 있습니다.
+
 <br />
 
-
-## VR 기기 없이 Test 하기 
+## VR 기기 없이 Test 하기
 
 VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Chrome 확장을 사용할 수 있습니다.
 
@@ -96,8 +107,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   d="M555.207,75.414v43.981a2.341,2.341,0,0,0,2.136,2.331l27.279,2.387A10.142,10.142,0,0,0,592.858,121l10.31-10.852a7.355,7.355,0,0,1,10.664,0L624.142,121a10.142,10.142,0,0,0,8.236,3.118l27.279-2.387a2.341,2.341,0,0,0,2.136-2.331V75.414a2.34,2.34,0,0,0-2.34-2.34H557.547A2.34,2.34,0,0,0,555.207,75.414Z"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -105,8 +116,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   d="M661.793,74.487l-1.914-10.658a.584.584,0,0,0-.575-.48H557.7a.584.584,0,0,0-.575.48l-1.914,10.658"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -117,8 +128,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   transform="translate(567.818 105.37) rotate(-80.754)"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -129,8 +140,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   transform="translate(626.522 105.37) rotate(-80.754)"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -139,8 +150,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   transform="translate(548.004 87.341)"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -148,8 +159,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   d="M555.207,82.249h-5.455a.7.7,0,0,0-.683.542L548,87.808"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -158,8 +169,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   transform="translate(668.996 105.568) rotate(180)"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -167,8 +178,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   d="M661.793,82.249h5.454a.7.7,0,0,1,.684.542L669,87.808"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -190,8 +201,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   d="M555.207,75.414v43.981a2.341,2.341,0,0,0,2.136,2.331l27.279,2.387A10.142,10.142,0,0,0,592.858,121l10.31-10.852a7.355,7.355,0,0,1,10.664,0L624.142,121a10.142,10.142,0,0,0,8.236,3.118l27.279-2.387a2.341,2.341,0,0,0,2.136-2.331V75.414a2.34,2.34,0,0,0-2.34-2.34H557.547A2.34,2.34,0,0,0,555.207,75.414Z"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -199,8 +210,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   d="M661.793,74.487l-1.914-10.658a.584.584,0,0,0-.575-.48H557.7a.584.584,0,0,0-.575.48l-1.914,10.658"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -211,8 +222,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   transform="translate(567.818 105.37) rotate(-80.754)"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -223,8 +234,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   transform="translate(626.522 105.37) rotate(-80.754)"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -233,8 +244,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   transform="translate(548.004 87.341)"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -242,8 +253,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   d="M555.207,82.249h-5.455a.7.7,0,0,0-.683.542L548,87.808"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -252,8 +263,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   transform="translate(668.996 105.568) rotate(180)"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -261,8 +272,8 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
   d="M661.793,82.249h5.454a.7.7,0,0,1,.684.542L669,87.808"
   fill="none"
   stroke="#ff0000"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  strokeLinecap="round"
+  strokeLinejoin="round"
   strokeWidth="3"
 />
 
@@ -277,8 +288,10 @@ VR 콘텐츠를 만들고 체험하고 싶지만 VR 헤드셋이 없다면 VR Ch
 </Cards>
 
 둘 중에 **Web Emulator**를 설치하시는 걸 더 추천드리며 설치 후 아래의 영상과 같이 **fn + F12 키를 눌려 개발자 도구**를 틀고 **WebXR** 탭을 눌려 가상 VR 기기로 테스트할 수 있습니다. <br />
+
 <br />
-<img src="/images/snippet/vr/introduce/introduce_VR_5.gif" alt="introduce_VR_5" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+
+![introduce_VR_5](/images/snippet/vr/introduce/introduce_VR_5.gif)
 
 <br />
 ## 오브젝트랑 상호작용 만들기
@@ -292,29 +305,37 @@ const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
 const camera = WORLD.getObject("MainCamera");
 const followingCamera = avatar.setFollowingCamera(camera);
 avatar.setDefaultController();
-followingCamera.useVR({VRObject: avatar});
+followingCamera.useVR({ VRObject: avatar });
 
 // Setting interaction
 const box = WORLD.getObject("BOX");
 
-function Start(){
-    box.onClick(() => {
-        box.kill();
-    });
+function Start() {
+  box.onClick(() => {
+    box.kill();
+  });
 }
 ```
 
 위 코드는 월드 상에 박스 놔두고 트리거 버튼으로 클릭하면 없어지게 설정해 놓은 코드입니다. <br />
 실제로 VR 로 연결해서 테스트하면 아래와 같이 작동되는 것을 확인하실 수 있습니다. <br />
+
 <br />
-<img src="/images/snippet/vr/introduce/introduce_VR_4.gif" alt="introduce_VR_4" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+<center>
+  ![introduce_VR_4](/images/snippet/vr/introduce/introduce_VR_4.gif){" "}
+</center>
 
 <Callout type="error">
-  레드브릭 에셋을 쓸 경우, 실제 오브젝트가 상위 객체(1번)이 아닌 하위 객체(2번)에 들어가는 것을 확인할 수 있습니다. <br/>
-  이때, **OnClick** 함수를 실제 오브젝트가 아닌 상위 객체(1번)에 달 경우, 클릭한 것에 대해 제대로 인식하지 못하는 오류가 있습니다. 
-  그렇기 때문에, 꼭 하위 객체(2번)를 스크립트 상에 가져와 **OnClick** 을 달아주도록 해야합니다. <br/>
-  외부 에셋을 사용할 때도, 오브젝트가 들어가 있는 객체와 **OnClick**을 연결시켜줘야 합니다. <br/> 
-  <img src="/images/snippet/vr/introduce/introduceObj.png" alt="introduceObj" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+  레드브릭 에셋을 쓸 경우, 실제 오브젝트가 상위 객체(1번)이 아닌 하위
+  객체(2번)에 들어가는 것을 확인할 수 있습니다. <br />
+  이때, **OnClick** 함수를 실제 오브젝트가 아닌 상위 객체(1번)에 달 경우, 클릭한
+  것에 대해 제대로 인식하지 못하는 오류가 있습니다. 그렇기 때문에, 꼭 하위 객체(2번)를
+  스크립트 상에 가져와 **OnClick** 을 달아주도록 해야합니다. <br />
+  외부 에셋을 사용할 때도, 오브젝트가 들어가 있는 객체와 **OnClick**을
+  연결시켜줘야 합니다. <br />
+
+![introduceObj](/images/snippet/vr/introduce/introduceObj.png)
+
 </Callout>
 
 ---
@@ -323,13 +344,13 @@ function Start(){
   Redbrick Stdio에서 사용 가능한 VR Event Function은 다음과 같습니다.
 </Callout>
 
-|     Text      | Redbrick Studio |
-| :-----------: | :-----------: | 
-|     Move     |      ✅       | 
-|    Jump     |      ✅       | 
-|    Trigger(click)     |      ✅       | 
-|    Grap    |      ❌       | 
-|    GUI    |      ❌       | 
+|      Text      | Redbrick Studio |
+| :------------: | :-------------: |
+|      Move      |       ✅        |
+|      Jump      |       ✅        |
+| Trigger(click) |       ✅        |
+|      Grap      |       ❌        |
+|      GUI       |       ❌        |
 
 <Callout type="info" emoji="ℹ️">
   GUI가 렌더링되지 않지만, 스프라이트 3D 객체를 이용해 GUI를 대신할 수 있습니다.

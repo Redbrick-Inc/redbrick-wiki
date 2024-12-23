@@ -1,3 +1,9 @@
+---
+title: "Trigger-related functions"
+description: "Let's find out the functions related to Trigger."
+hideTitle: true
+---
+
 import { Steps, Cards, Callout } from "nextra/components";
 
 # Introduction to Trigger-related functions
@@ -10,35 +16,42 @@ import { Steps, Cards, Callout } from "nextra/components";
 
 You can know the timing when you press the Trigger button for the first time and when you release it through the code below.
 
-``` js showLineNumbers
+```js showLineNumbers
 // VR Default Setting
 const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
 const camera = WORLD.getObject("MainCamera");
 const followingCamera = avatar.setFollowingCamera(camera);
 avatar.setDefaultController();
-followingCamera.useVR({VRObject: avatar});
+followingCamera.useVR({ VRObject: avatar });
 
 // When you press the left Trigger button for the first time
-function OnVRControllerLeftSelectStart(e){
-    console.log("HELLO LEFT. ", e);
+function OnVRControllerLeftSelectStart(e) {
+  console.log("HELLO LEFT. ", e);
 }
 
 // When you press the left Trigger button and release it
-function OnVRControllerLeftSelectEnd(e){
-    console.log("BYE.LEFT  ", e);   
+function OnVRControllerLeftSelectEnd(e) {
+  console.log("BYE.LEFT  ", e);
 }
 
 // When you press the right Trigger button for the first time
-function OnVRControllerRightSelectStart(e){
-    console.log("HELLOW RIGHT. ", e);
+function OnVRControllerRightSelectStart(e) {
+  console.log("HELLOW RIGHT. ", e);
 }
 
 // When you press the right Trigger button and release it
-function OnVRControllerRightSelectEnd(e){
-    console.log("BYE.RIGHT ", e);   
+function OnVRControllerRightSelectEnd(e) {
+  console.log("BYE.RIGHT ", e);
 }
 ```
 
 In the image results below, you can see that the log is taken well when you press and release the Trigger buttons on both sides. <br/>
-<br/>
-<img src="/images/snippet/vr/controller/trigger/trigger_img1.gif" alt="trigger_img1" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+
+<br />
+<img
+  src="/images/snippet/vr/controller/trigger/trigger_img1.gif"
+  alt="trigger_img1"
+  loading="lazy"
+  decoding="async"
+  style={{ width: "100%", height: "auto" }}
+/>

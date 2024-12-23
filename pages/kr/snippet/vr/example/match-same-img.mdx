@@ -1,19 +1,31 @@
+---
+title: "같은 그림 맞추는 퍼즐"
+description: "VR 콘텐츠에서 많이 사용되는 같은 그림 맞추기 퍼즐을 만들어봅시다."
+hideTitle: true
+---
+
 import { Steps, Cards, Callout } from "nextra/components";
 
 # 같은 그림 맞추는 퍼즐
 
-> VR 콘텐츠에서 많이 사용되는 같은 그림 맞추기 퍼즐을 만들어봅시다. 
+> VR 콘텐츠에서 많이 사용되는 같은 그림 맞추기 퍼즐을 만들어봅시다.
 
 ---
 
-<img src="/images/snippet/vr/example/match-same-img/match-same-imges.gif" alt="match-same-imges" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
-<br/>
+<img
+  src="/images/snippet/vr/example/match-same-img/match-same-imges.gif"
+  alt="match-same-imges"
+  loading="lazy"
+  decoding="async"
+  style={{ width: "100%", height: "auto" }}
+/>
+<br />
 
 위에는 완성 결과입니다. <br/>
 박스를 눌렸을 때, Y축으로 돌아가며 같은 그림이 맞춰졌을 때, 모든 박스가 사라지는 것을 확인할 수 있습니다.
 
 <Steps>
-    ### 박스 오브젝트 추가하기 
+    ### 박스 오브젝트 추가하기
 
     레드브릭 스튜디오 내 에셋을 활용해서 박스를 3개 만들어 줍니다.
     <br/>
@@ -40,9 +52,9 @@ import { Steps, Cards, Callout } from "nextra/components";
         // 박스 오브젝트 가져와서 배열에 저장
         for(let i=1; i<=3; i++){
             let object = WORLD.getObject("randomBox" + i);
-            randomBoxes.push(object); 
+            randomBoxes.push(object);
         }
-        
+
         randomBoxes.forEach((box, index) => {
             // 박스를 클릭할 경우
             box.onClick(() => {
@@ -57,10 +69,10 @@ import { Steps, Cards, Callout } from "nextra/components";
     function turnBox(index){
         if(isTurning[index]) return;
         isTurning[index] = true;
-        
+
         randomBoxes[index].turn(0,90,0,2); // 2초 동안 박스 회전시키기
         fristState[index] += 90; // 회전 값 더해주기
-        if(fristState[index] == 360) fristState[index] = 0; 
+        if(fristState[index] == 360) fristState[index] = 0;
         // 2.5 초 후, 그림 일치하는지 확인
         setTimeout(() => {
             isTurning[index] = false;
@@ -73,13 +85,13 @@ import { Steps, Cards, Callout } from "nextra/components";
         let isSame = true;
 
         let currentRotate = fristState[0];
-        // 현재 회전 값이 셋 다 일치하는지 확인 
+        // 현재 회전 값이 셋 다 일치하는지 확인
         for(let i=1; i< 3; i++){
             if(currentRotate !== fristState[i]){
                 isSame = false;
             }
         }
-        
+
         // 그림이 다 일치 한다면
         if(isSame){
             // 박스 다 사라지게 설정
@@ -93,7 +105,7 @@ import { Steps, Cards, Callout } from "nextra/components";
     ### 스크립트에 맞춰서 오브젝트 세팅 및 회전 값 설정
 
     레드브릭 에셋을 쓸 경우, 실제 오브젝트가 상위 객체(1번)이 아닌 하위 객체(2번)에 들어가는 것을 확인할 수 있습니다. <br/>
-    이때, **OnClick** 함수를 직접적인 오브젝트가 아닌 상위 객체(1번)에 달 경우, 클릭한 것에 대해 제대로 인식하지 못하는 오류가 있습니다. 
+    이때, **OnClick** 함수를 직접적인 오브젝트가 아닌 상위 객체(1번)에 달 경우, 클릭한 것에 대해 제대로 인식하지 못하는 오류가 있습니다.
     그렇기 때문에, 꼭 하위 객체(2번)를 스크립트 상에 가져와 **OnClick** 을 달아주도록 해야합니다. <br/>
     또한, 코드 상에 처음 회전 각도가 `const fristState = {0 : 0 , 1: 90, 2: 180}` 라고 설정하였기 때문에 이에 맞게 3번처럼 각도를 세팅해줍니다. <br/>
     <br/>
@@ -101,7 +113,7 @@ import { Steps, Cards, Callout } from "nextra/components";
     <br/>
 
     <Callout type='warning'>
-        추가적으로 `if(box.rotation.y.toFixed(2) !== num)` 이와 같이 직접 박스 회전 값을 가져와서 비교할 경우, 
+        추가적으로 `if(box.rotation.y.toFixed(2) !== num)` 이와 같이 직접 박스 회전 값을 가져와서 비교할 경우,
         값이 45.45 / 44.78 이런 식으로 나와서 제대로 확인이 안될 수 있습니다. <br/>
         그렇기 때문에 위에처럼 따로 배열을 설정해주는 게 좋습니다.
     </Callout>

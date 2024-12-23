@@ -1,3 +1,9 @@
+---
+title: "VR Follow UI"
+description: "Let's use a 3D sprite object instead of a GUI to display information, and make it always face the player, no matter which direction the player moves."
+hideTitle: true
+---
+
 import { Steps, Cards, Callout } from "nextra/components";
 
 # UI that follows the camera
@@ -6,8 +12,14 @@ import { Steps, Cards, Callout } from "nextra/components";
 
 ---
 
-<img src="/images/snippet/vr/example/follow-ui/follow-img.gif" alt="follow-img" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
-<br/>
+<img
+  src="/images/snippet/vr/example/follow-ui/follow-img.gif"
+  alt="follow-img"
+  loading="lazy"
+  decoding="async"
+  style={{ width: "100%", height: "auto" }}
+/>
+<br />
 
 The image above shows the completed result. <br/>
 You can see that the UI object continuously rotates to face the player, no matter which direction the player moves.
@@ -15,7 +27,7 @@ You can see that the UI object continuously rotates to face the player, no matte
 <Steps>
     ### Add the UI Object to Display
 
-    If you press the **My Asset button(1st)** and the **Upload button(2nd)** to get the desired image and click it(3rd), 
+    If you press the **My Asset button(1st)** and the **Upload button(2nd)** to get the desired image and click it(3rd),
     you can see that the image has entered the object as shown in the screen below.
     <br/>
     <center>![follow-ui_1](/images/snippet/vr/example/follow-ui/follow-ui_1.png) </center>
