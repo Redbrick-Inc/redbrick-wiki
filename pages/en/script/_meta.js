@@ -1,5 +1,5 @@
 export default {
-  intro: "Introduction",
+  index: "Introduction",
   js: "Basics of Javascript",
   start: "Get Started",
   "built-in": "Built-in Modules",
