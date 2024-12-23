@@ -49,12 +49,23 @@ const config: DocsThemeConfig = {
   },
   footer: {
     content: (
-      <span>
-        <a href="https://redbrick.land" target="_blank">
-          <LogoNoColor />
-        </a>
-        Copyright © {new Date().getFullYear()} Redbrick Inc. All rights reserved
-      </span>
+      <div className="flex w-full flex-col items-center sm:items-start">
+        <div>
+          <a
+            className="nextra-focus flex items-center gap-1 text-current"
+            target="_blank"
+            rel="noreferrer"
+            title="vercel.com homepage"
+            href="https://redbrick.land"
+          >
+            <LogoNoColor />
+          </a>
+        </div>
+        <p className="mt-6 text-xs">
+          Copyright © {new Date().getFullYear()} Redbrick Inc. All rights
+          reserved. reserved.
+        </p>
+      </div>
     ),
   },
   editLink: {
@@ -73,6 +84,10 @@ const config: DocsThemeConfig = {
   ],
   nextThemes: {
     defaultTheme: "dark",
+  },
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+    toggleButton: true,
   },
 };
 

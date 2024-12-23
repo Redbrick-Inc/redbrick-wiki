@@ -1,9 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jaro:opsz@6..72&family=Lexend:wght@100..900&family=Press+Start+2P&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-body {
-  font-family: "Inter", serif;
-}
