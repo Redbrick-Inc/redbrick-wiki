@@ -1,3 +1,9 @@
+---
+title: "기본 VR 설정 제거"
+description: "기본 VR 설정을 제거하는 방법에 대해 알아봅시다."
+hideTitle: true
+---
+
 import { Steps, Cards, Callout } from "nextra/components";
 
 # 기본 VR 설정 제거
@@ -8,30 +14,39 @@ import { Steps, Cards, Callout } from "nextra/components";
 
 기본적인 VR 세팅 코드에 맨 아래 줄 두 줄을 추가해봅시다.
 
-``` js showLineNumbers
+```js showLineNumbers
 // default VR setting
 const avatar = REDBRICK.AvatarManager.createDefaultAvatar();
 const camera = WORLD.getObject("MainCamera");
 const followingCamera = avatar.setFollowingCamera(camera);
 avatar.setDefaultController();
-followingCamera.useVR({VRObject: avatar});
+followingCamera.useVR({ VRObject: avatar });
 
 followingCamera.removeVRDefaultSettings(); //remove default settings
 const XRManager = followingCamera.getXRManager(); //get XR Manager
 ```
- 
+
 여기서 `followingCamera.removeVRDefaultSettings()` 가 기본적인 VR 세팅을 지우는 함수이며 <br/>
 `const XRManager = followingCamera.getXRManager()` 를 통해 XRManager 변수를 불려올 수 있습니다. <br/>
 현재는 `removeVRDefaultSettings()` 을 하였을 때, 기본적으로 달려있던 Grab 버튼의 점프 기능이 사라진 것을 아래 영상을 통해 확인할 수 있습니다. <br/>
-<br/>
-<img src="/images/snippet/vr/controller/remove-vr-setting/remove_img1.gif" alt="remove_img1" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto' }}/>
+
+<br />
+<img
+  src="/images/snippet/vr/controller/remove-vr-setting/remove_img1.gif"
+  alt="remove_img1"
+  loading="lazy"
+  decoding="async"
+  style={{ width: "100%", height: "auto" }}
+/>
 
 또한, 가져온 XRManager 를 통해 아래 사진과 같이 VR Controller 관련된 함수들을 사용하실 수 있습니다. <br/>
-<br/>
-<center>![vrImg](/images/snippet/vr/controller/remove-vr-setting/img2.png) </center>
+
+<br />
+<center>
+  ![vrImg](/images/snippet/vr/controller/remove-vr-setting/img2.png){" "}
+</center>
 
 <Callout type="warning" emoji="⚠️">
-  **참고**: 현재는 기본 세팅 중 점프 외 기능들(화면 회전, 이동, onClick)은 제거되지 않습니다.
+  **참고**: 현재는 기본 세팅 중 점프 외 기능들(화면 회전, 이동, onClick)은
+  제거되지 않습니다.
 </Callout>
-
-

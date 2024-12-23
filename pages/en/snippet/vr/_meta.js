@@ -1,5 +1,5 @@
 export default {
-    introduce: 'Introduce',
-    controller : 'Introduce Controller-Related Functions',
-    example: 'Examples',
+  intro: "Introduction",
+  controller: "Introduction of Controller-Related Functions",
+  example: "Examples",
 };
