@@ -1,0 +1,62 @@
+import { Callout, Steps, Cards } from "nextra/components";
+
+# 반드시 알아야 하는 내용
+
+레드브릭 팀 프로젝트를 진행하기 전에 반드시 알아야 할 내용들입니다.
+
+## ⚠️ 캐릭터가 느리고 버벅이거나, 공중 부양한다면
+
+<Callout type="warning">
+  이 [링크](https://threejs.org/examples/#webgl_animation_keyframes)에 들어가서
+  애니메이션이 부드럽게 나오는지 확인해 주세요. 만약 버벅인다면, 아래 내용을
+  따라주세요.
+</Callout>
+<br />
+<center>
+    ![](../../../images/chrome-acceleration-setting-kr.png) 크롬에서 그래픽 가속 사용
+</center>
+
+<Callout type="warning">
+  1. 크롬 설정 > 검색에서 ‘가속’ 검색 > 하드웨어 그래픽 가속 사용 체크 > 크롬
+  다시시작  
+  2. 1번을 해봐도 안되면 캐시 삭제 후 모든 창 끄고 다시 켜기  
+  3. 2번까지 해봐도 안되면 컴퓨터 재시작
+  4. 3번까지 해봐도 안되면 크롬 삭제 후 재설치
+</Callout>
+<Callout type="error">
+  모두 해봐도 안된다면 컴퓨터에 그래픽 드라이버가 설치되어 있지 않다면 버벅거릴 수 있습니다.  
+  자동 업데이트로 설치가 되는데 간혹 자동 업데이트가 안되어 있는 경우가 있습니다.  
+  이걸 확인하려면 제어판 > 장치 관리자 들어가서 첨부 이미지에 있는 / 디스플레이 어댑터에 적힌 기기 이름이 있어야 합니다.  
+  (ex. Geforce RTX 3060 )
+</Callout>
+<br/>
+<center>
+    ![](../../../images/ssafy-graphic-setting.png) 
+    만약 없다면 > 엔비디아 > GeForce 드라이버 > 장치관리자 기기에 맞는 드라이버 설치
+</center>
+
+<br/>
+
+## ❌ 에러 발생 시 확인하는 법
+
+에러의 내용은 팝업으로 표시되거나, 콘솔창에 표시됩니다.  
+
+### ❗️콘솔창 확인하는 법  
+1. F12 또는 브라우저 화면에서 우클릭후 검사 선택 > 우측에 열린 콘솔 창에서 상단 Console 탭 선택 > error 선택
+2. F12 또는 브라우저 화면에서 우클릭후 검사 선택 > 우측에 열린 콘솔 창에서 상단 Sources 탭 선택 > Pause on caught exceptions 체크
+
+### ❗️주의사항
+
+1. 에러 발생 이후에 콘솔창을 확인하면 에러의 내용이 표시되지 않을 수 있습니다. 실시간으로 에러 내용을 확인하고 싶다면 콘솔창을 열어놓은 채로 게임을 테스트 해주세요.
+2. 콘솔창에 나오는 에러 중에는 레드브릭 엔진과 관련이 없거나 플레이에 지장을 주지 않는 에러들도 있습니다. 콘솔창에 에러가 나왔다고 해서 무조건 문제가 되는 것은 아니므로 **원하는대로 동작하지 않을 때 나오는 에러들만 보내주세요.**
+3. Pause on caught exceptions로 페이지가 pause(일시정지) 상태에 들어간 경우, F8 또는 resume(다시시작) 버튼을 통해 다시 실행 상태로 변경할 수 있습니다.
+
+<Callout type="info">
+  에러 내용 확인하는 법  
+  <br/>
+  <center>![debug_error-popup](/images/snippet/tips/debug/debug_error-popup.png) 에러 팝업</center>  
+  <br/>
+  <center>![](../../../images/console-window-error-detail.png) 콘솔창(Console > error)</center>
+  <br/>
+  <center>![console-window-error-location](/images/ssafy/console-window-error-location.png) 소스창(Sources > Pause on caught exceptions)</center>
+</Callout>
