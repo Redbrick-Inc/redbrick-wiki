@@ -1,0 +1,180 @@
+import { Callout, Steps, Tabs, Cards } from "nextra/components";
+
+# 📖 응용 및 더 알아보기
+
+## 📦 로컬 저장소와 포탈 사용하기
+
+![ssafy13-localstorage-portal](/images/ssafy/ssafy-localstorage-portal.gif)
+
+[로컬 저장소](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)를 사용하여, 포탈로 맵을 이동해도 동일한 정보를 유지할 수 있습니다.  
+
+저장할 값은 두 가지 종류로 나눌 수 있습니다. 공통적으로 저장해야 하는 값과 개별적으로 저장해야 하는 값입니다.
+
+### 공통적으로 저장해야 하는 값
+
+접근에 용이하게 `팀명_변수명`으로 아이템 이름을 지정 및 저장할 수 있습니다.  
+지정한 아이템 이름을 통해 로컬 저장소에서 원하는 값을 가져올 수 있습니다.
+
+게임이 예기치 못하게 종료될 수 있기 때문에 먹을 때마다 즉각적으로 로컬 저장소에 저장하도록 합니다.  
+
+``` js showLineNumbers {4, 16} copy
+  // ...
+
+  // 아직 저장이 되지 않은 경우, null을 반환. null일 경우 0으로 초기화
+  let gemCount = localStorage.getItem("teamDave_gemCount") ?? 0;
+  const gemCountGUI = GUI.getObject("GEM_COUNT");
+  gemCountGUI.setText(`GEM: ${gemCount}`);
+
+  for(let i = 0; i < 6; i++) {
+    const gem = WORLD.getObject(`GEM_${i}`);
+    gem.onCollide(PLAYER, () => {
+        gemCount++;
+        gemCountGUI.setText(`GEM: ${gemCount}`);
+        gem.kill();
+        setTimeout(() => gem.revive(), 1000);
+        // 먹는 즉시, 로컬 저장소에 저장
+        localStorage.setItem("teamDave_gemCount", gemCount);
+    });
+  }
+
+  // ...
+```
+
+### 개별적으로 저장해야 하는 값
+
+월드마다 개별적으로 저장해야 하는 값은 중복될 수 없는 값인 pid에 변수명을 붙여 아이템 이름을 지정 및 저장해줍니다.  
+
+[원시값(숫자, 문자열, Boolean, ...)](https://developer.mozilla.org/ko/docs/Glossary/Primitive)이 아닌 값은 JSON 문자열 형태로 저장해주어야 합니다.  
+이를 위해 `JSON.stringify()`로 변환하고, `JSON.parse()`로 다시 사용할 수 있는 형태로 복원하면 됩니다.
+
+``` js showLineNumbers {4, 8, 18} copy
+  // ...
+
+  // 현재 사이트의 URL에서 pid 부분을 추출, 이를 통해 아이템 이름 지정
+  const urlParams = new URLSearchParams(window.location.search);
+  GLOBAL.PID = urlParams.get('pid');
+
+  // JSON 문자열로 저장되어 있기 때문에 읽어와서, 사용할 수 있는 형태로 변경
+  const lastPosition = JSON.parse(localStorage.getItem(`${GLOBAL.PID}_lastPosition`));
+  if(lastPosition) { 
+      lastPosition.y += 3;
+      PLAYER.position.copy(lastPosition);
+      PLAYER.body.needUpdate = true;
+  }
+
+  const portal = WORLD.getObject("PORTAL");
+  portal.onCollide(PLAYER, () => {
+    // 플레이어의 마지막 위치를 JSON 문자열 형태로 변경하여 저장
+    localStorage.setItem(`${GLOBAL.PID}_lastPosition`, JSON.stringify(PLAYER.position));
+  });
+
+  // ...
+```
+
+## 🥇 랭킹 시스템 추가하기
+
+![redbrick_rank-result](/images/script/built-in/redbrick/redbrick_rank-result.png)
+
+Redbrick에서 제공하는 내장 모듈을 통해 손쉽게 랭킹 시스템을 추가할 수 있습니다.  
+현재 랭킹 표시 유형은 일반적인 점수와 시간, 두 가지가 있습니다.
+
+### 점수 저장하기
+
+<Callout type="warning">
+  점수는 **정수**로 저장되므로, 점수 시스템을 설계할 때 **정수**로 계산되도록 고려해야 합니다.  
+  점수가 아닌 경우, 소수 부분은 **반올림**되어 **정수**로 변환됩니다.
+</Callout>
+
+**1. 일반적인 점수 저장하기**
+
+``` js showLineNumbers {3} copy
+  // ... 점수 변수(myScore) 선언 및 정의되어 있고, 어디선가 점수 증가
+  
+  REDBRICK.Rank.saveScore({ score: myScore });
+
+  // ... 
+```
+
+**2. 시간을 점수로 저장하기**
+
+점수는 기본적으로 큰 수에서 작은 수로 정렬되어 저장됩니다.  
+하지만 타임어택의 경우에는 작을수록 순위가 높아야 하기 때문에 정렬 옵션을 추가해주어야 합니다. `order: "ASC"`  
+별도의 정렬 옵션을 추가하지 않는 경우, 기본값인 `order: "DESC"`로 저장됩니다.
+
+``` js showLineNumbers {7} copy filename="Time Attack"
+  // Redbrick 내장 모듈 Timer 사용하기
+  const timer = new REDRBICK.Timer();
+  timer.start(); // 타이머 시작
+  timer.pause(); // 타이머 일시정지
+  
+  // 점수는 정수 저장, 예를 들어 타이머가 9.33초라면 반올림하여 9초로 저장
+  REDBRICK.Rank.saveScore({ score: timer.getTime(), order: "ASC" });
+
+  // ... 
+```
+
+<Callout type="error">
+  점수 저장은 한 게임이 끝나면 한 번만 호출되어야 합니다.  
+  `Update`나 `setInterval`과 같은 루프에서 호출한다면 조건을 통해 한 번만 호출될 수 있게 해주세요.
+</Callout>
+
+### 랭킹 보여주기
+
+**1. 일반적인 점수 랭킹 보여주기**
+
+``` js showLineNumbers copy
+  REDBRICK.Rank.show();
+```
+
+**2. 시간으로 랭킹 보여주기**
+
+점수를 저장할 때, 적용했던 정렬 옵션을 그대로 적용해주어야 올바르게 랭킹이 표시됩니다.
+
+``` js showLineNumbers copy filename="Time Attack"
+  REDBRICK.Rank.show({ type: "time", order: "ASC" });
+```
+
+### GUI와 연결하여 랭킹 보여주기
+
+GUI의 [`onClick()`](/kr/script/api/sprite#onclick) 메소드를 사용하여 랭킹을 보여줄 수 있습니다.
+
+``` js showLineNumbers copy filename="Rank Button"
+  this.onClick(() => {
+    REDBRICK.Rank.show({ type: "time", order: "ASC" });
+  });
+```
+
+<Callout type="info">
+  더 자세한 내용은 [Rank 페이지](/kr/script/built-in/redbrick/rank)를 참고해주세요!
+</Callout>
+
+## 💡 `onCollide()` 외에 또 다른 충돌 방식
+
+거리 계산을 통해 충돌 판정을 할 수 있습니다.  
+[`distanceTo()`](https://threejs.org/docs/#api/en/math/Vector3.distanceTo) 메소드를 통해 거리를 계산하고 충돌 판정 거리보다 작을 경우, 충돌 처리를 해줍니다.  
+충돌 시 충돌 감지할 오브젝트 배열에서 삭제할 수 있어야 하기 때문에 삭제를 해도 순서가 변경되지 않게 배열의 맨 뒤에서부터 순회합니다.
+
+``` js showLineNumbers {6} copy
+  // ... objects 배열 선언 및 오브젝트 추가
+  
+  function Update(dt) {
+    for(let i = objects.length - 1; i >= 0; i--) {
+      // 플레이어 기준으로 특정 오브젝트들과의 거리 계산
+      if(PLAYER.position.distanceTo(objects[i].position) < 10) {
+        // 거리가 10 미만이면 충돌 판정이 되어, 해당 오브젝트를 삭제하고 충돌 감지할 오브젝트 배열에서도 삭제
+        objects[i].kill();
+        objects.splice(i, 1);
+      }
+    }
+  }
+
+  // ... 
+```
+
+## 🕹️ 샘플 게임 살펴보기
+
+<Cards>
+  <Cards.Card title="🔫 슈팅 게임" href="/snippet/sample-game/shooting-game" />
+  <Cards.Card title="🧶 스핀 게임" href="/snippet/sample-game/spin-game" />
+  <Cards.Card title="💪 로그라이크 게임" href="/snippet/sample-game/survivor-game" />
+</Cards>
