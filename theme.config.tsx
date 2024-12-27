@@ -20,7 +20,7 @@ const config: DocsThemeConfig = {
         📢
         <a
           className=" hover:underline"
-          href="https://wiki.redbrick.land/kr/ssafy13/must-know"
+          href="https://wiki.redbrick.land/kr/ssafy13"
         >
           싸피 참가자 분들을 위한 싸피 가이드 여기에 있습니다.
         </a>
