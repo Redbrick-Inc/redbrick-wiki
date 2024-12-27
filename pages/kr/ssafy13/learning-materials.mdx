@@ -1,90 +1,129 @@
-import { Callout, Steps, Cards } from "nextra/components";
-
+import { Callout, Steps, Cards, Tabs } from "nextra/components";
 
 # 📝 학습 자료
 
-수업에 사용될 학습 자료들입니다.  
+도움이 될만 학습 자료들을 모아놨어요.
 
-오리엔테이션 PPT : 👉 [보러가기](https://docs.google.com/presentation/d/1oh9KT-vDGiLvA6NQ6-iGCM4fd81THDdo/edit?usp=drive_link&ouid=101146029283142124721&rtpof=true&sd=true)
+## 📖 기본 프로그래밍 알아보기
 
-## 기본 프로그래밍 알아보기
+레드브릭 스튜디오를 다루는 기본적인 방법들을 알아보아요.
 
-레드브릭 스튜디오를 다루는 기본적인 방법들을 알아보아요.  
+<Tabs items = {["오브젝트 움직이기", "오브젝트와 상호 작용하기", "점수 구현하기", "함께해요, 디저트 월드"]}>
+  <Tabs.Tab title="오브젝트 움직이기">
+    <br />
+    <center>![](../../../images/ssafy-move-car.gif)</center>
 
-### 오브젝트 움직이기
+    ```js showLineNumbers copy filename="car movement"
+    // 오브젝트를 움직이는 코드
+    const car = WORLD.getObject("car");
+    obj.go(10, 0, 0, 2); //obj가 현재 위치 기준 x+10 위치로 2초동안 이동하게 합니다
+    ```
 
-<br/>
-<center>
-![](../../../images/ssafy-move-car.gif)
+  </Tabs.Tab>
 
-학습 PPT : 👉 [보러가기](https://docs.google.com/presentation/d/1YvZbIKJEx0GOpa3mSWY5PnQ9EkxoDxgvyeSAMS5iWdg/edit?usp=drive_link)
-</center>
+  <Tabs.Tab title="오브젝트와 상호 작용하기">
+    <br />
+    ![](../../../images/ssafy-oncollide-visible.gif)
 
-### 오브젝트와 상호 작용하기
+    ```js showLineNumbers copy filename="revive"
+    const box = WORLD.getObject("box");
+    const flowerPot = WORLD.getObject("flowerPot");
+    flowerPot.kill(); // flowerPot를 숨깁니다
 
-<br/>
-<center>
-![](../../../images/ssafy-oncollide-visible.gif)
+    box.onCollide(PLAYER, () => {
+      flowerPot.revive(); // box와 player가 충돌하면 flowerPot를 보이게 합니다
+    });
+    ```
 
-학습 PPT : 👉 [보러가기](https://docs.google.com/presentation/d/1IE1RQIPEdHcH7oDyapdqcgXQbRFl2uQM3JbJP6k-Krs/edit?usp=drive_link)
-</center>
+  </Tabs.Tab>
 
+  <Tabs.Tab title="점수 구현하기">
+    <br />
+    ![](../../../images/ssafy-oncollide-score.gif)
 
-### 점수 구현하기
+    ```js showLineNumbers copy filename="score"
+    const mushroom = WORLD.getObject("mushroom");
+    const banner = GUI.getObject("scoreBanner");
 
-<br/>
-<center>
-![](../../../images/ssafy-oncollide-score.gif)
+    const score = 0;
 
-학습 PPT : 👉 [보러가기](https://docs.google.com/presentation/d/1BODhkvgiMVzEHsiUuTFz-TUg0UF_G3UQ4jg1QUrVtE8/edit?usp=drive_link)
-</center>
+    mushroom.onCollide(PLAYER, () => {
+      score += 1;
+      banner.setText(score);
+    });
+    ```
 
-## 따라해 볼까요?
+  </Tabs.Tab>
 
-### 어서와요, SSAFY CITY
+  <Tabs.Tab title="함께해요, 디저트 월드">
+    <br />
+    <center>![](../../../images/ssafy-dessert-world.gif)</center>
 
-<br/>
-<center>
-![](../../../images/ssafy-welcome-ssafy-city.gif)
+    ```js showLineNumbers copy filename="dessert-world"
+    const start1 = WORLD.getObject("start1");
+    const start2 = WORLD.getObject("start2");
+    const start3 = WORLD.getObject("start3");
+    const start4 = WORLD.getObject("start4");
+    const start5 = WORLD.getObject("start5");
 
-학습 PPT : 👉 [보러가기](https://docs.google.com/presentation/d/1sDxb0fUuQ9ANj2d8K93YlsvD8j5AHqVazH4j0puYs8c/edit?usp=drive_link)  
+    const scoreBanner = GUI.getObject("scoreBanner");
 
-![](../../../images/ssafy-select-city-template.png)  
+    let score = 0;
 
-템플릿 : 👉 [Redbrick Creator Land](https://creator.redbrick.land) > CREATE > City 템플릿을 활용하세요.
-</center>
+    start1.onCollide(PLAYER, () => {
+      score += 1;
+      scoreBanner.setText(score);
+      start1.kill();
+    });
 
-### 함께해요, 디저트 월드 
+    start2.onCollide(PLAYER, () => {
+      score += 1;
+      scoreBanner.setText(score);
+      start2.kill();
+    });
 
-<br/>
-<center>
-![](../../../images/ssafy-dessert-world.gif)
+    start3.onCollide(PLAYER, () => {
+      score += 1;
+      scoreBanner.setText(score);
+      start3.kill();
+    });
 
-학습 PPT : 👉 [보러가기](https://docs.google.com/presentation/d/1KAwE72dKlls0B_J21JbPubOZaPc_694qVF6iWW3YsBA/edit?usp=drive_link)  
+    start4.onCollide(PLAYER, () => {
+      score += 1;
+      scoreBanner.setText(score);
+      start4.kill();
+    });
 
-![](../../../images/ssafy-select-dessert-template.png)  
+    start5.onCollide(PLAYER, () => {
+      score += 1;
+      scoreBanner.setText(score);
+      start5.kill();
+    });
+    ```
 
-템플릿 : 👉 [Redbrick Creator Land](https://creator.redbrick.land) > CREATE > Dessert 템플릿을 활용하세요.
-</center>
+  </Tabs.Tab>
+</Tabs>
 
-## 결과물 제출
+## 🕹️ 더 많이 배우고 싶으시다면 스니펫들을 확인해보세요
 
-<Callout icon=":D">
-완성된 결과물은 👉[이곳]()👈 에서 제출해주세요!
-</Callout>
+레드브릭 엔진에 대해 더 알아보려면 다음 스니펫을 따라주세요. 🎉
 
-## 우리 반의 결과물 확인하기
+<Cards>
 
-<Callout icon=":D">
-    제출된 결과물을 확인하려면 👉[이곳]()👈으로 들어가신 뒤, 엑셀의 하단 탭에서 본인의 반을 선택해주세요.  
-</Callout>
+<Cards.Card
+  title="레드브릭 API 확장"
+  href="/snippet/redbrick-extension/spawn"
+/>
+<Cards.Card title="게임 흐름" href="/snippet/game-flow/pause-game" />
+<Cards.Card title="이벤트" href="/snippet/event/breakable-platform" />
+<Cards.Card title="3D 객체" href="/snippet/3d-object/object-rotation" />
+<Cards.Card title="GUI 객체" href="/snippet/gui-object/play-button" />
+<Cards.Card
+  title="트윈"
+  href="/snippet/tween/beginner/repeatedly-moving-object"
+/>
+<Cards.Card icon="" title="VR" href="/snippet/vr/intro" />
+<Cards.Card title="팁" href="/snippet/tips/debug" />
+<Cards.Card title="샘플 게임" href="/snippet/sample-game/shooting-game" />
 
-{/* 이미지 교체 필요 */}
-![](../../../images/ssafy-result-page.png) 
-
-## SSAFY 13기 설문조사 (교육생용)
-
-오늘의 교육은 만족스러우셨나요?  
-<Callout icon=":D">
-👉[이곳]()👈 에서 설문조사를 진행해 주세요!
-</Callout>
+</Cards>
