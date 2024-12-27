@@ -14,11 +14,17 @@ const config: DocsThemeConfig = {
     </>
   ),
   banner: {
-    key: "Welcome to Redbrick Wiki",
+    key: "ssafy-13",
     content: (
       <div data-nosnippet>
-        Welcome to Redbrick Wiki 📚, here you can find all the information you
-        need to get started with Redbrick Engine
+        📢
+        <a
+          className=" hover:underline"
+          href="https://wiki.redbrick.land/kr/ssafy13/learning-materials"
+        >
+          싸피 참가자 분들을 위한 싸피 가이드 여기에 있습니다.
+        </a>
+        📚
       </div>
     ),
   },
