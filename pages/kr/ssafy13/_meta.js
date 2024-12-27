@@ -1,4 +1,8 @@
 export default {
+  index: "SSAFY 13기",
+  "-- Themes": {
+    type: "separator",
+  },
   "must-know": "‼️ 반드시 알아야 하는 내용",
   "question-guide": "❓ 디스코드 질문 메뉴얼",
   tips: "🍯 레드브릭 엔진 꿀팁",
