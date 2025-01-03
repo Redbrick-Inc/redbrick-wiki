@@ -74,9 +74,6 @@ const config: DocsThemeConfig = {
       </div>
     ),
   },
-  feedback: {
-    content: "",
-  },
   footer: {
     content: (
       <div className="flex w-full flex-col items-center sm:items-start">
@@ -98,9 +95,6 @@ const config: DocsThemeConfig = {
       </div>
     ),
   },
-  editLink: {
-    content: "",
-  },
   search: {
     placeholder: () => "Search here ...",
   },
@@ -118,6 +112,16 @@ const config: DocsThemeConfig = {
   sidebar: {
     defaultMenuCollapseLevel: 1,
     toggleButton: true,
+  },
+  docsRepositoryBase: "https://github.com/Redbrick-Inc/redbrick-wiki/tree/main",
+  editLink: {
+    content: "Edit this page on GitHub →",
+  },
+  feedback: {
+    content: "Question? Give us feedback →",
+    labels: "feedback",
+    useLink: () =>
+      "https://github.com/Redbrick-Inc/redbrick-wiki/discussions/new?category=q-a",
   },
 };
 
