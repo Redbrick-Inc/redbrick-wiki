@@ -1,6 +1,6 @@
 # Redbrick Wiki
 
-Welcome to the Redbrick Wiki! This project serves as the official documentation for the Redbrick Engine, providing resources and guides to help you make the most out of our platform.
+Welcome to the Redbrick Wiki! This project serves as the official documentation for the Redbrick 3D Engine, providing resources and guides to help you make the most out of our platform.
 
 ## Getting Started
 
