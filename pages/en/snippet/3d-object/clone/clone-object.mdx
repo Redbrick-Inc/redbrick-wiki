@@ -86,7 +86,7 @@ let clone_obj_list = []; // Array to store cloned objects
 clone_btn.onClick(function() {
     for(let i=0; i<10; i++)
     {
-        clone_obj_list[i] = obj.clone();
+        clone_obj_list[i] = obj.cloneWithMethods();
         WORLD.add(clone_obj_list[i]); // Cloned objects must be added as children to WORLD to be usable
         clone_obj_list[i].position.x = i*5; // Set position for each cloned object
     }
