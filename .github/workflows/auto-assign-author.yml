@@ -1,0 +1,13 @@
+name: auto assign
+on:
+  pull_request:
+    types: [opened]
+jobs:
+  auto_assign_author:
+    name: Auto assign the PR author
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto assign the action
+        uses: kentaro-m/auto-assign-action@v2.0.0
+        with:
+          configuration-path: .github/auto-assign-config.yml

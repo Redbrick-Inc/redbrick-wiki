@@ -1,0 +1,14 @@
+# set to true to add reviewers to pull requests
+addReviewers: true
+# set to true to add assignees to pull requests
+addAssignees: true
+
+# set reviewers
+reviewers:
+  - tim-redbrick
+  - Dave-Redbrick
+  - Theo-redbrick
+  - azi-redbrick
+
+# do not run on draft pull requests
+runOnDraft: false
