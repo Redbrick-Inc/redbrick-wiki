@@ -13,21 +13,6 @@ const config: DocsThemeConfig = {
       <Logo />
     </>
   ),
-  banner: {
-    key: "ssafy-13",
-    content: (
-      <div data-nosnippet>
-        📢
-        <a
-          className=" hover:underline"
-          href="https://wiki.redbrick.land/kr/ssafy13"
-        >
-          [Ssafy 13기 학생 분들을 위한 가이드 Click!]
-        </a>
-        📚
-      </div>
-    ),
-  },
   head: function useHead() {
     const config = useConfig();
     const title = (config.title || "Redbrick Wiki Guide") + " | Redbrick";

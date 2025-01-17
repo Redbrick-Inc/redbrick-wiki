@@ -4,10 +4,6 @@ export default {
     type: "page",
     display: "hidden",
   },
-  ssafy13: {
-    title: "SSAFY 13",
-    type: "page",
-  },
   engine: {
     title: "레드브릭 엔진",
     type: "page",
