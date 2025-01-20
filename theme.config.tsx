@@ -12,7 +12,22 @@ const config: DocsThemeConfig = {
     <>
       <Logo />
     </>
-  ),
+  ), 
+  banner: {
+    key: "snippets",
+    content: (
+      <div data-nosnippet>
+        📢
+        <a
+          className=" hover:underline"
+          href="https://wiki.redbrick.land/en/snippet"
+        >
+          To Learn More Checkout Our Snippets!
+        </a>
+        📢
+      </div>
+    ),
+  },
   head: function useHead() {
     const config = useConfig();
     const title = (config.title || "Redbrick Wiki Guide") + " | Redbrick";
