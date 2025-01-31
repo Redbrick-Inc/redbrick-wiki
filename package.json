@@ -16,7 +16,7 @@
     "@svgr/webpack": "^8.1.0",
     "autoprefixer": "^10.4.20",
     "mdx-embed": "^1.1.2",
-    "next": "^15.1.5",
+    "next": "^15.1.6",
     "nextra": "3.2.3",
     "nextra-theme-docs": "3.2.3",
     "postcss": "^8.5.1",
