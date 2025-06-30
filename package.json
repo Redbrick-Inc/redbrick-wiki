@@ -23,7 +23,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.34.2",
-    "tailwindcss": "^4.1.8"
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.2.17",
